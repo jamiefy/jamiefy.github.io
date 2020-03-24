@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="MySQL," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,17 +79,12 @@
 
 
 
-<meta name="description" content="脏读、不可重复读、幻读：   脏读：读到了别的事务回滚前的脏数据,即当前事务读到的数据是别的事务想要修改成- 为的但是没有修改成功的数据。 不可重复读：当前事务先进行了一次数据读取，然后再次读取到的数据是别的事务修改成功的数据，导致两次读取到的数据不匹配.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="MySQL">
-<meta property="og:url" content="http://yoursite.com/2020/03/24/MySQL/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="翟安然&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/tags/%E9%9D%A2%E8%AF%95/index.html">
 <meta property="og:site_name" content="翟安然&#39;s Blog">
-<meta property="og:description" content="脏读、不可重复读、幻读：   脏读：读到了别的事务回滚前的脏数据,即当前事务读到的数据是别的事务想要修改成- 为的但是没有修改成功的数据。 不可重复读：当前事务先进行了一次数据读取，然后再次读取到的数据是别的事务修改成功的数据，导致两次读取到的数据不匹配.">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-03-24T06:17:11.000Z">
-<meta property="article:modified_time" content="2020-03-24T06:24:04.377Z">
 <meta property="article:author" content="翟安然">
-<meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
 
 
@@ -120,13 +115,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/03/24/MySQL/"/>
+  <link rel="canonical" href="http://yoursite.com/tags/面试/"/>
 
 
 
 
 
-  <title>MySQL | 翟安然's Blog</title>
+  <title>Tag: 面试 | 翟安然's Blog</title>
   
 
 
@@ -145,7 +140,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -219,163 +214,54 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  
+  
+  
+  <div class="post-block tag">
 
-  
+    <div id="posts" class="posts-collapse">
+      <div class="collection-title">
+        <h1>面试<small>Tag</small>
+        </h1>
+      </div>
 
-  
-  
-  
+      
+        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/24/MySQL/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="翟安然">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="翟安然's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
+      <h2 class="post-title">
         
-        
-          <h1 class="post-title" itemprop="name headline">MySQL</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
+            <a class="post-title-link" href="/2020/03/24/%E9%9D%A2%E8%AF%95%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/" itemprop="url">
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span itemprop="name">面试难点记录</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-24T14:17:11+08:00">
-                2020-03-24
-              </time>
-            
+            </a>
+        
+      </h2>
 
-            
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2020-03-24T21:59:01+08:00"
+              content="2020-03-24" >
+          03-24
+        </time>
+      </div>
 
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <ol>
-<li>脏读、不可重复读、幻读：</li>
-</ol>
-<ul>
-<li>脏读：读到了别的事务回滚前的脏数据,即当前事务读到的数据是别的事务想要修改成- 为的但是没有修改成功的数据。</li>
-<li>不可重复读：当前事务先进行了一次数据读取，然后再次读取到的数据是别的事务修改成功的数据，导致两次读取到的数据不匹配.</li>
-</ul>
-<a id="more"></a>
-
-<ul>
-<li>幻读：事务A首先根据条件索引得到N条数据，然后事务B改变了这N条数据之外的M条或者增添了M条符合事务A搜索条件的数据，导致事务A再次搜索发现有N+M条数据，产生幻读，即当前事务读第一次取到的数据比后来读取到数据条目少。</li>
-<li>不可重复读和幻读比较：两者有些相似，但是前者针对的是update或delete，后者针对的insert。</li>
-</ul>
-
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2020/03/24/C-primer%E9%87%8D%E7%82%B9%E8%AE%B0%E5%BD%95/" rel="next" title="C++ primer重点记录">
-                <i class="fa fa-chevron-left"></i> C++ primer重点记录
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/03/24/C-%E6%98%93%E6%B7%B7%E7%82%B9/" rel="prev" title="C++易混点">
-                C++易混点 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
       
     </div>
+
   </div>
+  
+  
+  
+
+  
 
 
           </div>
@@ -383,10 +269,6 @@
 
 
           
-
-  
-
-
 
         </div>
         
@@ -592,10 +474,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 
