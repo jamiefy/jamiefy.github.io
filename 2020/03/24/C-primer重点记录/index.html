@@ -331,7 +331,7 @@
 </li>
 </ol>
 <blockquote>
-<p>addItems <infile >outfile </p>
+<p>addItems <infile>outfile </infile></p>
 </blockquote>
 <h2 id="第二章-变量和基本类型"><a href="#第二章-变量和基本类型" class="headerlink" title="第二章 变量和基本类型"></a>第二章 变量和基本类型</h2><ol>
 <li>一个字节：8bit 一个字：4或8个字节     float：一个字    double：两个字    long double：3或4个字</li>
@@ -550,7 +550,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(cp) <span class="comment">//如果指针cp不是0，条件为真</span></span><br><span class="line"><span class="keyword">while</span>(*cp) <span class="comment">//如果*cp不是空字符，条件为真</span></span><br><span class="line"><span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;s) <span class="comment">//布尔值决定于输入流的状态，最后一次读入成功，true;反之，false</span></span><br></pre></td></tr></table></figure>
 
 <ol start="8">
-<li>显式转换：cast_name<type>(expression)，cast-name是static_cast（任何具有明确定义的类型转换，只要不包含底层const）/dynamic_cast（支持运行时类型识别）/const_cast（只能改变运算对象的底层const）/reinterpret_cast（通常为运算对象的位模式提供较低层次上的重新解释）中的一种。除了在有重载函数的上下文中使用const_cast无可厚非，其他强制类型转换都不应该频繁使用。</li>
+<li>显式转换：cast_name<type>(expression)，cast-name是static_cast（任何具有明确定义的类型转换，只要不包含底层const）/dynamic_cast（支持运行时类型识别）/const_cast（只能改变运算对象的底层const）/reinterpret_cast（通常为运算对象的位模式提供较低层次上的重新解释）中的一种。除了在有重载函数的上下文中使用const_cast无可厚非，其他强制类型转换都不应该频繁使用。</type></li>
 </ol>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i,j;</span><br><span class="line"><span class="keyword">double</span> slope=<span class="keyword">static_cast</span>&lt;<span class="keyword">double</span>&gt;(j)/i; <span class="comment">//进行强制类型转换以便执行浮点数除法</span></span><br><span class="line"><span class="keyword">void</span>* p=&amp;d; <span class="comment">//任何非常量对象的地址都能存入void*</span></span><br><span class="line"><span class="keyword">double</span> *dp=<span class="keyword">static_cast</span>&lt;<span class="keyword">double</span>*&gt;(p); <span class="comment">//正确：将void*转换回初始的指针类型</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> *pc;</span><br><span class="line"><span class="keyword">char</span> *P=<span class="keyword">const_cast</span>&lt;<span class="keyword">char</span>*&gt;(pc); <span class="comment">//正确：但是通过p写值时未定义的行为</span></span><br><span class="line"><span class="keyword">int</span> *ip;</span><br><span class="line"><span class="keyword">char</span> *pc=<span class="keyword">reinterpret_cast</span>&lt;<span class="keyword">char</span>*&gt;(ip); <span class="comment">//牢记pc所指的真实对象是一个int而非字符，如果把pc当成普通的字符指针使用就可能在运行时发生错误，eg:string str(pc)，具有高危性</span></span><br></pre></td></tr></table></figure>
 
