@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="C++,面试," />
+  <meta name="keywords" content="C++,面试,shell," />
 
 
 
@@ -79,18 +79,19 @@
 
 
 
-<meta name="description" content="1.继承和多态；初始化子类必先初始化他的父类2.取消alias，linux命令3.shell代码4.有向图最短路径；拓扑排序；贪心算法；Dijskstr,floyd；最小生成树">
+<meta name="description" content="（一）面向对象的三个基本特征：封装、继承、多态 继承   子类对象可以直接调用父类中的成员函数 子类对象可以直接赋值给父类对象。 子类对象可以直接初始化父类对象。 父类引用可以直接引用子类对象。 父类指针可以直接指向子类对象。 子类初始化一定会先初始化父类，析构顺序相反。 虚继承对构造函数的影响：指南。构造函数的调用可能内带大量的隐藏码，因为编译器会对构造函数进行扩充，一般而言编译器所作的扩充规则">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面试要点记录">
 <meta property="og:url" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="翟安然&#39;s Blog">
-<meta property="og:description" content="1.继承和多态；初始化子类必先初始化他的父类2.取消alias，linux命令3.shell代码4.有向图最短路径；拓扑排序；贪心算法；Dijskstr,floyd；最小生成树">
+<meta property="og:description" content="（一）面向对象的三个基本特征：封装、继承、多态 继承   子类对象可以直接调用父类中的成员函数 子类对象可以直接赋值给父类对象。 子类对象可以直接初始化父类对象。 父类引用可以直接引用子类对象。 父类指针可以直接指向子类对象。 子类初始化一定会先初始化父类，析构顺序相反。 虚继承对构造函数的影响：指南。构造函数的调用可能内带大量的隐藏码，因为编译器会对构造函数进行扩充，一般而言编译器所作的扩充规则">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-24T13:59:01.000Z">
-<meta property="article:modified_time" content="2020-03-25T15:27:58.947Z">
+<meta property="article:modified_time" content="2020-03-26T14:14:44.922Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="面试">
+<meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
 
 
@@ -353,7 +354,113 @@
       
 
       
-        <p>1.继承和多态；初始化子类必先初始化他的父类<br>2.取消alias，linux命令<br>3.shell代码<br>4.有向图最短路径；拓扑排序；贪心算法；Dijskstr,floyd；最小生成树</p>
+        <h4 id="（一）面向对象的三个基本特征：封装、继承、多态"><a href="#（一）面向对象的三个基本特征：封装、继承、多态" class="headerlink" title="（一）面向对象的三个基本特征：封装、继承、多态"></a>（一）面向对象的三个基本特征：封装、继承、多态</h4><ol>
+<li>继承</li>
+</ol>
+<ul>
+<li>子类对象可以直接调用父类中的成员函数</li>
+<li>子类对象可以直接赋值给父类对象。</li>
+<li>子类对象可以直接初始化父类对象。</li>
+<li>父类引用可以直接引用子类对象。</li>
+<li>父类指针可以直接指向子类对象。</li>
+<li>子类初始化一定会先初始化父类，析构顺序相反。</li>
+<li>虚继承对构造函数的影响：<a href="https://blog.csdn.net/dqjyong/article/details/8028888?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task" target="_blank" rel="noopener">指南</a>。构造函数的调用可能内带大量的隐藏码，因为编译器会对构造函数进行扩充，一般而言编译器所作的扩充规则如下：</li>
+</ul>
+<p>（1）记录在成员初始化列表中的数据成员的初始化操作会被放到构造函数本身中，按照数据成员声明的顺序</p>
+<p>（2）如果有一个数据成员没有出现在初始化列表中，但是它有一个默认构造函数，那么这个默认构造函数会被调用</p>
+<p>（3）在那之前，如果有虚函数表，会调整虚函数表指针</p>
+<p>（4）在那之前，会对上一层基类的构造函数进行调用</p>
+<p>（5）在那之前，所有虚基类的构造函数必须被调用，按照声明的继承顺序从左往右，从最深到最浅的顺序</p>
+<ol start="2">
+<li>多态</li>
+</ol>
+<ul>
+<li>多态发生的三个必要条件：<ol>
+<li>要有继承。</li>
+<li>要有虚函数重写。</li>
+<li>父类指针或引用 指向 子类对象。</li>
+</ol>
+</li>
+<li>虚析构函数：在多态时，要调用析构函数时，注意在父类的析构成员函数前加virtual。</li>
+</ul>
+<ol start="3">
+<li>重载/重写（覆盖）/重定义（隐藏）</li>
+</ol>
+<ul>
+<li>重载（overload）-编译时的多态性</li>
+</ul>
+<p>（1）重载只能通过不同的参数样式（参数类型、个数、顺序至少有一个不相同），不能通过访问权限、返回类型、抛出的异常进行重载。</p>
+<ul>
+<li>重写（override）-运行时的多态性</li>
+</ul>
+<p>（1）被覆盖的方法不能为private，否则在其子类中只是新定义了一个方法，并没有对其进行覆盖。</p>
+<p>（2）被定义为final的方法不能被重写。</p>
+<ul>
+<li>重定义（隐藏hiding）</li>
+</ul>
+<p>（1）隐藏函数和被隐藏函数参数列表可以相同，也可以不同，但函数名一定同；当参数不同时，无论基类中的函数是否被virtual修饰，基类函数都是被隐藏，而不是被重写。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;  </span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;  </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span>  </span></span><br><span class="line"><span class="class">&#123;</span>  </span><br><span class="line"><span class="keyword">private</span>:  </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"Base display()"</span>&lt;&lt;<span class="built_in">endl</span>; &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"Base show()"</span>&lt;&lt;<span class="built_in">endl</span>; &#125;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">exec</span><span class="params">()</span></span>&#123; <span class="built_in">display</span>(); show(); &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"Base fun(string)"</span>&lt;&lt;<span class="built_in">endl</span>; &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"Base fun(int)"</span>&lt;&lt;<span class="built_in">endl</span>; &#125;<span class="comment">//overload:两个fun函数在Base类的内部被重载  </span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">int</span> <span class="title">function</span><span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">&#125;;  </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassA</span>:</span><span class="keyword">public</span> Base  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">display</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"ClassA display()"</span>&lt;&lt;<span class="built_in">endl</span>; &#125;<span class="comment">//override:基类中display为虚函数，且参数列表一直，故此处为重写  </span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span> </span>&#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"ClassA fun(int,int)"</span>&lt;&lt;<span class="built_in">endl</span>; &#125;<span class="comment">//redefining:fun函数在Base类中不为虚函数，故此处为重定义  </span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"ClassA show()"</span>&lt;&lt;<span class="built_in">endl</span>; &#125;<span class="comment">//redefining:理由同上  </span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">function</span><span class="params">(<span class="keyword">int</span> a)</span></span>&#123;&#125;<span class="comment">//overload:注意这是重载而不是重写，因为参数列表不同，在编译时ClassA中其实还有个编译器自己偷偷加上的从Base继承来的int function()&#123;&#125;;  </span></span><br><span class="line">&#125;;  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;  </span><br><span class="line">    ClassA a;  </span><br><span class="line">    Base *base=&amp;a;  </span><br><span class="line">    base-&gt;exec();<span class="comment">//display()是ClassA的，因为覆盖了，show()是Base自己的  </span></span><br><span class="line">    a.exec();<span class="comment">//结果同上,子类对象可以直接调用父类中的成员函数  </span></span><br><span class="line">    a.show();<span class="comment">//show()是ClassA重定义的  </span></span><br><span class="line">    base-&gt;fun(<span class="number">1</span>);<span class="comment">//fun()是Base自己的，因为直接从对象base调用  </span></span><br><span class="line">    a.fun(<span class="number">1</span>, <span class="number">1</span>);<span class="comment">//fun()是ClassA重定义的  </span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">//输出结果</span></span><br><span class="line"><span class="function">ClassA <span class="title">display</span><span class="params">()</span></span></span><br><span class="line"><span class="function">Base <span class="title">show</span><span class="params">()</span></span></span><br><span class="line"><span class="function">ClassA <span class="title">display</span><span class="params">()</span></span></span><br><span class="line"><span class="function">Base <span class="title">show</span><span class="params">()</span><span class="comment">//父类中的成员函数直接调用自身的Base show()</span></span></span><br><span class="line"><span class="function">ClassA <span class="title">show</span><span class="params">()</span></span></span><br><span class="line"><span class="function">Base <span class="title">fun</span><span class="params">(<span class="keyword">int</span>)</span></span></span><br><span class="line"><span class="function">ClassA <span class="title">fun</span><span class="params">(<span class="keyword">int</span>,<span class="keyword">int</span>)</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">float</span> x)</span></span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Base::f(float) "</span> &lt;&lt; x &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">g</span><span class="params">(<span class="keyword">float</span> x)</span></span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Base::g(float) "</span> &lt;&lt; x &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">h</span><span class="params">(<span class="keyword">float</span> x)</span></span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Base::h(float) "</span> &lt;&lt; x &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Derived</span> :</span> <span class="keyword">public</span> Base</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">float</span> x)</span></span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Derived::f(float) "</span> &lt;&lt; x &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">g</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Derived::g(int) "</span> &lt;&lt; x &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">h</span><span class="params">(<span class="keyword">float</span> x)</span></span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Derived::h(float) "</span> &lt;&lt; x &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Derived d;</span><br><span class="line">    Base *pb = &amp;d;</span><br><span class="line">    Derived *pd = &amp;d;</span><br><span class="line">    <span class="comment">// Good : behavior depends solely on type of the object</span></span><br><span class="line">    pb-&gt;f(<span class="number">3.14f</span>); <span class="comment">//Derived::f(float) 3.14</span></span><br><span class="line">    pd-&gt;f(<span class="number">3.14f</span>); <span class="comment">//Derived::f(float) 3.14</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Bad : behavior depends on type of the pointer</span></span><br><span class="line">    pb-&gt;g(<span class="number">3.14f</span>); <span class="comment">//Base::g(float) 3.14</span></span><br><span class="line">    pd-&gt;g(<span class="number">3.14f</span>); <span class="comment">//Derived::g(int) 3</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Bad : behavior depends on type of the pointer</span></span><br><span class="line">    pb-&gt;h(<span class="number">3.14f</span>); <span class="comment">//Base::h(float) 3.14</span></span><br><span class="line">    pd-&gt;h(<span class="number">3.14f</span>); <span class="comment">//Derived::h(float) 3.14</span></span><br><span class="line"></span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//函数Derived::f(float)覆盖了Base::f(float)。</span></span><br><span class="line"><span class="comment">//函数Derived::g(int)隐藏了Base::g(float)，而不是重载。</span></span><br><span class="line"><span class="comment">//函数Derived::h(float)隐藏了Base::h(float)，而不是覆盖。</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>三者</th>
+<th>作用域</th>
+<th>有无virtual</th>
+<th>函数名</th>
+<th>参数列表</th>
+<th>返回类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>重载</td>
+<td>相同</td>
+<td>可有可无</td>
+<td>相同</td>
+<td>不同</td>
+<td>可同可不同</td>
+</tr>
+<tr>
+<td>重写</td>
+<td>不同</td>
+<td>必有</td>
+<td>相同</td>
+<td>相同</td>
+<td>相同（协变）</td>
+</tr>
+<tr>
+<td>隐藏</td>
+<td>不同</td>
+<td>可有可无</td>
+<td>相同</td>
+<td>可同可不同</td>
+<td>可同可不同</td>
+</tr>
+</tbody></table>
+<h4 id="（二）bash-shell"><a href="#（二）bash-shell" class="headerlink" title="（二）bash shell"></a>（二）bash shell</h4><ul>
+<li><p>bash是borne again shell的缩写，是shell的一种,Linux上默认采用的是bash。</p>
+</li>
+<li><p>Shell 是一个 C 语言编写的程序，一般都是放在<code>/bin</code>或者<code>/user/bin</code>目录下，当前 Linux 系统可用的 Shell 都记录在<code>/etc/shells</code>文件中。<code>/etc/shells</code>是一个纯文本文件，你可以在图形界面下打开它，也可以使用 cat 命令查看它。</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cat /etc/shells <span class="comment">#通过 cat 命令来查看当前 Linux 系统的可用 Shell</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="variable">$SHELL</span> <span class="comment">#查看当前Linux默认的shell，输出 SHELL 环境变量</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="variable">$BASH_VERSION</span> <span class="comment">#查看shell版本</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>设置取消alias：<a href="http://c.biancheng.net/linux/alias.html" target="_blank" rel="noopener">指南</a></li>
+<li>PHP即“<a href="https://baike.baidu.com/item/超文本" target="_blank" rel="noopener">超文本</a><a href="https://baike.baidu.com/item/预处理器" target="_blank" rel="noopener">预处理器</a>”，是一种通用<a href="https://baike.baidu.com/item/开源/246339" target="_blank" rel="noopener">开源</a><a href="https://baike.baidu.com/item/脚本语言/1379708" target="_blank" rel="noopener">脚本语言</a>。PHP是一种在服务器端执行的嵌入HTML文档的脚本语言。PHP 独特的语法混合了C、Java、Perl 以及 PHP 自创新的语法，它可以比 CGI 或者 Perl 更快速的执行动态网页，主要适用于<a href="https://baike.baidu.com/item/Web/150564" target="_blank" rel="noopener">Web</a>开发领域。</li>
+</ul>
+<h4 id="（三）图"><a href="#（三）图" class="headerlink" title="（三）图"></a>（三）图</h4><ol>
+<li>拓扑排序</li>
+</ol>
+<ul>
+<li>一个有向无环图可以有<strong>一个或多个</strong>拓扑排序序列。</li>
+<li>判断有向图是否有环的两种方法：(1)拓扑排序 (2)DFS</li>
+</ul>
+<ol start="2">
+<li>有向图最短路径；贪心算法；Dijskstr；floyd；最小生成树</li>
+</ol>
 
       
     </div>
@@ -374,6 +481,8 @@
             <a href="/tags/C/" rel="tag"># C++</a>
           
             <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"># 面试</a>
+          
+            <a href="/tags/shell/" rel="tag"># shell</a>
           
         </div>
       
@@ -450,8 +559,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -488,7 +606,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -511,6 +629,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）面向对象的三个基本特征：封装、继承、多态"><span class="nav-number">1.</span> <span class="nav-text">（一）面向对象的三个基本特征：封装、继承、多态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）bash-shell"><span class="nav-number">2.</span> <span class="nav-text">（二）bash shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）图"><span class="nav-number">3.</span> <span class="nav-text">（三）图</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
