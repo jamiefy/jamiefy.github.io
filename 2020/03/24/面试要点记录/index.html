@@ -87,11 +87,11 @@
 <meta property="og:description" content="（一）面向对象的三个基本特征：封装、继承、多态 继承   子类对象可以直接调用父类中的成员函数 子类对象可以直接赋值给父类对象。 子类对象可以直接初始化父类对象。 父类引用可以直接引用子类对象。 父类指针可以直接指向子类对象。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/seekgseekp.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95%5Clinux32%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95%5Chttps.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95%5Cqiuck_sort.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/linux32.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/https.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/qiuck_sort.png">
 <meta property="article:published_time" content="2020-03-24T13:59:01.000Z">
-<meta property="article:modified_time" content="2020-04-06T11:04:26.007Z">
+<meta property="article:modified_time" content="2020-04-06T11:08:45.690Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="面试">
@@ -934,7 +934,7 @@
 <li>什么是虚拟内存？</li>
 </ol>
 <p>虚拟内存是计算机系统内存管理的一种技术。它使得应用程序认为它拥有连续的可用的内存（一个连续完整的地址空间），而实际上，它通常是被分隔成多个物理内存碎片，还可以通过覆盖或者把处于不活动状态的程序以及它们的数据全部交换到外部磁盘存储器上临时存储。与没有使用虚拟内存技术的系统相比，使用这种技术的系统使得大型程序的编写变得更容易，对真正的物理内存（例如RAM）的使用也更有效率。</p>
-<p>对于32位的Linux操作系统，系统为每个进程分配4G的虚拟内存。<img src="/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95%5Clinux32%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98.png" alt="如图"></p>
+<p>对于32位的Linux操作系统，系统为每个进程分配4G的虚拟内存。<img src="/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/linux32.png" alt="如图"></p>
 <p>虚拟内存中，允许将一个作业分多次调入内存。釆用连续分配方式时，会使相当一部分内存空间都处于暂时或“永久”的空闲状态，造成内存资源的严重浪费，而且也无法从逻辑上扩大内存容量。因此，虚拟内存需要建立在离散分配的内存管理方式的基础上。虚拟内存的实现有以下三种方式：</p>
 <ul>
 <li>请求分页存储管理。</li>
@@ -990,7 +990,7 @@
 <p>　　（4）客户端的浏览器根据双方同意的安全等级，建立会话密钥，然后利用网站的公钥将会话密钥加密，并传送给网站。</p>
 <p>　　（5）Web服务器利用自己的私钥解密出会话密钥。</p>
 <p>　　（6）Web服务器利用会话密钥加密与客户端之间的通信。</p>
-<p><img src="%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95%5Chttps.png" alt="https与web服务器通信步骤"></p>
+<p><img src="%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/https.png" alt="https与web服务器通信步骤"></p>
 <ol start="33">
 <li>怎么理解http协议的无连接无状态</li>
 </ol>
@@ -1078,7 +1078,7 @@
 </li>
 <li><p>linux管道 grep</p>
 </li>
-<li><p><img src="/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95%5Cqiuck_sort.png" alt="快速排序递归排序非递归排序"></p>
+<li><p><img src="/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/qiuck_sort.png" alt="快速排序递归排序非递归排序"></p>
 </li>
 <li><p>无序数组 寻找不在该数组范围内的最小正整数</p>
 </li>
