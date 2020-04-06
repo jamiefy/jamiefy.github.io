@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="脏读、不可重复读、幻读：   脏读：读到了别的事务回滚前的脏数据,即当前事务读到的数据是别的事务想要修改成- 为的但是没有修改成功的数据。 不可重复读：当前事务先进行了一次数据读取，然后再次读取到的数据是别的事务修改成功的数据，导致两次读取到的数据不匹配.">
+<meta name="description" content="MySQL事务实现原理 首先了解什么是事务，事务是执行一系列数据库操作构成的单个逻辑工作单元，要么完全地执行，要么完全地不执行。 简单的说，事务就是并发控制的单位，是用户定义的一个操作序列。 （1）事务四大特性（ACID）  原子性（Atomicity）原子性是指事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。 一致性（Consistency）事务前后数据的完整性必须保持一致">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL">
 <meta property="og:url" content="http://yoursite.com/2020/03/24/MySQL/index.html">
 <meta property="og:site_name" content="翟安然&#39;s Blog">
-<meta property="og:description" content="脏读、不可重复读、幻读：   脏读：读到了别的事务回滚前的脏数据,即当前事务读到的数据是别的事务想要修改成- 为的但是没有修改成功的数据。 不可重复读：当前事务先进行了一次数据读取，然后再次读取到的数据是别的事务修改成功的数据，导致两次读取到的数据不匹配.">
+<meta property="og:description" content="MySQL事务实现原理 首先了解什么是事务，事务是执行一系列数据库操作构成的单个逻辑工作单元，要么完全地执行，要么完全地不执行。 简单的说，事务就是并发控制的单位，是用户定义的一个操作序列。 （1）事务四大特性（ACID）  原子性（Atomicity）原子性是指事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。 一致性（Consistency）事务前后数据的完整性必须保持一致">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-24T06:17:11.000Z">
-<meta property="article:modified_time" content="2020-03-25T15:27:38.988Z">
+<meta property="article:modified_time" content="2020-04-06T01:58:42.069Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
@@ -353,18 +353,111 @@
 
       
         <ol>
-<li>脏读、不可重复读、幻读：</li>
-</ol>
+<li><p>MySQL事务实现原理</p>
+<p>首先了解什么是事务，事务是执行一系列数据库操作构成的单个逻辑工作单元，要么完全地执行，要么完全地不执行。 简单的说，事务就是并发控制的单位，是用户定义的一个操作序列。</p>
+<p>（1）事务四大特性（ACID）</p>
 <ul>
-<li>脏读：读到了别的事务回滚前的脏数据,即当前事务读到的数据是别的事务想要修改成- 为的但是没有修改成功的数据。</li>
-<li>不可重复读：当前事务先进行了一次数据读取，然后再次读取到的数据是别的事务修改成功的数据，导致两次读取到的数据不匹配.</li>
+<li>原子性（Atomicity）<br>原子性是指事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。</li>
+<li>一致性（Consistency）<br>事务前后数据的完整性必须保持一致。</li>
+<li>隔离性（Isolation）<br>事务的隔离性是多个用户并发访问数据库时，数据库为每一个用户开启的事务，不能被其他事务的操作数据所干扰，多个并发事务之间要相互隔离。</li>
 </ul>
 <a id="more"></a>
 
 <ul>
-<li>幻读：事务A首先根据条件索引得到N条数据，然后事务B改变了这N条数据之外的M条或者增添了M条符合事务A搜索条件的数据，导致事务A再次搜索发现有N+M条数据，产生幻读，即当前事务读第一次取到的数据比后来读取到数据条目少。</li>
-<li>不可重复读和幻读比较：两者有些相似，但是前者针对的是update或delete，后者针对的insert。</li>
+<li>持久性（Durability）<br>持久性是指一个事务一旦被提交，它对数据库中数据的改变就是永久性的，接下来即使数据库发生故障也不应该对其有任何影响</li>
 </ul>
+<p>（2）事务并发问题</p>
+</li>
+</ol>
+<ul>
+<li><p>脏读：读到了别的事务回滚前的脏数据,即当前事务读到的数据是别的事务想要修改成为的但是没有修改成功的数据。</p>
+</li>
+<li><p>不可重复读：当前事务先进行了一次数据读取，然后再次读取到的数据是别的事务修改成功的数据，导致两次读取到的数据不匹配.</p>
+</li>
+<li><p>幻读：事务A首先根据条件索引得到N条数据，然后事务B改变了这N条数据之外的M条或者增添了M条符合事务A搜索条件的数据，导致事务A再次搜索发现有N+M条数据，产生幻读，即当前事务读第一次取到的数据比后来读取到数据条目少。</p>
+</li>
+<li><p>不可重复读和幻读比较：两者有些相似，但是前者针对的是update或delete，后者针对的insert。</p>
+<p>（3）事务的隔离级别</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">事务的隔离级别</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Serializable（串行化）</td>
+<td align="center">可避免脏读、不可重复读、虚读情况的发生</td>
+</tr>
+<tr>
+<td align="center">Repeatable read（可重复读）</td>
+<td align="center">可避免脏读、不可重复读的发生</td>
+</tr>
+<tr>
+<td align="center">Read committed（读已提交）</td>
+<td align="center">可避免脏读的发生</td>
+</tr>
+<tr>
+<td align="center">Read uncommitted（读未提交）</td>
+<td align="center">最低级别，以上情况均无法保证</td>
+</tr>
+</tbody></table>
+<ol start="2">
+<li><p>91道面试题](<a href="https://mp.weixin.qq.com/s/9pfCkm2bX01XLIeJv9ngLw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/9pfCkm2bX01XLIeJv9ngLw</a>)</p>
+</li>
+<li><p>什么是MySQL索引，什么时候该用索引什么时候不该用？</p>
+</li>
+</ol>
+<ul>
+<li><p>索引(Index)是帮助MySQL高效获取数据的数据结构。我们可以简单理解为：<strong>快速查找排好序的一种数据结构。</strong>Mysql索引主要有两种结构：B+Tree索引和Hash索引。我们平常所说的索引，如果没有特别指明，一般都是指B树结构组织的索引(B+Tree索引)。</p>
+</li>
+<li><p>优点：所有的MySql列类型(字段类型)都可以被索引，也就是可以给任意字段设置索引；大大加快数据的查询速度</p>
+</li>
+<li><p>缺点：</p>
+</li>
+</ul>
+<p>1、创建索引和维护索引要耗费时间，并且随着数据量的增加所耗费的时间也会增加</p>
+<p>2、索引也需要占空间，我们知道数据表中的数据也会有最大上线设置的，如果我们有大量的索引，索引文件可能会比数据文件更快达到上线值</p>
+<p>3、当对表中的数据进行增加、删除、修改时，索引也需要动态的维护，降低了数据的维护速度。</p>
+<ul>
+<li>使用原则：（并不是每个字段度设置索引就好，也不是索引越多越好，而是需要自己合理的使用）</li>
+</ul>
+<p>（1）对经常更新的表就避免对其进行过多的索引，对经常用于查询的字段应该创建索引，</p>
+<p>（2）数据量小的表最好不要使用索引，因为由于数据较少，可能查询全部数据花费的时间比遍历索引的时间还要短，索引就可能不会产生优化效果。</p>
+<p>（3）在一同值少的列上(字段上)不要建立索引，比如在学生表的”性别”字段上只有男，女两个不同值。相反的，在一个字段上不同值较多可是建立索引。</p>
+<ul>
+<li>索引类型</li>
+</ul>
+<p>索引我们分为四类来讲 单列索引(普通索引，唯一索引，主键索引)、组合索引、全文索引、空间索引、</p>
+<p>单列索引：一个索引只包含单个列，但一个表中可以有多个单列索引。</p>
+<ul>
+<li><p>普通索引：MySQL中基本索引类型，没有什么限制，允许在定义索引的列中插入重复值和空值，纯粹为了查询数据更快一点。</p>
+</li>
+<li><p>唯一索引：索引列中的值必须是唯一的，但是允许为空值，</p>
+</li>
+<li><p>主键索引：是一种特殊的唯一索引，不允许有空值。</p>
+</li>
+</ul>
+<p>组合索引：在表中的多个字段组合上创建的索引，只有在查询条件中使用了这些字段的左边字段时，索引才会被使用，使用组合索引时遵循最左前缀原则。</p>
+<p>全文索引：全文索引，只有在MyISAM引擎上才能使用，只能在CHAR,VARCHAR,TEXT类型字段上使用全文索引，介绍了要求，说说什么是全文索引，就是在一堆文字中，通过其中的某个关键字等，就能找到该字段所属的记录行。</p>
+<p>空间索引：空间索引是对空间数据类型的字段建立的索引，MySQL中的空间数据类型有四种，GEOMETRY、POINT、LINESTRING、POLYGON。在创建空间索引时，使用SPATIAL关键字。要求引擎为MyISAM，创建空间索引的列，必须将其声明为NOT NULL。</p>
+<ol start="4">
+<li><p><a href="https://blog.csdn.net/qq_35642036/article/details/82820178" target="_blank" rel="noopener">InnoDB和MyISAM的区别</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/hanchao5272/article/details/98607314" target="_blank" rel="noopener">数据库的行级锁和表级索共享锁和排他锁悲观锁和乐观锁</a></p>
+</li>
+<li><p>覆盖索引</p>
+</li>
+</ol>
+<p>‘Using Index’的意思是“覆盖索引”，它是使上面sql性能提升的关键</p>
+<p>一个包含查询所需字段的索引称为“覆盖索引”</p>
+<p>MySQL只需要通过索引就可以返回查询所需要的数据，而不必在查到索引之后进行回表操作，减少IO，提高了效率。例如上面的sql，查询条件是user_id，可以使用联合索引，要查询的字段是picname smallimg，这两个字段也在联合索引中，这就实现了“覆盖索引”，可以根据这个联合索引一次性完成查询工作，所以提升了性能。</p>
+<ol start="7">
+<li>聚类索引和非聚类索引的区别</li>
+</ol>
+<p>聚集索引是指数据库表行中数据的物理顺序与键值的逻辑（索引）顺序相同。一个表只能有一个聚集索引，因为一个表的物理顺序只有一种情况，所以，对应的聚集索引只能有一个。如果某索引不是聚集索引，则表中的行物理顺序与索引顺序不匹配，与非聚集索引相比，聚集索引有着更快的检索速度。</p>
 
       
     </div>
@@ -486,7 +579,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -497,7 +590,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

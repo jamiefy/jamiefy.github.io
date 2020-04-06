@@ -87,7 +87,7 @@
 <meta property="og:description" content="1. sizeof在用sizeof运算符求算某结构体所占空间时，并不是简单地将结构体中所有元素各自占的空间相加，这里涉及到内存字节对齐的问题，结构体变量所占空间的大小必定是最宽数据类型大小的整数倍。如有需要会在最后一个成员末尾填充若干字节使得所占空间大小是最宽数据类型大小的整数倍。内存对齐的原因：  某些平台只能在特定的地址处访问特定类型的数据； 提高存取数据的速度。比如有的平台每次都是从偶地址处">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-25T16:23:38.000Z">
-<meta property="article:modified_time" content="2020-03-27T06:25:27.725Z">
+<meta property="article:modified_time" content="2020-04-02T10:07:49.083Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
@@ -381,7 +381,7 @@
 </li>
 </ol>
 <h4 id="6-程序内存区域分配"><a href="#6-程序内存区域分配" class="headerlink" title="6. 程序内存区域分配"></a>6. 程序内存区域分配</h4><ol>
-<li><p>一个程序本质上都是由 bss段、data段、text段三个组成的。bss段通常是指用来存放程序中未初始化的全局变量的一块内存区域，一般在初始化时bss 段部分将会清零。bss段属于静态内存分配，即程序一开始就将其清零了。比如，在C语言之类的程序编译完成之后，已初始化的全局变量保存在.data 段中未初始化的全局变量保存在.bss 段中。text和data段都在可执行文件中（在嵌入式系统里一般是固化在镜像文件中），由系统从可执行文件中加载；而bss段不在可执行文件中，由系统初始化。bss段（未手动初始化的数据）并不给该段的数据分配空间，只是记录数据所需空间的大小；bss段的大小从可执行文件中得到 ，然后链接器得到这个大小的内存块，紧跟在数据段后面。data段（已手动初始化的数据）则为数据分配空间，数据保存在目标文件中；data段包含经过初始化的全局变量以及它们的值。当这个内存区进入程序的地址空间后全部清零。包含data段和bss段的整个区段此时通常称为数据区。</p>
+<li><p>一个程序本质上都是由 bss段、data段、text段三个组成的。bss段通常是指用来存放程序中未初始化的全局变量的一块内存区域，一般在初始化时bss 段部分将会清零。bss段属于静态内存分配，即程序一开始就将其清零了。比如，在C语言之类的程序编译完成之后，已初始化的全局变量保存在.data 段中，未初始化的全局变量保存在.bss 段中。text和data段都在可执行文件中（在嵌入式系统里一般是固化在镜像文件中），由系统从可执行文件中加载；而bss段不在可执行文件中，由系统初始化。bss段（未手动初始化的数据）并不给该段的数据分配空间，只是记录数据所需空间的大小；bss段的大小从可执行文件中得到 ，然后链接器得到这个大小的内存块，紧跟在数据段后面。data段（已手动初始化的数据）则为数据分配空间，数据保存在目标文件中；data段包含经过初始化的全局变量以及它们的值。当这个内存区进入程序的地址空间后全部清零。包含data段和bss段的整个区段此时通常称为数据区。</p>
 </li>
 <li><p>同一进程中的多个线程共享代码段（代码和常量），数据段（全局变量和静态变量），扩展段（堆存储）。</p>
 </li>
@@ -516,7 +516,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -527,7 +527,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
