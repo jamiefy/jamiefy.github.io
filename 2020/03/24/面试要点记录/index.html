@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/https.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/qiuck_sort.png">
 <meta property="article:published_time" content="2020-03-24T13:59:01.000Z">
-<meta property="article:modified_time" content="2020-04-09T16:36:56.394Z">
+<meta property="article:modified_time" content="2020-04-11T15:31:48.090Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="面试">
@@ -672,9 +672,9 @@
 </li>
 </ul>
 <p>new做两件事：分配内存和调用类的构造函数，new会先调用operator new函数，申请足够的内存（通常底层使用malloc实现）。然后调用类型的构造函数，初始化成员变量，最后返回自定义类型指针。</p>
-<pre><code>delete：调用类的析构函数和释放内存。delete先调用析构函数，然后调用operator delete函数释放内存（通常底层使用free实现）。
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//为什么有了malloc还要设计new</span></span><br><span class="line"><span class="keyword">delete</span>：调用类的析构函数和释放内存。<span class="keyword">delete</span>先调用析构函数，然后调用<span class="keyword">operator</span> <span class="keyword">delete</span>函数释放内存（通常底层使用<span class="built_in">free</span>实现）。</span><br><span class="line"></span><br><span class="line">而<span class="built_in">malloc</span>和<span class="built_in">free</span>只是分配和释放内存。<span class="built_in">malloc</span>/<span class="built_in">free</span>是库函数，只能动态的申请和释放内存，无法强制要求其做自定义类型对象构造和析构工作。</span><br></pre></td></tr></table></figure>
 
-而malloc和free只是分配和释放内存。malloc/free是库函数，只能动态的申请和释放内存，无法强制要求其做自定义类型对象构造和析构工作。</code></pre><ul>
+<ul>
 <li><p>重载</p>
 <p>  C++允许重载new/delete操作符，malloc不允许重载。</p>
 </li>
@@ -1102,26 +1102,77 @@
 <p>（6）模板方法模式：定义操作的骨架，依次调用子类实现的函数</p>
 <p>（7）建造者模式（直接传入特定类型对象作为参数）</p>
 <ol start="3">
-<li><p>最长回文子串</p>
-</li>
-<li><p>数组中未出现最小正整数</p>
-</li>
-<li><p>内存管理</p>
-</li>
-<li><p>udp如何减少丢包</p>
-</li>
-<li><p>TCP/UDP传输的应用  TCP流量控制  拥塞机制：慢启动  拥塞避免  快重传  快恢复</p>
-</li>
-<li><p>多继承  虚继承 多态的目的 </p>
-</li>
-<li><p>linux管道 grep</p>
-</li>
-<li><p><img src="/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/qiuck_sort.png" alt="快速排序递归排序非递归排序"></p>
+<li>最长回文子串</li>
+<li>数组中未出现最小正整数</li>
+<li>内存管理</li>
+<li>udp如何减少丢包</li>
+<li>TCP/UDP传输的应用  TCP流量控制  拥塞机制：慢启动  拥塞避免  快重传  快恢复</li>
+<li><img src="/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/qiuck_sort.png" alt="快速排序递归排序非递归排序"></li>
+<li>多继承  虚继承 多态的目的 </li>
+<li>磁盘的随机读写和顺序读写</li>
+</ol>
+<p>顺序读写：文件指针只能从头移动到尾，SAS机械硬盘主要是看顺序读写性能</p>
+<p>随机读写：文件指针可以根据需要随意移动，寻道时间和旋转延迟，SSD固态盘主要看随机读写性能</p>
+<ol start="3">
+<li><p>对称密钥加密和非对称密钥加密的区别</p>
+<p>对称密钥：又称私钥加密，即<strong>信息的发送方和接收方用一个密钥去加密和解密数据</strong>。它的最大优势是加/解密速度快，适合于对大数据量进行加密，但密钥管理困难，安全性低。</p>
 </li>
 </ol>
-<ol start="3">
-<li>垃圾回收机制</li>
-<li>重点网络  和  linux</li>
+<p>   非对称密钥加密系统：又称公钥密钥加密，它<strong>需要使用一对密钥来分别完成加密和解密操作</strong>，一个公开发布，即公开密钥，另一个由用户自己秘密保存，即私用密钥。信息发送者用公开密钥去加密，而信息接收者则用私用密钥去解密。公钥机制灵活，安全性高，但加密和解密速度却比对称密钥加密慢得多。</p>
+<ol start="4">
+<li><p>垃圾回收机制</p>
+</li>
+<li><p>Linux操作系统的主要组成部分：内核，shell,文件系统，应用程序</p>
+</li>
+</ol>
+<ul>
+<li>文件系统 结构</li>
+</ul>
+<ol start="12">
+<li>innoDB和myISAM的区别？行级锁和表级索的区别？</li>
+<li>IO  cache 用法</li>
+</ol>
+<p><strong>Buffer</strong>（缓冲区）是系统两端处理<strong>速度平衡</strong>（从长时间尺度上看）时使用的。它的引入是为了减小短期内突发I/O的影响，起到<strong>流量整形</strong>的作用。比如生产者——消费者问题，他们产生和消耗资源的速度大体接近，加一个buffer可以抵消掉资源刚产生/消耗时的突然变化。<br><strong>Cache</strong>（缓存）则是系统两端处理<strong>速度不匹配</strong>时的一种<strong>折衷策略</strong>。因为CPU和memory之间的速度差异越来越大，所以人们充分利用数据的局部性（locality）特征，通过使用存储系统分级（memory hierarchy）的策略来减小这种差异带来的影响。</p>
+<p>常规文件系统操作（调用read/fread等类函数）中，函数的调用过程：</p>
+<ul>
+<li>进程发起读文件请求。</li>
+<li>内核通过查找进程文件符表，定位到内核已打开文件集上的文件信息，从而找到此文件的inode。</li>
+<li>inode在address_space上查找要请求的文件页是否已经缓存在页缓存中。如果存在，则直接返回这片文件页的内容。</li>
+<li>如果不存在，则通过inode定位到文件磁盘地址，将数据从磁盘复制到页缓存。之后再次发起读页面过程，进而将页缓存中的数据发给用户进程。</li>
+</ul>
+<ol start="12">
+<li>bitmap   磁盘一亿个数查询target，内存4g</li>
+<li>linux创建管道命令</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfifo [options] NAME  #创建有名管道</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="12">
+<li>git命令行</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch &lt;name&gt;  <span class="comment">#创建分支</span></span><br><span class="line">git merge &lt;name&gt;   <span class="comment">#合并分支</span></span><br></pre></td></tr></table></figure>
+
+<ol start="12">
+<li>动态链接  静态链接</li>
+</ol>
+<ol start="12">
+<li>从源程序到执行程序的过程</li>
+</ol>
+<ol start="13">
+<li>mysql怎么创建索引 （索引是一种高效获取数据库数据的数据结构） ？为什么说B+树比B树更适合实际应用中<a href="http://lib.csdn.net/base/operatingsystem" target="_blank" rel="noopener">操作系统</a>的文件索引和<a href="http://lib.csdn.net/base/mysql" target="_blank" rel="noopener">数据库</a>索引？</li>
+</ol>
+<ul>
+<li><p>MySQL 提供了三种创建索引的方法：</p>
+<p>（1）使用 CREATE INDEX 语句</p>
+<p>（2）ALTER TABLE</p>
+<p>（3）CREATE TABLE</p>
+</li>
+</ul>
+<ol start="12">
+<li>https   ssl</li>
+<li>网页访问过程</li>
+<li>gooletest   socket  osi</li>
 </ol>
 <h4 id="（十二）网易"><a href="#（十二）网易" class="headerlink" title="（十二）网易"></a>（十二）网易</h4><ol>
 <li>海量数据找到最小的k个数</li>
@@ -1153,7 +1204,30 @@
 <p>高度为h完全二叉树最后一层有n+1-2^(h-1)个结点;完全二叉树第k层至多有2^（k-1）个结点<br>满二叉树深度为h，则有2^h-1个结点；第k层的节点数目为2^（k-1）</p>
 </li>
 </ol>
-<p>gooletest</p>
+<h4 id="（十三-）腾讯"><a href="#（十三-）腾讯" class="headerlink" title="（十三 ）腾讯"></a>（十三 ）腾讯</h4><p>static变量  static函数为什么只能用static变量</p>
+<p>非主键索引的叶子节点存放的是<strong>主键的值</strong>，而主键索引的叶子节点存放的是<strong>整行数据</strong>，其中非主键索引也被称为<strong>二级索引</strong>，而主键索引也被称为<strong>聚簇索引</strong>。</p>
+<p>孤儿进程  僵尸进程</p>
+<p><strong>孤儿进程：一个父进程退出，而它的一个或多个子进程还在运行，那么那些子进程将成为孤儿进程。孤儿进程将被init进程(进程号为1)所收养，并由init进程对它们完成状态收集工作。</strong></p>
+<p><strong>僵尸进程：一个进程使用fork创建子进程，如果子进程退出，而父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中。这种进程称之为僵尸进程。</strong></p>
+<p>静态成员函数的作用在于：调用这个函数不会访问或者修改任何对象（非static）数据成员。</p>
+<p> 其实很好理解，类的静态成员(变量和方法)属于类本身，在类加载的时候就会分配内存，可以通过类名直接去访问；非静态成员（变量和方法）属于类的对象，所以只有在类的对象产生（创建类的实例）时才会分配内存，然后通过类的对象（实例）去访问。</p>
+<p>链表的选择排序</p>
+<p>二叉树的最长路径和</p>
+<p>数独</p>
+<p>迷宫</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">i++=<span class="number">1</span>;</span><br><span class="line">++i=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="（十四）招商银行信用卡中心"><a href="#（十四）招商银行信用卡中心" class="headerlink" title="（十四）招商银行信用卡中心"></a>（十四）招商银行信用卡中心</h4><h4 id="（十五）快手"><a href="#（十五）快手" class="headerlink" title="（十五）快手"></a>（十五）快手</h4><ol>
+<li><p>容器的选择：<a href="https://blog.csdn.net/gogokongyin/article/details/51178378" target="_blank" rel="noopener">vector/deque/list的差别</a></p>
+<p>1、如果你需要高效的随即存取，而不在乎插入和删除的效率，使用vector<br>2、如果你需要大量的插入和删除，而不关心随即存取，则应使用list<br>3、如果你需要随即存取，而且关心两端数据的插入和删除，则应使用deque。</p>
+</li>
+<li><p>vector自定义类的要求</p>
+</li>
+</ol>
+<p>自定义的类必须有默认构造函数，因为vector会调用默认构造函数来初始化元素的对象。编译器隐式声明默认构造函数的条件：</p>
+<p>· 该类没有显式声明任何构造函数。</p>
+<p>· 数据成员中没有const和reference。–因为要初始化（？？这点目前不是很理解）</p>
+<p>满足则隐式生成默认构造函数。这里强调“任何”，是指即使用户自定义了复制构造函数或一个需要多个参数的构造函数，默认构造函数也不会被隐式声明了。在定义一个类时要保证有默认的构造函数。同时要求：<br>   1、Copy构造函数：<a href="https://www.jianshu.com/p/025ae7b51ca8" target="_blank" rel="noopener">原理</a><br>   2、赋值=操作符<br>   3、能够销毁对象的析构函数<br>  另外：<br>   1、可用的缺省构造函数，序列型容器必须，用于初始化元素<br>   2、==操作符定义，用于判断相等<br>   3、&lt;操作符定义，关联型容器必须，用于缺省排序</p>
 
       
     </div>
@@ -1332,7 +1406,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）面向对象的三个基本特征：封装、继承、多态"><span class="nav-number">1.</span> <span class="nav-text">（一）面向对象的三个基本特征：封装、继承、多态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）bash-shell"><span class="nav-number">2.</span> <span class="nav-text">（二）bash shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）图"><span class="nav-number">3.</span> <span class="nav-text">（三）图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（四）IO库"><span class="nav-number">4.</span> <span class="nav-text">（四）IO库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（五）搜狗"><span class="nav-number">5.</span> <span class="nav-text">（五）搜狗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（六）手写代码"><span class="nav-number">6.</span> <span class="nav-text">（六）手写代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（七）SAP"><span class="nav-number">7.</span> <span class="nav-text">（七）SAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（八）进程间的通信方式（IPC-inter-Process-Communication）"><span class="nav-number">8.</span> <span class="nav-text">（八）进程间的通信方式（IPC,inter-Process Communication）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（九）Windows内存管理方式：段存储、页存储、段页存储"><span class="nav-number">9.</span> <span class="nav-text">（九）Windows内存管理方式：段存储、页存储、段页存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十）计算机网络"><span class="nav-number">10.</span> <span class="nav-text">（十）计算机网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十一）百度"><span class="nav-number">11.</span> <span class="nav-text">（十一）百度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十二）网易"><span class="nav-number">12.</span> <span class="nav-text">（十二）网易</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）面向对象的三个基本特征：封装、继承、多态"><span class="nav-number">1.</span> <span class="nav-text">（一）面向对象的三个基本特征：封装、继承、多态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）bash-shell"><span class="nav-number">2.</span> <span class="nav-text">（二）bash shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）图"><span class="nav-number">3.</span> <span class="nav-text">（三）图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（四）IO库"><span class="nav-number">4.</span> <span class="nav-text">（四）IO库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（五）搜狗"><span class="nav-number">5.</span> <span class="nav-text">（五）搜狗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（六）手写代码"><span class="nav-number">6.</span> <span class="nav-text">（六）手写代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（七）SAP"><span class="nav-number">7.</span> <span class="nav-text">（七）SAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（八）进程间的通信方式（IPC-inter-Process-Communication）"><span class="nav-number">8.</span> <span class="nav-text">（八）进程间的通信方式（IPC,inter-Process Communication）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（九）Windows内存管理方式：段存储、页存储、段页存储"><span class="nav-number">9.</span> <span class="nav-text">（九）Windows内存管理方式：段存储、页存储、段页存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十）计算机网络"><span class="nav-number">10.</span> <span class="nav-text">（十）计算机网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十一）百度"><span class="nav-number">11.</span> <span class="nav-text">（十一）百度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十二）网易"><span class="nav-number">12.</span> <span class="nav-text">（十二）网易</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十三-）腾讯"><span class="nav-number">13.</span> <span class="nav-text">（十三 ）腾讯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十四）招商银行信用卡中心"><span class="nav-number">14.</span> <span class="nav-text">（十四）招商银行信用卡中心</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十五）快手"><span class="nav-number">15.</span> <span class="nav-text">（十五）快手</span></a></li></ol></div>
             
 
           </div>
