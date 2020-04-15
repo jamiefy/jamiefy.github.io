@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="（一）面向对象的三个基本特征：封装、继承、多态 继承   子类对象可以直接调用父类中的成员函数 子类对象可以直接赋值给父类对象。 子类对象可以直接初始化父类对象。 父类引用可以直接引用子类对象。 父类指针可以直接指向子类对象。">
+<meta name="description" content="[TOC] （一）面向对象的三个基本特征：封装、继承、多态 继承   子类对象可以直接调用父类中的成员函数 子类对象可以直接赋值给父类对象。 子类对象可以直接初始化父类对象。 父类引用可以直接引用子类对象。 父类指针可以直接指向子类对象。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面试要点记录">
 <meta property="og:url" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="翟安然&#39;s Blog">
-<meta property="og:description" content="（一）面向对象的三个基本特征：封装、继承、多态 继承   子类对象可以直接调用父类中的成员函数 子类对象可以直接赋值给父类对象。 子类对象可以直接初始化父类对象。 父类引用可以直接引用子类对象。 父类指针可以直接指向子类对象。">
+<meta property="og:description" content="[TOC] （一）面向对象的三个基本特征：封装、继承、多态 继承   子类对象可以直接调用父类中的成员函数 子类对象可以直接赋值给父类对象。 子类对象可以直接初始化父类对象。 父类引用可以直接引用子类对象。 父类指针可以直接指向子类对象。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/seekgseekp.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/linux32.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/https.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/qiuck_sort.png">
 <meta property="article:published_time" content="2020-03-24T13:59:01.000Z">
-<meta property="article:modified_time" content="2020-04-11T15:31:48.090Z">
+<meta property="article:modified_time" content="2020-04-15T15:11:39.009Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="面试">
@@ -359,7 +359,8 @@
       
 
       
-        <h4 id="（一）面向对象的三个基本特征：封装、继承、多态"><a href="#（一）面向对象的三个基本特征：封装、继承、多态" class="headerlink" title="（一）面向对象的三个基本特征：封装、继承、多态"></a>（一）面向对象的三个基本特征：封装、继承、多态</h4><ol>
+        <p>[TOC]</p>
+<h4 id="（一）面向对象的三个基本特征：封装、继承、多态"><a href="#（一）面向对象的三个基本特征：封装、继承、多态" class="headerlink" title="（一）面向对象的三个基本特征：封装、继承、多态"></a>（一）面向对象的三个基本特征：封装、继承、多态</h4><ol>
 <li>继承</li>
 </ol>
 <ul>
@@ -615,8 +616,8 @@
 <p>（1）静态内存（静态分配）：发生在程序编译和链接阶段，存在于程序的整个生命周期，内存大小固定，不占用CPU资源</p>
 <ul>
 <li>.bss段：存放未初始化的全局变量和static静态变量</li>
-<li>.data段（全局初始化区）：存放初始化的全局变量</li>
-<li>常量存储区</li>
+<li>.data段（全局初始化区）：存放初始化的全局变量和static静态变量</li>
+<li>常量存储区 </li>
 <li>.txt段（代码区）：存放程序代码</li>
 </ul>
 <p>注意：</p>
@@ -631,22 +632,23 @@
 <li><p>栈：<strong>线性结构，由编译器自动分配与释放，速度较快，是一块连续的内存的区域</strong>，存储函数（包括main函数）的方法调用、函数参数、内部局部变量、返回地址和CPU系统提供的两个特殊的寄存器用于标识位于系统栈顶端的栈帧（(1)ESP：栈指针寄存器(extended stack pointer)，其内存放着一个指针，该指针永远指向系统栈地上面-个栈帧的栈顶。(2) EBP：基址指针寄存器(extended base pointer)-其内存放着一个指针，该指针永远指向系统栈展上面一个栈帧的底部），存储地址由高地址向低地址，栈顶的地址和栈的最大容量是系统预先规定好的，如果申请的空间超过栈的剩余空间时，提示Stack Overflow，出现溢出现象。栈中的存储内容<strong>在函数调用时，第一个进栈的是主函数中后的下一条指令（函数调用语句的下一条可执行语句）的地址</strong>，然后是函数的各个参数，在大多数的C编译器中，参数是由右往左入栈的，然后是函数中的局部变量。注意静态变量是不入栈的。当本次函数调用结束后，局部变量先出栈，然后是参数，最后栈顶指针指向最开始存的地址，也就是主函数中的下一条指令，程序由该点继续运行。函数退出时，其占用内存被收回；进程的每个线程都有私有的“栈”，所以每个线程虽然代码一样，但本地变量的数据都是互不干扰。</p>
 </li>
 <li><p>堆栈的区别：</p>
-<p>  1、管理方式不同（堆手动分配；栈编译器自动分配和释放）<br>  2、空间大小不同（堆32位系统可达4G;栈Linux 10M,Windows 1M）<br>  3、能否产生碎片不同（堆能；栈不能）<br>  4、生长方向不同（堆从低地址到高地址；栈从高地址到低地址）<br>  5、分配方式不同（堆动态分配；栈动静均可）<br>  6、分配效率不同（堆效率低；栈效率高）</p>
+<p>  1、管理方式不同（堆手动分配new/delete；栈编译器自动分配和释放）<br>  2、空间大小不同（堆32位系统可达4G;栈Linux 10M,Windows 1M）<br>  3、能否产生碎片不同（堆能；栈不能）<br>  4、生长方向不同（堆从低地址到高地址；栈从高地址到低地址）<br>  5、分配方式不同（堆动态分配；栈动静分配都可以，栈的动态使用alloc分配）<br>  6、分配效率不同（堆效率低；栈效率高）</p>
 </li>
-<li><p>堆 栈 静态存储区  代码区</p>
-</li>
-<li><p>1、管理方式不同：堆手动分配new/delete；栈编译器自动管理<br>2、空间大小不同：堆4G,栈<br>3、能否产生碎片不同：堆能，栈不能<br>4、生长方向不同：<br>5、分配方式不同：堆都是动态分配；栈动静均可<br>6、分配效率不同“：栈效率高，堆效率低</p>
+<li><p>堆栈数据的写入跟读出不需要提供地址，而是根据写入的顺序决定读出的顺序。通用寄存器、主存储器、输入输出设备存储数据时均需要编址。</p>
 </li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.cpp </span></span><br><span class="line"><span class="keyword">int</span> a = <span class="number">0</span>;  <span class="comment">//a存储在全局初始化区 ，静态内存，0存储在常量区随程序结束而释放</span></span><br><span class="line"><span class="keyword">char</span> *p1;  <span class="comment">//全局未初始化区 ，静态内存</span></span><br><span class="line"><span class="keyword">int</span>* p=<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">4</span>);  <span class="comment">//p存储在全局初始化区，静态内存，分配得来的4存储在堆区</span></span><br><span class="line">main() </span><br><span class="line">&#123; </span><br><span class="line"><span class="keyword">int</span> b;  <span class="comment">//栈 </span></span><br><span class="line"><span class="keyword">char</span> s[] = <span class="string">"abc"</span>;  <span class="comment">//栈 </span></span><br><span class="line"><span class="keyword">char</span> *p2; <span class="comment">// 栈 </span></span><br><span class="line"><span class="keyword">char</span> *p3 = <span class="string">"123456"</span>;  <span class="comment">//"123456\0"在常量区（不同于数组数据可存储在数组里），静态内存，p3在栈上。 </span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> c =<span class="number">0</span>； <span class="comment">//全局（静态）初始化区 </span></span><br><span class="line">p1 = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="number">10</span>); </span><br><span class="line">p2 = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="number">20</span>); </span><br><span class="line"><span class="comment">//分配得来的10和20字节的区域就在堆区。 </span></span><br><span class="line"><span class="built_in">strcpy</span>(p1, <span class="string">"123456"</span>);  <span class="comment">//"123456\0"放在常量区，编译器可能会将它与p3所指向的"123456"优化成一个地方。 </span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">char</span>* p = <span class="string">"Hello World1"</span>;</span><br><span class="line"><span class="keyword">char</span> a[] = <span class="string">"Hello World2"</span>;</span><br><span class="line">p[<span class="number">2</span>] = <span class="string">'A'</span>;</span><br><span class="line">a[<span class="number">2</span>] = <span class="string">'A'</span>;</span><br><span class="line"><span class="keyword">char</span>* p1 = <span class="string">"Hello World1"</span>; </span><br><span class="line"><span class="comment">//这个程序是有错误的，错误发生在p[2] = 'A'这行代码处，为什么呢，是变量p和变量数组a都存在于栈区的（任何临时变量都是处于栈区的，包括在main（）函数中定义的变量）。但是，数据“Hello World1”和数据“Hello World2”是存储于不同的区域的。因为数据“Hello World2”存在于数组中，所以，此数据存储于栈区，对它修改是没有任何问题的。因为指针变量p仅仅能够存储某个存储空间的地址，数据“Hello World1”为字符串常量，所以存储在静态存储区。虽然通过p[2]可以访问到静态存储区中的第三个数据单元，即字符‘l’所在的存储的单元。但是因为数据“Hello World1”为字符串常量，不可以改变，所以在程序运行时，会报告内存错误。并且，如果此时对p和p1输出的时候会发现p和p1里面保存的地址是完全相同的。换句话说，在数据区只保留一份相同的数据。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.cpp </span></span><br><span class="line"><span class="keyword">int</span> a = <span class="number">0</span>;  <span class="comment">//a存储在全局初始化区 ，静态内存，0存储在常量区随程序结束而释放</span></span><br><span class="line"><span class="keyword">char</span> *p1;  <span class="comment">//全局未初始化区 ，静态内存</span></span><br><span class="line"><span class="keyword">int</span>* p=<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">4</span>);  <span class="comment">//p存储在全局初始化区，静态内存，分配得来的4存储在堆区</span></span><br><span class="line">main() </span><br><span class="line">&#123; </span><br><span class="line"><span class="keyword">int</span> b;  <span class="comment">//栈 ，编译时</span></span><br><span class="line"><span class="keyword">char</span> s[] = <span class="string">"abc"</span>;  <span class="comment">//栈 ，运行时赋值</span></span><br><span class="line"><span class="keyword">char</span> *p2; <span class="comment">// 栈 </span></span><br><span class="line"><span class="keyword">char</span> *p3 = <span class="string">"123456"</span>;  <span class="comment">//"123456\0"在常量区（不同于数组数据可存储在数组里），编译时就确定下来，静态内存，p3在栈上。 </span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> c =<span class="number">0</span>； <span class="comment">//全局（静态）初始化区 </span></span><br><span class="line">p1 = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="number">10</span>); </span><br><span class="line">p2 = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="number">20</span>); </span><br><span class="line"><span class="comment">//分配得来的10和20字节的区域就在堆区。 </span></span><br><span class="line"><span class="built_in">strcpy</span>(p1, <span class="string">"123456"</span>);  <span class="comment">//"123456\0"放在常量区，编译器可能会将它与p3所指向的"123456"优化成一个地方。 </span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">char</span>* p = <span class="string">"Hello World1"</span>;</span><br><span class="line"><span class="keyword">char</span> a[] = <span class="string">"Hello World2"</span>;</span><br><span class="line">p[<span class="number">2</span>] = <span class="string">'A'</span>;</span><br><span class="line">a[<span class="number">2</span>] = <span class="string">'A'</span>;</span><br><span class="line"><span class="keyword">char</span>* p1 = <span class="string">"Hello World1"</span>; </span><br><span class="line"><span class="comment">//这个程序是有错误的，错误发生在p[2] = 'A'这行代码处，为什么呢，是变量p和变量数组a都存在于栈区的（任何临时变量都是处于栈区的，包括在main（）函数中定义的变量）。但是，数据“Hello World1”和数据“Hello World2”是存储于不同的区域的。因为数据“Hello World2”存在于数组中，所以，此数据存储于栈区，对它修改是没有任何问题的。因为指针变量p仅仅能够存储某个存储空间的地址，数据“Hello World1”为字符串常量，所以存储在静态存储区。虽然通过p[2]可以访问到静态存储区中的第三个数据单元，即字符‘l’所在的存储的单元。但是因为数据“Hello World1”为字符串常量，不可以改变，所以在程序运行时，会报告内存错误。并且，如果此时对p和p1输出的时候会发现p和p1里面保存的地址是完全相同的。换句话说，在数据区只保留一份相同的数据。</span></span><br></pre></td></tr></table></figure>
 
-<p><strong>2、malloc</strong></p>
+<p><strong>2、内存申请函数</strong></p>
 <ul>
 <li>malloc calloc realloc的区别</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">malloc</span><span class="params">(<span class="keyword">unsigned</span> <span class="built_in">size</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">realloc</span><span class="params">(<span class="keyword">void</span>* ptr, <span class="keyword">unsigned</span> newsize)</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">calloc</span><span class="params">(<span class="keyword">size_t</span> numElements, <span class="keyword">size_t</span> sizeOfElement)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">malloc</span><span class="params">(<span class="keyword">unsigned</span> <span class="built_in">size</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">realloc</span><span class="params">(<span class="keyword">void</span>* ptr, <span class="keyword">unsigned</span> newsize)</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">calloc</span><span class="params">(<span class="keyword">size_t</span> numElements, <span class="keyword">size_t</span> sizeOfElement)</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">void</span> * __cdecl  <span class="title">alloca</span><span class="params">(<span class="keyword">size_t</span>)</span></span>;</span><br><span class="line"><span class="built_in">free</span>将<span class="built_in">malloc</span>申请的内存最终需要通过该函数进行释放. </span><br><span class="line">sbrk则是增加数据段的大小;</span><br></pre></td></tr></table></figure>
 
-<p>都在stdlib.h函数库内，它们的返回值都是请求系统分配的地址,如果请求失败就返回NULL.<br>  (1)函数malloc()<br>    在内存的动态存储区中分配一块长度为size字节的连续区域，参数size为需要内存空间的长度，返回该区域的首地址.<br>  (2)函数calloc()<br>    与malloc相似,参数sizeOfElement为申请地址的单位元素长度,numElements为元素个数，即在内存中申请numElements*sizeOfElement字节大小的连续地址空间.<br>  (3)函数realloc()<br>给一个已经分配了地址的指针重新分配空间,参数ptr为原有的空间地址,newsize是重新申请的地址长度.如果在该存储区后有足够的空间可供扩充，则可在原存储区位置上向高地址方向扩充，并返回传送给它的同样的指针值。如果在原存储区后没有足够的空间，则realloc分配另一个足够大的存储区，将现存的512个元素数组的内容复制到新分配的存储区。因为这种存储区可能会移动位置，所以不应当使用任何指针指在该区中。注意，realloc的最后一个参数是存储区的newsize(新长度)，不是新、旧长度之差。作为一个特例，若ptr是一个空指针，则realloc的功能与malloc相同，用于分配一个指定长度newsize的存储区。</p>
+<p>都在stdlib.h函数库内，它们的返回值都是请求系统分配的地址,如果请求失败就返回NULL.<br>  (1)函数malloc()<br>    在内存的动态存储区中分配一块长度为size字节的连续区域，参数size为需要内存空间的长度，返回该区域的首地址。由于没有初始化内存的内容，所以调用malloc后一般调用函数memset来初始化这部分内存空间。<br>  (2)函数calloc()<br>    与malloc相似,参数sizeOfElement为申请地址的单位元素长度,numElements为元素个数，即在内存中申请numElements*sizeOfElement字节大小的连续地址空间，返回该区域的首地址。初始化所分配的内存空间，设置为0。</p>
+<p><strong>malloc() 函数和calloc ()函数的主要区别是前者不能初始化所分配的内存空间，而后者能</strong>。如果由malloc()函数分配的内存空间原来没有被使用过，则其中的每一位可能都是 0；反之，如果这部分内存空间曾经被分配、释放和重新分配，则其中可能遗留各种各样的数据。也就是说，<strong>使用malloc()函数的程序开始时(内存空间还没有被重新分配)能正常运行，但经过一段时间后(内存空间已被重新分配)可能会出现问题</strong>。  calloc() 函数会将所分配的内存空间中的每一位都初始化为零，也就是说，如果你是为字符类型或整数类型的元素分配内存，那么这些元素将保证会被初始化为零；如果你是<strong>为指针类型的元素分配内存，那么这些元素通常(但无法保证)会被初始化为空指针</strong>；如果你是为实数类型的元素分配内存，那么这些元素可能(只在某些计算机中)会被初始化为浮点型的零。</p>
+<p>  (3)函数realloc()<br>给一个已经分配了地址的指针重新分配空间,参数ptr为原有的空间地址,newsize是重新申请的地址长度.如果在该存储区后有足够的空间可供扩充，则可在原存储区位置上向高地址方向扩充，并返回传送给它的同样的指针值。如果在原存储区后没有足够的空间，则realloc分配另一个足够大的存储区，将现存的512个元素数组的内容复制到新分配的存储区。因为这种存储区可能会移动位置，所以不应当使用任何指针指在该区中。注意，realloc的最后一个参数是存储区的newsize(新长度)，不是新、旧长度之差。作为一个特例，若ptr是一个空指针，则realloc的功能与malloc相同，用于分配一个指定长度newsize的存储区。</p>
+<p>（4）alloca()是在栈(stack)上申请空间的，而栈内存一般可以由编译器自动释放。既然是在栈内申请内存，这就决定了其固有的局限性。其一是不适用于那些比创建它们的函数生命周期更长的结构；其二是不具可移植性，而且在没有传统堆栈的机器上很难高效地实现。这是因为当它的返回值直接传入另一个函数时会带来问题。这就决定了alloca()不宜使用在需要广泛移植的程序中，这也是很多人不太提倡使用alloca()的一个原因。</p>
 <ul>
 <li>malloc和free的操作原则</li>
 </ul>
@@ -654,8 +656,7 @@
 <p>1) 配对使用，配对使用，避免内存泄漏和多重释放（C语言提供了malloc和free两个系统函数，完成对堆内存的申请和释放。而C++则提供了两个关键字new和delete）。</p>
 <p>2) 尽量在同一层上使用，不要像上面那种，malloc在函数中，而free在函数外。最好在同一调用层上使用这两个函数。</p>
 <p>3) malloc分配的内存一定要初始化。free后的指针一定要设置为NULL。 </p>
-<p>注意：</p>
-<p>new/delete是关键字，效率高于malloc和free。<br>new/delete 主要是用在类对象的申请和释放。申请的时候会调用构造器完成初始化，释放的时候，会调用析构器完成内存清理。</p>
+<p>注意：new/delete是关键字，效率高于malloc和free。<br>new/delete 主要是用在类对象的申请和释放。申请的时候会调用构造器完成初始化，释放的时候，会调用析构器完成内存清理。</p>
 </blockquote>
 <p><strong>3、new和malloc的区别</strong></p>
 <ul>
@@ -683,8 +684,9 @@
 </ul>
 <p>　　new操作符从自由存储区（free store）上为对象动态分配内存空间，而malloc函数从堆上动态分配内存。自由存储区是C++基于new操作符的一个抽象概念，凡是通过new操作符进行内存申请，该内存即为自由存储区。而堆是操作系统中的术语，是操作系统所维护的一块特殊内存，用于程序的内存动态分配，C语言使用malloc从堆上分配内存，使用free释放已分配的对应内存。自由存储区不等于堆，如上所述，布局new就可以不位于堆中。</p>
 <p><strong>PS:</strong></p>
-<p> 在C++中，内存区分为5个区，分别是堆、栈、自由存储区、全局/静态存储区、常量存储区；</p>
-<p>在C中，C内存区分为4个区堆、栈、全局/静态存储区、常量存储区</p>
+<p> 在C++中，内存区分为6个区，分别是堆、栈、自由存储区、全局/静态存储区、常量存储区、代码区；</p>
+<p>在C中，C内存区分为5个区堆、栈、全局/静态存储区、常量存储区、代码区</p>
+<p>为什么栈生长方向是从高地址到低地址？<strong>最大程度地共用剩余的地址空间，达到利用率的最大化</strong>。如果栈向上涨的话，我们就必须得指定栈和堆的一个严格分界线，但这个分界线怎么确定呢？平均分？但是有的程序使用的堆空间比较多，而有的程序使用的栈空间比较多。所以就可能出现这种情况：一个程序因为栈溢出而崩溃的时候，其实它还有大量闲置的堆空间呢，但是我们却无法使用这些闲置的堆空间。</p>
 <ul>
 <li><p>分配失败</p>
 <p>  new内存分配失败时，会抛出bac_alloc异常。malloc分配内存失败时返回NULL。</p>
@@ -934,10 +936,17 @@
 </ul>
 <p>线程间无需特别的手段进行通信，因为线程间可以共享数据结构，也就是一个全局变量可以被两个线程同时使用。不过要注意的是线程间需要做好同步，一般用mutex。</p>
 <ol start="22">
-<li>死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？<pre><code>（1）相互等待资源而产生的一种僵持状态，如果没有外力的干预将一直持续这个状态
+<li><p>死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？</p>
+<pre><code>（1）相互等待资源而产生的一种僵持状态，如果没有外力的干预将一直持续这个状态
  （2）系统资源不足、相互竞争资源、请求资源顺序不当
- （3）互斥、不可抢占、循环等待、请求与保持
- （4）因为互斥是不可改变的，所以只能破坏其他三个条件中的一个来解除死锁，方法：剥夺资源、杀死其中一个线程</code></pre></li>
+ （3）互斥、不可剥夺、循环等待、请求与保持
+ （4）因为互斥是不可改变的，所以只能破坏其他三个条件中的一个来解除死锁，方法：</code></pre></li>
+<li><p>破坏“不可剥夺”条件：一个进程不能获得所需要的全部资源时便处于等待状态，等待期间他占有的资源将被隐式的释放重新加入到系统的资源列表中。</p>
+</li>
+<li><p>破坏”请求与保持条件“：第一种方法静态分配即每个进程在开始执行时就申请他所需要的全部资源。第二种是动态分配即每个进程在申请所需要的资源时他本身不占用系统资源。</p>
+</li>
+<li><p>破坏“循环等待”条件：资源有序分配（将系统中的所有资源顺序编号，将紧缺的，稀少的采用较大的编号，在申请资源时必须按照编号的顺序进行，一个进程只有获得较小编号的进程才能申请较大编号的进程）</p>
+</li>
 </ol>
 <h4 id="（九）Windows内存管理方式：段存储、页存储、段页存储"><a href="#（九）Windows内存管理方式：段存储、页存储、段页存储" class="headerlink" title="（九）Windows内存管理方式：段存储、页存储、段页存储"></a>（九）Windows内存管理方式：段存储、页存储、段页存储</h4><ol>
 <li>什么是虚拟内存？</li>
@@ -1061,6 +1070,15 @@
 <td>服务端错误，服务器在处理请求的过程中发生了错误</td>
 </tr>
 </tbody></table>
+<p>  200，请求成功  </p>
+<p>  301，资源（网页等）被永久转移到其它URL  </p>
+<p>  302，资源临时移动  </p>
+<p>  403，forbidden，服务器理解请求客户端的请求，但是拒绝执行此请求。请求资源被拒绝，通常原因是服务器上某些文件或目录设置了权限，客户端权限不够 </p>
+<p>  404，not found，用户输入错误的链接，该链接指向的网页不存在。除此之外，也可以在服务器端拒绝请求且不想说明理由时使用。 </p>
+<p>  500，internal server error 服务器内部错误（比如浏览器代理除了问题，ip，端口不对等）该状态码表明服务器端在执行请求时发生了错误。也有可能是Web应用存在的bug或某些临时的故障。 </p>
+<p>  502，Bad Gateway，作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应  </p>
+<p>  503，服务器超载或停机维护  </p>
+<p>  504，Gateway Timeout网关超时服务器作为网关或代理，未及时从上游服务器接收请求</p>
 <ol start="6">
 <li>http</li>
 </ol>
@@ -1108,28 +1126,30 @@
 <li>udp如何减少丢包</li>
 <li>TCP/UDP传输的应用  TCP流量控制  拥塞机制：慢启动  拥塞避免  快重传  快恢复</li>
 <li><img src="/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/qiuck_sort.png" alt="快速排序递归排序非递归排序"></li>
-<li>多继承  虚继承 多态的目的 </li>
+<li>封装、继承、多态的目的 </li>
+</ol>
+<p>封装可以使得代码模块化，继承可以扩展已存在的代码，他们的目的都是为了代码重用。而多态的目的则是为了接口重用，派生类的功能可以被基类的方法或引用变量所调用，这叫向后兼容，可以提高可扩充性和可维护性。</p>
+<p>最常见的用法就是声明基类的指针，利用该指针指向任意一个子类对象，调用相应的虚函数，可以根据指向的子类的不同而实现不同的方法。如果没有使用虚函数的话，即没有利用C++多态性，则利用基类指针调用相应的函数的时候，将总被限制在基类函数本身，而无法调用到子类中被重写过的函数。因为没有多态性，函数调用的地址将是一定的，而固定的地址将始终调用到同一个函数，这就无法实现一个接口，多种方法的目的了。</p>
+<ol start="10">
 <li>磁盘的随机读写和顺序读写</li>
 </ol>
 <p>顺序读写：文件指针只能从头移动到尾，SAS机械硬盘主要是看顺序读写性能</p>
 <p>随机读写：文件指针可以根据需要随意移动，寻道时间和旋转延迟，SSD固态盘主要看随机读写性能</p>
-<ol start="3">
-<li><p>对称密钥加密和非对称密钥加密的区别</p>
-<p>对称密钥：又称私钥加密，即<strong>信息的发送方和接收方用一个密钥去加密和解密数据</strong>。它的最大优势是加/解密速度快，适合于对大数据量进行加密，但密钥管理困难，安全性低。</p>
-</li>
+<ol start="11">
+<li>对称密钥加密和非对称密钥加密的区别</li>
 </ol>
-<p>   非对称密钥加密系统：又称公钥密钥加密，它<strong>需要使用一对密钥来分别完成加密和解密操作</strong>，一个公开发布，即公开密钥，另一个由用户自己秘密保存，即私用密钥。信息发送者用公开密钥去加密，而信息接收者则用私用密钥去解密。公钥机制灵活，安全性高，但加密和解密速度却比对称密钥加密慢得多。</p>
-<ol start="4">
+<p>对称密钥：又称私钥加密，即<strong>信息的发送方和接收方用一个密钥去加密和解密数据</strong>。它的最大优势是加/解密速度快，适合于对大数据量进行加密，但密钥管理困难，安全性低。</p>
+<p>非对称密钥加密系统：又称公钥密钥加密，它<strong>需要使用一对密钥来分别完成加密和解密操作</strong>，一个公开发布，即公开密钥，另一个由用户自己秘密保存，即私用密钥。信息发送者用公开密钥去加密，而信息接收者则用私用密钥去解密。公钥机制灵活，安全性高，但加密和解密速度却比对称密钥加密慢得多。</p>
+<ol start="12">
 <li><p>垃圾回收机制</p>
 </li>
 <li><p>Linux操作系统的主要组成部分：内核，shell,文件系统，应用程序</p>
 </li>
 </ol>
 <ul>
-<li>文件系统 结构</li>
+<li>文件系统索引结构B+树</li>
 </ul>
-<ol start="12">
-<li>innoDB和myISAM的区别？行级锁和表级索的区别？</li>
+<ol start="14">
 <li>IO  cache 用法</li>
 </ol>
 <p><strong>Buffer</strong>（缓冲区）是系统两端处理<strong>速度平衡</strong>（从长时间尺度上看）时使用的。它的引入是为了减小短期内突发I/O的影响，起到<strong>流量整形</strong>的作用。比如生产者——消费者问题，他们产生和消耗资源的速度大体接近，加一个buffer可以抵消掉资源刚产生/消耗时的突然变化。<br><strong>Cache</strong>（缓存）则是系统两端处理<strong>速度不匹配</strong>时的一种<strong>折衷策略</strong>。因为CPU和memory之间的速度差异越来越大，所以人们充分利用数据的局部性（locality）特征，通过使用存储系统分级（memory hierarchy）的策略来减小这种差异带来的影响。</p>
@@ -1140,26 +1160,52 @@
 <li>inode在address_space上查找要请求的文件页是否已经缓存在页缓存中。如果存在，则直接返回这片文件页的内容。</li>
 <li>如果不存在，则通过inode定位到文件磁盘地址，将数据从磁盘复制到页缓存。之后再次发起读页面过程，进而将页缓存中的数据发给用户进程。</li>
 </ul>
-<ol start="12">
-<li>bitmap   磁盘一亿个数查询target，内存4g</li>
-<li>linux创建管道命令</li>
+<ol start="15">
+<li><p>bitmap   磁盘一亿个数查询target，内存4g</p>
+</li>
+<li><p>linux创建管道命令</p>
+</li>
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfifo [options] NAME  #创建有名管道</span><br></pre></td></tr></table></figure>
 
-
-
-<ol start="12">
+<ol start="17">
 <li>git命令行</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch &lt;name&gt;  <span class="comment">#创建分支</span></span><br><span class="line">git merge &lt;name&gt;   <span class="comment">#合并分支</span></span><br></pre></td></tr></table></figure>
 
-<ol start="12">
-<li>动态链接  静态链接</li>
+<ol start="18">
+<li>动态链接库和静态链接库的区别</li>
 </ol>
-<ol start="12">
-<li>从源程序到执行程序的过程</li>
+<p>（一）静态链接库与动态链接库都是共享代码的方式，如果采用静态链接库，lib中的指令都全部被直接包含在最终生成的exe文件中了（连接器从静态链接库获取所有被引用的函数，并将库同代码一起放到可执行文件中。）。但是若使用dll动态链接库，该dll不必被包含在最终的exe文件中，它允许可执行模块（dll或exe文件）仅包含在运行时定位dll函数的可执行代码的所需信息，执行文件执行时可以动态地引用和卸载这个与exe独立的dll文件</p>
+<p>（二）静态链接库不能再包含其他的动态链接库或者静态库，而在动态链接库中还可以再包含其他的动态或静态链接库。 </p>
+<p>（三）动态链接库就是在需要调用其中的函数时，根据函数映射表找到该函数然后调入堆栈执行。如果在当前工程中有多处对dll文件中同一个函数的调用，那么执行时，这个函数只会留下一份拷贝。但是如果有多处对lib文件中同一个函数的调用，那么执行时，该函数将在当前程序的执行空间里留下多份拷贝，而且是一处调用就产生一份拷贝。</p>
+<p><strong>静态链接库的优点</strong> </p>
+<p>   (1) 代码装载速度快，执行速度略比动态链接库快； </p>
+<p>   (2) 只需保证在开发者的计算机中有正确的.LIB文件，在以二进制形式发布程序时不需考虑在用户的计算机上.LIB文件是否存在及版本问题，可避免DLL地狱等问题。 </p>
+<p>  <strong>动态链接库的优点</strong> </p>
+<p>   (1) DLL 节省内存，减少页面交换，节省磁盘空间；</p>
+<p>   (2) DLL文件与EXE文件独立，只要输出接口不变（即名称、参数、返回值类型和调用约定不变），更换DLL文件不会对EXE文件造成任何影响，因而极大地提高了可维护性和可扩展性；</p>
+<p>   (3) 不同编程语言编写的程序只要按照函数调用约定就可以调用同一个DLL函数；</p>
+<p>   (4)适用于大规模的软件开发，使开发过程独立、耦合度小，便于不同开发者和开发组织之间进行开发和测试。</p>
+<p>  <strong>静态链接库和动态链接库的不足之处</strong></p>
+<p>   (1) 使用静态链接生成的可执行文件体积较大，包含相同的公共代码，造成浪费；</p>
+<p>   (2) 使用动态链接库的应用程序不是自完备的，它依赖的DLL模块也要存在，如果使用载入时动态链接，程序启动时发现DLL不存在，系统将终止程序并给出错误信息。而使用运行时动态链接，系统不会终止，但由于DLL中的导出函数不可用，程序会加载失败；速度比静态链接慢。当某个模块更新后，如果新模块与旧的模块不兼容，那么那些需要该模块才能运行的软件，统统死掉。这在早期Windows中很常见。</p>
+<ol start="19">
+<li>动态链接和静态链接的区别:<a href="https://www.cnblogs.com/cyyljw/p/10949660.html" target="_blank" rel="noopener">参考</a></li>
 </ol>
-<ol start="13">
+<p><strong>静态链接</strong><br><strong>特点</strong>：在生成可执行文件的时候(链接阶段)，把所有需要的函数的二进制代码都包含到可执行文件中去。因此，链接器需要知道参与链接的目标文件需要哪些函数，同时也要知道每个目标文件都能提供什么函数，这样链接器才能知道是不是每个目标文件所需要的函数都能正确地链接。如果某个目标文件需要的函数在参与链接的目标文件中找不到的话，链接器就报错了。目标文件中有两个重要的接口来提供这些信息：一个是符号表，另外一个是重定位表。<br><strong>优点</strong>：在程序发布的时候就不需要的依赖库，也就是不再需要带着库一块发布，程序可以独立执行。<br><strong>缺点</strong>：<br>程序体积会相对大一些。<br>如果静态库有更新的话，所有可执行文件都得重新链接才能用上新的静态库。</p>
+<p><strong>动态链接</strong>：基本思想是把程序按照模块拆分成各个相对独立部分，在程序运行时才将它们链接在一起形成一个完整的程序，而不是像静态链接一样把所有程序模块都链接成一个单独的可执行文件。</p>
+<p><strong>特点</strong>： 在编译的时候不直接拷贝可执行代码，而是通过记录一系列符号和参数，在程序运行或加载时将这些信息传递给操作系统，操作系统负责将需要的动态库加载到内存中，然后程序在运行到指定的代码时，去共享执行内存中已经加载的动态库可执行代码，最终达到运行时连接的目的。<br><strong>优点</strong>： 多个程序可以共享同一段代码，而不需要在磁盘上存储多个拷贝。动态链接出现的原因就是为了解决静态链接中出现的两个问题，（1）空间浪费，（2）更新困难。<br><strong>缺点</strong>： 由于是运行时加载，可能会影响程序的前期执行性能。</p>
+<ol start="20">
+<li>从源程序到执行程序的过程:<a href="https://blog.csdn.net/zhoudonghao4381/article/details/80811906" target="_blank" rel="noopener">参考</a></li>
+</ol>
+<ul>
+<li>预编译</li>
+<li>编译：<strong>把预编译之后生成的xxx.i或xxx.ii文件，进行词法分析、语法分析、语义分析、中间代码生成、目标代码生成和优化，生成相应的汇编代码文件。</strong></li>
+<li>汇编：<strong>将汇编代码转变成机器可以执行的指令(机器码文件)</strong>，产生目标文件(与可执行文件格式几乎一样)xxx.o(Windows下)、xxx.obj(Linux下)，还有<strong>一个问题——变量a和数组arr的地址还没有确定</strong>。</li>
+<li>链接：静态链接和动态链接</li>
+</ul>
+<ol start="21">
 <li>mysql怎么创建索引 （索引是一种高效获取数据库数据的数据结构） ？为什么说B+树比B树更适合实际应用中<a href="http://lib.csdn.net/base/operatingsystem" target="_blank" rel="noopener">操作系统</a>的文件索引和<a href="http://lib.csdn.net/base/mysql" target="_blank" rel="noopener">数据库</a>索引？</li>
 </ol>
 <ul>
@@ -1169,11 +1215,11 @@
 <p>（3）CREATE TABLE</p>
 </li>
 </ul>
-<ol start="12">
-<li>https   ssl</li>
-<li>网页访问过程</li>
-<li>gooletest   socket  osi</li>
+<ol start="22">
+<li>为什么B+树（有序数组+平衡多叉树）比B树（有序数组链表+平衡多叉树）更适合文件索引系统？<a href="https://blog.csdn.net/weixin_30531261/article/details/79312676" target="_blank" rel="noopener">扩展</a></li>
 </ol>
+<p>（1）B+树空间利用率更高，因为B+树的内部节点只是作为索引使用，而不像B树那样每个节点都需要存储硬盘指针。</p>
+<p>（2）增删文件（节点）时，效率更高，因为B+树的叶子节点包含所有关键字，并以有序的链表结构存储，这样可很好提高增删效率。</p>
 <h4 id="（十二）网易"><a href="#（十二）网易" class="headerlink" title="（十二）网易"></a>（十二）网易</h4><ol>
 <li>海量数据找到最小的k个数</li>
 </ol>
@@ -1204,20 +1250,77 @@
 <p>高度为h完全二叉树最后一层有n+1-2^(h-1)个结点;完全二叉树第k层至多有2^（k-1）个结点<br>满二叉树深度为h，则有2^h-1个结点；第k层的节点数目为2^（k-1）</p>
 </li>
 </ol>
-<h4 id="（十三-）腾讯"><a href="#（十三-）腾讯" class="headerlink" title="（十三 ）腾讯"></a>（十三 ）腾讯</h4><p>static变量  static函数为什么只能用static变量</p>
+<h4 id="（十三）腾讯"><a href="#（十三）腾讯" class="headerlink" title="（十三）腾讯"></a>（十三）腾讯</h4><ol>
+<li>static变量？ static函数为什么只能用static变量？</li>
+</ol>
+<p>（1）静态成员变量：</p>
+<ul>
+<li>静态成员变量属于整个类所有，生命期不依赖于任何对象，为程序的生命周期</li>
+<li>可以通过类名直接访问公有静态成员变量，也可以通过对象名访问公有静态成员变量</li>
+<li>静态成员变量是静态存储的，所以必须对它进行初始化</li>
+<li>静态成员变量在类外单独分配空间</li>
+<li>静态成员变量在程序内部位于全局/静态存储区</li>
+</ul>
+<p>（2）静态成员函数:</p>
+<ul>
+<li>类内使用static修饰的特殊成员函数</li>
+<li>属于整个类所有，没有this指针（这就是它仅能访问类的静态数据和静态成员函数的原因）</li>
+<li>只能直接访问静态成员变量和静态成员函数，调用这个函数不会访问或者修改任何对象非static数据成员</li>
+<li>可以通过类名直接访问类的公有静态成员函数，也可以通过对象名访问类的公有静态成员函数</li>
+<li>不能将静态成员函数定义为虚函数</li>
+</ul>
+<p>其实很好理解，类的静态成员(变量和方法)属于类本身，在类加载的时候就会分配内存，可以通过类名直接去访问；非静态成员（变量和方法）属于类的对象，所以只有在类的对象产生（创建类的实例）时才会分配内存，然后通过类的对象（实例）去访问。由于静态成员声明于类中，操作于其外，所以对其取地址操作，就多少有些特殊，变量地址是指向其数据类型的指针，函数地址类型是个“nonmember 函数指针”。static 并没有增加程序的时空开销，相反她还缩短了子类对父类静态成员的访问时间，节省了子类的内存空间。静态数据成员在&lt;定义或说明&gt;时前面加关键字 static。 静态成员初始化与一般数据成员初始化不同：</p>
+<p>　　初始化在类体外进行，而前面不加 static，以免与一般静态变量或对象相混淆；初始化时不加该成员的访问权限控制符 private、public；初始化时使用作用域运算符来标明它所属类；所以我们得出静态数据成员初始化的格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;数据类型&gt;&lt;类名&gt;::&lt;静态数据成员名&gt;&#x3D;&lt;值&gt;</span><br></pre></td></tr></table></figure>
+
+<p>　　(9) 为了防止父类的影响，可以在子类定义一个与父类相同的静态变量，以屏蔽父类的影响。这里有一点需要注意：我们说静态成员为父类和子类共享，但我们有重复定义了静态成员，这会不会引起错误呢？不会，我们的编译器采用了一种绝妙的手法：name-mangling 用以生成唯一的标志。</p>
+<p>设置静态成员的目的，是为了将和某些类紧密相关的全局变量和全局函数写到类里面，形式上成为一个整体。使用 sizeof 运算符计算对象所占用的存储空间时，不会将静态成员变量计算在内。对上面的 CRectangle 类来说，sizeof(CRectangle) 的值是 8。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CRectangle</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> w,h;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> nTotalArea;  <span class="comment">//静态成员变量</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> nTotalNumber;  <span class="comment">//静态成员变量</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">PrintTotal</span> <span class="params">()</span></span>;  <span class="comment">//静态成员函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>主键索引和非主键索引的区别？</li>
+</ol>
 <p>非主键索引的叶子节点存放的是<strong>主键的值</strong>，而主键索引的叶子节点存放的是<strong>整行数据</strong>，其中非主键索引也被称为<strong>二级索引</strong>，而主键索引也被称为<strong>聚簇索引</strong>。</p>
-<p>孤儿进程  僵尸进程</p>
+<ol start="3">
+<li>孤儿进程  僵尸进程</li>
+</ol>
 <p><strong>孤儿进程：一个父进程退出，而它的一个或多个子进程还在运行，那么那些子进程将成为孤儿进程。孤儿进程将被init进程(进程号为1)所收养，并由init进程对它们完成状态收集工作。</strong></p>
-<p><strong>僵尸进程：一个进程使用fork创建子进程，如果子进程退出，而父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中。这种进程称之为僵尸进程。</strong></p>
-<p>静态成员函数的作用在于：调用这个函数不会访问或者修改任何对象（非static）数据成员。</p>
-<p> 其实很好理解，类的静态成员(变量和方法)属于类本身，在类加载的时候就会分配内存，可以通过类名直接去访问；非静态成员（变量和方法）属于类的对象，所以只有在类的对象产生（创建类的实例）时才会分配内存，然后通过类的对象（实例）去访问。</p>
+<p><strong>僵尸进程：一个进程使用fork创建子进程，如果子进程退出，而父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中。这种进程称之为僵尸进程。</strong>假如它的父进程没有安装SIGCHLD信号处理函数来处理子进程（也即使wait或者waitpid等待儿子结束），又没有显示忽略该信号，那子进程就会一直保持僵尸状态。只有在父进程结束之后，才由init进程接管子进程，为他收尸（好凄惨啊），这个时候才能说子进程才真正的消失在Linux内核中。</p>
+<p><strong>僵尸进程的避免</strong></p>
+<p>⒈父进程通过wait和waitpid等函数等待子进程结束，这会导致父进程挂起。</p>
+<p>⒉ 如果父进程很忙，那么可以用signal函数为SIGCHLD安装handler，因为子进程结束后， 父进程会收到该信号，可以在handler中调用wait回收。</p>
+<p>⒊ 如果<a href="https://baike.baidu.com/item/父进程" target="_blank" rel="noopener">父进程</a>不关心子进程什么时候结束，那么可以用signal（SIGCHLD,SIG_IGN） 通知<a href="https://baike.baidu.com/item/内核" target="_blank" rel="noopener">内核</a>，自己对子进程的结束不感兴趣，那么子进程结束后，内核会回收， 并不再给父进程发送信号。</p>
+<p>⒋ 还有一些技巧，就是fork两次，父进程fork一个子进程，然后继续工作，子进程fork一 个孙进程后退出，那么孙进程被init接管，孙进程结束后，init会回收。不过子进程的回收还要自己做。</p>
 <p>链表的选择排序</p>
 <p>二叉树的最长路径和</p>
 <p>数独</p>
 <p>迷宫</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">i++=<span class="number">1</span>;</span><br><span class="line">++i=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">i++=<span class="number">1</span>;<span class="comment">//错误</span></span><br><span class="line">++i=<span class="number">1</span>;<span class="comment">//正确</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="（十四）招商银行信用卡中心"><a href="#（十四）招商银行信用卡中心" class="headerlink" title="（十四）招商银行信用卡中心"></a>（十四）招商银行信用卡中心</h4><h4 id="（十五）快手"><a href="#（十五）快手" class="headerlink" title="（十五）快手"></a>（十五）快手</h4><ol>
+<h4 id="（十四）招商银行信用卡中心"><a href="#（十四）招商银行信用卡中心" class="headerlink" title="（十四）招商银行信用卡中心"></a>（十四）招商银行信用卡中心</h4><ol>
+<li>CPI（Cycle Per Instruction，每条指令copy执行需要的时钟周期数）指CPU的指令时钟数。百表示每条计算机指令执行所需的时钟周期数。由于不同指令的功能不同，造成指令执行时间不同，即指令执行所用的时钟数不同，所以通常所说的CPI是一个平度均值。</li>
+</ol>
+<blockquote>
+<p>原来程序运行是20s，优化后指令数变为原来的70%但CPI变为原来的1.2倍，求程序运行时间。答：16.8s</p>
+</blockquote>
+<ol start="2">
+<li>RPC,HTTP,IP,TCP,UDP哪一个跟其他不一样？</li>
+</ol>
+<p>RPC(Remote Procedure Call)是远程过程调用，比如说现在有两台服务器A, B，一个在A服务器上的应用想要调用B服务器上的应用提供的某个，由于不在两个方法不在一个内存空间，不能直接调用，需要通过网络表达调用的语义和传达调用的数据。常存在于分布式系统中。</p>
+<p>为何有http协议之后，还要RPC调用？</p>
+<p>RPC跟HTTP不是对立面，RPC中可以使用HTTP作为通讯协议。RPC是一种设计、实现框架，通讯协议只是其中一部分。</p>
+<p>RPC的本质是提供了一种轻量无感知的跨进程通信的方式，在分布式机器上调用其他方法与本地调用无异（远程调用的过程是透明的，你并不知道这个调用的方法是部署在哪里，通过PRC能够解耦服务）。RPC是根据语言的API来定义的，而不是基于网络的应用来定义的，调用更方便，协议私密更安全、内容更小效率更高。</p>
+<p>http接口是在接口不多、系统与系统交互较少的情况下，解决信息孤岛初期常使用的一种通信手段；优点就是简单、直接、开发方便。利用现成的http协议 进行传输。但是如果是一个大型的网站，内部子系统较多、接口非常多的情况下，RPC框架的好处就显示出来了，首先（基于TCP协议的情况下）就是长链接，不必每次通信都要像http 一样去3次握手什么的，减少了网络开销；其次就是RPC框架一般都有注册中心，有丰富的监控管理；发布、下线接口、动态扩展等，对调用方来说是无感知、统 一化的操作。第三个来说就是安全性。最后就是最近流行的服务化架构、服务化治理，RPC框架是一个强力的支撑。</p>
+<ol start="3">
+<li>Linux配置环境变量的命令：export</li>
+<li>网络攻击手法xss使用alert执行</li>
+<li>斐波那契数列</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">在第二个数字之后，序列中的每个数字都是前两个数字的和。斐波那契数列可以定义为：</span><br><span class="line">F0 = <span class="number">0</span>,</span><br><span class="line">F1 = <span class="number">1</span>,</span><br><span class="line">FN = FN<span class="number">-1</span> + FN<span class="number">-2</span> 对于所有 N≥<span class="number">2</span></span><br><span class="line"><span class="comment">//递归实现</span></span><br><span class="line"><span class="keyword">int</span> fib(<span class="keyword">int</span> n)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span>)    <span class="comment">//基本情况</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="comment">// 基本情况</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> fib(n - <span class="number">1</span>) + fib(n - <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//非递归实现</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span>)    <span class="comment">//基本情况</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="comment">// 基本情况</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> f0=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> f1=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> fn;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        fn=f0+f1;</span><br><span class="line">        f0=f1;</span><br><span class="line">        f1=fn</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="（十五）快手"><a href="#（十五）快手" class="headerlink" title="（十五）快手"></a>（十五）快手</h4><ol>
 <li><p>容器的选择：<a href="https://blog.csdn.net/gogokongyin/article/details/51178378" target="_blank" rel="noopener">vector/deque/list的差别</a></p>
 <p>1、如果你需要高效的随即存取，而不在乎插入和删除的效率，使用vector<br>2、如果你需要大量的插入和删除，而不关心随即存取，则应使用list<br>3、如果你需要随即存取，而且关心两端数据的插入和删除，则应使用deque。</p>
 </li>
@@ -1228,6 +1331,69 @@
 <p>· 该类没有显式声明任何构造函数。</p>
 <p>· 数据成员中没有const和reference。–因为要初始化（？？这点目前不是很理解）</p>
 <p>满足则隐式生成默认构造函数。这里强调“任何”，是指即使用户自定义了复制构造函数或一个需要多个参数的构造函数，默认构造函数也不会被隐式声明了。在定义一个类时要保证有默认的构造函数。同时要求：<br>   1、Copy构造函数：<a href="https://www.jianshu.com/p/025ae7b51ca8" target="_blank" rel="noopener">原理</a><br>   2、赋值=操作符<br>   3、能够销毁对象的析构函数<br>  另外：<br>   1、可用的缺省构造函数，序列型容器必须，用于初始化元素<br>   2、==操作符定义，用于判断相等<br>   3、&lt;操作符定义，关联型容器必须，用于缺省排序</p>
+<ol start="3">
+<li>程序状态字PSW(Program Status Word)</li>
+</ol>
+<p>指在电脑中，一段包含被<a href="https://baike.so.com/doc/5354536-5590000.html" target="_blank" rel="noopener">操作系统</a>和潜在<a href="https://baike.so.com/doc/2368908-2504815.html" target="_blank" rel="noopener">硬件</a>使用的程序状态信息的<a href="https://baike.so.com/doc/176561-186541.html" target="_blank" rel="noopener">内存</a>或<a href="https://baike.so.com/doc/2368908-2504815.html" target="_blank" rel="noopener">硬件</a>区域。一般用一个专门的寄存器来指示处理器状态。在计算机系统中，表明系统运行状态的部件是<strong>程序状态字</strong>。</p>
+<p>程序状态字PSW(Program Status Word)包括的状态位有<strong>进位标志位(CF)</strong>、<strong>结果为零标志位(ZF)</strong>、<strong>符号标志位(SF)</strong>、<strong>溢出标志位(OF)</strong>、<strong>陷阱标志位(TF)</strong>、<strong>中断使能(中断屏蔽)标志位(IF)</strong>、<strong>虚拟中断标志位(VIF)</strong>、<strong>虚拟中断待决标志位(VIP)</strong>、<strong>I0特权级别(IOPL)</strong>。</p>
+<ol start="4">
+<li>类型变量所占字节数</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>c类型</th>
+<th>32</th>
+<th>64</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>char</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>short</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>int</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>long</td>
+<td>4</td>
+<td>8</td>
+</tr>
+<tr>
+<td>long long</td>
+<td>8</td>
+<td>8</td>
+</tr>
+<tr>
+<td>char*</td>
+<td>4</td>
+<td>8</td>
+</tr>
+<tr>
+<td>float</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>double</td>
+<td>8</td>
+<td>8</td>
+</tr>
+</tbody></table>
+<p>指针类型存储的是所指向变量的地址，所以32位机器只需要32bit，而64位机器需要64bit。数据类型占内存的位数实际上与操作系统的位数和编译器（不同编译器支持的位数可能有所不同）都有关，具体某种数据类型占字节数需要编译器根据操作系统位数间进行协调好后分配内存大小。</p>
+<h4 id="（十六）华为"><a href="#（十六）华为" class="headerlink" title="（十六）华为"></a>（十六）华为</h4><ol>
+<li>字符串分隔符分隔和定义比较函数</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Person(<span class="built_in">string</span> s,<span class="keyword">int</span> n):name(s),cnt(n)&#123;&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">string</span> name;</span><br><span class="line">    <span class="keyword">int</span> cnt;</span><br><span class="line"><span class="comment">//直接在类内重载&lt;运算符</span></span><br><span class="line"><span class="comment">//    bool operator&lt; (const Person&amp; two) const&#123;//一定要加const</span></span><br><span class="line"><span class="comment">//        if(cnt==two.cnt)&#123;</span></span><br><span class="line"><span class="comment">//            if(name.find(two.name)||two.name.find(name))</span></span><br><span class="line"><span class="comment">//                return name.length()&lt;two.name.length();</span></span><br><span class="line"><span class="comment">//            else</span></span><br><span class="line"><span class="comment">//                return name&lt;two.name;</span></span><br><span class="line"><span class="comment">//        &#125; else</span></span><br><span class="line"><span class="comment">//            return cnt&gt;two.cnt;</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在类外设计比较函数类</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Isshort</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:<span class="comment">//一定要加public，不然编译不过去</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">const</span> Person&amp; one,<span class="keyword">const</span> Person&amp; two)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(one.cnt==two.cnt)&#123;</span><br><span class="line">            <span class="keyword">if</span>(one.name.<span class="built_in">find</span>(two.name)||two.name.<span class="built_in">find</span>(one.name))</span><br><span class="line">                <span class="keyword">return</span> one.name.length()&lt;two.name.length();</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> one.name&lt;two.name;</span><br><span class="line">        &#125; <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> one.cnt&gt;two.cnt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">getStar</span><span class="params">(<span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt; &amp;str)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;Person&gt; people;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> per:str)&#123;</span><br><span class="line">        people.emplace_back(per.first,per.second);</span><br><span class="line">    &#125;</span><br><span class="line">   sort(people.<span class="built_in">begin</span>(),people.<span class="built_in">end</span>(),Isshort());</span><br><span class="line"><span class="comment">//在函数上直接添加lamda表达式</span></span><br><span class="line"><span class="comment">//       [](const Person &amp;one,const Person&amp; p)&#123;</span></span><br><span class="line"><span class="comment">//        if(one.cnt==p.cnt)&#123;</span></span><br><span class="line"><span class="comment">//            if(one.name.find(p.name)||p.name.find(one.name))</span></span><br><span class="line"><span class="comment">//                return one.name.length()&lt;p.name.length();</span></span><br><span class="line"><span class="comment">//            else</span></span><br><span class="line"><span class="comment">//                return one.name&lt;p.name;</span></span><br><span class="line"><span class="comment">//        &#125; else</span></span><br><span class="line"><span class="comment">//            return one.cnt&gt;p.cnt;</span></span><br><span class="line"><span class="comment">//    &#125;);</span></span><br><span class="line">    <span class="keyword">return</span> (*people.cbegin()).name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt; str;</span><br><span class="line"><span class="comment">//这样输入无法正常停止，遇见'.'或者换行符'\n'或者结束符'EOF'才能停止</span></span><br><span class="line"><span class="comment">//    while(getline(cin,s,','))&#123;</span></span><br><span class="line"><span class="comment">//        if(s=="\n")</span></span><br><span class="line"><span class="comment">//            break;</span></span><br><span class="line"><span class="comment">//        if(s[0]&lt;'A'||s[0]&gt;'Z')&#123;</span></span><br><span class="line"><span class="comment">//            cout&lt;&lt;00001&lt;&lt;endl;</span></span><br><span class="line"><span class="comment">//            return 0;</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        for(int i=1;i&lt;s.size();i++)&#123;</span></span><br><span class="line"><span class="comment">//            if(s[i]&lt;'a'||s[i]&gt;'z')&#123;</span></span><br><span class="line"><span class="comment">//                cout&lt;&lt;00001&lt;&lt;endl;</span></span><br><span class="line"><span class="comment">//                return 0;</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        if(str.count(s))</span></span><br><span class="line"><span class="comment">//            str[s]++;</span></span><br><span class="line"><span class="comment">//        else</span></span><br><span class="line"><span class="comment">//            str[s]=1;</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;s;</span><br><span class="line">    <span class="comment">//字符串分隔符的两种办法find和strtok</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* delim=<span class="keyword">new</span> <span class="keyword">char</span>(<span class="string">','</span>);</span><br><span class="line">    <span class="keyword">char</span>* data=(<span class="keyword">char</span>*)<span class="built_in">malloc</span>(s.<span class="built_in">size</span>()* <span class="keyword">sizeof</span>(<span class="keyword">char</span>));</span><br><span class="line">    copy(s.<span class="built_in">begin</span>(),s.<span class="built_in">end</span>(),data);</span><br><span class="line">    <span class="keyword">char</span>* per=strtok(data,delim);</span><br><span class="line">    <span class="keyword">while</span>(per!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(*per&lt;<span class="string">'A'</span>||*per&gt;<span class="string">'Z'</span>)&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="number">00001</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> p=per+<span class="number">1</span>;*p!=<span class="string">'\0'</span>;p++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(*p&lt;<span class="string">'a'</span>||*p&gt;<span class="string">'z'</span>)&#123;</span><br><span class="line">                <span class="built_in">cout</span>&lt;&lt;<span class="number">00001</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(str.count(per))</span><br><span class="line">            str[per]++;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            str[per]=<span class="number">1</span>;</span><br><span class="line">        per=strtok(<span class="literal">NULL</span>,delim);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//    for(auto start=s.begin();start&lt;=s.end();)&#123;</span></span><br><span class="line"><span class="comment">//        auto it=find(start,s.end(),',');</span></span><br><span class="line"><span class="comment">//        auto per=s.substr(start-s.begin(),it-start);</span></span><br><span class="line"><span class="comment">//        if(per[0]&lt;'A'||per[0]&gt;'Z')&#123;</span></span><br><span class="line"><span class="comment">//            cout&lt;&lt;00001&lt;&lt;endl;</span></span><br><span class="line"><span class="comment">//            return 0;</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        for(int i=1;i&lt;per.size();i++)&#123;</span></span><br><span class="line"><span class="comment">//            if(per[i]&lt;'a'||per[i]&gt;'z')&#123;</span></span><br><span class="line"><span class="comment">//                cout&lt;&lt;00001&lt;&lt;endl;</span></span><br><span class="line"><span class="comment">//                return 0;</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        if(str.count(per))</span></span><br><span class="line"><span class="comment">//            str[per]++;</span></span><br><span class="line"><span class="comment">//        else</span></span><br><span class="line"><span class="comment">//            str[per]=1;</span></span><br><span class="line"><span class="comment">//        start=it+1;</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line">    <span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> p:str)&#123;</span><br><span class="line">        sum+=p.second;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(sum&lt;=<span class="number">0</span>||sum&gt;=<span class="number">100</span>)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="number">00001</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">string</span> star=getStar(str);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; star&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -1406,7 +1572,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）面向对象的三个基本特征：封装、继承、多态"><span class="nav-number">1.</span> <span class="nav-text">（一）面向对象的三个基本特征：封装、继承、多态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）bash-shell"><span class="nav-number">2.</span> <span class="nav-text">（二）bash shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）图"><span class="nav-number">3.</span> <span class="nav-text">（三）图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（四）IO库"><span class="nav-number">4.</span> <span class="nav-text">（四）IO库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（五）搜狗"><span class="nav-number">5.</span> <span class="nav-text">（五）搜狗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（六）手写代码"><span class="nav-number">6.</span> <span class="nav-text">（六）手写代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（七）SAP"><span class="nav-number">7.</span> <span class="nav-text">（七）SAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（八）进程间的通信方式（IPC-inter-Process-Communication）"><span class="nav-number">8.</span> <span class="nav-text">（八）进程间的通信方式（IPC,inter-Process Communication）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（九）Windows内存管理方式：段存储、页存储、段页存储"><span class="nav-number">9.</span> <span class="nav-text">（九）Windows内存管理方式：段存储、页存储、段页存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十）计算机网络"><span class="nav-number">10.</span> <span class="nav-text">（十）计算机网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十一）百度"><span class="nav-number">11.</span> <span class="nav-text">（十一）百度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十二）网易"><span class="nav-number">12.</span> <span class="nav-text">（十二）网易</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十三-）腾讯"><span class="nav-number">13.</span> <span class="nav-text">（十三 ）腾讯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十四）招商银行信用卡中心"><span class="nav-number">14.</span> <span class="nav-text">（十四）招商银行信用卡中心</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十五）快手"><span class="nav-number">15.</span> <span class="nav-text">（十五）快手</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）面向对象的三个基本特征：封装、继承、多态"><span class="nav-number">1.</span> <span class="nav-text">（一）面向对象的三个基本特征：封装、继承、多态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）bash-shell"><span class="nav-number">2.</span> <span class="nav-text">（二）bash shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）图"><span class="nav-number">3.</span> <span class="nav-text">（三）图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（四）IO库"><span class="nav-number">4.</span> <span class="nav-text">（四）IO库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（五）搜狗"><span class="nav-number">5.</span> <span class="nav-text">（五）搜狗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（六）手写代码"><span class="nav-number">6.</span> <span class="nav-text">（六）手写代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（七）SAP"><span class="nav-number">7.</span> <span class="nav-text">（七）SAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（八）进程间的通信方式（IPC-inter-Process-Communication）"><span class="nav-number">8.</span> <span class="nav-text">（八）进程间的通信方式（IPC,inter-Process Communication）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（九）Windows内存管理方式：段存储、页存储、段页存储"><span class="nav-number">9.</span> <span class="nav-text">（九）Windows内存管理方式：段存储、页存储、段页存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十）计算机网络"><span class="nav-number">10.</span> <span class="nav-text">（十）计算机网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十一）百度"><span class="nav-number">11.</span> <span class="nav-text">（十一）百度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十二）网易"><span class="nav-number">12.</span> <span class="nav-text">（十二）网易</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十三）腾讯"><span class="nav-number">13.</span> <span class="nav-text">（十三）腾讯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十四）招商银行信用卡中心"><span class="nav-number">14.</span> <span class="nav-text">（十四）招商银行信用卡中心</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十五）快手"><span class="nav-number">15.</span> <span class="nav-text">（十五）快手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十六）华为"><span class="nav-number">16.</span> <span class="nav-text">（十六）华为</span></a></li></ol></div>
             
 
           </div>

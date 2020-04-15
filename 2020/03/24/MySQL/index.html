@@ -87,7 +87,7 @@
 <meta property="og:description" content="MySQL事务实现原理 首先了解什么是事务，事务是执行一系列数据库操作构成的单个逻辑工作单元，要么完全地执行，要么完全地不执行。 简单的说，事务就是并发控制的单位，是用户定义的一个操作序列。 （1）事务四大特性（ACID）  原子性（Atomicity）原子性是指事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。 一致性（Consistency）事务前后数据的完整性必须保持一致">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-24T06:17:11.000Z">
-<meta property="article:modified_time" content="2020-04-06T01:58:42.069Z">
+<meta property="article:modified_time" content="2020-04-12T07:50:49.994Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
@@ -444,20 +444,80 @@
 <p>全文索引：全文索引，只有在MyISAM引擎上才能使用，只能在CHAR,VARCHAR,TEXT类型字段上使用全文索引，介绍了要求，说说什么是全文索引，就是在一堆文字中，通过其中的某个关键字等，就能找到该字段所属的记录行。</p>
 <p>空间索引：空间索引是对空间数据类型的字段建立的索引，MySQL中的空间数据类型有四种，GEOMETRY、POINT、LINESTRING、POLYGON。在创建空间索引时，使用SPATIAL关键字。要求引擎为MyISAM，创建空间索引的列，必须将其声明为NOT NULL。</p>
 <ol start="4">
-<li><p><a href="https://blog.csdn.net/qq_35642036/article/details/82820178" target="_blank" rel="noopener">InnoDB和MyISAM的区别</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/hanchao5272/article/details/98607314" target="_blank" rel="noopener">数据库的行级锁和表级索共享锁和排他锁悲观锁和乐观锁</a></p>
-</li>
-<li><p>覆盖索引</p>
-</li>
+<li><a href="https://blog.csdn.net/qq_35642036/article/details/82820178" target="_blank" rel="noopener">InnoDB和MyISAM的区别</a></li>
 </ol>
-<p>‘Using Index’的意思是“覆盖索引”，它是使上面sql性能提升的关键</p>
-<p>一个包含查询所需字段的索引称为“覆盖索引”</p>
-<p>MySQL只需要通过索引就可以返回查询所需要的数据，而不必在查到索引之后进行回表操作，减少IO，提高了效率。例如上面的sql，查询条件是user_id，可以使用联合索引，要查询的字段是picname smallimg，这两个字段也在联合索引中，这就实现了“覆盖索引”，可以根据这个联合索引一次性完成查询工作，所以提升了性能。</p>
+<p>（1）InnoDB支持事务，MyISAM不支持。</p>
+<p>（2）InnoDB支持外键，MyISAM不支持。</p>
+<p>（3）<strong>InnoDB是聚簇索引，使用B+树作为索引结构</strong>，行数据是和（主键）索引绑在一起的（表数据文件本身就是按B+Tree组织的一个索引结构），<strong>主键索引的叶子结点就是数据文件</strong>，辅助索引的叶子结点是主键的值，所以<strong>InnoDB必须有主键，MyISAM可以没有</strong>。主键索引效率很高，但是辅助索引需要两次查询，先查询到主键，然后再通过主键查询到数据。因此，主键不应该过大，因为主键太大，其他索引也都会很大；<strong>MyISAM是非聚簇索引，使用B+树作为索引结构，索引和数据文件是分离的，主键索引和辅助索引的叶子结点都是数据文件的地址指针</strong>（MyISAM的主键索引和辅助索引没有区别，主键索引仅仅只是一个叫做PRIMARY的唯一非空的索引，且MyISAM可以不设主键。<a href="https://www.cnblogs.com/qlqwjy/p/7770580.html" target="_blank" rel="noopener">参考</a></p>
+<p>（4） <strong>InnoDB不保存表的具体行数，执行select count(*) from table时需要全表扫描。而MyISAM用一个变量保存了整个表的行数，执行上述语句时只需要读出该变量即可，速度很快（注意不能加有任何WHERE条件）</strong>。</p>
+<p>（5）<strong>MyISAM表格可以被压缩后进行查询操作</strong>。</p>
+<p>（6）<strong>InnoDB支持表、行(默认)级锁，而MyISAM支持表级锁</strong>。</p>
+<p>（7）<strong>Innodb存储文件有frm、ibd，而Myisam是frm、MYD、MYI</strong></p>
+<p>​    <strong>Innodb：frm是表定义文件，ibd是数据文件</strong></p>
+<p>​    <strong>Myisam：frm是表定义文件，myd是数据文件，myi是索引文件</strong></p>
+<ol start="5">
+<li>行级锁和表级索的区别</li>
+</ol>
+<p>（1）表级锁</p>
+<ul>
+<li>table-level locking，锁住整个表</li>
+<li>开销小，加锁快</li>
+<li>不会死锁(一次性加载所需的所有表)</li>
+<li>锁粒度大，发生锁冲突概率大，并发效率低</li>
+<li>适合查询</li>
+</ul>
+<p>（2）行级锁</p>
+<ul>
+<li>row-level locking，锁住一行记录</li>
+<li>开销大，加锁慢</li>
+<li>会死锁</li>
+<li>锁粒度小，发生锁冲突概率小，并发效率高</li>
+<li>适合并发写，事务控制</li>
+<li>并不是直接给记录行加锁，而是对行对应的索引加锁：<ul>
+<li>如果sql 语句操作了主键索引，Mysql 就会锁定这条主键索引</li>
+<li>如果sql语句操作了非主键索引，MySQL会先锁定该非主键索引，再锁定相关的主键索引</li>
+<li>在InnoDB中，如果SQL语句不涉及索引，则会通过隐藏的聚簇索引来对记录加锁</li>
+<li>对聚簇索引加锁，实际效果跟表锁一样，因为找到某一条记录就得扫描全表，要扫描全表，就得锁定表</li>
+</ul>
+</li>
+</ul>
+<ol start="6">
+<li>主键索引和非主键索引的区别</li>
+</ol>
+<p>InnoDB中，非主键索引的叶子节点存放的是<strong>主键的值</strong>，而主键索引的叶子节点存放的是<strong>整行数据</strong>。非主键索引也被称为<strong>二级索引</strong>，而主键索引也被称为<strong>聚簇索引</strong>。</p>
 <ol start="7">
-<li>聚类索引和非聚类索引的区别</li>
+<li>聚簇索引和非聚簇索引的区别</li>
 </ol>
-<p>聚集索引是指数据库表行中数据的物理顺序与键值的逻辑（索引）顺序相同。一个表只能有一个聚集索引，因为一个表的物理顺序只有一种情况，所以，对应的聚集索引只能有一个。如果某索引不是聚集索引，则表中的行物理顺序与索引顺序不匹配，与非聚集索引相比，聚集索引有着更快的检索速度。</p>
+<ul>
+<li><p>聚集索引：索引项的顺序与表中记录的物理顺序一致，叶子结点存储真实的数据行，不再有另外单独的数据页。 在一张表上最多只能创建一个聚簇索引，因为真实数据的物理顺序只能有一种。</p>
+</li>
+<li><p>非聚簇索引：表数据存储顺序与索引顺序无关，叶结点包含索引字段值即指向数据页数据行的逻辑指针，其行数量与数据表行数据量一致。</p>
+<p>总结一下：聚集索引是一种稀疏索引，数据页上一级的索引页存储的是页指针，而不是行指针。而对于非聚集索引，则是密集索引，在数据页的上一级索引页它为每一个数据行存储一条索引记录。与非聚集索引相比，聚集索引有着更快的检索速度。</p>
+</li>
+</ul>
+<ol start="8">
+<li><a href="https://blog.csdn.net/hanchao5272/article/details/98607314" target="_blank" rel="noopener">排他锁悲观锁和乐观锁</a></li>
+</ol>
+<ul>
+<li>共享锁：</li>
+</ul>
+<p>S锁、读锁。当前线程对共享资源加共享锁，其他线程可以读取此资源、可以继续追加共享锁，但是不能修改此资源、不能追加排他锁。<br>语法：<code>select id from t_table in share mode;</code>多个共享锁可以共存，共享锁与排他锁不能共存.</p>
+<ul>
+<li>排他锁：</li>
+</ul>
+<p>X锁、写锁。当前线程对共享资源加排他锁，其他线程不允许读取此资源，不允许追加共享锁，不允许修改此资源，不允许追加排他锁。<br>语法：<code>update t_table set a =1;</code> // 数据库的增删改操作默认都会加排他锁<code>select * from t_table for update;</code>// for update也是一种增删改。排他锁是独占的，不会与其他锁共存。</p>
+<ul>
+<li>乐观锁（乐观锁与悲观锁是逻辑上的锁）</li>
+</ul>
+<p>乐观地认为，并发问题很难发生。乐观锁虽然认为并发问题很难发生，但并不是不会发生，所以也会有措施防止问题真的产生：每次数据修改都自增版本号version。进行数据读取时，并不加锁，而是同时读取当前的版本号version1；在对数据进行修改时，要判断当前的版本号version2是否等于之前的版本号version1。版本号不匹配，则代表着并发问题已产生，所以需要回滚此次操作。实现方式：版本号机制、CAS。</p>
+<ul>
+<li>悲观锁</li>
+</ul>
+<p>悲观地认为，并发问题极易发生。悲观锁认为并发问题极易发生，所以每次操作，无论读写，都会对记录加锁，以防止其他线程对数据进行修改。实现方式：数据库的行锁、读锁和写锁。</p>
+<ol start="9">
+<li>覆盖索引</li>
+</ol>
+<p>一个包含查询所需字段的索引称为“覆盖索引”，覆盖索引只是特定于具体select语句而言的联合索引。也就是说一个联合索引对于某个select语句，通过索引可以直接获取查询结果，而不再需要回表查询，就称该联合索引覆盖了这条select语句。覆盖索引是sql性能提升的关键，减少IO，提高了效率。</p>
 
       
     </div>
