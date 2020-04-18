@@ -88,7 +88,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/C-%E6%98%93%E6%B7%B7%E7%82%B9/C-%E6%98%93%E6%B7%B7%E7%82%B9%5Csort.png">
 <meta property="article:published_time" content="2020-03-24T06:44:02.000Z">
-<meta property="article:modified_time" content="2020-04-08T02:35:15.342Z">
+<meta property="article:modified_time" content="2020-04-17T17:04:01.594Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -495,7 +495,7 @@
 <li>自底向上：注意底层达不到整数倍length的数据部分</li>
 </ul>
 <h4 id="（七）其他"><a href="#（七）其他" class="headerlink" title="（七）其他"></a>（七）其他</h4><ol>
-<li>printf 从右向左编译，从左向右输出，符合栈模型</li>
+<li>printf 从右向左计算，从左向右输出，符合栈模型</li>
 <li>类中变量赋值顺序是变量声明顺序，所以赋值时先执行a(b)，再执行b(i+1)。a赋值为随机数</li>
 </ol>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base1</span>&#123;</span></span><br><span class="line">    <span class="keyword">private</span>: <span class="keyword">int</span> a,b;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    base1 ( <span class="keyword">int</span> i ) : b(i+<span class="number">1</span>),a(b)&#123;&#125;</span><br><span class="line">    base1():b(<span class="number">0</span>),a(b)&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get_a</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> a;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get_b</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> b;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">base1 <span class="title">obj1</span><span class="params">(<span class="number">11</span>)</span></span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;obj1.get_a()&lt;&lt;<span class="built_in">endl</span>&lt;&lt;obj1.get_b()&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
