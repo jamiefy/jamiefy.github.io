@@ -259,6 +259,156 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/22/effectiveC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="翟安然">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="翟安然's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/22/effectiveC/" itemprop="url">effectiveC++</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-22T13:16:45+08:00">
+                2020-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="一、让自己习惯C"><a href="#一、让自己习惯C" class="headerlink" title="一、让自己习惯C++"></a>一、让自己习惯C++</h4><h5 id="条款01-视C-为一个语言联邦"><a href="#条款01-视C-为一个语言联邦" class="headerlink" title="条款01:视C++为一个语言联邦"></a>条款01:视C++为一个语言联邦</h5><h5 id="条款02：尽量以const-enums-and-inlines-to-defines"><a href="#条款02：尽量以const-enums-and-inlines-to-defines" class="headerlink" title="条款02：尽量以const,enums,and inlines to #defines"></a>条款02：尽量以const,enums,and inlines to #defines</h5><h5 id="条款03：尽可能使用const"><a href="#条款03：尽可能使用const" class="headerlink" title="条款03：尽可能使用const"></a>条款03：尽可能使用const</h5><h5 id="条款04：确定对象使用前已先被初始化"><a href="#条款04：确定对象使用前已先被初始化" class="headerlink" title="条款04：确定对象使用前已先被初始化"></a>条款04：确定对象使用前已先被初始化</h5><ol>
+<li>如果内置类型（初始化与赋值成本相同）的变量未被显示地初始化，它的值将由定义的位置决定。</li>
+</ol>
+<p>（1）定义在函数体之外的变量将被初始化为0。</p>
+<p>（2）定义在函数体内部的变量将不被初始化，它的值时任意的。</p>
+<ol start="2">
+<li>对于无任何成员的内置类型，手工初始化；内置类型以外，确保每一个构造函数都将对象的每一个成员在成员初始列进行初始化。</li>
+<li>为免除“跨编译单元值初始化次序”问题，以local static对象替代non-local static对象。</li>
+</ol>
+<h4 id="二、构造-析构-赋值运算"><a href="#二、构造-析构-赋值运算" class="headerlink" title="二、构造/析构/赋值运算"></a>二、构造/析构/赋值运算</h4><h5 id="条款05："><a href="#条款05：" class="headerlink" title="条款05："></a>条款05：</h5>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/27/%E6%97%A5%E5%B8%B8%E5%B8%B8%E7%94%A8%E6%8A%80%E5%B7%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1609,163 +1759,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/24/C-primer%E9%87%8D%E7%82%B9%E8%AE%B0%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="翟安然">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="翟安然's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/24/C-primer%E9%87%8D%E7%82%B9%E8%AE%B0%E5%BD%95/" itemprop="url">C++ primer重点记录</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-24T13:43:26+08:00">
-                2020-03-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="第一章-开始"><a href="#第一章-开始" class="headerlink" title="第一章     开始"></a>第一章     开始</h2><ol>
-<li>windows或unix编译程序使用命令</li>
-</ol>
-<blockquote>
-<p>cc hello.cc</p>
-</blockquote>
-<ul>
-<li>windows输出a.exe</li>
-<li>unix输出a.out</li>
-<li>输入a.exe或者./a.out执行程序</li>
-<li>运行GNU编译器的命令是g++</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/03/24/C-primer%E9%87%8D%E7%82%B9%E8%AE%B0%E5%BD%95/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1816,7 +1809,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1838,7 +1831,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
