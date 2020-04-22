@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/https.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/qiuck_sort.png">
 <meta property="article:published_time" content="2020-03-24T13:59:01.000Z">
-<meta property="article:modified_time" content="2020-04-18T09:26:16.241Z">
+<meta property="article:modified_time" content="2020-04-21T15:44:50.272Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="面试">
@@ -1041,7 +1041,7 @@
 <p>1、Cookie和Session都是会话技术，Session是运行在服务器端，用来跟踪用户的状态，数据可以保存在集群、数据库、文件中；Cookie是运行在客户端，用来记录用户的一些信息，也是实现Session的一种方式。</p>
 <p>2、Cookie有大小限制以及浏览器存储cookie的个数也有限制，Session是没有大小限制和存储个数与服务器的内存大小有关。</p>
 <p>3、Cookie有安全隐患，通过拦截或本地文件找得到你的cookie后可以进行攻击。</p>
-<p>4、Session是保存在服务器端上会存在一段时间才会消失，如果session过多会增加服务器的压力。</p>
+<p>4、有效期不同。cookie长期有效；Session有效时间短，假如设置Session的超时时间过长，服务器累计的Session就会越多，越容易招致内存溢出。</p>
 </li>
 <li><p>共享session</p>
 </li>
@@ -1107,8 +1107,73 @@
 </li>
 </ul>
 <ol start="7">
-<li><a href="https://blog.csdn.net/qq_38182125/article/details/89071899" target="_blank" rel="noopener">get和post的区别</a></li>
+<li>get和post的区别：<a href="https://blog.csdn.net/qq_38182125/article/details/89071899" target="_blank" rel="noopener">参考</a></li>
 </ol>
+<p><strong>它们的本质都是 TCP 链接，并无区别，在网络环境好的情况下发送时间也几乎一样。但是由于 HTTP 的规定以及浏览器/服务器的限制，导致它们在应用过程中可能会有所不同</strong>。</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">get</th>
+<th align="center">post</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">后退按钮/刷新</td>
+<td align="center">无害</td>
+<td align="center">数据会被重新提交（浏览器会告知用户数据会被重新提交）</td>
+</tr>
+<tr>
+<td align="center">书签</td>
+<td align="center">可收藏为书签</td>
+<td align="center">不可收藏为书签</td>
+</tr>
+<tr>
+<td align="center">缓存</td>
+<td align="center">浏览器自动缓存</td>
+<td align="center">不能被缓存</td>
+</tr>
+<tr>
+<td align="center">历史</td>
+<td align="center">参数能保留在浏览器历史中</td>
+<td align="center">参数不会保存在浏览器历史中</td>
+</tr>
+<tr>
+<td align="center">对数据长度的限制</td>
+<td align="center">数据在URL中，因此URL长度受限（最大长度2048个字符，不同浏览器和服务器限制不同）</td>
+<td align="center">没有限制</td>
+</tr>
+<tr>
+<td align="center">对数据类型的限制</td>
+<td align="center">只允许ASCLL字符</td>
+<td align="center">没有限制，也允许二进制数据。</td>
+</tr>
+<tr>
+<td align="center">安全性</td>
+<td align="center">安全性较差，因为所发送数据时URL的一部分，发送密码或者其他敏感信息时绝不要使用get</td>
+<td align="center">更安全，因为参数不会被保存在浏览历史或web服务器</td>
+</tr>
+<tr>
+<td align="center">可见性</td>
+<td align="center">数据在URL中对所有人可见</td>
+<td align="center">数据不会显示在URL中</td>
+</tr>
+<tr>
+<td align="center">TCP数据包</td>
+<td align="center">一个，把头部和数据一并发出去</td>
+<td align="center">两个，浏览器先发送请求行和请求头，服务器响应100 continue,浏览器再发送data，服务器响应200 ok (返回数据)</td>
+</tr>
+</tbody></table>
+<ol start="8">
+<li>TCP和UDP的区别</li>
+</ol>
+<ul>
+<li>TCP 面向连接，建立连接进行三次握手，一对一传输；UDP 面向无连接，不会建立连接，一对一、一对多、多对一传输，可以应用于广播</li>
+<li>UDP程序结构较简单，包头8字节；TCP包头20字节，还有一个可选项长度不确定</li>
+<li>TCP 是面向字节流的，UDP 是基于数据报的</li>
+<li>TCP 保证数据正确性，有流量控制拥塞控制累计确认和超时重传机制；UDP 可能丢包，没有流量控制和拥塞控制</li>
+<li>TCP 保证数据顺序，UDP 不保证</li>
+</ul>
 <h4 id="（十一）百度"><a href="#（十一）百度" class="headerlink" title="（十一）百度"></a>（十一）百度</h4><ol>
 <li><a href="https://blog.csdn.net/vivian187/article/details/93043070" target="_blank" rel="noopener">c++中构造函数或析构函数定义为protected</a></li>
 </ol>
@@ -1138,9 +1203,18 @@
 <li>最长回文子串</li>
 <li>数组中未出现最小正整数</li>
 <li>内存管理</li>
-<li>udp如何减少丢包</li>
+<li>udp为什么会丢包？如何减少丢包？</li>
+</ol>
+<p>1、接收端处理时间过长（接收端采用多线程回调机制或尽量简化处理数据包到重新回到监听状态的中间过程）</p>
+<p>2、发送包过大，超过接受者缓存（使用setsocketopt修改接收端缓冲区大小）</p>
+<p>3、发送包的频率过高（发送端sleep）</p>
+<p>4、网络不稳定或拥塞（改善网络环境或实现丢包处理）</p>
+<ol start="7">
 <li>TCP/UDP传输的应用  TCP流量控制  拥塞机制：慢启动  拥塞避免  快重传  快恢复</li>
-<li><img src="/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/qiuck_sort.png" alt="快速排序递归排序非递归排序"></li>
+<li>非递归快排</li>
+</ol>
+<p><img src="/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/qiuck_sort.png" alt="快速排序递归排序非递归排序"></p>
+<ol start="9">
 <li>封装、继承、多态的目的 </li>
 </ol>
 <p>封装可以使得代码模块化，继承可以扩展已存在的代码，他们的目的都是为了代码重用。而多态的目的则是为了接口重用，派生类的功能可以被基类的方法或引用变量所调用，这叫向后兼容，可以提高可扩充性和可维护性。</p>
@@ -1251,7 +1325,8 @@
 <p>   <strong>重载的形式:成员函数形式 和 友元函数形式</strong></p>
 <p>   (1) 一般情况下，单目运算符最好重载为类的成员函数；双目运算符则最好重载为类的友元函数。<br>   (2) 以下双目运算符不能重载为类的友元函数：=、()、[]、-&gt;。<br>   (3) 类型转换函数只能定义为一个类的成员函数而不能定义为类的友元函数。<br>   (4) 若一个运算符的操作需要修改对象的状态，选择重载为成员函数较好。<br>   (5) 若运算符所需的操作数（尤其是第一个操作数）希望有隐式类型转换，则只能选用友元函数。<br>   (6) 当运算符函数是一个成员函数时，最左边的操作数（或者只有最左边的操作数）必须是运算符类的一　个类对象（或者是对该类对象的引用）。如果左边的操作数必须是一个不同类的对象，或者是一个内部　类型的对象，该运算符函数必须作为一个友元函数来实现。<br>   (7) 当需要重载运算符具有可交换性时，选择重载为友元函数。</p>
 <ol start="3">
-<li><p>HTTP1.0规定浏览器与服务器只保持短暂的连接，浏览器的每次请求都需要与服务器建立一个TCP连接，服务器完成请求处理后立即断开TCP连接，服务器不跟踪每个客户也不记录过去的请求。</p>
+<li><p>HTTP1.0和HTTP1.1的区别</p>
+<p>HTTP1.0规定浏览器与服务器只保持短暂的连接，浏览器的每次请求都需要与服务器建立一个TCP连接，服务器完成请求处理后立即断开TCP连接，服务器不跟踪每个客户也不记录过去的请求。</p>
 <p>在 HTTP1.1 中,一个连接可用于一次或多次请求/响应交换,尽管连接可能由于各种原因被关闭。HTTP 1.1只能持久连接，在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延时。</p>
 </li>
 <li><p>二叉树的高度和节点数</p>
@@ -1425,9 +1500,118 @@
 <li>给定一个字符串  找出出现频率最高的字符  频率相同比较index小的  输出第一个值</li>
 <li>单例的安全性</li>
 </ol>
-<h4 id="十九-腾讯测开"><a href="#十九-腾讯测开" class="headerlink" title="(十九)腾讯测开"></a>(十九)腾讯测开</h4><ol>
+<h4 id="（十九）腾讯测开"><a href="#（十九）腾讯测开" class="headerlink" title="（十九）腾讯测开"></a>（十九）腾讯测开</h4><ol>
 <li>多态用法示例</li>
-<li>黑盒白盒</li>
+<li>测试用例举例(测试边界)</li>
+<li>用两个栈实现单向队列</li>
+<li>TCP与UDP区别总结：<br>1、TCP面向连接（要先通过三次握手建立连接）;UDP是无连接的，即发送数据之前不需要建立连接<br>2、TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达;UDP尽最大努力交付，即不保   证可靠交付<br>3、TCP面向字节流，实际上是TCP把数据看成一连串无结构的字节流;UDP是面向报文的<br>  UDP没有拥塞控制，因此网络出现拥塞不会使源主机的发送速率降低（对实时应用很有用，如IP电话，实时视频会议等）<br>4、每一条TCP连接只能是点到点的;UDP支持一对一，一对多，多对一和多对多的交互通信<br>5、TCP首部开销20字节;UDP的首部开销小，只有8个字节<br>6、TCP的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道</li>
+<li>哈希算法</li>
+<li>指针和引用的区别</li>
+</ol>
+<ul>
+<li>指针可以为空，引用不可以为空，引用是对象的别名，定义一个引用的时候必须初始化。因此使用指针之前必须做判空操作，引用就不必，引用是类型安全的，而指针不是。</li>
+<li>sizeof引用的大小是所指变量的大小；sizeof指针是指针本身的大小-四个字节。</li>
+<li>指针指向一块内存，它的内容是所指内存的地址；引用是某块内存的别名，引用不改变指向，指针可以，所以有常量指针没有常量引用。自增(++)操作对引用的操作是改变所指对象内容，对指针的操作是使指针指向下一个对象。</li>
+<li>引用使用时无需解引用（*）,指针需要解引用。</li>
+</ul>
+<ol start="7">
+<li>指针传递和引用传递的区别：<a href="https://blog.csdn.net/weixin_41256281/article/details/90545595" target="_blank" rel="noopener">参考</a></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>传递方式</th>
+<th>函数定义</th>
+<th>函数调用</th>
+<th>函数内对A修改</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>值传递</td>
+<td>fun(int a)</td>
+<td>fun(x)</td>
+<td>外部不变</td>
+</tr>
+<tr>
+<td>指针传递</td>
+<td>fun(int *a)</td>
+<td>fun(&amp;x)</td>
+<td>外部同步更改</td>
+</tr>
+<tr>
+<td>引用传递(c++)</td>
+<td>fun(int &amp;a)</td>
+<td>fun(x)</td>
+<td>外部同步更改</td>
+</tr>
+</tbody></table>
+<ul>
+<li>指针传递本质上是值传递，传递的是一个地址值。被调函数的形参作为被调函数的局部变量处理，会在栈中开辟内存空间存放由主调函数传进来的实参值。如果改变被调函数中的指针地址，它将影响不到主调函数的相关变量。</li>
+<li>引用传递，被调函数的形参也作为局部变量在栈中开辟内存空间，但是这时存放的是由主调函数放进来的实参变量的地址。参数的处理是通过一个间接寻址的方式操作到主调函数中的相关变量。</li>
+<li>从编译的角度讲，程序在编译时分别将指针和引用添加到符号表上，符号表中记录的是变量名及变量所对应地址。指针变量在符号表上对应的地址值为指针变量的地址值，而引用在符号表上对应的地址值为引用对象的地址值（与实参名字不同，地址相同）。符号表生成之后不会再更改，因此指针可以改变指向的对象（指针变量中的值可以改），而引用对象则不能更改。</li>
+</ul>
+<h4 id="（二十）美团测开"><a href="#（二十）美团测开" class="headerlink" title="（二十）美团测开"></a>（二十）美团测开</h4><ol>
+<li>函数指针和指针函数的区别</li>
+</ol>
+<ul>
+<li>函数指针其本质是一个指针变量，该指针指向这个函数。总结来说，函数指针就是指向函数的指针。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">声明格式：类型说明符 (*函数名) (参数)</span><br><span class="line">函数指针是需要把一个函数的地址赋值给它，有两种写法：</span><br><span class="line">fun = &amp;Function；</span><br><span class="line">fun = Function;</span><br><span class="line">取地址运算符&amp;不是必需的，因为一个函数标识符就表示了它的地址，如果是函数调用，还必须包含一个圆括号括起来的参数表。</span><br><span class="line">调用函数指针的方式也有两种：</span><br><span class="line">x = (*fun)();</span><br><span class="line">x = fun();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指针函数就是一个返回指针的函数，其本质是一个函数，而该函数的返回值是一个指针。</li>
+</ul>
+<ol start="2">
+<li>屏幕适配</li>
+</ol>
+<ul>
+<li>屏幕尺寸：手机对角线的物理尺寸 单位：英寸（inch），1英寸=2.54cm</li>
+</ul>
+<p>Android手机常见的尺寸有5寸、5.5寸、6寸，6.5寸等等</p>
+<ul>
+<li>屏幕分辨率：手机在横向、纵向上的像素点数总和</li>
+</ul>
+<p>一般描述成屏幕的”宽x高”=AxB 含义：屏幕在横向方向（宽度）上有A个像素点，在纵向方向（高）有B个像素点 例子：1080x1920，即宽度方向上有1080个像素点，在高度方向上有1920个像素点。单位：px（pixel），1px=1像素点</p>
+<p>UI设计师的设计图会以px作为统一的计量单位</p>
+<p>Android手机常见的分辨率：320x480、480x800、720x1280、1080x1920</p>
+<ul>
+<li>屏幕像素密度:每英寸的像素点数 单位：dpi（dots per ich）</li>
+</ul>
+<p>假设设备内每英寸有160个像素，那么该设备的屏幕像素密度=160dpi</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpi=(横向分辨率^<span class="number">2</span>+纵向分辨率^<span class="number">2</span>)^(<span class="number">1</span>/<span class="number">2</span>)/屏幕尺寸</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>屏幕适配的解决方案：<a href="https://blog.csdn.net/coderinchina/article/details/94736938?depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1&utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1" target="_blank" rel="noopener">参考</a></li>
+</ul>
+<p>1、自定义像素适配：(屏幕真实横纵分辨率/默认横纵分辨率)*所设置的横纵长=适配横纵长</p>
+<p>2、百分比适配（添加依赖）</p>
+<p>3、修改density实现屏幕适配</p>
+<p>4、限定符适配</p>
+<ol start="3">
+<li>SQL语句</li>
+<li>微信登录测试内容</li>
+<li>为什么选测开</li>
+<li>支付宝咻咻咻原理</li>
+<li>文件描述符</li>
+<li>linux内存管理</li>
+</ol>
+<ul>
+<li>虚拟内存</li>
+<li>物理内存：Linux内核管理物理内存是通过分页机制实现的</li>
+</ul>
+<ol start="9">
+<li>git llog</li>
+<li>kill进程是进程通信：linux内核发送SIGKILL信号给进程</li>
+<li>windows消息驱动机制和时间驱动机制</li>
+<li>Linux设备驱动机制</li>
+</ol>
+<ul>
+<li>字符设备</li>
+<li>块设备</li>
+<li>网络设备</li>
+</ul>
+<ol start="10">
+<li>同学分享的字节二面编程题：1、求36进制的和 2、判断树是否对称</li>
 </ol>
 
       
@@ -1607,7 +1791,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）面向对象的三个基本特征：封装、继承、多态"><span class="nav-number">1.</span> <span class="nav-text">（一）面向对象的三个基本特征：封装、继承、多态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）bash-shell"><span class="nav-number">2.</span> <span class="nav-text">（二）bash shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）图"><span class="nav-number">3.</span> <span class="nav-text">（三）图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（四）IO库"><span class="nav-number">4.</span> <span class="nav-text">（四）IO库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（五）搜狗"><span class="nav-number">5.</span> <span class="nav-text">（五）搜狗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（六）手写代码"><span class="nav-number">6.</span> <span class="nav-text">（六）手写代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（七）SAP"><span class="nav-number">7.</span> <span class="nav-text">（七）SAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（八）进程间的通信方式（IPC-inter-Process-Communication）"><span class="nav-number">8.</span> <span class="nav-text">（八）进程间的通信方式（IPC,inter-Process Communication）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（九）Windows内存管理方式：段存储、页存储、段页存储"><span class="nav-number">9.</span> <span class="nav-text">（九）Windows内存管理方式：段存储、页存储、段页存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十）计算机网络"><span class="nav-number">10.</span> <span class="nav-text">（十）计算机网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十一）百度"><span class="nav-number">11.</span> <span class="nav-text">（十一）百度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十二）网易"><span class="nav-number">12.</span> <span class="nav-text">（十二）网易</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十三）腾讯"><span class="nav-number">13.</span> <span class="nav-text">（十三）腾讯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十五）快手"><span class="nav-number">14.</span> <span class="nav-text">（十五）快手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十六）华为"><span class="nav-number">15.</span> <span class="nav-text">（十六）华为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十七）阿里"><span class="nav-number">16.</span> <span class="nav-text">（十七）阿里</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十八）华为"><span class="nav-number">17.</span> <span class="nav-text">（十八）华为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#十九-腾讯测开"><span class="nav-number">18.</span> <span class="nav-text">(十九)腾讯测开</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）面向对象的三个基本特征：封装、继承、多态"><span class="nav-number">1.</span> <span class="nav-text">（一）面向对象的三个基本特征：封装、继承、多态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）bash-shell"><span class="nav-number">2.</span> <span class="nav-text">（二）bash shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）图"><span class="nav-number">3.</span> <span class="nav-text">（三）图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（四）IO库"><span class="nav-number">4.</span> <span class="nav-text">（四）IO库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（五）搜狗"><span class="nav-number">5.</span> <span class="nav-text">（五）搜狗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（六）手写代码"><span class="nav-number">6.</span> <span class="nav-text">（六）手写代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（七）SAP"><span class="nav-number">7.</span> <span class="nav-text">（七）SAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（八）进程间的通信方式（IPC-inter-Process-Communication）"><span class="nav-number">8.</span> <span class="nav-text">（八）进程间的通信方式（IPC,inter-Process Communication）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（九）Windows内存管理方式：段存储、页存储、段页存储"><span class="nav-number">9.</span> <span class="nav-text">（九）Windows内存管理方式：段存储、页存储、段页存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十）计算机网络"><span class="nav-number">10.</span> <span class="nav-text">（十）计算机网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十一）百度"><span class="nav-number">11.</span> <span class="nav-text">（十一）百度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十二）网易"><span class="nav-number">12.</span> <span class="nav-text">（十二）网易</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十三）腾讯"><span class="nav-number">13.</span> <span class="nav-text">（十三）腾讯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十五）快手"><span class="nav-number">14.</span> <span class="nav-text">（十五）快手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十六）华为"><span class="nav-number">15.</span> <span class="nav-text">（十六）华为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十七）阿里"><span class="nav-number">16.</span> <span class="nav-text">（十七）阿里</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十八）华为"><span class="nav-number">17.</span> <span class="nav-text">（十八）华为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十九）腾讯测开"><span class="nav-number">18.</span> <span class="nav-text">（十九）腾讯测开</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二十）美团测开"><span class="nav-number">19.</span> <span class="nav-text">（二十）美团测开</span></a></li></ol></div>
             
 
           </div>
