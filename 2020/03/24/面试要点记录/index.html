@@ -90,8 +90,9 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/linux32.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/https.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/qiuck_sort.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95%5Cstruct.png">
 <meta property="article:published_time" content="2020-03-24T13:59:01.000Z">
-<meta property="article:modified_time" content="2020-04-21T15:44:50.272Z">
+<meta property="article:modified_time" content="2020-04-26T16:43:06.840Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="面试">
@@ -572,6 +573,7 @@
 <p>std::map:红黑树，自动排序，稳定查找插入删除时间复杂度O(lgn)，空间占用高，因为红黑树每一个节点都需要额外保存父节点，孩子节点以及红/黑性质，使得每一个节点都占用大量的空间</p>
 <p>std::unordered_map:哈希表，无序，快速查找插入删除，insert/find/erase的平均时间复杂度是O(1)，但是最坏复杂度是O(N)，相比于map空间占用更高，哈希表建立比较耗费时间，其遍历顺序与创建该容器时输入元素的顺序是不一定一致的，遍历是按照哈希表地址顺序从前往后依次遍历的</p>
 <p>存储小对象，内存消耗依次是：vector &lt;&lt;map &lt;&lt;unordered_map;当存储的对象增大时，vector的优势变得并不明显。因为随着对象增大，用于存储对象的空间所占的比例越来越大。因此单从内存消耗的角度来看，当存储的是小对象时，vector占很大的优势。但是，当存储的对象本身大小增大时，它的优势变得不再那么明显。</p>
+<p>hash表：（1）插入删除接近常量，大o表示法最快的方式（2）哈希表查询也快,但是底层存储结构是数组，一旦创建无法改变大小（3）哈希表无法用来有序遍历</p>
 <ol start="2">
 <li>顺序容器</li>
 </ol>
@@ -687,7 +689,7 @@
 <ol>
 <li><p><strong>new/delete是关键字，而free/malloc是库函数，需要头文件支持</strong>free对应的是malloc；delete对应的是new；free用来释放malloc出来动态内存，delete用来释放new出来的动态内存空间。</p>
 </li>
-<li><p><strong>无论释放几个空间大小，free只传递指针，多个对象时delete需加[]</strong>。数组的时候int <em>p=(int</em>)malloc(10*sizeof(int)) 释放的时候 free(p)即可；这是因为编译器对malloc做了一些特殊的处理，以保证可以正确释放内存。而当int *p=new int[10]释放的时候应为delete []p，注意[]的作用说明释放的是一个数组的内存，如果delete p则只是释放的p[0]，其余9个int的内存没有释放；这是因为当指明为[]的时候，编译器实际上是做了一个循环来释放这个数组的所有内存。</p>
+<li><p><strong>无论释放几个空间大小，free只传递指针，多个对象时delete需加[]</strong>。数组的时候int* <em>p=(int</em>)malloc(10*sizeof(int)) 释放的时候 free(p)即可；这是因为编译器对malloc做了一些特殊的处理，以保证可以正确释放内存。而当int *p=new int[10]释放的时候应为delete []p，注意[]的作用说明释放的是一个数组的内存，如果delete p则只是释放的p[0]，其余9个int的内存没有释放；这是因为当指明为[]的时候，编译器实际上是做了一个循环来释放这个数组的所有内存。</p>
 </li>
 <li><p>在类和对象的时候会有很大区别。在使用malloc和free来处理动态内存的时候，仅仅是释放了这个对象所占的内存，而不会调用这个对象的析构函数；使用new和delete就可以既释放对象的内存的同时，调用这个对象的析构函数。<strong>delete先调用析构函数，然后调用operator delete函数释放内存（通常底层使用free实现）</strong>。</p>
 </li>
@@ -955,12 +957,14 @@
 <pre><code>（1）相互等待资源而产生的一种僵持状态，如果没有外力的干预将一直持续这个状态
  （2）系统资源不足、相互竞争资源、请求资源顺序不当
  （3）互斥、不可剥夺、循环等待、请求与保持
- （4）因为互斥是不可改变的，所以只能破坏其他三个条件中的一个来解除死锁，方法：</code></pre></li>
+ （4）因为互斥是不可改变的，所以只能破坏其他三个条件中的一个来解除死锁，方法：</code></pre><ul>
 <li><p>破坏“不可剥夺”条件：一个进程不能获得所需要的全部资源时便处于等待状态，等待期间他占有的资源将被隐式的释放重新加入到系统的资源列表中。</p>
 </li>
 <li><p>破坏”请求与保持条件“：第一种方法静态分配即每个进程在开始执行时就申请他所需要的全部资源。第二种是动态分配即每个进程在申请所需要的资源时他本身不占用系统资源。</p>
 </li>
 <li><p>破坏“循环等待”条件：资源有序分配（将系统中的所有资源顺序编号，将紧缺的，稀少的采用较大的编号，在申请资源时必须按照编号的顺序进行，一个进程只有获得较小编号的进程才能申请较大编号的进程）</p>
+</li>
+</ul>
 </li>
 </ol>
 <h4 id="（九）Windows内存管理方式：段存储、页存储、段页存储"><a href="#（九）Windows内存管理方式：段存储、页存储、段页存储" class="headerlink" title="（九）Windows内存管理方式：段存储、页存储、段页存储"></a>（九）Windows内存管理方式：段存储、页存储、段页存储</h4><ol>
@@ -1611,8 +1615,105 @@
 <li>网络设备</li>
 </ul>
 <ol start="10">
-<li>同学分享的字节二面编程题：1、求36进制的和 2、判断树是否对称</li>
+<li><p>同学分享的字节二面编程题：1、求36进制的和 2、判断树是否对称</p>
+</li>
+<li><p>堆排序是原地算法，空间复杂度O(1)。堆在逻辑上是特殊的完全二叉树，在存储结构上是顺序表。一般用数组实现。堆只分为大堆和小堆大堆：树的父亲节点必须比它的叶子节点大；小堆：树中父亲节点比它的叶子小，只有这两种特殊的情况下一个数组才能被称为堆。</p>
+<ul>
+<li>自底向上构建堆时间复杂度O（n）：从最后一个非叶子结点开始循环遍历直到根结点</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createHeap</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = n/<span class="number">2</span>; i != <span class="number">0</span>; i--)</span><br><span class="line">		sink(n, i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>自顶向下构建堆时间复杂度O（nlogn）：从根结点开始</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createHeap</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">            swim(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>常见数据结构的查找、插入、删除时间复杂度</p>
+</li>
 </ol>
+<table>
+<thead>
+<tr>
+<th align="center">数据结构</th>
+<th align="center">访问</th>
+<th align="center">查找</th>
+<th align="center">插入</th>
+<th align="center">删除</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">数组</td>
+<td align="center">O(1)</td>
+<td align="center">O(n)</td>
+<td align="center">O(n)</td>
+<td align="center">O(n)</td>
+</tr>
+<tr>
+<td align="center">有序数组</td>
+<td align="center">O(1)</td>
+<td align="center">O(logn)</td>
+<td align="center">O(n)</td>
+<td align="center">O(n)</td>
+</tr>
+<tr>
+<td align="center">链表</td>
+<td align="center">O(n)</td>
+<td align="center">O(n)</td>
+<td align="center">O(1)</td>
+<td align="center">O(1)</td>
+</tr>
+<tr>
+<td align="center">有序链表</td>
+<td align="center">O(n)</td>
+<td align="center">O(n)</td>
+<td align="center">O(n)</td>
+<td align="center">O(1)</td>
+</tr>
+<tr>
+<td align="center">二叉查找树</td>
+<td align="center">O(logn)</td>
+<td align="center">O(logn)</td>
+<td align="center">O(logn)</td>
+<td align="center">O(logn)</td>
+</tr>
+<tr>
+<td align="center">哈希表</td>
+<td align="center">—</td>
+<td align="center">O(1)</td>
+<td align="center">O(1)</td>
+<td align="center">O(1)</td>
+</tr>
+</tbody></table>
+<p><img src="/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95%5Cstruct.png" alt="常见数据结构插入查找删除复杂度"></p>
+<ol start="13">
+<li><p><strong>使用递归函数需要注意防止</strong>栈溢出<strong>。在计算机中，</strong>函数调用是通过栈（stack）这种数据结构实现的，每当进入一个函数调用，栈就会加一层栈帧，每当函数返回，栈就会减一层栈帧。由于栈的大小不是无限的，所以，递归调用的次数过多，会导致栈溢出<strong><code>fact(1000)</code>。</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">def <span class="title">fact</span><span class="params">(n)</span>:</span></span><br><span class="line"><span class="function">    <span class="keyword">if</span> n</span>==<span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> n * fact(n - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<pre><code>**尾递归是指，在函数返回的时候，调用自身本身，并且，return语句不能包含表达式。这样，编译器或者解释器就可以把尾递归做优化，使递归本身无论调用多少次，都只占用一个栈帧，不会出现栈溢出的情况。**
+
+上面的fact(n)函数由于return n * fact(n - 1)引入了乘法表达式，所以就不是尾递归了。要改成尾递归方式，主要是要把每一步的乘积传入到递归函数中：
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">def <span class="title">fact</span><span class="params">(n)</span>:</span></span><br><span class="line"><span class="function">    <span class="keyword">return</span> <span class="title">fact_iter</span><span class="params">(n, <span class="number">1</span>)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">def <span class="title">fact_iter</span><span class="params">(num, product)</span>:</span></span><br><span class="line"><span class="function">    <span class="keyword">if</span> num </span>== <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> product</span><br><span class="line">    <span class="keyword">return</span> fact_iter(num - <span class="number">1</span>, num * product)</span><br></pre></td></tr></table></figure>
+
+**栈帧**
+每个栈帧对应着一个未运行完的函数，栈帧中保存了该函数的返回地址和局部变量。
+
+栈帧也叫过程活动记录，是编译器用来实现过程/函数调用的一种数据结构。从逻辑上讲，栈帧就是一个函数执行的环境：函数参数、函数的局部变量、函数执行完后返回到哪里等。
+
+栈是从高地址向低地址延伸的。每个函数的每次调用，都有它自己独立的一个栈帧，这个栈帧中维持着所需要的各种信息。寄存器ebp指向当前的栈帧的底部（高地址），寄存器esp指向当前的栈帧的顶部（低地址）。
+
+注意：EBP指向当前位于系统栈最上边一个栈帧的底部，而不是系统栈的底部。严格说来，“栈帧底部”和“栈底”是不同的概念;ESP所指的栈帧顶部和系统栈的顶部是同一个位置。</code></pre><ol start="14">
+<li>递归时间复杂度</li>
+</ol>
+<p>master公式：</p>
+<p>T [n] = aT[n/b] + f (n)（直接记为T [n] = aT[n/b] + T (N^d)）</p>
+<p>其中 a &gt;= 1 and b &gt; 1 是常量，其表示的意义是n表示问题的规模，a表示递归的次数也就是生成的子问题数，b表示每次递归是原来的1/b之一个规模，f（n）表示分解和合并所要花费的时间之和。</p>
+<p>解法：<br>①当d&lt;logb a时，时间复杂度为O(n^(logb a))<br>②当d=logb a时，时间复杂度为O((n^d)*logn)<br>③当d&gt;logb a时，时间复杂度为O(n^d)</p>
+<p>15. </p>
 
       
     </div>
