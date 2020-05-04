@@ -87,7 +87,7 @@
 <meta property="og:description" content="第一章     开始 windows或unix编译程序使用命令   cc hello.cc   windows输出a.exe unix输出a.out 输入a.exe或者.&#x2F;a.out执行程序 运行GNU编译器的命令是g++">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-24T05:43:26.000Z">
-<meta property="article:modified_time" content="2020-04-03T12:20:28.145Z">
+<meta property="article:modified_time" content="2020-05-02T13:23:05.389Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -759,17 +759,11 @@
 
 
 
-
-
 <h2 id="第十章-泛型算法"><a href="#第十章-泛型算法" class="headerlink" title="第十章 泛型算法"></a>第十章 泛型算法</h2><ol>
 <li>泛型算法本身不会执行容器的操作，它们只会运行与迭代器之上，执行迭代器的操作，所以算法容器中保存的元素，也可能在容器中移动元素，但永远不会直接添加或删除元素。</li>
 <li>replace_copy保持原序列不变，接受额外第三个迭代器参数，之处调整后序列的保存位置；back_inserter按需要增长目标序列。</li>
 </ol>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">replace_copy(ilst.cbegin(),ilst.cend,back_inserter(ivec),<span class="number">0</span>,<span class="number">42</span>);  <span class="comment">//ilst未改变，ivec包含ilst的一份拷贝，不过原来ilst中值为0的元素在ivec中都变为42</span></span><br></pre></td></tr></table></figure>
-
-
-
-
 
 
 
@@ -819,6 +813,36 @@
 </li>
 <li><p>文本查询程序——优质程序</p>
 </li>
+</ol>
+<h2 id="第十五章-面向对象程序设计"><a href="#第十五章-面向对象程序设计" class="headerlink" title="第十五章 面向对象程序设计"></a>第十五章 面向对象程序设计</h2><ol>
+<li>类型转换与继承</li>
+<li>虚函数</li>
+<li>抽象基类</li>
+<li>访问控制与继承</li>
+<li>继承中的类作用域</li>
+<li>构造函数与拷贝控制</li>
+</ol>
+<ul>
+<li>虚析构函数：虚析构函数阻止合成移动操作</li>
+<li>合成拷贝控制与继承</li>
+<li>派生类的拷贝控制成员</li>
+<li>继承的构造函数</li>
+</ul>
+<ol start="7">
+<li>容器与继承</li>
+</ol>
+<ul>
+<li>一般在容器中放置（智能）指针而非对象</li>
+<li>Basket</li>
+</ul>
+<ol start="8">
+<li>文本查询程序再探</li>
+</ol>
+<h2 id="第十六章-模板与泛型编程"><a href="#第十六章-模板与泛型编程" class="headerlink" title="第十六章 模板与泛型编程"></a>第十六章 模板与泛型编程</h2><ol>
+<li>模板实参推断</li>
+<li>重载与模板</li>
+<li>可变参数模板</li>
+<li>模板特例化</li>
 </ol>
 <hr>
 
@@ -995,7 +1019,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章-开始"><span class="nav-number">1.</span> <span class="nav-text">第一章     开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章-变量和基本类型"><span class="nav-number">2.</span> <span class="nav-text">第二章 变量和基本类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章-字符串、向量和数组"><span class="nav-number">3.</span> <span class="nav-text">第三章 字符串、向量和数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章-表达式"><span class="nav-number">4.</span> <span class="nav-text">第四章 表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章-语句"><span class="nav-number">5.</span> <span class="nav-text">第五章 语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六章-函数"><span class="nav-number">6.</span> <span class="nav-text">第六章 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第七章-类"><span class="nav-number">7.</span> <span class="nav-text">第七章 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十章-泛型算法"><span class="nav-number">8.</span> <span class="nav-text">第十章 泛型算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十二章-动态内存、智能指针和动态数组"><span class="nav-number">9.</span> <span class="nav-text">第十二章 动态内存、智能指针和动态数组</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章-开始"><span class="nav-number">1.</span> <span class="nav-text">第一章     开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章-变量和基本类型"><span class="nav-number">2.</span> <span class="nav-text">第二章 变量和基本类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章-字符串、向量和数组"><span class="nav-number">3.</span> <span class="nav-text">第三章 字符串、向量和数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章-表达式"><span class="nav-number">4.</span> <span class="nav-text">第四章 表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章-语句"><span class="nav-number">5.</span> <span class="nav-text">第五章 语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六章-函数"><span class="nav-number">6.</span> <span class="nav-text">第六章 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第七章-类"><span class="nav-number">7.</span> <span class="nav-text">第七章 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十章-泛型算法"><span class="nav-number">8.</span> <span class="nav-text">第十章 泛型算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十二章-动态内存、智能指针和动态数组"><span class="nav-number">9.</span> <span class="nav-text">第十二章 动态内存、智能指针和动态数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十五章-面向对象程序设计"><span class="nav-number">10.</span> <span class="nav-text">第十五章 面向对象程序设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十六章-模板与泛型编程"><span class="nav-number">11.</span> <span class="nav-text">第十六章 模板与泛型编程</span></a></li></ol></div>
             
 
           </div>
