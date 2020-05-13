@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/qiuck_sort.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/struct.png">
 <meta property="article:published_time" content="2020-03-24T13:59:01.000Z">
-<meta property="article:modified_time" content="2020-05-03T10:55:30.372Z">
+<meta property="article:modified_time" content="2020-05-05T02:50:10.912Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="面试">
@@ -1195,10 +1195,10 @@
 <p>（2）策略模式</p>
 <ul>
 <li>直接通过参数指定，传入一个特定算法的指针（暴露了算法）</li>
-<li>直接通过参数指定，只不过不是传入指针，而是一个标签。switch（和简单工厂结合）</li>
+<li>直接通过参数指定，只不过不是传入指针，而是一个标签（switch和简单工厂结合）</li>
 <li>模板实现</li>
 </ul>
-<p>（3）适配器模式：系统的数据和行为都正确，但接口不符时，我们应该考虑用适配器，目的是使控制范围之外的一个原有对象与某个接口匹配。适配器模式主要应用于希望复用一些现存的类，但是接口又与服用环境要求不一致的情况。</p>
+<p>（3）适配器模式：系统的数据和行为都正确，但接口不符时，我们应该考虑用适配器，目的是使控制范围之外的一个原有对象与某个接口匹配。适配器模式主要适应于希望复用一些现存的类，但是接口又与复用环境要求不一致的情况。</p>
 <p>（4）单例模式：由于构造函数是私有的，因此无法通过构造函数实例化，可以通过调用静态成员函数GetInstance在类内部构造实例。用户访问唯一实例的方法只有GetInstance()成员函数。GetInstance()使用懒惰初始化，也就是说它的返回值是当这个函数首次被访问时被创建的。这是一种防弹设计——所有GetInstance()之后的调用都返回相同实例的指针。单例模式通过类本身来管理其唯一实例，唯一的实例是类的一个普通对象，但设计这个类时，让它只能创建一个实例并提供对此实例的全局访问。唯一实例类Singleton在静态成员函数中隐藏创建实例的操作。习惯上把这个成员函数叫做Instance()，它的返回值是唯一实例的指针。<a href="https://blog.csdn.net/hackbuteer1/article/details/7460019" target="_blank" rel="noopener">参考</a></p>
 <p>（5）原型模式：拷贝构造函数</p>
 <p>（6）模板方法模式：定义操作的骨架，依次调用子类实现的函数</p>
@@ -1747,6 +1747,12 @@
 <li>宽度优先搜索（BFS）</li>
 </ul>
 <p>按照高度顺序一层一层的访问整棵树，高层次的节点将会比低层次的节点先被访问到。</p>
+<ol start="17">
+<li>std::funtion和std::bind<a href="https://blog.csdn.net/qq_38410730/article/details/103637778" target="_blank" rel="noopener">参考</a></li>
+<li>函数对象：定义了调用操作符（）的类对象。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sort</span>  </span></span><br><span class="line"><span class="class">&#123;</span>  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span> <span class="params">(<span class="keyword">const</span> <span class="built_in">string</span> &amp;str1, <span class="keyword">const</span> <span class="built_in">string</span> &amp;str2)</span> <span class="keyword">const</span>  <span class="comment">//带两个参数</span></span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> str1 &gt; str2;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;  </span><br><span class="line">然后我们可以用这个类作为参数来初始化<span class="built_in">set</span>容器：</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span>&lt;<span class="built_in">string</span>, Sort&gt; myset;  <span class="comment">//带比较函数的set构造函数,并用函数对象Sort初始化</span></span><br><span class="line">myset.insert(<span class="string">"A"</span>);  </span><br><span class="line">myset.insert(<span class="string">"B"</span>);  </span><br><span class="line"><span class="comment">//输出为：B，A。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Upper</span> </span></span><br><span class="line"><span class="class">&#123;</span>  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    Upper(<span class="keyword">int</span> <span class="built_in">min</span> = <span class="number">0</span>):m_min(<span class="built_in">min</span>)&#123;&#125;  </span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span> <span class="params">(<span class="keyword">int</span> value)</span> <span class="keyword">const</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> value &gt;= m_min;  </span><br><span class="line">    &#125;  </span><br><span class="line"><span class="keyword">private</span>:  </span><br><span class="line">    <span class="keyword">int</span> m_min;  </span><br><span class="line">&#125;;  </span><br><span class="line">从而这样调用 find_if 函数：</span><br><span class="line"></span><br><span class="line">find_if( dest.<span class="built_in">begin</span>(), dest.<span class="built_in">end</span>(), Upper(<span class="number">10</span>) );</span><br><span class="line"></span><br><span class="line">首先生成类 Upper 的对象，并用 <span class="number">10</span> 初始化，调用find_if 时将用该函数对象进行判断。</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -1870,7 +1876,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1881,7 +1887,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

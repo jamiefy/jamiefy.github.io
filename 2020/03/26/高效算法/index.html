@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="（一）素数筛（埃拉托斯特尼sieve of Eratosthenes ）埃拉托斯特尼筛法–后续继续整理……  素数的性质：   任意一个合数都可以表示几个质数的乘积-&gt;任意一个合数都可以表示成一个质数和另一个数的乘积  一个合数和一个质数的乘积&#x3D;一个更大的合数和一个更小的质数的乘积">
+<meta name="description" content="（一）素数筛 素数的性质：   定义：一个大于1的自然数，除了1和它本身以外，不能被任何自然数整除。所以2是最小的素数，0和1不是质数也不是合数。  任意一个合数都可以表示几个质数的乘积-&gt;任意一个合数都可以表示成一个质数和另一个数的乘积  一个合数和一个质数的乘积&#x3D;一个更大的合数和一个更小的质数的乘积">
 <meta property="og:type" content="article">
 <meta property="og:title" content="高效算法">
 <meta property="og:url" content="http://yoursite.com/2020/03/26/%E9%AB%98%E6%95%88%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="翟安然&#39;s Blog">
-<meta property="og:description" content="（一）素数筛（埃拉托斯特尼sieve of Eratosthenes ）埃拉托斯特尼筛法–后续继续整理……  素数的性质：   任意一个合数都可以表示几个质数的乘积-&gt;任意一个合数都可以表示成一个质数和另一个数的乘积  一个合数和一个质数的乘积&#x3D;一个更大的合数和一个更小的质数的乘积">
+<meta property="og:description" content="（一）素数筛 素数的性质：   定义：一个大于1的自然数，除了1和它本身以外，不能被任何自然数整除。所以2是最小的素数，0和1不是质数也不是合数。  任意一个合数都可以表示几个质数的乘积-&gt;任意一个合数都可以表示成一个质数和另一个数的乘积  一个合数和一个质数的乘积&#x3D;一个更大的合数和一个更小的质数的乘积">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-25T16:51:01.000Z">
-<meta property="article:modified_time" content="2020-03-27T06:25:56.532Z">
+<meta property="article:modified_time" content="2020-05-10T15:53:54.504Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="素数筛">
@@ -353,11 +353,12 @@
       
 
       
-        <h4 id="（一）素数筛（埃拉托斯特尼sieve-of-Eratosthenes-）"><a href="#（一）素数筛（埃拉托斯特尼sieve-of-Eratosthenes-）" class="headerlink" title="（一）素数筛（埃拉托斯特尼sieve of Eratosthenes ）"></a>（一）素数筛（埃拉托斯特尼sieve of Eratosthenes ）</h4><p><a href="https://zh.wikipedia.org/wiki/" target="_blank" rel="noopener">埃拉托斯特尼筛法</a>–后续继续整理……</p>
-<ol>
+        <h4 id="（一）素数筛"><a href="#（一）素数筛" class="headerlink" title="（一）素数筛"></a>（一）素数筛</h4><ol>
 <li>素数的性质：</li>
 </ol>
 <ul>
+<li><p>定义：一个大于1的自然数，除了1和它本身以外，不能被任何自然数整除。所以2是最小的素数，0和1不是质数也不是合数。</p>
+</li>
 <li><p>任意一个合数都可以表示几个质数的乘积-&gt;任意一个合数都可以表示成一个质数和另一个数的乘积</p>
 </li>
 <li><p>一个合数和一个质数的乘积=一个更大的合数和一个更小的质数的乘积</p>
@@ -387,6 +388,11 @@
 <li><p>求商判断法用大数除以小数，如果除得的余数与其中较小数互质，则原来两个数是互质数。如：317和52，317÷52＝6……5，因余数5与52互质，则317和52是互质数。</p>
 </li>
 </ul>
+<ol start="3">
+<li>实现</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//普通筛-埃拉托斯特尼sieve of Eratosthenes 时间复杂度O(nlogn)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">eratosthenes</span><span class="params">(<span class="keyword">int</span> upperbound)</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; <span class="title">flag</span><span class="params">(upperbound+<span class="number">1</span>, <span class="literal">true</span>)</span></span>;</span><br><span class="line">	flag[<span class="number">0</span>]=flag[<span class="number">1</span>]=<span class="literal">false</span>; <span class="comment">//exclude 0 and 1</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">//二次筛选法:i是素数，则下一个起点是i*i(比i小的数在前面已经乘过i了),把后面的所有的i*i+2*n*i筛掉	</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=<span class="built_in">sqrt</span>(upperbound); ++i)</span><br><span class="line">	    <span class="keyword">if</span>(flag[i]) <span class="comment">// if i is prime number</span></span><br><span class="line">		    <span class="keyword">for</span>(<span class="keyword">int</span> j=i*i; j&lt;=upperbound; j+=i)</span><br><span class="line">			    flag[j] = <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">return</span> flag;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//线性筛-欧拉筛</span></span><br><span class="line"><span class="comment">//prime数组中的素数是递增的,当i能整除prime[j]，那么i*prime[j+1]这个合数肯定被prime[j]乘以某个数筛掉。因为i中含有prime[j],prime[j]比prime[j+1]小，即i=k*prime[j]，那么i*prime[j+1]=(k*prime[j])*prime[j+1]=k’*prime[j]，接下去的素数同理。所以不用筛下去了。因此，在满足i%prime[j]==0这个条件之前以及第一次满足该条件时,prime[j]必定是prime[j]*i的最小因子</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">eratosthenes</span><span class="params">(<span class="keyword">int</span> upperbound)</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; <span class="title">flag</span><span class="params">(upperbound+<span class="number">1</span>, <span class="literal">true</span>)</span></span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; prime;</span><br><span class="line">	flag[<span class="number">0</span>]=flag[<span class="number">1</span>]=<span class="literal">false</span>; <span class="comment">//exclude 0 and 1</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;upperbound;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(flag[i])</span><br><span class="line">            prime.emplace_back(i);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;primer.<span class="built_in">size</span>()&amp;&amp;prime[j]*i&lt;=upperbound;j++)&#123;</span><br><span class="line">            flag[prime[j]*i]=<span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">if</span>(i%prime[j]==<span class="number">0</span>)<span class="comment">//保证每个合数只会被它的最小质因数筛去，因此每个数只会被标记一次</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> prime;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -508,7 +514,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -519,7 +525,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -563,7 +569,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）素数筛（埃拉托斯特尼sieve-of-Eratosthenes-）"><span class="nav-number">1.</span> <span class="nav-text">（一）素数筛（埃拉托斯特尼sieve of Eratosthenes ）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）素数筛"><span class="nav-number">1.</span> <span class="nav-text">（一）素数筛</span></a></li></ol></div>
             
 
           </div>
