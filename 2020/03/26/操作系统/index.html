@@ -86,18 +86,18 @@
 <meta property="og:site_name" content="翟安然&#39;s Blog">
 <meta property="og:description" content="1、程序内存区域分配 一个程序本质上都是由 bss段、data段、text段三个组成的。bss段通常是指用来存放程序中静态变量和未初始化的全局变量一块内存区域，一般在初始化时bss 段部分将会清零。bss段属于静态内存分配，即程序一开始就将其清零了。比如，在C语言之类的程序编译完成之后，已初始化的全局变量保存在.data 段中，静态变量和未初始化的全局变量保存在.bss 段中。text和data段">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/%E9%98%BB%E5%A1%9EIO.png">
+<meta property="og:image" content="http://yoursite.com/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%98%BB%E5%A1%9EIO.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%9D%9E%E9%98%BB%E5%A1%9EIO.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/IO%E5%A4%8D%E7%94%A8.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BF%A1%E5%8F%B7%E9%A9%B1%E5%8A%A8IO.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%BC%82%E6%AD%A5IO.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95%5C%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%5C%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83.png">
 <meta property="article:published_time" content="2020-03-25T16:23:38.000Z">
-<meta property="article:modified_time" content="2020-05-17T02:17:07.195Z">
+<meta property="article:modified_time" content="2020-05-17T02:32:11.883Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/%E9%98%BB%E5%A1%9EIO.png">
+<meta name="twitter:image" content="http://yoursite.com/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%98%BB%E5%A1%9EIO.png">
 
 
 
@@ -408,7 +408,7 @@
 <p>1、阻塞IO</p>
 <p>默认情况下，所有套接口都是阻塞的。</p>
 <p>例如recvfrom函数是一个系统调用：</p>
-<p><img src="/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/%E9%98%BB%E5%A1%9EIO.png" alt="img"></p>
+<p><img src="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%98%BB%E5%A1%9EIO.png" alt="img"></p>
 <p>说明：任何一个系统调用都会产生一个由用户态到内核态切换，再从内核态到用户态切换的过程，而进程上下文切换是通过系统中断程序来实现的，需要保存当前进程的上下文状态，这是一个极其费力的过程。</p>
 <p>2、非阻塞IO</p>
 <p>当我们把套接口设置成非阻塞时，就是由用户进程不停地询问内核某种操作是否准备就绪，这就是我们常说的“轮询”。这同样是一件比较浪费CPU的方式。</p>
@@ -426,7 +426,7 @@
 <p>异步IO与信号驱动IO最主要的区别就是信号驱动IO是由内核通知我们何时可以进行IO操作了，而异步IO则是由内核告诉我们IO操作何时完成了。具体来说就是，信号驱动IO当内核通知触发信号处理程序时，信号处理程序还需要阻塞在从内核空间缓冲区拷贝数据到用户空间缓冲区这个阶段，而异步IO直接是在第二个阶段完成后内核直接通知可以进程后续操作了。</p>
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%BC%82%E6%AD%A5IO.png" alt="img"></p>
 <p>综上所述，我们发现 前四种IO模型的主要区别是在第一阶段，因为它们的第二阶段都是在阻塞等待数据由内核空间拷贝到用户空间；而异步IO很明显与前面四种有所不同，它在第一阶段和第二阶段都不会阻塞。具体参考如下：</p>
-<p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95%5C%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83.png" alt="img"></p>
+<p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%5C%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83.png" alt="img"></p>
 <p>最后，总结下同步IO与异步IO的区别：</p>
 <p>1）同步IO操作会引起进程阻塞直到IO操作完成。</p>
 <p>2）异步IO操作不引起进程阻塞。</p>
