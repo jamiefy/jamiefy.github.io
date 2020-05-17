@@ -79,18 +79,25 @@
 
 
 
-<meta name="description" content="1. sizeof在用sizeof运算符求算某结构体所占空间时，并不是简单地将结构体中所有元素各自占的空间相加，这里涉及到内存字节对齐的问题，结构体变量所占空间的大小必定是最宽数据类型大小的整数倍。如有需要会在最后一个成员末尾填充若干字节使得所占空间大小是最宽数据类型大小的整数倍。内存对齐的原因：  某些平台只能在特定的地址处访问特定类型的数据； 提高存取数据的速度。比如有的平台每次都是从偶地址处">
+<meta name="description" content="1、程序内存区域分配 一个程序本质上都是由 bss段、data段、text段三个组成的。bss段通常是指用来存放程序中静态变量和未初始化的全局变量一块内存区域，一般在初始化时bss 段部分将会清零。bss段属于静态内存分配，即程序一开始就将其清零了。比如，在C语言之类的程序编译完成之后，已初始化的全局变量保存在.data 段中，静态变量和未初始化的全局变量保存在.bss 段中。text和data段">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操作系统">
 <meta property="og:url" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="翟安然&#39;s Blog">
-<meta property="og:description" content="1. sizeof在用sizeof运算符求算某结构体所占空间时，并不是简单地将结构体中所有元素各自占的空间相加，这里涉及到内存字节对齐的问题，结构体变量所占空间的大小必定是最宽数据类型大小的整数倍。如有需要会在最后一个成员末尾填充若干字节使得所占空间大小是最宽数据类型大小的整数倍。内存对齐的原因：  某些平台只能在特定的地址处访问特定类型的数据； 提高存取数据的速度。比如有的平台每次都是从偶地址处">
+<meta property="og:description" content="1、程序内存区域分配 一个程序本质上都是由 bss段、data段、text段三个组成的。bss段通常是指用来存放程序中静态变量和未初始化的全局变量一块内存区域，一般在初始化时bss 段部分将会清零。bss段属于静态内存分配，即程序一开始就将其清零了。比如，在C语言之类的程序编译完成之后，已初始化的全局变量保存在.data 段中，静态变量和未初始化的全局变量保存在.bss 段中。text和data段">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%98%BB%E5%A1%9EIO.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%9D%9E%E9%98%BB%E5%A1%9EIO.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/IO%E5%A4%8D%E7%94%A8.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BF%A1%E5%8F%B7%E9%A9%B1%E5%8A%A8IO.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%BC%82%E6%AD%A5IO.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83.png">
 <meta property="article:published_time" content="2020-03-25T16:23:38.000Z">
-<meta property="article:modified_time" content="2020-04-08T02:36:43.976Z">
+<meta property="article:modified_time" content="2020-05-17T02:11:51.455Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%98%BB%E5%A1%9EIO.png">
 
 
 
@@ -352,39 +359,15 @@
       
 
       
-        <h5 id="1-sizeof"><a href="#1-sizeof" class="headerlink" title="1. sizeof"></a>1. sizeof</h5><p>在用sizeof运算符求算某结构体所占空间时，并不是简单地将结构体中所有元素各自占的空间相加，这里涉及到内存字节对齐的问题，结构体变量所占空间的大小必定是最宽数据类型大小的整数倍。如有需要会在最后一个成员末尾填充若干字节使得所占空间大小是最宽数据类型大小的整数倍。内存对齐的原因：</p>
-<ol>
-<li>某些平台只能在特定的地址处访问特定类型的数据；</li>
-<li>提高存取数据的速度。比如有的平台每次都是从偶地址处读取数据，对于一个int型的变量，若从偶地址单元处存放，则只需一个读取周期即可读取该变量；但是若从奇地址单元处存放，则需要2个读取周期读取该变量</li>
+        <h4 id="1、程序内存区域分配"><a href="#1、程序内存区域分配" class="headerlink" title="1、程序内存区域分配"></a>1、程序内存区域分配</h4><ol>
+<li>一个程序本质上都是由 bss段、data段、text段三个组成的。bss段通常是指用来存放程序中静态变量和未初始化的全局变量一块内存区域，一般在初始化时bss 段部分将会清零。bss段属于静态内存分配，即程序一开始就将其清零了。比如，在C语言之类的程序编译完成之后，已初始化的全局变量保存在.data 段中，静态变量和未初始化的全局变量保存在.bss 段中。text和data段都在可执行文件中（在嵌入式系统里一般是固化在镜像文件中），由系统从可执行文件中加载；而bss段不在可执行文件中，由系统初始化。bss段（未手动初始化的数据）并不给该段的数据分配空间，只是记录数据所需空间的大小；bss段的大小从可执行文件中得到 ，然后链接器得到这个大小的内存块，紧跟在数据段后面。data段（已手动初始化的数据）则为数据分配空间，数据保存在目标文件中；data段包含经过初始化的全局变量以及它们的值。当这个内存区进入程序的地址空间后全部清零。包含data段和bss段的整个区段此时通常称为数据区。</li>
 </ol>
 <a id="more"></a>
 
-<h4 id="2-大端小端"><a href="#2-大端小端" class="headerlink" title="2. 大端小端"></a>2. 大端小端</h4><ol>
-<li><p><strong>大端模式（Big_endian）</strong>：字数据的高字节存储在低地址中，而字数据的低字节则存放在高地址中。</p>
-</li>
-<li><p><strong>小端模式</strong>（Little_endian）：字数据的高字节存储在高地址中，而字数据的低字节则存放在低地址中。</p>
-</li>
-<li><p><strong>口诀</strong>：大相反（低位存高位），小相同（低位存低位）。</p>
-</li>
-<li><p>联合体变量共享同一空间，可以通过联合体来判断大端小端。联合体同样存在内存对齐，所以联合长度至少可以容纳最大的成员。但是当最大成员大小不是** <strong>最大对齐数的整数倍时，就要对齐到最大对齐数的整数倍。</strong></p>
-</li>
+<ol start="2">
+<li>同一进程中的多个线程共享代码段（代码和常量），数据段（全局变量和静态变量），扩展段（堆存储）。</li>
 </ol>
-<h4 id="3-内存泄漏"><a href="#3-内存泄漏" class="headerlink" title="3.内存泄漏"></a>3.内存泄漏</h4><p>内存泄漏是指由于疏忽或错误造成了程序未能释放掉不再使用的内存的情况。内存泄漏并非指内存在物理上的消失，而是应用程序分配某段内存后，由于设计错误，失去了对该段内存的控制，因而造成了内存的浪费。内存泄漏的分类：</p>
-<ol>
-<li><p>堆内存泄漏 （Heap leak）。对内存指的是程序运行中根据需要分配通过<code>malloc</code>,<code>realloc</code>,<code>new</code>等从堆中分配的一块内存，再是完成后必须通过调用对应的 free或者delete 删掉。如果程序的设计的错误导致这部分内存没有被释放，那么此后这块内存将不会被使用，就会产生Heap Leak。</p>
-</li>
-<li><p>系统资源泄露（Resource Leak）。主要指程序使用系统分配的资源比如 <code>Bitmap</code>,<code>handle</code> ,<code>SOCKET</code>等没有使用相应的函数释放掉，导致系统资源的浪费，严重可导致系统效能降低，系统运行不稳定。</p>
-</li>
-<li><p>没有将基类的析构函数定义为虚函数。当基类指针指向子类对象时，如果基类的析构函数不是<code>virtual</code>，那么子类的析构函数将不会被调用，子类的资源没有正确是释放，因此造成内存泄露。</p>
-</li>
-</ol>
-<h4 id="4-程序内存区域分配"><a href="#4-程序内存区域分配" class="headerlink" title="4. 程序内存区域分配"></a>4. 程序内存区域分配</h4><ol>
-<li><p>一个程序本质上都是由 bss段、data段、text段三个组成的。bss段通常是指用来存放程序中未初始化的全局变量的一块内存区域，一般在初始化时bss 段部分将会清零。bss段属于静态内存分配，即程序一开始就将其清零了。比如，在C语言之类的程序编译完成之后，已初始化的全局变量保存在.data 段中，未初始化的全局变量保存在.bss 段中。text和data段都在可执行文件中（在嵌入式系统里一般是固化在镜像文件中），由系统从可执行文件中加载；而bss段不在可执行文件中，由系统初始化。bss段（未手动初始化的数据）并不给该段的数据分配空间，只是记录数据所需空间的大小；bss段的大小从可执行文件中得到 ，然后链接器得到这个大小的内存块，紧跟在数据段后面。data段（已手动初始化的数据）则为数据分配空间，数据保存在目标文件中；data段包含经过初始化的全局变量以及它们的值。当这个内存区进入程序的地址空间后全部清零。包含data段和bss段的整个区段此时通常称为数据区。</p>
-</li>
-<li><p>同一进程中的多个线程共享代码段（代码和常量），数据段（全局变量和静态变量），扩展段（堆存储）。</p>
-</li>
-</ol>
-<h4 id="5-进程的三种基本状态"><a href="#5-进程的三种基本状态" class="headerlink" title="5.进程的三种基本状态"></a>5.进程的三种基本状态</h4><ul>
+<h4 id="2、进程的三种基本状态"><a href="#2、进程的三种基本状态" class="headerlink" title="2、进程的三种基本状态"></a>2、进程的三种基本状态</h4><ul>
 <li>就绪状态</li>
 </ul>
 <p>当进程已分配到除CPU以外的所有必要的资源，只要获得处理机便可立即执行，这时的进程状态就称为就绪状态；</p>
@@ -406,6 +389,48 @@
 <p>阻塞-&gt;就绪：io完成</p>
 </blockquote>
 <p>一个进程在运行期间，不断地从一种状态转换到另一种状态，它可以多次处于就绪状态和执行状态，也可以多次处于阻塞状态。<br>A. 就绪—&gt;执行<br>处于就绪状态的进程，当进程调度程序为之分配好了处理机后，该进程便由就绪状态转换为执行状态；<br>B. 执行—&gt;就绪<br>处于执行状态的进程在其执行过程中，因分配给它的一个时间片已经用完而不得不让出处理机，于是进程从执行状态转换为就绪状态；<br>C. 执行—&gt;阻塞<br>正在执行的进程因等待某种事件发生而无法继续执行时，便从执行状态变成阻塞状态；<br>D. 阻塞—&gt;就绪<br>处于阻塞状态的进程，若其等待的事件已经发生，于是进程便从阻塞状态转变为就绪状态。</p>
+<h4 id="3、Linux系统结构详解"><a href="#3、Linux系统结构详解" class="headerlink" title="3、Linux系统结构详解"></a>3、Linux系统结构详解</h4><ol>
+<li>Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。</li>
+</ol>
+<p>内核空间和用户空间：</p>
+<p>由于操作系统都包括内核空间和用户空间（或者说内核态和用户态），内核空间主要存放的是内核代码和数据，是供系统进程使用的空间。而用户空间主要存放的是用户代码和数据，是供用户进程使用的空间。目前Linux系统简化了分段机制，使得虚拟地址与线性地址总是保持一致，因此，Linux系统的虚拟地址也是0<del>4G。Linux系统将这4G空间分为了两个部分：将最高的1G空间（从虚拟地址0xC0000000到0xFFFFFFFF）供内核使用，即为“内核空间”，而将较低的3G空间（从虚拟地址 0x00000000到0xBFFFFFFF）供用户进程使用，即为“用户空间”。同时由于每个用户进程都可以通过系统调用进入到内核空间，因此Linux的内核空间可以认为是被所有用户进程所共享的，因此对于一个具体用户进程来说，它可以访问的虚拟内存地址就是0</del>4G。另外Linux系统分为了四种特权级：0～3，主要是用来保护资源。0级特权最高，而3级则为最低，系统进程主要运行在0级，用户进程主要运行在3级。</p>
+<ol start="2">
+<li>Linux的五种IO模型：</li>
+</ol>
+<p>1）阻塞IO</p>
+<p>2）非阻塞IO</p>
+<p>3）IO复用（select和poll）</p>
+<p>4）信号驱动IO（sigio）</p>
+<p>5）异步IO（aio_）</p>
+<p>一般来说，IO操作都分为两个阶段，就拿套接口的输入操作来说，它的两个阶段主要是：</p>
+<p>1）等待网络数据到来，当分组到来时，将其拷贝到内核空间的临时缓冲区中</p>
+<p>2）将内核空间临时缓冲区中的数据拷贝到用户空间缓冲区中</p>
+<p>1、阻塞IO</p>
+<p>默认情况下，所有套接口都是阻塞的。</p>
+<p>例如recvfrom函数是一个系统调用：</p>
+<p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%98%BB%E5%A1%9EIO.png" alt="img"></p>
+<p>说明：任何一个系统调用都会产生一个由用户态到内核态切换，再从内核态到用户态切换的过程，而进程上下文切换是通过系统中断程序来实现的，需要保存当前进程的上下文状态，这是一个极其费力的过程。</p>
+<p>2、非阻塞IO</p>
+<p>当我们把套接口设置成非阻塞时，就是由用户进程不停地询问内核某种操作是否准备就绪，这就是我们常说的“轮询”。这同样是一件比较浪费CPU的方式。</p>
+<p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%9D%9E%E9%98%BB%E5%A1%9EIO.png" alt="img"></p>
+<p>3、IO复用</p>
+<p>我们常用到的IO复用，主要是select和poll。这里同样是会阻塞进程的，但是这里进程是阻塞在select或者poll这两个系统调用上，而不是阻塞在真正的IO操作上。</p>
+<p>看起来它与blocking I/O很相似，两个阶段都阻塞。但它与blocking I/O的一个重要区别就是它可以等待多个数据报就绪（datagram ready），即可以处理多个连接，而阻塞IO一次性只能监听一个套接口。这里的select相当于一个“代理”，调用select以后进程会被select阻塞，这时候在内核空间内select会监听指定的多个datagram (如socket连接)，如果其中任意一个数据就绪了就返回。此时程序再进行数据读取操作，将数据拷贝至当前进程内。</p>
+<p>在select模型中每个socket一般都设置成non-blocking，虽然等待数据阶段仍然是阻塞状态，但是它是被select调用阻塞的，而不是直接被I/O阻塞的。select底层通过轮询机制来判断每个socket读写是否就绪。</p>
+<p>当然select也有一些缺点，比如底层轮询机制会增加开销、支持的文件描述符数量过少等。为此，Linux引入了epoll作为select的改进版本。</p>
+<p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/IO%E5%A4%8D%E7%94%A8.png" alt="img"></p>
+<p>4、信号驱动IO</p>
+<p>信号驱动IO就是说我们可以通过sigaction系统调用注册一个信号处理程序，然后主程序可以继续向下执行，当我们所监控的套接口有IO操作准备就绪时，由内核通知触发前面注册的信号处理程序执行，然后将我们所需要的数据从内核空间拷贝到用户空间。</p>
+<p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BF%A1%E5%8F%B7%E9%A9%B1%E5%8A%A8IO.png" alt="img"></p>
+<p>5、异步IO</p>
+<p>异步IO与信号驱动IO最主要的区别就是信号驱动IO是由内核通知我们何时可以进行IO操作了，而异步IO则是由内核告诉我们IO操作何时完成了。具体来说就是，信号驱动IO当内核通知触发信号处理程序时，信号处理程序还需要阻塞在从内核空间缓冲区拷贝数据到用户空间缓冲区这个阶段，而异步IO直接是在第二个阶段完成后内核直接通知可以进程后续操作了。</p>
+<p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%BC%82%E6%AD%A5IO.png" alt="img"></p>
+<p>综上所述，我们发现 前四种IO模型的主要区别是在第一阶段，因为它们的第二阶段都是在阻塞等待数据由内核空间拷贝到用户空间；而异步IO很明显与前面四种有所不同，它在第一阶段和第二阶段都不会阻塞。具体参考如下：</p>
+<p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83.png" alt="img"></p>
+<p>最后，总结下同步IO与异步IO的区别：</p>
+<p>1）同步IO操作会引起进程阻塞直到IO操作完成。</p>
+<p>2）异步IO操作不引起进程阻塞。</p>
+<p>因此，由上面定义可以看出，阻塞IO、非阻塞IO、IO复用、信号驱动IO都是属于同步IO，而异步IO模型才与异步IO定义所匹配。</p>
 
       
     </div>
@@ -580,7 +605,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-sizeof"><span class="nav-number">1.</span> <span class="nav-text">1. sizeof</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-大端小端"><span class="nav-number"></span> <span class="nav-text">2. 大端小端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-内存泄漏"><span class="nav-number"></span> <span class="nav-text">3.内存泄漏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-程序内存区域分配"><span class="nav-number"></span> <span class="nav-text">4. 程序内存区域分配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-进程的三种基本状态"><span class="nav-number"></span> <span class="nav-text">5.进程的三种基本状态</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、程序内存区域分配"><span class="nav-number">1.</span> <span class="nav-text">1、程序内存区域分配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、进程的三种基本状态"><span class="nav-number">2.</span> <span class="nav-text">2、进程的三种基本状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、Linux系统结构详解"><span class="nav-number">3.</span> <span class="nav-text">3、Linux系统结构详解</span></a></li></ol></div>
             
 
           </div>

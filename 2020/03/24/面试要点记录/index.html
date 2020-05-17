@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/qiuck_sort.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/struct.png">
 <meta property="article:published_time" content="2020-03-24T13:59:01.000Z">
-<meta property="article:modified_time" content="2020-05-05T02:50:10.912Z">
+<meta property="article:modified_time" content="2020-05-16T16:16:56.292Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="面试">
@@ -1733,8 +1733,23 @@
 <li>struct和class的区别</li>
 </ol>
 <ul>
-<li>默认成员访问说明符：struct-public;class-private</li>
-<li>默认派生访问说明符:   struct-public;class-private</li>
+<li><p>默认成员访问说明符：struct-public;class-private</p>
+</li>
+<li><p>默认派生访问说明符:   struct-public;class-private</p>
+</li>
+<li><p>构造函数不同：（1）结构体不能包含显示地无参数构造函数，在自定义构造函数中必须为所有成员赋值。结构体成员将自动初始化为它们的默认值。（2）结构体不能包含以下形式的初始值设定类：base(argument-list)</p>
+</li>
+<li><p>结构体不允许声明析构函数；类可以</p>
+</li>
+<li><p>对于结构体中的实例字段成员，不能在声明时赋值初始化</p>
+</li>
+<li><p>声明了结构体类型后，可以使用new运算符创建构造对象，也可以不使用new关键字。如果不使用new,那么在初始化所有字段之前，字段将保持未赋值状态且对象不可用（结构体可以像类一样通过new 构造函数()来创建实例，也可以声明实例之后再赋值，例如：Person xiaoming; <a href="http://xiaoming.name/" target="_blank" rel="noopener">xiaoming.name</a> = “xiaoming”;）</p>
+</li>
+<li><p>struct是值类型，栈中创建（栈资源却很有限，因此struct常用来处理作为基类型对待的小对象）；class是引用类型，堆中创建</p>
+</li>
+<li><p>class能用于表示模板类型；struct不能</p>
+<p>注意：<strong>struct能包含成员函数；struct能继承；struct能实现多态</strong></p>
+</li>
 </ul>
 <ol start="16">
 <li>两种通用的遍历树的策略</li>
