@@ -91,9 +91,9 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/IO%E5%A4%8D%E7%94%A8.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BF%A1%E5%8F%B7%E9%A9%B1%E5%8A%A8IO.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%BC%82%E6%AD%A5IO.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95%5C%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83.png">
 <meta property="article:published_time" content="2020-03-25T16:23:38.000Z">
-<meta property="article:modified_time" content="2020-05-17T02:11:51.455Z">
+<meta property="article:modified_time" content="2020-05-17T02:15:14.704Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
@@ -393,7 +393,7 @@
 <li>Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。</li>
 </ol>
 <p>内核空间和用户空间：</p>
-<p>由于操作系统都包括内核空间和用户空间（或者说内核态和用户态），内核空间主要存放的是内核代码和数据，是供系统进程使用的空间。而用户空间主要存放的是用户代码和数据，是供用户进程使用的空间。目前Linux系统简化了分段机制，使得虚拟地址与线性地址总是保持一致，因此，Linux系统的虚拟地址也是0<del>4G。Linux系统将这4G空间分为了两个部分：将最高的1G空间（从虚拟地址0xC0000000到0xFFFFFFFF）供内核使用，即为“内核空间”，而将较低的3G空间（从虚拟地址 0x00000000到0xBFFFFFFF）供用户进程使用，即为“用户空间”。同时由于每个用户进程都可以通过系统调用进入到内核空间，因此Linux的内核空间可以认为是被所有用户进程所共享的，因此对于一个具体用户进程来说，它可以访问的虚拟内存地址就是0</del>4G。另外Linux系统分为了四种特权级：0～3，主要是用来保护资源。0级特权最高，而3级则为最低，系统进程主要运行在0级，用户进程主要运行在3级。</p>
+<p>由于操作系统都包括内核空间和用户空间（或者说内核态和用户态），内核空间主要存放的是内核代码和数据，是供系统进程使用的空间。而用户空间主要存放的是用户代码和数据，是供用户进程使用的空间。目前Linux系统简化了分段机制，使得虚拟地址与线性地址总是保持一致，因此，Linux系统的虚拟地址也是0~4G。Linux系统将这4G空间分为了两个部分：将最高的1G空间（从虚拟地址0xC0000000到0xFFFFFFFF）供内核使用，即为“内核空间”，而将较低的3G空间（从虚拟地址 0x00000000到0xBFFFFFFF）供用户进程使用，即为“用户空间”。同时由于每个用户进程都可以通过系统调用进入到内核空间，因此Linux的内核空间可以认为是被所有用户进程所共享的，因此对于一个具体用户进程来说，它可以访问的虚拟内存地址就是0~4G。另外Linux系统分为了四种特权级：0～3，主要是用来保护资源。0级特权最高，而3级则为最低，系统进程主要运行在0级，用户进程主要运行在3级。</p>
 <ol start="2">
 <li>Linux的五种IO模型：</li>
 </ol>
@@ -426,7 +426,7 @@
 <p>异步IO与信号驱动IO最主要的区别就是信号驱动IO是由内核通知我们何时可以进行IO操作了，而异步IO则是由内核告诉我们IO操作何时完成了。具体来说就是，信号驱动IO当内核通知触发信号处理程序时，信号处理程序还需要阻塞在从内核空间缓冲区拷贝数据到用户空间缓冲区这个阶段，而异步IO直接是在第二个阶段完成后内核直接通知可以进程后续操作了。</p>
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%BC%82%E6%AD%A5IO.png" alt="img"></p>
 <p>综上所述，我们发现 前四种IO模型的主要区别是在第一阶段，因为它们的第二阶段都是在阻塞等待数据由内核空间拷贝到用户空间；而异步IO很明显与前面四种有所不同，它在第一阶段和第二阶段都不会阻塞。具体参考如下：</p>
-<p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83.png" alt="img"></p>
+<p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95%5C%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83.png" alt="img"></p>
 <p>最后，总结下同步IO与异步IO的区别：</p>
 <p>1）同步IO操作会引起进程阻塞直到IO操作完成。</p>
 <p>2）异步IO操作不引起进程阻塞。</p>
