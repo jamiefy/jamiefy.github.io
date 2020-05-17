@@ -100,7 +100,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%BC%82%E6%AD%A5IO.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83.png">
 <meta property="article:published_time" content="2020-03-25T16:23:38.000Z">
-<meta property="article:modified_time" content="2020-05-17T08:28:15.524Z">
+<meta property="article:modified_time" content="2020-05-17T08:37:18.434Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
@@ -367,7 +367,7 @@
 
       
         <p>[TOC]</p>
-<h4 id="程序内存区域分配"><a href="#程序内存区域分配" class="headerlink" title="程序内存区域分配"></a>程序内存区域分配</h4><ol>
+<h3 id="程序内存区域分配"><a href="#程序内存区域分配" class="headerlink" title="程序内存区域分配"></a>程序内存区域分配</h3><ol>
 <li>一个程序本质上都是由 bss段、data段、text段三个组成的。bss段通常是指用来存放程序中静态变量和未初始化的全局变量一块内存区域，一般在初始化时bss 段部分将会清零。bss段属于静态内存分配，即程序一开始就将其清零了。比如，在C语言之类的程序编译完成之后，已初始化的全局变量保存在.data 段中，静态变量和未初始化的全局变量保存在.bss 段中。text和data段都在可执行文件中（在嵌入式系统里一般是固化在镜像文件中），由系统从可执行文件中加载；而bss段不在可执行文件中，由系统初始化。bss段（未手动初始化的数据）并不给该段的数据分配空间，只是记录数据所需空间的大小；bss段的大小从可执行文件中得到 ，然后链接器得到这个大小的内存块，紧跟在数据段后面。data段（已手动初始化的数据）则为数据分配空间，数据保存在目标文件中；data段包含经过初始化的全局变量以及它们的值。当这个内存区进入程序的地址空间后全部清零。包含data段和bss段的整个区段此时通常称为数据区。</li>
 </ol>
 <a id="more"></a>
@@ -375,7 +375,7 @@
 <ol start="2">
 <li>同一进程中的多个线程共享代码段（代码和常量），数据段（全局变量和静态变量），扩展段（堆存储）。</li>
 </ol>
-<h4 id="进程的三种基本状态"><a href="#进程的三种基本状态" class="headerlink" title="进程的三种基本状态"></a>进程的三种基本状态</h4><ul>
+<h3 id="进程的三种基本状态"><a href="#进程的三种基本状态" class="headerlink" title="进程的三种基本状态"></a>进程的三种基本状态</h3><ul>
 <li>就绪状态</li>
 </ul>
 <p>当进程已分配到除CPU以外的所有必要的资源，只要获得处理机便可立即执行，这时的进程状态就称为就绪状态；</p>
@@ -397,7 +397,7 @@
 <p>阻塞-&gt;就绪：io完成</p>
 </blockquote>
 <p>一个进程在运行期间，不断地从一种状态转换到另一种状态，它可以多次处于就绪状态和执行状态，也可以多次处于阻塞状态。<br>A. 就绪—&gt;执行<br>处于就绪状态的进程，当进程调度程序为之分配好了处理机后，该进程便由就绪状态转换为执行状态；<br>B. 执行—&gt;就绪<br>处于执行状态的进程在其执行过程中，因分配给它的一个时间片已经用完而不得不让出处理机，于是进程从执行状态转换为就绪状态；<br>C. 执行—&gt;阻塞<br>正在执行的进程因等待某种事件发生而无法继续执行时，便从执行状态变成阻塞状态；<br>D. 阻塞—&gt;就绪<br>处于阻塞状态的进程，若其等待的事件已经发生，于是进程便从阻塞状态转变为就绪状态。</p>
-<h4 id="Linux系统结构详解"><a href="#Linux系统结构详解" class="headerlink" title="Linux系统结构详解"></a>Linux系统结构详解</h4><h4 id="1-Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。"><a href="#1-Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。" class="headerlink" title="1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。"></a>1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。</h4><p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux%E7%B3%BB%E7%BB%9F%E7%BB%84%E6%88%90.jpg" alt="Linux系统组成部分层次结构"></p>
+<h3 id="Linux系统结构详解"><a href="#Linux系统结构详解" class="headerlink" title="Linux系统结构详解"></a>Linux系统结构详解</h3><h4 id="1-Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。"><a href="#1-Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。" class="headerlink" title="1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。"></a>1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。</h4><p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux%E7%B3%BB%E7%BB%9F%E7%BB%84%E6%88%90.jpg" alt="Linux系统组成部分层次结构"></p>
 <p><strong>用户空间 / 内核空间</strong><br> 现在操作系统都是采用虚拟存储器，那么对32位操作系统而言，它的寻址空间（虚拟存储空间）为4G（2的32次方）。 操作系统的核心是内核，独立于普通的应用程序，可以访问受保护的内存空间，也有访问底层硬件设备的所有权限。为了保证用户进程不能直接操作内核（kernel），保证内核的安全，操作系统将虚拟空间划分为两部分，一部分为内核空间，一部分为用户空间。</p>
 <p>内核是操作系统的核心，具有很多最基本功能，它负责管理系统的进程、内存、设备驱动程序、文件和网络系统，决定着系统的性能和稳定性。Linux 内核主要由内存管理、进程管理、设备驱动程序、文件系统和网络管理等组成。</p>
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux%E5%86%85%E6%A0%B8.jpg" alt="Linux内核组成"></p>
@@ -416,7 +416,7 @@
 <p>不过内存管理要管理的可不止 4KB 缓冲区。Linux 提供了对 4KB 缓冲区的抽象，例如 slab 分配器。这种内存管理模式使用 4KB 缓冲区为基数，然后从中分配结构，并跟踪内存页使用情况，比如哪些内存页是满的，哪些页面没有完全使用，哪些页面为空。这样就允许该模式根据系统需要来动态调整内存使用。</p>
 <p>为了支持多个用户使用内存，有时会出现可用内存被消耗光的情况。由于这个原因，页面可以移出内存并放入磁盘中。这个过程称为交换，因为页面会被从内存交换到硬盘上。内存管理的源代码可以在 ./linux/mm 中找到。</p>
 <ul>
-<li><h4 id="虚拟内存管理"><a href="#虚拟内存管理" class="headerlink" title="虚拟内存管理"></a>虚拟内存管理</h4></li>
+<li><h5 id="虚拟内存管理"><a href="#虚拟内存管理" class="headerlink" title="虚拟内存管理"></a>虚拟内存管理</h5></li>
 </ul>
 <p><strong>虚拟内存技术实际上就是建立了“内存—-外存”的两级存储结构，利用局部性原理实现高速缓存。</strong></p>
 <p>虚拟内存是计算机系统内存管理的一种技术。它使得应用程序认为它拥有连续的可用的内存（一个连续完整的地址空间），而实际上，它通常是被分隔成多个物理内存碎片，还可以通过覆盖或者把处于不活动状态的程序以及它们的数据全部交换到外部磁盘存储器上临时存储。与没有使用虚拟内存技术的系统相比，使用这种技术的系统使得大型程序的编写变得更容易，对真正的物理内存（例如RAM）的使用也更有效率。</p>
@@ -443,7 +443,7 @@
 <p>​    4）始终（CLOCK）置换算法</p>
 <p>}</p>
 </li>
-<li><h4 id="物理内存管理"><a href="#物理内存管理" class="headerlink" title="物理内存管理"></a>物理内存管理</h4></li>
+<li><h5 id="物理内存管理"><a href="#物理内存管理" class="headerlink" title="物理内存管理"></a>物理内存管理</h5></li>
 </ul>
 <p>Linux内核管理物理内存是通过分页机制实现的，它将整个内存划分成无数个4k（在i386体系结构中）大小的页，从而分配和回收内存的基本单位便是内存页了。利用分页管理有助于灵活分配内存地址，因为分配时不必要求必须有大块的连续内存，系统可以东一页、西一页的凑出所需要的内存供进程使用。虽然如此，但是实际上系统使用内存时还是倾向于分配连续的内存块，因为分配连续内存时，页表不需要更改，因此能降低TLB的刷新率（频繁刷新会在很大程度上降低访问速度）。物理内存的使用主要分为以下几个方面：</p>
 <p>（1）内核使用</p>
@@ -508,16 +508,13 @@
 <p>一般来说，IO操作都分为两个阶段，就拿套接口的输入操作来说，它的两个阶段主要是：</p>
 <p>1）等待网络数据到来，当分组到来时，将其拷贝到内核空间的临时缓冲区中</p>
 <p>2）将内核空间临时缓冲区中的数据拷贝到用户空间缓冲区中</p>
-<p>1、阻塞IO</p>
-<p>默认情况下，所有套接口都是阻塞的。</p>
+<h5 id="1、阻塞IO"><a href="#1、阻塞IO" class="headerlink" title="1、阻塞IO"></a>1、阻塞IO</h5><p>默认情况下，所有套接口都是阻塞的。</p>
 <p>例如recvfrom函数是一个系统调用：</p>
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%98%BB%E5%A1%9EIO.png" alt="img"></p>
 <p>说明：任何一个系统调用都会产生一个由用户态到内核态切换，再从内核态到用户态切换的过程，而进程上下文切换是通过系统中断程序来实现的，需要保存当前进程的上下文状态，这是一个极其费力的过程。</p>
-<p>2、非阻塞IO</p>
-<p>当我们把套接口设置成非阻塞时，就是由用户进程不停地询问内核某种操作是否准备就绪，这就是我们常说的“轮询”。这同样是一件比较浪费CPU的方式。</p>
+<h5 id="2、非阻塞IO"><a href="#2、非阻塞IO" class="headerlink" title="2、非阻塞IO"></a>2、非阻塞IO</h5><p>当我们把套接口设置成非阻塞时，就是由用户进程不停地询问内核某种操作是否准备就绪，这就是我们常说的“轮询”。这同样是一件比较浪费CPU的方式。</p>
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%9D%9E%E9%98%BB%E5%A1%9EIO.png" alt="img"></p>
-<p>3、IO多路复用</p>
-<p>我们常用到的IO多路复用，主要是select和poll。这里同样是会阻塞进程的，但是这里进程是阻塞在select或者poll这两个系统调用上，而不是阻塞在真正的IO操作上。</p>
+<h5 id="3、IO多路复用"><a href="#3、IO多路复用" class="headerlink" title="3、IO多路复用"></a>3、IO多路复用</h5><p>我们常用到的IO多路复用，主要是select和poll。这里同样是会阻塞进程的，但是这里进程是阻塞在select或者poll这两个系统调用上，而不是阻塞在真正的IO操作上。</p>
 <p>看起来它与blocking I/O很相似，两个阶段都阻塞。但它与blocking I/O的一个重要区别就是它可以等待多个数据报就绪（datagram ready），即可以处理多个连接，而阻塞IO一次性只能监听一个套接口。这里的select相当于一个“代理”，调用select以后进程会被select阻塞，这时候在内核空间内select会监听指定的多个datagram (如socket连接)，如果其中任意一个数据就绪了就返回。此时程序再进行数据读取操作，将数据拷贝至当前进程内。</p>
 <p>在select模型中每个socket一般都设置成non-blocking，虽然等待数据阶段仍然是阻塞状态，但是它是被select调用阻塞的，而不是直接被I/O阻塞的。select底层通过轮询机制来判断每个socket读写是否就绪。</p>
 <p>当然select也有一些缺点，比如底层轮询机制会增加开销、支持的文件描述符数量过少等。为此，Linux引入了epoll作为select的改进版本。</p>
@@ -566,11 +563,9 @@
 </tr>
 </tbody></table>
 <p>epoll是Linux目前大规模网络并发程序开发的首选模型。在绝大多数情况下性能远超select和poll。目前流行的高性能web服务器Nginx正式依赖于epoll提供的高效网络套接字轮询服务。但是，在并发连接不高的情况下，多线程+阻塞I/O方式可能性能更好。</p>
-<p>4、信号驱动IO</p>
-<p>信号驱动IO就是说我们可以通过sigaction系统调用注册一个信号处理程序，然后主程序可以继续向下执行，当我们所监控的套接口有IO操作准备就绪时，由内核通知触发前面注册的信号处理程序执行，然后将我们所需要的数据从内核空间拷贝到用户空间。</p>
+<h5 id="4、信号驱动IO"><a href="#4、信号驱动IO" class="headerlink" title="4、信号驱动IO"></a>4、信号驱动IO</h5><p>信号驱动IO就是说我们可以通过sigaction系统调用注册一个信号处理程序，然后主程序可以继续向下执行，当我们所监控的套接口有IO操作准备就绪时，由内核通知触发前面注册的信号处理程序执行，然后将我们所需要的数据从内核空间拷贝到用户空间。</p>
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BF%A1%E5%8F%B7%E9%A9%B1%E5%8A%A8IO.png" alt="img"></p>
-<p>5、异步IO</p>
-<p>异步IO与信号驱动IO最主要的区别就是信号驱动IO是由内核通知我们何时可以进行IO操作了，而异步IO则是由内核告诉我们IO操作何时完成了。具体来说就是，信号驱动IO当内核通知触发信号处理程序时，信号处理程序还需要阻塞在从内核空间缓冲区拷贝数据到用户空间缓冲区这个阶段，而异步IO直接是在第二个阶段完成后内核直接通知可以进程后续操作了。</p>
+<h5 id="5、异步IO"><a href="#5、异步IO" class="headerlink" title="5、异步IO"></a>5、异步IO</h5><p>异步IO与信号驱动IO最主要的区别就是信号驱动IO是由内核通知我们何时可以进行IO操作了，而异步IO则是由内核告诉我们IO操作何时完成了。具体来说就是，信号驱动IO当内核通知触发信号处理程序时，信号处理程序还需要阻塞在从内核空间缓冲区拷贝数据到用户空间缓冲区这个阶段，而异步IO直接是在第二个阶段完成后内核直接通知可以进程后续操作了。</p>
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%BC%82%E6%AD%A5IO.png" alt="img"></p>
 <p>综上所述，我们发现 前四种IO模型的主要区别是在第一阶段，因为它们的第二阶段都是在阻塞等待数据由内核空间拷贝到用户空间；而异步IO很明显与前面四种有所不同，它在第一阶段和第二阶段都不会阻塞。具体参考如下：</p>
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83.png" alt="img"></p>
@@ -752,7 +747,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#程序内存区域分配"><span class="nav-number">1.</span> <span class="nav-text">程序内存区域分配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程的三种基本状态"><span class="nav-number">2.</span> <span class="nav-text">进程的三种基本状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux系统结构详解"><span class="nav-number">3.</span> <span class="nav-text">Linux系统结构详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。"><span class="nav-number">4.</span> <span class="nav-text">1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-内存管理"><span class="nav-number">5.</span> <span class="nav-text">2. 内存管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟内存管理"><span class="nav-number">6.</span> <span class="nav-text">虚拟内存管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#物理内存管理"><span class="nav-number">7.</span> <span class="nav-text">物理内存管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-文件系统"><span class="nav-number">8.</span> <span class="nav-text">3. 文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#目录项"><span class="nav-number">8.1.</span> <span class="nav-text">目录项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode"><span class="nav-number">8.2.</span> <span class="nav-text">inode</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件存储结构示意图"><span class="nav-number">8.3.</span> <span class="nav-text">文件存储结构示意图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode的大小"><span class="nav-number">8.4.</span> <span class="nav-text">inode的大小</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode号码"><span class="nav-number">8.5.</span> <span class="nav-text">inode号码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#硬链接"><span class="nav-number">8.6.</span> <span class="nav-text">硬链接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#软链接"><span class="nav-number">8.7.</span> <span class="nav-text">软链接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Linux的五种IO模型"><span class="nav-number">9.</span> <span class="nav-text">4. Linux的五种IO模型</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#程序内存区域分配"><span class="nav-number">1.</span> <span class="nav-text">程序内存区域分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程的三种基本状态"><span class="nav-number">2.</span> <span class="nav-text">进程的三种基本状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux系统结构详解"><span class="nav-number">3.</span> <span class="nav-text">Linux系统结构详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。"><span class="nav-number">3.1.</span> <span class="nav-text">1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-内存管理"><span class="nav-number">3.2.</span> <span class="nav-text">2. 内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#虚拟内存管理"><span class="nav-number">3.2.1.</span> <span class="nav-text">虚拟内存管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#物理内存管理"><span class="nav-number">3.2.2.</span> <span class="nav-text">物理内存管理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-文件系统"><span class="nav-number">3.3.</span> <span class="nav-text">3. 文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#目录项"><span class="nav-number">3.3.1.</span> <span class="nav-text">目录项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode"><span class="nav-number">3.3.2.</span> <span class="nav-text">inode</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件存储结构示意图"><span class="nav-number">3.3.3.</span> <span class="nav-text">文件存储结构示意图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode的大小"><span class="nav-number">3.3.4.</span> <span class="nav-text">inode的大小</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode号码"><span class="nav-number">3.3.5.</span> <span class="nav-text">inode号码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#硬链接"><span class="nav-number">3.3.6.</span> <span class="nav-text">硬链接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#软链接"><span class="nav-number">3.3.7.</span> <span class="nav-text">软链接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Linux的五种IO模型"><span class="nav-number">3.4.</span> <span class="nav-text">4. Linux的五种IO模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、阻塞IO"><span class="nav-number">3.4.1.</span> <span class="nav-text">1、阻塞IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、非阻塞IO"><span class="nav-number">3.4.2.</span> <span class="nav-text">2、非阻塞IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、IO多路复用"><span class="nav-number">3.4.3.</span> <span class="nav-text">3、IO多路复用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、信号驱动IO"><span class="nav-number">3.4.4.</span> <span class="nav-text">4、信号驱动IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5、异步IO"><span class="nav-number">3.4.5.</span> <span class="nav-text">5、异步IO</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
