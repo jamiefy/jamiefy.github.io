@@ -79,20 +79,33 @@
 
 
 
-<meta name="description" content="Linux面试常考命令 chmod  1、文字设定用法： 1chmod [who] [+ | - | &#x3D;] [mode] 文件名  命令中各选项的含义为（1）操作对象 who可以是下述字母中的任一个或者它们的组合u 表示用户(user) 即文件或目录的所有者g 表示同组(group)用户 即与文件属主有相同组 ID 的所有用户o 表示其他(others)用户a 表示所有(all)用户 它是系统默认">
+<meta name="description" content="[TOC] Linux面试常考命令 chmod  1、文字设定用法： 1chmod [who] [+ | - | &#x3D;] [mode] 文件名  命令中各选项的含义为（1）操作对象 who可以是下述字母中的任一个或者它们的组合u 表示用户(user) 即文件或目录的所有者g 表示同组(group)用户 即与文件属主有相同组 ID 的所有用户o 表示其他(others)用户a 表示所有(all)用户">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux">
 <meta property="og:url" content="http://yoursite.com/2020/05/13/Linux/index.html">
 <meta property="og:site_name" content="翟安然&#39;s Blog">
-<meta property="og:description" content="Linux面试常考命令 chmod  1、文字设定用法： 1chmod [who] [+ | - | &#x3D;] [mode] 文件名  命令中各选项的含义为（1）操作对象 who可以是下述字母中的任一个或者它们的组合u 表示用户(user) 即文件或目录的所有者g 表示同组(group)用户 即与文件属主有相同组 ID 的所有用户o 表示其他(others)用户a 表示所有(all)用户 它是系统默认">
+<meta property="og:description" content="[TOC] Linux面试常考命令 chmod  1、文字设定用法： 1chmod [who] [+ | - | &#x3D;] [mode] 文件名  命令中各选项的含义为（1）操作对象 who可以是下述字母中的任一个或者它们的组合u 表示用户(user) 即文件或目录的所有者g 表示同组(group)用户 即与文件属主有相同组 ID 的所有用户o 表示其他(others)用户a 表示所有(all)用户">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7ZXaQLQicCX8yuMe3IiaJZWHiaJNz2IZPtjr8fl6aLlIgTP7OKZ8SXhg0w/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7HEv4ppaziacIqB6cLOibic1bbTHnBmiaJQLBD2avtryqfqoriayRmBKm57Q/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7b8RqXeSxo7e9x1v20icEyvR6IZtIzB49WlQgsqqQeBia1xF3P8fOxnjg/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et74asPxeJxonhGjtnzph8feqicKlCtVwyLz6icXMRqaiabFW16jU5l4Xwnw/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7vTiaQCgtYHReWo1mfPUWsiaJBrUqwjy3XNqP2clfrHa9N1UbuBrnybAw/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7Yx8qqmjiaexudSYG7A93djdPpYygoXhFb5befMYibsDcnRUHg3b3XoAA/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7wibmuEjkciazstzib8S86qV8UwEAsuO7eqwZermrVNEGics4PKgYDEmTXw/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et77diawWtoeE5Iniby2tf49qJgaiaWm1Cs7lB5GljMXjjXHLk2ibxla6MVjg/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7PAFfVxmNGgzz9ZKpXnq5LP8fq8Gx9qI08hIicyBBrf68lpk8AnsLfaw/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et79YpfJYjNHpzoT33GzvBcwmCBVvibKLLIReSosNm5WicG6fb2yY0TNUfQ/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et77m2ydG87MaLOFgtiaH39fEeqmrL4C3hvqJdFESLRHh982qiaNXiasobCg/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7cpp0QavUZ8vh0zVMXP8KmKhrcbL88cnWyACO5JpS3UiaHQkLhjiaoZMA/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7zDRn9B1uDXXS0UGcU98R2pOYWFyxbar16EWTrbyg462SBuWAqMvAUA/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
 <meta property="og:image" content="http://yoursite.com/2020/05/13/Linux/linuxbash.png">
 <meta property="article:published_time" content="2020-05-13T03:18:40.000Z">
-<meta property="article:modified_time" content="2020-05-13T10:23:43.098Z">
+<meta property="article:modified_time" content="2020-05-17T07:03:44.171Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/05/13/Linux/linuxbash.png">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7ZXaQLQicCX8yuMe3IiaJZWHiaJNz2IZPtjr8fl6aLlIgTP7OKZ8SXhg0w/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
 
 
 
@@ -354,7 +367,8 @@
       
 
       
-        <h3 id="Linux面试常考命令"><a href="#Linux面试常考命令" class="headerlink" title="Linux面试常考命令"></a>Linux面试常考命令</h3><ol>
+        <p>[TOC]</p>
+<h4 id="Linux面试常考命令"><a href="#Linux面试常考命令" class="headerlink" title="Linux面试常考命令"></a>Linux面试常考命令</h4><ol>
 <li>chmod</li>
 </ol>
 <p>1、文字设定用法：</p>
@@ -416,178 +430,103 @@
 </li>
 <li><p>Linux系统常用的网络操作命令包括 netstat nslookup host finger和 ping netstat命令的功能是显示网络连接路由表和网络接口信息,可以让用户得知目前都有哪些网络连接正在运作 ; nslookup命令的功能是查询一台机器的 IP 地址和其对应的域名它通常需要一台域名服务器来提供域名服务 如果用户已经设置好域名服务器就可以用这个命令查看不同主机的 IP地址对应的域名; host命令可根据主机名查询主机的 IP 地址或根据主机 IP地址查询主机名; finger命令的功能是查询用户的信息通常会显示系统中某个用户的用户名 主目录 停滞时间 登录时间 登录 shell等信息; ping命令用于查看网络上的主机是否在工作</p>
 </li>
-<li><p>文件查找find</p>
-<p><strong>1. ps是什么？</strong></p>
-<p>要对进程进行监测和控制，首先必须要了解当前进程的情况,也就是需要查看当前进程，ps命令就是最基本进程查看命令。使用该命令可以确定有哪些进程正在运行和运行的状态、进程是否结束、进程有没有僵尸、哪些进程占用了过多的资源等等.总之大部分信息都是可以通过执行该命令得到。</p>
-<p><strong>ps是显示瞬间进程的状态，并不动态连续</strong>；如果想对进程进行实时监控应该用top命令。</p>
-</li>
 </ol>
-<pre><code>**基本参数：**
-
-- -A ：所有的进程均显示出来，与 -e 具有同样的效用；
-- -a ：显示现行终端机下的所有进程，包括其他用户的进程；
-- -u ：以用户为主的进程状态 ；
-- x ：通常与 a 这个参数一起使用，可列出较完整信息。
-
-**输出格式规划：**
-
-- l ：较长、较详细的将该PID 的的信息列出；
-- j ：工作的格式 (jobs format)
-- -f ：做一个更为完整的输出。
-
-
-
-下面我们就来一个命令进行实践，看看不同的参数都有些什么效果。
-
-#### **2. 不加参数执行ps命令会输出什么？**
-
-这是一个基本的 **ps** 使用，我们来看看控制台中执行这个命令并查看结果。
-
-![img](https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7ZXaQLQicCX8yuMe3IiaJZWHiaJNz2IZPtjr8fl6aLlIgTP7OKZ8SXhg0w/640?tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1)
-
-结果默认会显示4列信息：
-
-- PID: 运行着的命令(CMD)的进程编号
-- TTY: 命令所运行的位置（终端）
-- TIME: 运行着的该命令所占用的CPU处理时间
-- CMD: 该进程所运行的命令
-
-这些信息在显示时未排序。
-
-#### **3. 如何显示所有当前进程？**
-
-使用 **-a** 参数，**-a 代表 all**。同时加上x参数会显示没有控制终端的进程。
-
+<h4 id="ps进程监控"><a href="#ps进程监控" class="headerlink" title="ps进程监控"></a>ps进程监控</h4><h4 id="1-ps是什么？"><a href="#1-ps是什么？" class="headerlink" title="1. ps是什么？"></a><strong>1. ps是什么？</strong></h4><p>要对进程进行监测和控制，首先必须要了解当前进程的情况,也就是需要查看当前进程，ps命令就是最基本进程查看命令。使用该命令可以确定有哪些进程正在运行和运行的状态、进程是否结束、进程有没有僵尸、哪些进程占用了过多的资源等等.总之大部分信息都是可以通过执行该命令得到。</p>
+<p><strong>ps是显示瞬间进程的状态，并不动态连续</strong>；如果想对进程进行实时监控应该用top命令。</p>
+<p><strong>基本参数：</strong></p>
+<ul>
+<li>-A ：所有的进程均显示出来，与 -e 具有同样的效用；</li>
+<li>-a ：显示现行终端机下的所有进程，包括其他用户的进程；</li>
+<li>-u ：以用户为主的进程状态 ；</li>
+<li>x ：通常与 a 这个参数一起使用，可列出较完整信息。</li>
+</ul>
+<p><strong>输出格式规划：</strong></p>
+<ul>
+<li>l ：较长、较详细的将该PID 的的信息列出；</li>
+<li>j ：工作的格式 (jobs format)</li>
+<li>-f ：做一个更为完整的输出。</li>
+</ul>
+<p>下面我们就来一个命令进行实践，看看不同的参数都有些什么效果。</p>
+<h4 id="2-不加参数执行ps命令会输出什么？"><a href="#2-不加参数执行ps命令会输出什么？" class="headerlink" title="2. 不加参数执行ps命令会输出什么？"></a><strong>2. 不加参数执行ps命令会输出什么？</strong></h4><p>这是一个基本的 <strong>ps</strong> 使用，我们来看看控制台中执行这个命令并查看结果。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7ZXaQLQicCX8yuMe3IiaJZWHiaJNz2IZPtjr8fl6aLlIgTP7OKZ8SXhg0w/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>结果默认会显示4列信息：</p>
+<ul>
+<li>PID: 运行着的命令(CMD)的进程编号</li>
+<li>TTY: 命令所运行的位置（终端）</li>
+<li>TIME: 运行着的该命令所占用的CPU处理时间</li>
+<li>CMD: 该进程所运行的命令</li>
+</ul>
+<p>这些信息在显示时未排序。</p>
+<h4 id="3-如何显示所有当前进程？"><a href="#3-如何显示所有当前进程？" class="headerlink" title="3. 如何显示所有当前进程？"></a><strong>3. 如何显示所有当前进程？</strong></h4><p>使用 <strong>-a</strong> 参数，<strong>-a 代表 all</strong>。同时加上x参数会显示没有控制终端的进程。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ps -ax</span><br><span class="line"><span class="comment"># 这个命令的结果或许会很长。为了便于查看，可以结合less命令和管道来使用。</span></span><br><span class="line">$ ps -ax | less</span><br></pre></td></tr></table></figure>
 
-![img](https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7HEv4ppaziacIqB6cLOibic1bbTHnBmiaJQLBD2avtryqfqoriayRmBKm57Q/640?tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1)
-
-#### **4. 如何根据进程的用户进行信息过滤呢？**
-
-在需要查看特定用户进程的情况下，我们可以使用 **-u** 参数。比如我们要查看用户&apos;pungki&apos;的进程，可以通过下面的命令：
-
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7HEv4ppaziacIqB6cLOibic1bbTHnBmiaJQLBD2avtryqfqoriayRmBKm57Q/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<h4 id="4-如何根据进程的用户进行信息过滤呢？"><a href="#4-如何根据进程的用户进行信息过滤呢？" class="headerlink" title="4. 如何根据进程的用户进行信息过滤呢？"></a><strong>4. 如何根据进程的用户进行信息过滤呢？</strong></h4><p>在需要查看特定用户进程的情况下，我们可以使用 <strong>-u</strong> 参数。比如我们要查看用户’pungki’的进程，可以通过下面的命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -u pungki</span><br></pre></td></tr></table></figure>
 
-![img](https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7b8RqXeSxo7e9x1v20icEyvR6IZtIzB49WlQgsqqQeBia1xF3P8fOxnjg/640?tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1)
-
-#### **5. 如何通过cpu和内存使用来过滤进程？**
-
-也许你希望把结果按照 CPU 或者内存用量来筛选，这样你就找到哪个进程占用了你的资源。要做到这一点，我们可以使用 **aux** 参数，来显示全面的信息:
-
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7b8RqXeSxo7e9x1v20icEyvR6IZtIzB49WlQgsqqQeBia1xF3P8fOxnjg/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<h4 id="5-如何通过cpu和内存使用来过滤进程？"><a href="#5-如何通过cpu和内存使用来过滤进程？" class="headerlink" title="5. 如何通过cpu和内存使用来过滤进程？"></a><strong>5. 如何通过cpu和内存使用来过滤进程？</strong></h4><p>也许你希望把结果按照 CPU 或者内存用量来筛选，这样你就找到哪个进程占用了你的资源。要做到这一点，我们可以使用 <strong>aux</strong> 参数，来显示全面的信息:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -aux | less</span><br></pre></td></tr></table></figure>
 
-![img](https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et74asPxeJxonhGjtnzph8feqicKlCtVwyLz6icXMRqaiabFW16jU5l4Xwnw/640?tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1)
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et74asPxeJxonhGjtnzph8feqicKlCtVwyLz6icXMRqaiabFW16jU5l4Xwnw/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>当结果很长时，我们可以使用管道和less命令来筛选。</p>
+<p>默认的结果集是未排好序的。可以通过 <strong>–sort</strong>命令来排序。</p>
+<h4 id="5-1-根据CPU使用率来升序排序"><a href="#5-1-根据CPU使用率来升序排序" class="headerlink" title="5.1 根据CPU使用率来升序排序"></a><strong>5.1 根据CPU使用率来升序排序</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -aux --sort -pcpu | less</span><br></pre></td></tr></table></figure>
 
-当结果很长时，我们可以使用管道和less命令来筛选。
+<h4 id="5-2-根据内存使用率来升序排序"><a href="#5-2-根据内存使用率来升序排序" class="headerlink" title="5.2 根据内存使用率来升序排序"></a><strong>5.2 根据内存使用率来升序排序</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -aux --sort -pmem | less</span><br></pre></td></tr></table></figure>
 
-默认的结果集是未排好序的。可以通过 **--sort**命令来排序。
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7vTiaQCgtYHReWo1mfPUWsiaJBrUqwjy3XNqP2clfrHa9N1UbuBrnybAw/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<h4 id="5-3-我们也可以将它们合并到一个命令，并通过管道显示前10个结果："><a href="#5-3-我们也可以将它们合并到一个命令，并通过管道显示前10个结果：" class="headerlink" title="5.3 我们也可以将它们合并到一个命令，并通过管道显示前10个结果："></a><strong>5.3 我们也可以将它们合并到一个命令，并通过管道显示前10个结果：</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -aux --sort -pcpu,+pmem | head -n 10</span><br></pre></td></tr></table></figure>
 
-#### **5.1 根据CPU使用率来升序排序**
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -aux --sort -pcpu | less</span><br></pre></td></tr></table></figure>
-
-#### **5.2 根据内存使用率来升序排序**
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -aux --sort -pmem | less</span><br></pre></td></tr></table></figure>
-
-![img](https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7vTiaQCgtYHReWo1mfPUWsiaJBrUqwjy3XNqP2clfrHa9N1UbuBrnybAw/640?tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1)
-
-#### **5.3 我们也可以将它们合并到一个命令，并通过管道显示前10个结果：**
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -aux --sort -pcpu,+pmem | head -n 10</span><br></pre></td></tr></table></figure>
-
-#### **6. 如何通过进程名和PID进行过滤呢？**
-
-使用 **-C** 参数，后面跟你要找的进程的名字。比如想显示一个名为getty的进程的信息，就可以使用下面的命令：
-
+<h4 id="6-如何通过进程名和PID进行过滤呢？"><a href="#6-如何通过进程名和PID进行过滤呢？" class="headerlink" title="6. 如何通过进程名和PID进行过滤呢？"></a><strong>6. 如何通过进程名和PID进行过滤呢？</strong></h4><p>使用 <strong>-C</strong> 参数，后面跟你要找的进程的名字。比如想显示一个名为getty的进程的信息，就可以使用下面的命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -C getty</span><br></pre></td></tr></table></figure>
 
-如果想要看到更多的细节，我们可以使用-f参数来查看格式化的信息列表：
-
+<p>如果想要看到更多的细节，我们可以使用-f参数来查看格式化的信息列表：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -f -C getty</span><br></pre></td></tr></table></figure>
 
-![img](https://mmbiz.qpic.cn/mmbiz/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7Yx8qqmjiaexudSYG7A93djdPpYygoXhFb5befMYibsDcnRUHg3b3XoAA/640?wx_fmt=other&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1)
-
-#### **7. 如何根据线程来过滤进程呢？**
-
-如果我们想知道特定进程的线程，可以使用 **-L** 参数，后面加上特定的PID。
-
+<p><img src="https://mmbiz.qpic.cn/mmbiz/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7Yx8qqmjiaexudSYG7A93djdPpYygoXhFb5befMYibsDcnRUHg3b3XoAA/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<h4 id="7-如何根据线程来过滤进程呢？"><a href="#7-如何根据线程来过滤进程呢？" class="headerlink" title="7. 如何根据线程来过滤进程呢？"></a><strong>7. 如何根据线程来过滤进程呢？</strong></h4><p>如果我们想知道特定进程的线程，可以使用 <strong>-L</strong> 参数，后面加上特定的PID。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -L 1213</span><br></pre></td></tr></table></figure>
 
-![img](https://mmbiz.qpic.cn/mmbiz/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7wibmuEjkciazstzib8S86qV8UwEAsuO7eqwZermrVNEGics4PKgYDEmTXw/640?wx_fmt=other&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1)
-
-#### **8. 如何树形的显示进程？**
-
-有时候我们希望以树形结构显示进程，可以使用 **-axjf** 参数。
-
+<p><img src="https://mmbiz.qpic.cn/mmbiz/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7wibmuEjkciazstzib8S86qV8UwEAsuO7eqwZermrVNEGics4PKgYDEmTXw/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<h4 id="8-如何树形的显示进程？"><a href="#8-如何树形的显示进程？" class="headerlink" title="8. 如何树形的显示进程？"></a><strong>8. 如何树形的显示进程？</strong></h4><p>有时候我们希望以树形结构显示进程，可以使用 <strong>-axjf</strong> 参数。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -axjf</span><br></pre></td></tr></table></figure>
 
-![img](https://mmbiz.qpic.cn/mmbiz/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et77diawWtoeE5Iniby2tf49qJgaiaWm1Cs7lB5GljMXjjXHLk2ibxla6MVjg/640?wx_fmt=other&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1)
-
-或者可以使用另一个命令。
-
+<p><img src="https://mmbiz.qpic.cn/mmbiz/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et77diawWtoeE5Iniby2tf49qJgaiaWm1Cs7lB5GljMXjjXHLk2ibxla6MVjg/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>或者可以使用另一个命令。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pstree</span><br></pre></td></tr></table></figure>
 
-![img](https://mmbiz.qpic.cn/mmbiz/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7PAFfVxmNGgzz9ZKpXnq5LP8fq8Gx9qI08hIicyBBrf68lpk8AnsLfaw/640?wx_fmt=other&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1)
-
-#### **9. 如何显示安全信息？**
-
-如果想要查看现在有谁登入了你的服务器。可以使用ps命令加上相关参数:
-
+<p><img src="https://mmbiz.qpic.cn/mmbiz/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7PAFfVxmNGgzz9ZKpXnq5LP8fq8Gx9qI08hIicyBBrf68lpk8AnsLfaw/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<h4 id="9-如何显示安全信息？"><a href="#9-如何显示安全信息？" class="headerlink" title="9. 如何显示安全信息？"></a><strong>9. 如何显示安全信息？</strong></h4><p>如果想要查看现在有谁登入了你的服务器。可以使用ps命令加上相关参数:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -eo pid,user,args</span><br></pre></td></tr></table></figure>
 
-参数 **-e** 显示所有进程信息，**-o** 参数控制输出。**Pid**,**User** 和 **Args**参数显示PID，**运行应用的用户**和**该应用**。
-
-![img](https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et79YpfJYjNHpzoT33GzvBcwmCBVvibKLLIReSosNm5WicG6fb2yY0TNUfQ/640?tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1)
-
-能够与 **-e** 参数 一起使用的关键字是**args, cmd, comm, command, fname, ucmd, ucomm, lstart, bsdstart 和 start**。
-
-#### **10. 如何格式化输出root用户（真实的或有效的UID）创建的进程？**
-
-系统管理员想要查看由root用户运行的进程和这个进程的其他相关信息时，可以通过下面的命令:
-
+<p>参数 <strong>-e</strong> 显示所有进程信息，<strong>-o</strong> 参数控制输出。<strong>Pid</strong>,<strong>User</strong> 和 <strong>Args</strong>参数显示PID，<strong>运行应用的用户</strong>和<strong>该应用</strong>。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et79YpfJYjNHpzoT33GzvBcwmCBVvibKLLIReSosNm5WicG6fb2yY0TNUfQ/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>能够与 <strong>-e</strong> 参数 一起使用的关键字是<strong>args, cmd, comm, command, fname, ucmd, ucomm, lstart, bsdstart 和 start</strong>。</p>
+<h4 id="10-如何格式化输出root用户（真实的或有效的UID）创建的进程？"><a href="#10-如何格式化输出root用户（真实的或有效的UID）创建的进程？" class="headerlink" title="10. 如何格式化输出root用户（真实的或有效的UID）创建的进程？"></a><strong>10. 如何格式化输出root用户（真实的或有效的UID）创建的进程？</strong></h4><p>系统管理员想要查看由root用户运行的进程和这个进程的其他相关信息时，可以通过下面的命令:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -U root -u root u</span><br></pre></td></tr></table></figure>
 
-**-U** 参数按真实用户ID(RUID)筛选进程，它会从用户列表中选择真实用户名或 ID。真实用户即实际创建该进程的用户。
-
-**-u** 参数用来筛选有效用户ID（EUID）。
-
-最后的 **u** 参数用来决定以针对用户的格式输出，由**User, PID, %CPU, %MEM, VSZ, RSS, TTY, STAT, START, TIME 和 COMMAND**这几列组成。
-
-这里有上面的命令的输出结果：
-
-![img](https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et77m2ydG87MaLOFgtiaH39fEeqmrL4C3hvqJdFESLRHh982qiaNXiasobCg/640?tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1)
-
-#### **11. 如何使用PS实时监控进程状态？**
-
-ps 命令会显示你系统当前的进程状态，但是这个结果是静态的。
-
-当有一种情况，我们需要像上面第四点中提到的通过CPU和内存的使用率来筛选进程，并且我们希望结果能够每秒刷新一次。为此，我们可以**将ps命令和watch命令结合起来**。
-
+<p><strong>-U</strong> 参数按真实用户ID(RUID)筛选进程，它会从用户列表中选择真实用户名或 ID。真实用户即实际创建该进程的用户。</p>
+<p><strong>-u</strong> 参数用来筛选有效用户ID（EUID）。</p>
+<p>最后的 <strong>u</strong> 参数用来决定以针对用户的格式输出，由<strong>User, PID, %CPU, %MEM, VSZ, RSS, TTY, STAT, START, TIME 和 COMMAND</strong>这几列组成。</p>
+<p>这里有上面的命令的输出结果：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et77m2ydG87MaLOFgtiaH39fEeqmrL4C3hvqJdFESLRHh982qiaNXiasobCg/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<h4 id="11-如何使用PS实时监控进程状态？"><a href="#11-如何使用PS实时监控进程状态？" class="headerlink" title="11. 如何使用PS实时监控进程状态？"></a><strong>11. 如何使用PS实时监控进程状态？</strong></h4><p>ps 命令会显示你系统当前的进程状态，但是这个结果是静态的。</p>
+<p>当有一种情况，我们需要像上面第四点中提到的通过CPU和内存的使用率来筛选进程，并且我们希望结果能够每秒刷新一次。为此，我们可以<strong>将ps命令和watch命令结合起来</strong>。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch -n 1 ‘ps -aux --sort -pmem, -pcpu’</span><br></pre></td></tr></table></figure>
 
-![img](https://mmbiz.qpic.cn/mmbiz/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7cpp0QavUZ8vh0zVMXP8KmKhrcbL88cnWyACO5JpS3UiaHQkLhjiaoZMA/640?wx_fmt=other&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1)
-
-如果输出太长，我们也可以限制它，比如前20条，我们可以使用 **head** 命令来做到。
-
+<p><img src="https://mmbiz.qpic.cn/mmbiz/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7cpp0QavUZ8vh0zVMXP8KmKhrcbL88cnWyACO5JpS3UiaHQkLhjiaoZMA/640?wx_fmt=other&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>如果输出太长，我们也可以限制它，比如前20条，我们可以使用 <strong>head</strong> 命令来做到。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch -n 1 ‘ps -aux --sort -pmem, -pcpu | head 20’</span><br></pre></td></tr></table></figure>
 
-这里的动态查看并不像top或者htop命令一样。但是使用ps的好处是你能够定义显示的字段，你能够选择你想查看的字段。
-
-举个例子，如果你只需要看名为&apos;pungki&apos;用户的信息，你可以使用下面的命令：
-
+<p>这里的动态查看并不像top或者htop命令一样。但是使用ps的好处是你能够定义显示的字段，你能够选择你想查看的字段。</p>
+<p>举个例子，如果你只需要看名为’pungki’用户的信息，你可以使用下面的命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch -n 1 ‘ps -aux -U pungki u --sort -pmem, -pcpu | head 20’</span><br></pre></td></tr></table></figure>
 
-![img](https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7zDRn9B1uDXXS0UGcU98R2pOYWFyxbar16EWTrbyg462SBuWAqMvAUA/640?tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1)
-
-
-
-你也许每天都会使用ps命令来监控你的Linux系统。但是事实上，你可以通过ps命令的参数来生成各种你需要的报表。
-
-ps命令的另一个优势是ps是各种 Linux系统都默认安装的，因此你只要用就行了。不要忘了通过 man ps来查看更多的参数。</code></pre><ol start="15">
-<li>文件内容查找grep</li>
-</ol>
-<p>Linux系统中的grep命令是一种功能强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。grep全称是Global Regular Expression Print，表示全局正则表达式版本，它的使用权限是所有用户。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/QFzRdz9libEYfddXS8Cz7VaS8CMuO9et7zDRn9B1uDXXS0UGcU98R2pOYWFyxbar16EWTrbyg462SBuWAqMvAUA/640?tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>你也许每天都会使用ps命令来监控你的Linux系统。但是事实上，你可以通过ps命令的参数来生成各种你需要的报表。</p>
+<p>ps命令的另一个优势是ps是各种 Linux系统都默认安装的，因此你只要用就行了。不要忘了通过 man ps来查看更多的参数。</p>
+<h4 id="文件内容查找grep"><a href="#文件内容查找grep" class="headerlink" title="文件内容查找grep"></a>文件内容查找grep</h4><p>Linux系统中的grep命令是一种功能强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。grep全称是Global Regular Expression Print，表示全局正则表达式版本，它的使用权限是所有用户。</p>
 <p><strong>1、语法参数</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">grep [options]</span><br><span class="line"></span><br><span class="line">[options]主要参数：</span><br><span class="line"></span><br><span class="line">-c：只输出匹配行的计数。</span><br><span class="line">-i：表示不区分大小写。</span><br><span class="line">-h：查询多文件时不显示文件名。</span><br><span class="line">-l：查询多文件时只输出包含匹配字符的文件名。</span><br><span class="line">-n：显示匹配行及行号。</span><br><span class="line">-s：不显示不存在或无匹配文本的错误信息。</span><br><span class="line">-v：显示不包含匹配文本的所有行，表示反向查找。</span><br><span class="line">--color=auto ：可以将找到的关键词部分加上颜色的显示</span><br></pre></td></tr></table></figure>
 
@@ -632,6 +571,372 @@ ps命令的另一个优势是ps是各种 Linux系统都默认安装的，因此�
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[linuxmi@linux:~/linuxmi迷]$ grep -n <span class="string">'e\&#123;2\&#125;'</span> linuxmi.py</span><br></pre></td></tr></table></figure>
 
 <p>//“{}”是特殊字符需要用“\”转义</p>
+<h4 id="文件查找locate"><a href="#文件查找locate" class="headerlink" title="文件查找locate"></a>文件查找locate</h4><p>locate命令其实是<code>find -name</code>的另一种写法，但是要比后者快得多，原因在于它不搜索具体目录，而是搜索一个数据库<code>/var/lib/locatedb</code>，这个数据库中含有本地所有文件信息。Linux系统自动创建这个数据库，并且每天自动更新一次，所以使用locate命令查不到最新变动过的文件。为了避免这种情况，可以在使用locate之前，先使用<a href="http://man.linuxde.net/updatedb" target="_blank" rel="noopener">updatedb</a>命令，手动更新数据库。</p>
+<p>语法 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locate&#x2F;slocate(选项)(参数)</span><br></pre></td></tr></table></figure>
+
+<p>选项 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-d&lt;目录&gt;或--database&#x3D;&lt;目录&gt;：指定数据库所在的目录；</span><br><span class="line">-u：更新slocate数据库；</span><br><span class="line">--help：显示帮助；</span><br><span class="line">--version：显示版本信息。</span><br></pre></td></tr></table></figure>
+
+<p>即先运行：updatedb（无论在那个目录中均可，可以放在crontab中 ）后在  /var/lib/slocate/ 下生成 slocate.db 数据库即可快速查找。在命令提示符下直接执行#updatedb 命令即可：</p>
+<p>例如：（1）查找相关字issue</p>
+<p>$ locate issue</p>
+<p>/etc/issue</p>
+<p>/etc/issue.net</p>
+<p>/usr/man/man5/issue.5</p>
+<p>/usr/man/man5/issue.net.5</p>
+<p>（2）搜索etc目录下所有以sh开头的文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locate &#x2F;etc&#x2F;sh</span><br></pre></td></tr></table></figure>
+
+<p>（3）搜索用户主目录下，所有以m开头的文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locate ~&#x2F;m</span><br></pre></td></tr></table></figure>
+
+<p>（4）搜索用户主目录下，所有以m开头的文件，并且忽略大小写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locate -i ~&#x2F;m</span><br></pre></td></tr></table></figure>
+
+<h4 id="文件查找find"><a href="#文件查找find" class="headerlink" title="文件查找find"></a>文件查找find</h4><p>功能：在目录结构中搜索文件，并执行指定的操作。此命令提供了相当多的查找条件，功能很强大。</p>
+<p>语法：find 起始目录 寻找条件 操作</p>
+<p>说明：find命令从指定的起始目录开始，递归地搜索其各个子目录，查找满足寻找条件的文件并对之采取相关的操作。</p>
+<p>该命令提供的寻找条件可以是一个用逻辑运算符not、and、or组成的复合条件。逻辑运算符and、or、not的含义为：</p>
+<p>（1）and：逻辑与，在命令中用“-a”表示，是系统缺省的选项，表示只有当所给的条件都满足时，寻找条件才算满足。例如：</p>
+<p>$ find –name ’tmp’ –xtype c -user ’inin’</p>
+<p>该命令寻找三个给定条件都满足的所有文件。</p>
+<p>（2）or：逻辑或，在命令中用“-o”表示。该运算符表示只要所给的条件中有一个满足时，寻找条件就算满足。例如：</p>
+<p>$ find –name ’tmp’ –o –name ’mina*’</p>
+<p>该命令查询文件名为’tmp’或是匹配’mina*’的所有文件。</p>
+<p>（3）not：逻辑非，在命令中用“！”表示。该运算符表示查找不满足所给条件的文件。例如：</p>
+<p>$ find ! –name ’tmp’</p>
+<p>该命令查询文件名不是’tmp’的所有文件。</p>
+<p>需要说明的是：当使用很多的逻辑选项时，可以用括号把这些选项括起来。为了避免Shell本身对括号引起误解，在话号前需要加转义字符“”来去除括号的意义。</p>
+<p>例：$ find （–name ’tmp’ –xtype c -user ’inin’ ）</p>
+<p>寻找条件有以下选项：</p>
+<p>首先，下列各个选项中的n值可以有三种输入方式，假设n为20，则：</p>
+<p>+20 表示20以后（21，22，23等）</p>
+<p>-20 表示20以前（19，18，17等）</p>
+<p>20 表示正好是20</p>
+<p>（1） 以名称和文件属性查找。</p>
+<p>- name ’字串’ 查找文件名匹配所给字串的所有文件，字串内可用通配符*、?、［ ］。</p>
+<p>- lname ’字串’ 查找文件名匹配所给字串的所有符号链接文件，字串内可用通配符*、?、［ ］。</p>
+<p>-gid n 查找属于ID号为n的用户组的所有文件。</p>
+<p>-uid n 查找属于ID号为n的用户的所有文件。</p>
+<p>-group ’字串’ 查找属于用户组名为所给字串的所有的文件。</p>
+<p>-user ’字串’ 查找属于用户名为所给字串的所有的文件。</p>
+<p>-empty 查找大小为0的目录或文件。</p>
+<p>-path ’字串’ 查找路径名匹配所给字串的所有文件，字串内可用通配符*、?、［ ］。</p>
+<p>-perm 权限 查找具有指定权限的文件和目录，权限的表示可以如711，644。</p>
+<p>-size n［bckw］ 查找指定文件大小的文件，n后面的字符表示单位，缺省为b，代表512字节的块。</p>
+<p>-type x 查找类型为x的文件，x为下列字符之一：</p>
+<p>b 块设备文件</p>
+<p>c 字符设备文件</p>
+<p>d 目录文件</p>
+<p>p 命名管道（FIFO）</p>
+<p>f 普通文件</p>
+<p>l 符号链接文件（symbolic links）</p>
+<p>s socket文件</p>
+<p>-xtype x 与-type基本相同，但只查找符号链接文件。</p>
+<p>（2）以时间为条件查找</p>
+<p>- amin n 查找n分钟以前被访问过的所有文件。</p>
+<p>- atime n 查找n天以前被访问过的所有文件。</p>
+<p>- cmin n 查找n分钟以前文件状态被修改过的所有文件。</p>
+<p>- ctime n 查找n天以前文件状态被修改过的所有文件。</p>
+<p>- mmin n 查找n分钟以前文件内容被修改过的所有文件。</p>
+<p>- mtime n 查找n天以前文件内容被修改过的所有文件。</p>
+<p>（3）可执行的操作</p>
+<p>- exec 命令名称 {} 对符合条件的文件执行所给的Linux 命令，而不询问用户是否需要执行该命令。{}表示命令的参数即为所找到的文件；命令的末尾必须以“ ；”结束。</p>
+<p>- ok 命令名称 { } 对符合条件的文件执行所给的Linux 命令，与exec不同的是，它会询问用户是否需要执行该命令。</p>
+<p>- ls 详细列出所找到的所有文件。</p>
+<p>- fprintf 文件名 将找到的文件名写入指定文件。</p>
+<p>- print 在标准输出设备上显示查找出的文件名。</p>
+<p>- printf 格式 格式的写法请参考有关<a href="https://www.linuxidc.com/topicnews.aspx?tid=18" target="_blank" rel="noopener">C语言</a>的书。</p>
+<p>例1：查找当前目录中所有以main开头的文件，并显示这些文件的内容。</p>
+<p>$ find . - name ‘main*’ - exec more {} ;</p>
+<p>例2：删除当前目录下所有一周之内没有被访问过的a .out或*.o文件。</p>
+<p>$ find . （- name a.out - o - name ‘*.o’）</p>
+<p>&gt; - atime +7 - exec rm {} ;</p>
+<p>说明如下：</p>
+<p>命令中的“.”表示当前目录，此时find将从当前目录开始，逐个在其子目录中查找满足后面指定条件的文件。（和）表示括号（），其中的“”称为转义符。之所以这样写是由于对Shell而言，（和）另有不同的含义，而不是这里的用于组合条件的用途。“- name a.out”是指要查找名为a.out的文件；“- name ‘*.o’”是指要查找所有名字以 .o结尾的文件。这两个- name之间的- o表示逻辑或（or），即查找名字为a.out或名字以 .o结尾的文件，find在当前目录及其子目录下找到这佯的文件之后，再进行判断，看其最后访问时间是否在7天以前（条件－atime +7），若是，则对该文件执行命令rm（- exec rm{ };）。其中{ }代表当前查到的符合条件的文件名，；则是语法所要求的。上述命令中第一行的最后一个是续行符。当命令太长而在一行写不下时，可输入一个，之后系统将显示一个&gt;，指示用户继续输入命令。</p>
+<h4 id="chgrp修改文件和目录所属组"><a href="#chgrp修改文件和目录所属组" class="headerlink" title="chgrp修改文件和目录所属组"></a>chgrp修改文件和目录所属组</h4><p><strong>chgrp命令</strong>用来改变文件或目录所属的用户组。该命令用来改变指定文件所属的用户组。其中，组名可以是用户组的<a href="http://man.linuxde.net/id" target="_blank" rel="noopener">id</a>，也可以是用户组的组名。文件名可以 是由空格分开的要改变属组的文件列表，也可以是由通配符描述的文件集合。如果用户不是该文件的文件主或超级用户(root)，则不能改变该文件的组。</p>
+<p>在UNIX系统家族里，文件或目录权限的掌控以拥有者及所属群组来管理。您可以使用chgrp指令去变更文件与目录的所属群组，设置方式采用群组名称或群组识别码皆可。</p>
+<p>语法 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chgrp(选项)(参数)</span><br></pre></td></tr></table></figure>
+
+<p>选项 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-c或——changes：效果类似“-v”参数，但仅回报更改的部分；</span><br><span class="line">-f或--quiet或——silent：不显示错误信息；</span><br><span class="line">-h或--no-dereference：只对符号连接的文件作修改，而不是该其他任何相关文件；</span><br><span class="line">-R或——recursive：递归处理，将指令目录下的所有文件及子目录一并处理；</span><br><span class="line">-v或——verbose：显示指令执行过程；</span><br><span class="line">--reference&#x3D;&lt;参考文件或目录&gt;：把指定文件或目录的所属群组全部设成和参考文件或目录的所属群组相同；</span><br></pre></td></tr></table></figure>
+
+<p>参数 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chgrp [-R] 所属组 文件名（目录名） <span class="comment">#-R（注意是大写）选项长作用于更改目录的所属组，表示更改连同子目录中所有文件的所属组信息。</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>组：指定新工作名称；</li>
+<li>文件：指定要改变所属组的文件列表。多个文件或者目录之间使用空格隔开。</li>
+</ul>
+<p>实例 </p>
+<p>将<code>/usr/meng</code>及其子目录下的所有文件的用户组改为mengxin</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chgrp -R mengxin &#x2F;usr&#x2F;meng</span><br></pre></td></tr></table></figure>
+
+<h4 id="磁盘分区管理fdisk"><a href="#磁盘分区管理fdisk" class="headerlink" title="磁盘分区管理fdisk"></a>磁盘分区管理fdisk</h4><p><strong>fdisk命令</strong>用于观察硬盘实体使用情况，也可对硬盘分区。它采用传统的问答式界面，而非类似DOS fdisk的cfdisk互动式操作界面，因此在使用上较为不便，但功能却丝毫不打折扣。</p>
+<p>语法 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk(选项)(参数)</span><br></pre></td></tr></table></figure>
+
+<p>选项 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-b&lt;分区大小&gt;：指定每个分区的大小；</span><br><span class="line">-l：列出指定的外围设备的分区表状况；</span><br><span class="line">-s&lt;分区编号&gt;：将指定的分区大小输出到标准输出上，单位为区块；</span><br><span class="line">-u：搭配&quot;-l&quot;参数列表，会用分区数目取代柱面数目，来表示每个分区的起始地址；</span><br><span class="line">-v：显示版本信息。</span><br></pre></td></tr></table></figure>
+
+<p>参数 </p>
+<p>设备文件：指定要进行分区或者显示分区的硬盘设备文件。</p>
+<p> 使用方法：</p>
+<p>　　　　　　一、在 console 上输入 fdisk -l /dev/sda ，观察硬盘之实体使用情形。</p>
+<p>　　　　　　二、在 console 上输入 fdisk /dev/sda，可进入分割硬盘模式。</p>
+<p>　　　　　　　　1. 输入 m 显示所有命令列示。</p>
+<p>　　　　　　　　2. 输入 p 显示硬盘分割情形。</p>
+<p>　　　　　　　　3. 输入 a 设定硬盘启动区。</p>
+<p>　　　　　　　　4. 输入 n 设定新的硬盘分割区。</p>
+<p>　　　　　　　　　4.1. 输入 e 硬盘为[延伸]分割区(<a href="http://www.linuxso.com/command/ex.html" target="_blank" rel="noopener">ex</a>tend)。</p>
+<p>　　　　　　　　　4.2. 输入 p 硬盘为[主要]分割区(primary)。</p>
+<p>　　　　　　　　5. 输入 t 改变硬盘分割区属性。</p>
+<p>　　　　　　　　6. 输入 d 删除硬盘分割区属性。</p>
+<p>　　　　　　　　7. 输入 q 结束不存入硬盘分割区属性。</p>
+<p>　　　　　　　　8. 输入 w 结束并写入硬盘分割区属性</p>
+<p>实例 </p>
+<p>首先选择要进行操作的磁盘：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# fdisk &#x2F;dev&#x2F;sdb</span><br></pre></td></tr></table></figure>
+
+<p>输入<code>m</code>列出可以执行的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">command (m for help): m</span><br><span class="line">Command action</span><br><span class="line">   a   toggle a bootable flag</span><br><span class="line">   b   edit bsd disklabel</span><br><span class="line">   c   toggle the dos compatibility flag</span><br><span class="line">   d   delete a partition</span><br><span class="line">   l   list known partition types</span><br><span class="line">   m   print this menu</span><br><span class="line">   n   add a new partition</span><br><span class="line">   o   create a new empty DOS partition table</span><br><span class="line">   p   print the partition table</span><br><span class="line">   q   quit without saving changes</span><br><span class="line">   s   create a new empty Sun disklabel</span><br><span class="line">   t   change a partition&#39;s system id</span><br><span class="line">   u   change display&#x2F;entry units</span><br><span class="line">   v   verify the partition table</span><br><span class="line">   w   write table to disk and exit</span><br><span class="line">   x   extra functionality (experts only)</span><br></pre></td></tr></table></figure>
+
+<p>输入<code>p</code>列出磁盘目前的分区情况：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Command (m for help): p</span><br><span class="line"></span><br><span class="line">Disk &#x2F;dev&#x2F;sdb: 3221 MB, 3221225472 bytes</span><br><span class="line">255 heads, 63 sectors&#x2F;track, 391 cylinders</span><br><span class="line">Units &#x3D; cylinders of 16065 * 512 &#x3D; 8225280 bytes</span><br><span class="line"></span><br><span class="line">   Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">&#x2F;dev&#x2F;sdb1               1           1        8001   8e  Linux LVM</span><br><span class="line">&#x2F;dev&#x2F;sdb2               2          26      200812+  83  Linux</span><br></pre></td></tr></table></figure>
+
+<p>输入<code>d</code>然后选择分区，删除现有分区：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Command (m for help): d</span><br><span class="line">Partition number (1-4): 1</span><br><span class="line"></span><br><span class="line">Command (m for help): d</span><br><span class="line">Selected partition 2</span><br></pre></td></tr></table></figure>
+
+<p>查看分区情况，确认分区已经删除：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): <span class="built_in">print</span></span><br><span class="line"></span><br><span class="line">Disk /dev/sdb: 3221 MB, 3221225472 bytes</span><br><span class="line">255 heads, 63 sectors/track, 391 cylinders</span><br><span class="line">Units = cylinders of 16065 * 512 = 8225280 bytes</span><br><span class="line"></span><br><span class="line">   Device Boot      Start         End      Blocks   Id  System</span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>):</span><br></pre></td></tr></table></figure>
+
+<h4 id="显示磁盘使用情况df"><a href="#显示磁盘使用情况df" class="headerlink" title="显示磁盘使用情况df"></a>显示磁盘使用情况df</h4><p>Linux df命令用于显示目前在Linux系统上的文件系统的磁盘使用情况统计。</p>
+<p>语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df [选项]... [FILE]...</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>文件-a, –all 包含所有的具有 0 Blocks 的文件系统</li>
+<li>文件–block-size={SIZE} 使用 {SIZE} 大小的 Blocks</li>
+<li>文件-h, –human-readable 使用人类可读的格式(预设值是不加这个选项的…)</li>
+<li>文件-H, –si 很像 -h, 但是用 1000 为单位而不是用 1024</li>
+<li>文件-i, –inodes 列出 inode 资讯，不列出已使用 block</li>
+<li>文件-k, –kilobytes 就像是 –block-size=1024</li>
+<li>文件-l, –local 限制列出的文件结构</li>
+<li>文件-m, –megabytes 就像 –block-size=1048576</li>
+<li>文件–no-sync 取得资讯前不 sync (预设值)</li>
+<li>文件-P, –portability 使用 POSIX 输出格式</li>
+<li>文件–sync 在取得资讯前 sync</li>
+<li>文件-t, –type=TYPE 限制列出文件系统的 TYPE</li>
+<li>文件-T, –print-type 显示文件系统的形式</li>
+<li>文件-x, –exclude-type=TYPE 限制列出文件系统不要显示 TYPE</li>
+<li>文件-v (忽略)</li>
+<li>文件–help 显示这个帮手并且离开</li>
+<li>文件–version 输出版本资讯并且离开</li>
+</ul>
+<p>实例</p>
+<p>显示文件系统的磁盘使用情况统计：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># df </span><br><span class="line">Filesystem     1K-blocks    Used     Available Use% Mounted on </span><br><span class="line">&#x2F;dev&#x2F;sda6       29640780 4320704     23814388  16%     &#x2F; </span><br><span class="line">udev             1536756       4     1536752    1%     &#x2F;dev </span><br><span class="line">tmpfs             617620     888     616732     1%     &#x2F;run </span><br><span class="line">none                5120       0     5120       0%     &#x2F;run&#x2F;lock </span><br><span class="line">none             1544044     156     1543888    1%     &#x2F;run&#x2F;shm</span><br></pre></td></tr></table></figure>
+
+<p>第一列指定文件系统的名称，第二列指定一个特定的文件系统1K-块1K是1024字节为单位的总内存。用和可用列正在使用中，分别指定的内存量。</p>
+<p>使用列指定使用的内存的百分比，而最后一栏”安装在”指定的文件系统的挂载点。</p>
+<p>df也可以显示磁盘使用的文件系统信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># df test </span><br><span class="line">Filesystem     1K-blocks    Used      Available Use% Mounted on </span><br><span class="line">&#x2F;dev&#x2F;sda6       29640780    4320600   23814492  16%       &#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>用一个-i选项的df命令的输出显示inode信息而非块使用量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">df -i </span><br><span class="line">Filesystem      Inodes    IUsed    IFree     IUse% Mounted on </span><br><span class="line">&#x2F;dev&#x2F;sda6      1884160    261964   1622196   14%        &#x2F; </span><br><span class="line">udev           212748     560      212188    1%         &#x2F;dev </span><br><span class="line">tmpfs          216392     477      215915    1%         &#x2F;run </span><br><span class="line">none           216392     3        216389    1%         &#x2F;run&#x2F;lock </span><br><span class="line">none           216392     8        216384    1%         &#x2F;run&#x2F;shm</span><br></pre></td></tr></table></figure>
+
+<p>显示所有的信息:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># df --total </span><br><span class="line">Filesystem     1K-blocks    Used    Available Use% Mounted on </span><br><span class="line">&#x2F;dev&#x2F;sda6       29640780 4320720    23814372  16%     &#x2F; </span><br><span class="line">udev             1536756       4    1536752   1%      &#x2F;dev </span><br><span class="line">tmpfs             617620     892    616728    1%      &#x2F;run </span><br><span class="line">none                5120       0    5120      0%      &#x2F;run&#x2F;lock </span><br><span class="line">none             1544044     156    1543888   1%      &#x2F;run&#x2F;shm </span><br><span class="line">total           33344320 4321772    27516860  14%</span><br></pre></td></tr></table></figure>
+
+<p>我们看到输出的末尾，包含一个额外的行，显示总的每一列。</p>
+<p>-h选项，通过它可以产生可读的格式df命令的输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># df -h </span><br><span class="line">Filesystem      Size  Used   Avail Use% Mounted on </span><br><span class="line">&#x2F;dev&#x2F;sda6       29G   4.2G   23G   16%     &#x2F; </span><br><span class="line">udev            1.5G  4.0K   1.5G   1%     &#x2F;dev </span><br><span class="line">tmpfs           604M  892K   603M   1%     &#x2F;run </span><br><span class="line">none            5.0M     0   5.0M   0%     &#x2F;run&#x2F;lock </span><br><span class="line">none            1.5G  156K   1.5G   1%     &#x2F;run&#x2F;shm</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到输出显示的数字形式的’G’（千兆字节），”M”（兆字节）和”K”（千字节）。这使输出容易阅读和理解，从而使显示可读的。请注意，第二列的名称也发生了变化，为了使显示可读的”大小”。</p>
+<h4 id="查看文件和目录磁盘使用空间du"><a href="#查看文件和目录磁盘使用空间du" class="headerlink" title="查看文件和目录磁盘使用空间du"></a>查看文件和目录磁盘使用空间du</h4><p>Linux du命令也是查看使用空间的，但是与df命令不同的是Linux du命令是对文件和目录磁盘使用的空间的查看，还是和df命令有一些区别的.</p>
+<p><strong>1．命令格式：</strong></p>
+<p>du [选项][文件]</p>
+<p><strong>2．命令功能：</strong></p>
+<p>显示每个文件和目录的磁盘使用空间。</p>
+<p><strong>3．命令参数：</strong></p>
+<p>-a或-all 显示目录中个别文件的大小。  </p>
+<p>-b或-bytes 显示目录或文件大小时，以byte为单位。  </p>
+<p>-c或–total 除了显示个别目录或文件的大小外，同时也显示所有目录或文件的总和。 </p>
+<p>-k或–kilobytes 以KB(1024bytes)为单位输出。</p>
+<p>-m或–megabytes 以MB为单位输出。  </p>
+<p>-s或–summarize 仅显示总计，只列出最后加总的值。</p>
+<p>-h或–human-readable 以K，M，G为单位，提高信息的可读性。</p>
+<p>-x或–one-file-xystem 以一开始处理时的文件系统为准，若遇上其它不同的文件系统目录则略过。 </p>
+<p>-L&lt;符号链接&gt;或–dereference&lt;符号链接&gt; 显示选项中所指定符号链接的源文件大小。  </p>
+<p>-S或–separate-dirs  显示个别目录的大小时，并不含其子目录的大小。 </p>
+<p>-X&lt;文件&gt;或–exclude-from=&lt;文件&gt; 在&lt;文件&gt;指定目录或文件。  </p>
+<p>–exclude=&lt;目录或文件&gt;     略过指定的目录或文件。  </p>
+<p>-D或–dereference-args  显示指定符号链接的源文件大小。  </p>
+<p>-H或–si 与-h参数相同，但是K，M，G是以1000为换算单位。  </p>
+<p>-l或–count-links  重复计算硬件链接的文件。 </p>
+<p><strong>4．使用实例：</strong></p>
+<p><strong>实例1：显示目录或者文件所占空间</strong> </p>
+<p><strong>命令：</strong></p>
+<p>du</p>
+<p><strong>输出：</strong></p>
+<p>[root@localhost test]# du</p>
+<p>608   ./test6</p>
+<p>308   ./test4</p>
+<p>4    ./scf/lib</p>
+<p>4    ./scf/service/deploy/product</p>
+<p>4    ./scf/service/deploy/info</p>
+<p>12   ./scf/service/deploy</p>
+<p>16   ./scf/service</p>
+<p>4    ./scf/doc</p>
+<p>4    ./scf/bin</p>
+<p>32   ./scf</p>
+<p>8    ./test3</p>
+<p>1288  .</p>
+<p>[root@localhost test]#</p>
+<p><strong>说明：</strong></p>
+<p>只显示当前目录下面的子目录的目录大小和当前目录的总的大小，最下面的1288为当前目录的总大小</p>
+<p><strong>实例2：**</strong>显示指定文件所占空间**</p>
+<p><strong>命令：</strong></p>
+<p>du log2012.log</p>
+<p><strong>输出：</strong></p>
+<p>[root@localhost test]# du log2012.log </p>
+<p>300   log2012.log</p>
+<p>[root@localhost test]#</p>
+<p><strong>实例3：查看指定目录的所占空间</strong></p>
+<p><strong>命令：</strong></p>
+<p>du scf</p>
+<p><strong>输出：</strong></p>
+<p>[root@localhost test]# du scf</p>
+<p>4    scf/lib</p>
+<p>4    scf/service/deploy/product</p>
+<p>4    scf/service/deploy/info</p>
+<p>12   scf/service/deploy</p>
+<p>16   scf/service</p>
+<p>4    scf/doc</p>
+<p>4    scf/bin</p>
+<p>32   scf</p>
+<p>[root@localhost test]#</p>
+<p><strong>实例4：显示多个文件所占空间</strong></p>
+<p><strong>命令：</strong></p>
+<p>du log30.tar.gz log31.tar.gz</p>
+<p><strong>输出：</strong></p>
+<p>[root@localhost test]# du log30.tar.gz log31.tar.gz </p>
+<p>4    log30.tar.gz</p>
+<p>4    log31.tar.gz</p>
+<p>[root@localhost test]#</p>
+<p><strong>实例5：只显示总和的大小</strong></p>
+<p><strong>命令：</strong></p>
+<p>du -s</p>
+<p><strong>输出：</strong></p>
+<p>[root@localhost test]# du -s</p>
+<p>1288  .</p>
+<p>[root@localhost test]# du -s scf</p>
+<p>32   scf</p>
+<p>[root@localhost test]# cd ..</p>
+<p>[root@localhost soft]# du -s test</p>
+<p>1288  test</p>
+<p>[root@localhost soft]#</p>
+<p><strong>实例6：方便阅读的格式显示</strong></p>
+<p><strong>命令：</strong></p>
+<p>du -h test</p>
+<p><strong>输出：</strong></p>
+<p>[root@localhost soft]# du -h test</p>
+<p>608K  test/test6</p>
+<p>308K  test/test4</p>
+<p>4.0K  test/scf/lib</p>
+<p>4.0K  test/scf/service/deploy/product</p>
+<p>4.0K  test/scf/service/deploy/info</p>
+<p>12K   test/scf/service/deploy</p>
+<p>16K   test/scf/service</p>
+<p>4.0K  test/scf/doc</p>
+<p>4.0K  test/scf/bin</p>
+<p>32K   test/scf</p>
+<p>8.0K  test/test3</p>
+<p>1.3M  test</p>
+<p>[root@localhost soft]#</p>
+<p><strong>实例7：文件和目录都显示</strong></p>
+<p><strong>命令：</strong></p>
+<p><strong>输出：</strong></p>
+<p>[root@localhost soft]# du -ah test</p>
+<p>4.0K  test/log31.tar.gz</p>
+<p>4.0K  test/test13.tar.gz</p>
+<p>0    test/linklog.log</p>
+<p>0    test/test6/log2014.log</p>
+<p>300K  test/test6/linklog.log</p>
+<p>0    test/test6/log2015.log</p>
+<p>4.0K  test/test6/log2013.log</p>
+<p>300K  test/test6/log2012.log</p>
+<p>0    test/test6/log2017.log</p>
+<p>0    test/test6/log2016.log</p>
+<p>608K  test/test6</p>
+<p>0    test/log2015.log</p>
+<p>0    test/test4/log2014.log</p>
+<p>4.0K  test/test4/log2013.log</p>
+<p>300K  test/test4/log2012.log</p>
+<p>308K  test/test4</p>
+<p>4.0K  test/scf/lib</p>
+<p>4.0K  test/scf/service/deploy/product</p>
+<p>4.0K  test/scf/service/deploy/info</p>
+<p>12K   test/scf/service/deploy</p>
+<p>16K   test/scf/service</p>
+<p>4.0K  test/scf/doc</p>
+<p>4.0K  test/scf/bin</p>
+<p>32K   test/scf</p>
+<p>4.0K  test/log2013.log</p>
+<p>300K  test/log2012.log</p>
+<p>0    test/log2017.log</p>
+<p>0    test/log2016.log</p>
+<p>4.0K  test/log30.tar.gz</p>
+<p>4.0K  test/log.tar.bz2</p>
+<p>4.0K  test/log.tar.gz</p>
+<p>0    test/test3/log2014.log</p>
+<p>4.0K  test/test3/log2013.log</p>
+<p>8.0K  test/test3</p>
+<p>4.0K  test/scf.tar.gz</p>
+<p>1.3M  test</p>
+<p>[root@localhost soft]#</p>
+<p><strong>实例8：</strong>显示几个文件或目录各自占用磁盘空间的大小，还统计它们的总和</p>
+<p><strong>命令：</strong></p>
+<p>du -c log30.tar.gz log31.tar.gz</p>
+<p><strong>输出：</strong></p>
+<p>[root@localhost test]# du -c log30.tar.gz log31.tar.gz </p>
+<p>4    log30.tar.gz</p>
+<p>4    log31.tar.gz</p>
+<p>8    总计</p>
+<p>[root@localhost test]#</p>
+<p><strong>说明：</strong></p>
+<p>加上-c选项后，du不仅显示两个目录各自占用磁盘空间的大小，还在最后一行统计它们的总和。</p>
+<p><strong>实例9：按照空间大小排序</strong></p>
+<p><strong>命令：</strong></p>
+<p>du|sort -nr|more</p>
+<p><strong>输出：</strong></p>
+<p>[root@localhost test]# du|sort -nr|more</p>
+<p>1288  .</p>
+<p>608   ./test6</p>
+<p>308   ./test4</p>
+<p>32   ./scf</p>
+<p>16   ./scf/service</p>
+<p>12   ./scf/service/deploy</p>
+<p>8    ./test3</p>
+<p>4    ./scf/service/deploy/product</p>
+<p>4    ./scf/service/deploy/info</p>
+<p>4    ./scf/lib</p>
+<p>4    ./scf/doc</p>
+<p>4    ./scf/bin</p>
+<p>[root@localhost test]#</p>
+<p><strong>实例10：输出当前目录下各个子目录所使用的空间</strong></p>
+<p><strong>命令：</strong></p>
+<p>du -h –max-depth=1</p>
+<p><strong>输出：</strong></p>
+<p>[root@localhost test]# du -h –max-depth=1</p>
+<p>608K  ./test6</p>
+<p>308K  ./test4</p>
+<p>32K   ./scf</p>
+<p>8.0K  ./test3</p>
+<p>1.3M  .</p>
+<p>[root@localhost test]#</p>
 
       
     </div>
@@ -802,7 +1107,7 @@ ps命令的另一个优势是ps是各种 Linux系统都默认安装的，因此�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux面试常考命令"><span class="nav-number">1.</span> <span class="nav-text">Linux面试常考命令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux面试常考命令"><span class="nav-number">1.</span> <span class="nav-text">Linux面试常考命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ps进程监控"><span class="nav-number">2.</span> <span class="nav-text">ps进程监控</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-ps是什么？"><span class="nav-number">3.</span> <span class="nav-text">1. ps是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-不加参数执行ps命令会输出什么？"><span class="nav-number">4.</span> <span class="nav-text">2. 不加参数执行ps命令会输出什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-如何显示所有当前进程？"><span class="nav-number">5.</span> <span class="nav-text">3. 如何显示所有当前进程？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-如何根据进程的用户进行信息过滤呢？"><span class="nav-number">6.</span> <span class="nav-text">4. 如何根据进程的用户进行信息过滤呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-如何通过cpu和内存使用来过滤进程？"><span class="nav-number">7.</span> <span class="nav-text">5. 如何通过cpu和内存使用来过滤进程？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-根据CPU使用率来升序排序"><span class="nav-number">8.</span> <span class="nav-text">5.1 根据CPU使用率来升序排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-根据内存使用率来升序排序"><span class="nav-number">9.</span> <span class="nav-text">5.2 根据内存使用率来升序排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-我们也可以将它们合并到一个命令，并通过管道显示前10个结果："><span class="nav-number">10.</span> <span class="nav-text">5.3 我们也可以将它们合并到一个命令，并通过管道显示前10个结果：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-如何通过进程名和PID进行过滤呢？"><span class="nav-number">11.</span> <span class="nav-text">6. 如何通过进程名和PID进行过滤呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-如何根据线程来过滤进程呢？"><span class="nav-number">12.</span> <span class="nav-text">7. 如何根据线程来过滤进程呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-如何树形的显示进程？"><span class="nav-number">13.</span> <span class="nav-text">8. 如何树形的显示进程？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-如何显示安全信息？"><span class="nav-number">14.</span> <span class="nav-text">9. 如何显示安全信息？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-如何格式化输出root用户（真实的或有效的UID）创建的进程？"><span class="nav-number">15.</span> <span class="nav-text">10. 如何格式化输出root用户（真实的或有效的UID）创建的进程？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-如何使用PS实时监控进程状态？"><span class="nav-number">16.</span> <span class="nav-text">11. 如何使用PS实时监控进程状态？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件内容查找grep"><span class="nav-number">17.</span> <span class="nav-text">文件内容查找grep</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件查找locate"><span class="nav-number">18.</span> <span class="nav-text">文件查找locate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件查找find"><span class="nav-number">19.</span> <span class="nav-text">文件查找find</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chgrp修改文件和目录所属组"><span class="nav-number">20.</span> <span class="nav-text">chgrp修改文件和目录所属组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#磁盘分区管理fdisk"><span class="nav-number">21.</span> <span class="nav-text">磁盘分区管理fdisk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#显示磁盘使用情况df"><span class="nav-number">22.</span> <span class="nav-text">显示磁盘使用情况df</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看文件和目录磁盘使用空间du"><span class="nav-number">23.</span> <span class="nav-text">查看文件和目录磁盘使用空间du</span></a></li></ol></div>
             
 
           </div>

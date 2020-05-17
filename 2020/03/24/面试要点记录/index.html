@@ -87,12 +87,11 @@
 <meta property="og:description" content="[TOC] （一）面向对象的三个基本特征：封装、继承、多态 继承   子类对象可以直接调用父类中的成员函数 子类对象可以直接赋值给父类对象。 子类对象可以直接初始化父类对象。 父类引用可以直接引用子类对象。 父类指针可以直接指向子类对象。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/seekgseekp.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/linux32.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/https.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/qiuck_sort.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/struct.png">
 <meta property="article:published_time" content="2020-03-24T13:59:01.000Z">
-<meta property="article:modified_time" content="2020-05-16T16:16:56.292Z">
+<meta property="article:modified_time" content="2020-05-17T08:03:02.163Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="面试">
@@ -617,10 +616,14 @@
 <p><strong>1、内存</strong></p>
 <p>（1）静态内存（静态分配）：发生在程序编译和链接阶段，存在于程序的整个生命周期，内存大小固定，不占用CPU资源</p>
 <ul>
-<li>.bss段：存放未初始化的全局变量和static静态变量</li>
-<li>.data段（全局初始化区）：存放初始化的全局变量和static静态变量</li>
-<li>常量存储区 </li>
-<li>.txt段（代码区）：存放程序代码</li>
+<li>数据区</li>
+</ul>
+<p>1）全局/静态存储区</p>
+<p>（i）.bss段：存放未初始化的全局变量和static静态变量</p>
+<p>（ii）.data段（全局初始化区）：存放初始化的全局变量</p>
+<p>2）常量存储区 </p>
+<ul>
+<li>代码区（.txt段）：存放程序代码</li>
 </ul>
 <p>注意：</p>
 <p>​    代码区：存放函数体的二进制代码，虚函数存放在代码区。</p>
@@ -629,7 +632,7 @@
 <p>​    在文件作用域声明inline函数默认为static存储类型,const常量默认为static存储，    如果加上extern，则为外部存储类型</p>
 <p>（2）动态内存（动态分配）：发生在程序调入和执行阶段，根据程序的需要分配和释放，其大小可变，占用CPU资源</p>
 <ul>
-<li><p>堆：<strong>链表结构，程序通过调用malloc和new分配，调用free和delete释放；堆是向高地址扩展的数据结构，是不连续的内存区域。这是由于系统是用链表来存储的空闲内存地址的，自然是不连续的，链表的遍历方向是由低地址向高地址</strong>。堆的大小受限于计算机系统中有效的虚拟内存。由此可见，堆获得的空间比较灵活，也比较大。<strong>堆中的存储内容一般是在堆的头部用一个字节存放堆的大小</strong>。堆中的具体内容有程序员安排。</p>
+<li><p>堆：<strong>链表结构，程序通过调用malloc和new分配，调用free和delete释放；堆是向高地址扩展的数据结构，是不连续的内存区域。这是由于系统是用链表来存储的空闲内存地址的，自然是不连续的，链表的遍历方向是由低地址向高地址</strong>。堆的大小受限于计算机系统中有效的虚拟内存4G。由此可见，堆获得的空间比较灵活，也比较大。<strong>堆中的存储内容一般是在堆的头部用一个字节存放堆的大小</strong>。堆中的具体内容有程序员安排。</p>
 </li>
 <li><p>栈：<strong>线性结构，由编译器自动分配与释放，速度较快，是一块连续的内存的区域</strong>，存储函数（包括main函数）的方法调用、函数参数、内部局部变量、返回地址和CPU系统提供的两个特殊的寄存器用于标识位于系统栈顶端的栈帧（(1)ESP：栈指针寄存器(extended stack pointer)，其内存放着一个指针，该指针永远指向系统栈地上面-个栈帧的栈顶。(2) EBP：基址指针寄存器(extended base pointer)-其内存放着一个指针，该指针永远指向系统栈展上面一个栈帧的底部），存储地址由高地址向低地址，栈顶的地址和栈的最大容量是系统预先规定好的，如果申请的空间超过栈的剩余空间时，提示Stack Overflow，出现溢出现象。栈中的存储内容<strong>在函数调用时，第一个进栈的是主函数中后的下一条指令（函数调用语句的下一条可执行语句）的地址</strong>，然后是函数的各个参数，在大多数的C编译器中，参数是由右往左入栈的，然后是函数中的局部变量。注意静态变量是不入栈的。当本次函数调用结束后，局部变量先出栈，然后是参数，最后栈顶指针指向最开始存的地址，也就是主函数中的下一条指令，程序由该点继续运行。函数退出时，其占用内存被收回；进程的每个线程都有私有的“栈”，所以每个线程虽然代码一样，但本地变量的数据都是互不干扰。</p>
 </li>
@@ -701,8 +704,8 @@
 <p><strong>2.</strong>   <strong>动态内存释放掉了，如果这个内存是一个动态对象，则并不表示一定会调用这个对象的析构函数；</strong></p>
 <p><strong>3. 动态内存释放掉了，并且调用了析构函数，并不表示指针会消亡或者自动变成了NULL。</strong></p>
 <p><strong>PS:</strong></p>
-<p> 在C++中，内存区分为6个区，分别是堆、栈、自由存储区、全局/静态存储区、常量存储区、代码区；</p>
-<p>在C中，C内存区分为5个区堆、栈、全局/静态存储区、常量存储区、代码区</p>
+<p><strong>在C++中，内存区分为6个区，分别是堆、栈、自由存储区、全局/静态存储区、常量存储区、代码区</strong>；</p>
+<p><strong>在C中，C内存区分为5个区堆、栈、全局/静态存储区、常量存储区、代码区</strong></p>
 <p>为什么栈生长方向是从高地址到低地址？<strong>最大程度地共用剩余的地址空间，达到利用率的最大化</strong>。如果栈向上涨的话，我们就必须得指定栈和堆的一个严格分界线，但这个分界线怎么确定呢？平均分？但是有的程序使用的堆空间比较多，而有的程序使用的栈空间比较多。所以就可能出现这种情况：一个程序因为栈溢出而崩溃的时候，其实它还有大量闲置的堆空间呢，但是我们却无法使用这些闲置的堆空间。</p>
 <ul>
 <li><p>分配失败</p>
@@ -967,29 +970,7 @@
 </ul>
 </li>
 </ol>
-<h4 id="（九）Windows内存管理方式：段存储、页存储、段页存储"><a href="#（九）Windows内存管理方式：段存储、页存储、段页存储" class="headerlink" title="（九）Windows内存管理方式：段存储、页存储、段页存储"></a>（九）Windows内存管理方式：段存储、页存储、段页存储</h4><ol>
-<li>什么是虚拟内存？</li>
-</ol>
-<p>虚拟内存是计算机系统内存管理的一种技术。它使得应用程序认为它拥有连续的可用的内存（一个连续完整的地址空间），而实际上，它通常是被分隔成多个物理内存碎片，还可以通过覆盖或者把处于不活动状态的程序以及它们的数据全部交换到外部磁盘存储器上临时存储。与没有使用虚拟内存技术的系统相比，使用这种技术的系统使得大型程序的编写变得更容易，对真正的物理内存（例如RAM）的使用也更有效率。</p>
-<p>对于32位的Linux操作系统，系统为每个进程分配4G的虚拟内存。<img src="/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/linux32.png" alt="如图"></p>
-<p>虚拟内存中，允许将一个作业分多次调入内存。釆用连续分配方式时，会使相当一部分内存空间都处于暂时或“永久”的空闲状态，造成内存资源的严重浪费，而且也无法从逻辑上扩大内存容量。因此，虚拟内存需要建立在离散分配的内存管理方式的基础上。虚拟内存的实现有以下三种方式：</p>
-<ul>
-<li>请求分页存储管理。</li>
-<li>请求分段存储管理。</li>
-<li>请求段页式存储管理。 </li>
-</ul>
-<p>不管哪种方式，都需要有一定的硬件支持。一般需要的支持有以下几个方面： </p>
-<ul>
-<li><p>一定容量的内存和外存。 </p>
-</li>
-<li><p>页表机制（或段表机制），作为主要的数据结构。 </p>
-</li>
-<li><p>中断机制，当用户程序要访问的部分尚未调入内存，则产生中断。 </p>
-</li>
-<li><p>地址变换机制，逻辑地址到物理地址的变换。</p>
-</li>
-</ul>
-<ol start="2">
+<h4 id="（九）SQL"><a href="#（九）SQL" class="headerlink" title="（九）SQL"></a>（九）SQL</h4><ol>
 <li>一致性哈希？渐进性哈希？</li>
 </ol>
 <p>一致性哈希是一种特殊的哈希算法，目的是解决分布式缓存的问题。在移除或者添加一个服务器时，能够尽可能小地改变已存在的服务请求与处理请求服务器之间的映射关系。一致性哈希解决了简单哈希算法在分布式<a href="https://baike.baidu.com/item/哈希表/5981869" target="_blank" rel="noopener">哈希表</a>( Distributed Hash Table，DHT) 中存在的动态伸缩等问题。</p>
@@ -999,11 +980,11 @@
 <p>  redis作为一个广泛使用的内存数据库，时间和空间效率都是至关重要的。（redis的根本就是一个大的hashmap，所以对hashmap的优化十分重视）</p>
 <p>  redis采用渐进式rehash来解决这个问题。</p>
 <p>  何为渐进式rehash？就是把拷贝节点数据的过程平摊到后续的操作中，而不是一次性拷贝。所谓平摊到后续的操作中，就是对节点操作，例如再次插入，查找，删除，修改时都会进行拷贝。</p>
-<ol start="3">
+<ol start="2">
 <li>友元函数注意事项</li>
 </ol>
 <p>1）必须在类的说明中说明友元函数，说明时以关键字friend开头，后跟友元函数的函数原型，友元函数的说明可以出现在类的任何地方，包括在private和public部分；<br>2）注意友元函数不是类的成员函数，所以友元函数的实现和普通函数一样，在实现时不用”::”指示属于哪个类，只有成员函数才使用”::”作用域符号；<br>3）友元函数不能直接访问类的成员，只能访问对象成员，<br>4）友元函数可以访问对象的私有成员，但普通函数不行；<br>5）调用友元函数时，在实际参数中需要指出要访问的对象，<br>6）友元的声明只能出现在类定义的内部（最好在类定义开始或者结束前的位置集中声明友元），仅仅指定了访问的权限，而非一个通常意义上的函数声明。如果我们希望用户能够调用某个友元函数，必须在友元声明之外再转名对函数进行一次声明。每个类负责控制自己的友元类或友元函数，友元关系不存在传递性。类与类之间的友元关系不能继承.</p>
-<ol start="4">
+<ol start="3">
 <li>模板</li>
 </ol>
 <p>模板是泛型编程的基础，泛型编程即以一种独立于任何特定类型的方式编写代码。</p>
@@ -1946,7 +1927,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）面向对象的三个基本特征：封装、继承、多态"><span class="nav-number">1.</span> <span class="nav-text">（一）面向对象的三个基本特征：封装、继承、多态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）bash-shell"><span class="nav-number">2.</span> <span class="nav-text">（二）bash shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）图"><span class="nav-number">3.</span> <span class="nav-text">（三）图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（四）IO库"><span class="nav-number">4.</span> <span class="nav-text">（四）IO库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（五）搜狗"><span class="nav-number">5.</span> <span class="nav-text">（五）搜狗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（六）手写代码"><span class="nav-number">6.</span> <span class="nav-text">（六）手写代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（七）SAP"><span class="nav-number">7.</span> <span class="nav-text">（七）SAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（八）进程间的通信方式（IPC-inter-Process-Communication）"><span class="nav-number">8.</span> <span class="nav-text">（八）进程间的通信方式（IPC,inter-Process Communication）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（九）Windows内存管理方式：段存储、页存储、段页存储"><span class="nav-number">9.</span> <span class="nav-text">（九）Windows内存管理方式：段存储、页存储、段页存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十）计算机网络"><span class="nav-number">10.</span> <span class="nav-text">（十）计算机网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十一）百度"><span class="nav-number">11.</span> <span class="nav-text">（十一）百度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十二）网易"><span class="nav-number">12.</span> <span class="nav-text">（十二）网易</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十三）腾讯"><span class="nav-number">13.</span> <span class="nav-text">（十三）腾讯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十五）快手"><span class="nav-number">14.</span> <span class="nav-text">（十五）快手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十六）华为"><span class="nav-number">15.</span> <span class="nav-text">（十六）华为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十七）阿里"><span class="nav-number">16.</span> <span class="nav-text">（十七）阿里</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十八）华为"><span class="nav-number">17.</span> <span class="nav-text">（十八）华为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十九）腾讯测开"><span class="nav-number">18.</span> <span class="nav-text">（十九）腾讯测开</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二十）美团测开"><span class="nav-number">19.</span> <span class="nav-text">（二十）美团测开</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二十一）知识点"><span class="nav-number">20.</span> <span class="nav-text">（二十一）知识点</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）面向对象的三个基本特征：封装、继承、多态"><span class="nav-number">1.</span> <span class="nav-text">（一）面向对象的三个基本特征：封装、继承、多态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）bash-shell"><span class="nav-number">2.</span> <span class="nav-text">（二）bash shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）图"><span class="nav-number">3.</span> <span class="nav-text">（三）图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（四）IO库"><span class="nav-number">4.</span> <span class="nav-text">（四）IO库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（五）搜狗"><span class="nav-number">5.</span> <span class="nav-text">（五）搜狗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（六）手写代码"><span class="nav-number">6.</span> <span class="nav-text">（六）手写代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（七）SAP"><span class="nav-number">7.</span> <span class="nav-text">（七）SAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（八）进程间的通信方式（IPC-inter-Process-Communication）"><span class="nav-number">8.</span> <span class="nav-text">（八）进程间的通信方式（IPC,inter-Process Communication）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（九）SQL"><span class="nav-number">9.</span> <span class="nav-text">（九）SQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十）计算机网络"><span class="nav-number">10.</span> <span class="nav-text">（十）计算机网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十一）百度"><span class="nav-number">11.</span> <span class="nav-text">（十一）百度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十二）网易"><span class="nav-number">12.</span> <span class="nav-text">（十二）网易</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十三）腾讯"><span class="nav-number">13.</span> <span class="nav-text">（十三）腾讯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十五）快手"><span class="nav-number">14.</span> <span class="nav-text">（十五）快手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十六）华为"><span class="nav-number">15.</span> <span class="nav-text">（十六）华为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十七）阿里"><span class="nav-number">16.</span> <span class="nav-text">（十七）阿里</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十八）华为"><span class="nav-number">17.</span> <span class="nav-text">（十八）华为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十九）腾讯测开"><span class="nav-number">18.</span> <span class="nav-text">（十九）腾讯测开</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二十）美团测开"><span class="nav-number">19.</span> <span class="nav-text">（二十）美团测开</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二十一）知识点"><span class="nav-number">20.</span> <span class="nav-text">（二十一）知识点</span></a></li></ol></div>
             
 
           </div>
