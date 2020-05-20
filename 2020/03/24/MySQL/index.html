@@ -79,18 +79,24 @@
 
 
 
-<meta name="description" content="MySQL事务实现原理 首先了解什么是事务，事务是执行一系列数据库操作构成的单个逻辑工作单元，要么完全地执行，要么完全地不执行。 简单的说，事务就是并发控制的单位，是用户定义的一个操作序列。 （1）事务四大特性（ACID）  原子性（Atomicity）原子性是指事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。 一致性（Consistency）事务前后数据的完整性必须保持一致">
+<meta name="description" content="[TOC] MySQL事务实现原理首先了解什么是事务，事务是执行一系列数据库操作构成的单个逻辑工作单元，要么完全地执行，要么完全地不执行。 简单的说，事务就是并发控制的单位，是用户定义的一个操作序列。 （1）事务四大特性（ACID）  原子性（Atomicity）原子性是指事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。 一致性（Consistency）事务前后数据的完整性必须">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL">
 <meta property="og:url" content="http://yoursite.com/2020/03/24/MySQL/index.html">
 <meta property="og:site_name" content="翟安然&#39;s Blog">
-<meta property="og:description" content="MySQL事务实现原理 首先了解什么是事务，事务是执行一系列数据库操作构成的单个逻辑工作单元，要么完全地执行，要么完全地不执行。 简单的说，事务就是并发控制的单位，是用户定义的一个操作序列。 （1）事务四大特性（ACID）  原子性（Atomicity）原子性是指事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。 一致性（Consistency）事务前后数据的完整性必须保持一致">
+<meta property="og:description" content="[TOC] MySQL事务实现原理首先了解什么是事务，事务是执行一系列数据库操作构成的单个逻辑工作单元，要么完全地执行，要么完全地不执行。 简单的说，事务就是并发控制的单位，是用户定义的一个操作序列。 （1）事务四大特性（ACID）  原子性（Atomicity）原子性是指事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。 一致性（Consistency）事务前后数据的完整性必须">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/regexp.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/regexp%E8%BF%9B%E8%A1%8Cor%E5%8C%B9%E9%85%8D.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/%E6%89%A7%E8%A1%8C%E7%AE%97%E6%9C%AF.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/distinct.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/groupby.png">
 <meta property="article:published_time" content="2020-03-24T06:17:11.000Z">
-<meta property="article:modified_time" content="2020-04-12T07:50:49.994Z">
+<meta property="article:modified_time" content="2020-05-20T10:05:08.507Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/24/MySQL/regexp.png">
 
 
 
@@ -352,9 +358,8 @@
       
 
       
-        <ol>
-<li><p>MySQL事务实现原理</p>
-<p>首先了解什么是事务，事务是执行一系列数据库操作构成的单个逻辑工作单元，要么完全地执行，要么完全地不执行。 简单的说，事务就是并发控制的单位，是用户定义的一个操作序列。</p>
+        <p>[TOC]</p>
+<h3 id="MySQL事务实现原理"><a href="#MySQL事务实现原理" class="headerlink" title="MySQL事务实现原理"></a>MySQL事务实现原理</h3><p>首先了解什么是事务，事务是执行一系列数据库操作构成的单个逻辑工作单元，要么完全地执行，要么完全地不执行。 简单的说，事务就是并发控制的单位，是用户定义的一个操作序列。</p>
 <p>（1）事务四大特性（ACID）</p>
 <ul>
 <li>原子性（Atomicity）<br>原子性是指事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。</li>
@@ -367,8 +372,6 @@
 <li>持久性（Durability）<br>持久性是指一个事务一旦被提交，它对数据库中数据的改变就是永久性的，接下来即使数据库发生故障也不应该对其有任何影响</li>
 </ul>
 <p>（2）事务并发问题</p>
-</li>
-</ol>
 <ul>
 <li><p>脏读：读到了别的事务回滚前的脏数据,即当前事务读到的数据是别的事务想要修改成为的但是没有修改成功的数据。</p>
 </li>
@@ -404,13 +407,7 @@
 <td align="center">最低级别，以上情况均无法保证</td>
 </tr>
 </tbody></table>
-<ol start="2">
-<li><p>91道面试题](<a href="https://mp.weixin.qq.com/s/9pfCkm2bX01XLIeJv9ngLw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/9pfCkm2bX01XLIeJv9ngLw</a>)</p>
-</li>
-<li><p>什么是MySQL索引，什么时候该用索引什么时候不该用？</p>
-</li>
-</ol>
-<ul>
+<h3 id="91道面试题-https-mp-weixin-qq-com-s-9pfCkm2bX01XLIeJv9ngLw"><a href="#91道面试题-https-mp-weixin-qq-com-s-9pfCkm2bX01XLIeJv9ngLw" class="headerlink" title="91道面试题](https://mp.weixin.qq.com/s/9pfCkm2bX01XLIeJv9ngLw)"></a>91道面试题](<a href="https://mp.weixin.qq.com/s/9pfCkm2bX01XLIeJv9ngLw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/9pfCkm2bX01XLIeJv9ngLw</a>)</h3><h3 id="什么是MySQL索引，什么时候该用索引什么时候不该用？"><a href="#什么是MySQL索引，什么时候该用索引什么时候不该用？" class="headerlink" title="什么是MySQL索引，什么时候该用索引什么时候不该用？"></a>什么是MySQL索引，什么时候该用索引什么时候不该用？</h3><ul>
 <li><p>索引(Index)是帮助MySQL高效获取数据的数据结构。我们可以简单理解为：<strong>快速查找排好序的一种数据结构。</strong>Mysql索引主要有两种结构：B+Tree索引和Hash索引。我们平常所说的索引，如果没有特别指明，一般都是指B树结构组织的索引(B+Tree索引)。</p>
 </li>
 <li><p>优点：所有的MySql列类型(字段类型)都可以被索引，也就是可以给任意字段设置索引；大大加快数据的查询速度</p>
@@ -443,10 +440,7 @@
 <p>组合索引：在表中的多个字段组合上创建的索引，只有在查询条件中使用了这些字段的左边字段时，索引才会被使用，使用组合索引时遵循最左前缀原则。</p>
 <p>全文索引：全文索引，只有在MyISAM引擎上才能使用，只能在CHAR,VARCHAR,TEXT类型字段上使用全文索引，介绍了要求，说说什么是全文索引，就是在一堆文字中，通过其中的某个关键字等，就能找到该字段所属的记录行。</p>
 <p>空间索引：空间索引是对空间数据类型的字段建立的索引，MySQL中的空间数据类型有四种，GEOMETRY、POINT、LINESTRING、POLYGON。在创建空间索引时，使用SPATIAL关键字。要求引擎为MyISAM，创建空间索引的列，必须将其声明为NOT NULL。</p>
-<ol start="4">
-<li><a href="https://blog.csdn.net/qq_35642036/article/details/82820178" target="_blank" rel="noopener">InnoDB和MyISAM的区别</a></li>
-</ol>
-<p>（1）InnoDB支持事务，MyISAM不支持。</p>
+<h3 id="InnoDB和MyISAM的区别"><a href="#InnoDB和MyISAM的区别" class="headerlink" title="InnoDB和MyISAM的区别"></a><a href="https://blog.csdn.net/qq_35642036/article/details/82820178" target="_blank" rel="noopener">InnoDB和MyISAM的区别</a></h3><p>（1）InnoDB支持事务，MyISAM不支持。</p>
 <p>（2）InnoDB支持外键，MyISAM不支持。</p>
 <p>（3）<strong>InnoDB是聚簇索引，使用B+树作为索引结构</strong>，行数据是和（主键）索引绑在一起的（表数据文件本身就是按B+Tree组织的一个索引结构），<strong>主键索引的叶子结点就是数据文件</strong>，辅助索引的叶子结点是主键的值，所以<strong>InnoDB必须有主键，MyISAM可以没有</strong>。主键索引效率很高，但是辅助索引需要两次查询，先查询到主键，然后再通过主键查询到数据。因此，主键不应该过大，因为主键太大，其他索引也都会很大；<strong>MyISAM是非聚簇索引，使用B+树作为索引结构，索引和数据文件是分离的，主键索引和辅助索引的叶子结点都是数据文件的地址指针</strong>（MyISAM的主键索引和辅助索引没有区别，主键索引仅仅只是一个叫做PRIMARY的唯一非空的索引，且MyISAM可以不设主键。<a href="https://www.cnblogs.com/qlqwjy/p/7770580.html" target="_blank" rel="noopener">参考</a></p>
 <p>（4） <strong>InnoDB不保存表的具体行数，执行select count(*) from table时需要全表扫描。而MyISAM用一个变量保存了整个表的行数，执行上述语句时只需要读出该变量即可，速度很快（注意不能加有任何WHERE条件）</strong>。</p>
@@ -455,10 +449,7 @@
 <p>（7）<strong>Innodb存储文件有frm、ibd，而Myisam是frm、MYD、MYI</strong></p>
 <p>​    <strong>Innodb：frm是表定义文件，ibd是数据文件</strong></p>
 <p>​    <strong>Myisam：frm是表定义文件，myd是数据文件，myi是索引文件</strong></p>
-<ol start="5">
-<li>行级锁和表级索的区别</li>
-</ol>
-<p>（1）表级锁</p>
+<h3 id="行级锁和表级索的区别"><a href="#行级锁和表级索的区别" class="headerlink" title="行级锁和表级索的区别"></a>行级锁和表级索的区别</h3><p>（1）表级锁</p>
 <ul>
 <li>table-level locking，锁住整个表</li>
 <li>开销小，加锁快</li>
@@ -481,24 +472,15 @@
 </ul>
 </li>
 </ul>
-<ol start="6">
-<li>主键索引和非主键索引的区别</li>
-</ol>
-<p>InnoDB中，非主键索引的叶子节点存放的是<strong>主键的值</strong>，而主键索引的叶子节点存放的是<strong>整行数据</strong>。非主键索引也被称为<strong>二级索引</strong>，而主键索引也被称为<strong>聚簇索引</strong>。</p>
-<ol start="7">
-<li>聚簇索引和非聚簇索引的区别</li>
-</ol>
-<ul>
+<h3 id="主键索引和非主键索引的区别"><a href="#主键索引和非主键索引的区别" class="headerlink" title="主键索引和非主键索引的区别"></a>主键索引和非主键索引的区别</h3><p>InnoDB中，非主键索引的叶子节点存放的是<strong>主键的值</strong>，而主键索引的叶子节点存放的是<strong>整行数据</strong>。非主键索引也被称为<strong>二级索引</strong>，而主键索引也被称为<strong>聚簇索引</strong>。</p>
+<h3 id="聚簇索引和非聚簇索引的区别"><a href="#聚簇索引和非聚簇索引的区别" class="headerlink" title="聚簇索引和非聚簇索引的区别"></a>聚簇索引和非聚簇索引的区别</h3><ul>
 <li><p>聚集索引：索引项的顺序与表中记录的物理顺序一致，叶子结点存储真实的数据行，不再有另外单独的数据页。 在一张表上最多只能创建一个聚簇索引，因为真实数据的物理顺序只能有一种。</p>
 </li>
 <li><p>非聚簇索引：表数据存储顺序与索引顺序无关，叶结点包含索引字段值即指向数据页数据行的逻辑指针，其行数量与数据表行数据量一致。</p>
 <p>总结一下：聚集索引是一种稀疏索引，数据页上一级的索引页存储的是页指针，而不是行指针。而对于非聚集索引，则是密集索引，在数据页的上一级索引页它为每一个数据行存储一条索引记录。与非聚集索引相比，聚集索引有着更快的检索速度。</p>
 </li>
 </ul>
-<ol start="8">
-<li><a href="https://blog.csdn.net/hanchao5272/article/details/98607314" target="_blank" rel="noopener">排他锁悲观锁和乐观锁</a></li>
-</ol>
-<ul>
+<h3 id="排他锁悲观锁和乐观锁"><a href="#排他锁悲观锁和乐观锁" class="headerlink" title="排他锁悲观锁和乐观锁"></a><a href="https://blog.csdn.net/hanchao5272/article/details/98607314" target="_blank" rel="noopener">排他锁悲观锁和乐观锁</a></h3><ul>
 <li>共享锁：</li>
 </ul>
 <p>S锁、读锁。当前线程对共享资源加共享锁，其他线程可以读取此资源、可以继续追加共享锁，但是不能修改此资源、不能追加排他锁。<br>语法：<code>select id from t_table in share mode;</code>多个共享锁可以共存，共享锁与排他锁不能共存.</p>
@@ -514,10 +496,137 @@
 <li>悲观锁</li>
 </ul>
 <p>悲观地认为，并发问题极易发生。悲观锁认为并发问题极易发生，所以每次操作，无论读写，都会对记录加锁，以防止其他线程对数据进行修改。实现方式：数据库的行锁、读锁和写锁。</p>
-<ol start="9">
-<li>覆盖索引</li>
-</ol>
-<p>一个包含查询所需字段的索引称为“覆盖索引”，覆盖索引只是特定于具体select语句而言的联合索引。也就是说一个联合索引对于某个select语句，通过索引可以直接获取查询结果，而不再需要回表查询，就称该联合索引覆盖了这条select语句。覆盖索引是sql性能提升的关键，减少IO，提高了效率。</p>
+<h3 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h3><p>一个包含查询所需字段的索引称为“覆盖索引”，覆盖索引只是特定于具体select语句而言的联合索引。也就是说一个联合索引对于某个select语句，通过索引可以直接获取查询结果，而不再需要回表查询，就称该联合索引覆盖了这条select语句。覆盖索引是sql性能提升的关键，减少IO，提高了效率。</p>
+<h3 id="SQL语句"><a href="#SQL语句" class="headerlink" title="SQL语句"></a>SQL语句</h3><p>SQL语句不区分大小写，习惯上SQL关键字使用大写，而对所有列和表名使用小写；有些情况下需要完全限定表名（数据库.表）/列名（表.列）</p>
+<h4 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h4><h4 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h4><h4 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h4><p>不能部分使用DISTINCT  DISTINCT关键字应用于所有列而 不仅是前置它的列。如果给出SELECT DISTINCT  id,name检索出来的所有行的列组合都不同。</p>
+<h4 id="LIMIT"><a href="#LIMIT" class="headerlink" title="LIMIT"></a>LIMIT</h4><p>行0  检索出来的第一行为行0而不是行1。因此，LIMIT 1, 1 将检索出第二行而不是第一行。 </p>
+<p>在行数不够时  LIMIT中指定要检索的行数为检索的最大行数。如果没有足够的行（例如，给出LIMIT 10, 5，但只有13 行）</p>
+<h4 id="ORDER-BY"><a href="#ORDER-BY" class="headerlink" title="ORDER BY"></a>ORDER BY</h4><p>默认升序 ASC（ASCENDING）；降序DESC。ASC/DESC关键字只应用到直接位于其前面的列名,如果想在多个列上进行降序排序，必须 对每个列指定DESC关键字。</p>
+<p>多个列排序：下面的例子以id降序排序产品 （最贵的在最前面），然后再对产品名升序排序</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> DESTINCT <span class="keyword">id</span>,<span class="keyword">name</span></span><br><span class="line"><span class="keyword">FROM</span> products</span><br><span class="line"><span class="keyword">WHERE</span> (price <span class="keyword">BETWEEN</span> <span class="number">2</span> <span class="keyword">AND</span> <span class="number">6</span> <span class="keyword">OR</span> price <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>) <span class="keyword">AND</span> vend_id <span class="keyword">NOT</span> <span class="keyword">IN</span> (<span class="number">1002</span>,<span class="number">1003</span>) <span class="keyword">AND</span> vend_id &lt;&gt; <span class="string">' '</span> <span class="keyword">AND</span> pre_name <span class="keyword">LIKE</span> <span class="string">'j_t%'</span>；</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span> <span class="keyword">DESC</span>,<span class="keyword">name</span>；</span><br><span class="line"><span class="keyword">LIMIT</span> <span class="number">2</span>,<span class="number">4</span>; </span><br><span class="line"><span class="comment">-- LIMIT 5, 5指示MySQL返回从行5开始的5行</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="WHERE"><a href="#WHERE" class="headerlink" title="WHERE"></a>WHERE</h4><p> 在同时使用ORDER BY和WHERE子句时，应 该让ORDER BY位于WHERE之后，否则将会产生错误。</p>
+<p>WHERE可包含任意数目的AND和OR操作符。允许两者结合以进行复杂 和高级的过滤。 AND在计算次序中优先级更高。</p>
+<p> 任何时候使用具有AND和OR操作 符的WHERE子句，都应该使用圆括号明确地分组操作符。不要过分依赖默认计算次序，即使它确实是你想要的东西也是如 此。使用圆括号没有什么坏处，它能消除歧义。</p>
+<p>IN操作符用来指定条件范围，范围中的每个条件都可以进行匹配。IN取合法值的由逗号分隔的清单，全都括在圆括号中。 为IN操作符完成与OR相同的功能。</p>
+<p>MySQL支持使用NOT对IN、BETWEEN和 EXISTS子句取反，这与多数其他DBMS允许使用NOT对各种条件 取反有很大的差别。 </p>
+<p>WHERE子句操作符：</p>
+<p>&lt;&gt; 不等于 </p>
+<p>!= 不等于 </p>
+<p>BETWEEN 在指定的两个值之间</p>
+<h4 id="LIKE操作符"><a href="#LIKE操作符" class="headerlink" title="LIKE操作符"></a>LIKE操作符</h4><p>LIKE指示MySQL， 后跟的搜索模式利用通配符匹配而不是直接相等匹配进行比较。 </p>
+<p>百分号（%）通配符</p>
+<p>根据MySQL的配置方式，搜索可以是区分大小 写的。如果区分大小写，’jet%’与JetPack 1000将不匹配。似乎%通配符可以匹配任何东西，但有一个例 外，即NULL。即使是WHERE prod_name LIKE ‘%’也不能匹配 用值NULL作为产品名的行。</p>
+<h4 id="下划线（-）通配符"><a href="#下划线（-）通配符" class="headerlink" title="下划线（_）通配符"></a>下划线（_）通配符</h4><p>下划线的用途与%一样，但下划线只匹配单个字符而不是多个字符。</p>
+<h4 id="REGEXP-使用正则表达式进行搜索"><a href="#REGEXP-使用正则表达式进行搜索" class="headerlink" title="REGEXP 使用正则表达式进行搜索"></a>REGEXP 使用正则表达式进行搜索</h4><p>注意：regexp和正则表达式详看MYSQL必知必会第9章：用正则表达式进行搜索</p>
+<p>LIKE与REGEXP  在LIKE和REGEXP之间有一个重要的差别。请 看以下两条语句： </p>
+<p><img src="/2020/03/24/MySQL/regexp.png" alt="LIKE和REGEXP"></p>
+<p>如果执行上述两条语句，会发现第一条语句不返回数据，而第 二条语句返回一行。为什么？ 正如第8章所述，LIKE匹配整个列。如果被匹配的文本在列值 中出现，LIKE将不会找到它，相应的行也不被返回（除非使用通配符）。而REGEXP在列值内进行匹配，如果被匹配的文本在 列值中出现，REGEXP将会找到它，相应的行将被返回。这是一 个非常重要的差别。 那么，REGEXP能不能用来匹配整个列值（从而起与LIKE相同的作用）？答案是肯定的，使用^和$定位符（anchor）即可。</p>
+<p><img src="/2020/03/24/MySQL/regexp%E8%BF%9B%E8%A1%8Cor%E5%8C%B9%E9%85%8D.png" alt="regexp进行or匹配"></p>
+<h4 id="计算字段"><a href="#计算字段" class="headerlink" title="计算字段"></a>计算字段</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">Concat</span>(<span class="keyword">RTrim</span>(vend_name),<span class="string">'('</span>,vend_country,<span class="string">')'</span>) <span class="keyword">as</span> vend_title</span><br><span class="line"><span class="keyword">from</span> vendors</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> vend_name;</span><br></pre></td></tr></table></figure>
+
+<p>别名（alias）是一个字段或值 的替换名。别名用AS关键字赋予。</p>
+<p>Concat()拼接串，即把多个串连接起来形成一个较长的串。 Concat()需要一个或多个指定的串，各个串之间用逗号分隔。 </p>
+<p>Trim函数  MySQL除了支持RTrim()（正如刚才所见，它去掉 串右边的空格），还支持LTrim()（去掉串左边的空格）以及 Trim()（去掉串左右两边的空格）</p>
+<p><img src="/2020/03/24/MySQL/%E6%89%A7%E8%A1%8C%E7%AE%97%E6%9C%AF.png" alt="执行算术"></p>
+<h4 id="使用数据处理函数"><a href="#使用数据处理函数" class="headerlink" title="使用数据处理函数"></a>使用数据处理函数</h4><p>大多数SQL实现支持以下类型的函数：</p>
+<ul>
+<li>用于处理文本串（如删除或填充值，转换值为大写或小写）的文本函数。 </li>
+<li>用于在数值数据上进行算术操作（如返回绝对值，进行代数运算） 的数值函数。 </li>
+<li>用于处理日期和时间值并从这些值中提取特定成分（例如，返回 两个日期之差，检查日期有效性等）的日期和时间函数。</li>
+<li>返回DBMS正使用的特殊信息（如返回用户登录信息，检查版本 细节）的系统函数</li>
+</ul>
+<h4 id="聚集函数"><a href="#聚集函数" class="headerlink" title="聚集函数"></a>聚集函数</h4><p>聚集函数（aggregate function） 运行在行组上，计算和返回单 个值的函数。</p>
+<p>MIN()函数与MAX()函数类似， MySQL允许将它用来返回任意列中的最小值，包括返回文本 列中的最小值。在用于文本数据时，如果数据按相应的列排序， 则MIN()返回最前面的行。MAX()、MIN()、SUM()函数均忽略列值为NULL的行。</p>
+<p>SELECT 语句可根据需要包含多个聚集函数，逗号隔开即可。</p>
+<p><img src="/2020/03/24/MySQL/distinct.png" alt="聚集函数参数默认为all"></p>
+<h5 id="GROUP-BY"><a href="#GROUP-BY" class="headerlink" title="GROUP BY"></a>GROUP BY</h5><p>在具体使用GROUP BY子句前，需要知道一些重要的规定:</p>
+<ul>
+<li>GROUP BY子句可以包含任意数目的列。这使得能对分组进行嵌套， 为数据分组提供更细致的控制</li>
+<li>如果在GROUP BY子句中嵌套了分组，数据将在后规定的分组上 进行汇总。换句话说，在建立分组时，指定的所有列都一起计算 （所以不能从个别的列取回数据）</li>
+<li>GROUP BY子句中列出的每个列都必须是检索列或有效的表达式 （但不能是聚集函数）。如果在SELECT中使用表达式，则必须在 GROUP BY子句中指定相同的表达式。不能使用别名</li>
+<li>除聚集计算语句外，SELECT语句中的每个列都必须在GROUP BY子 句中给出</li>
+<li>如果分组列中具有NULL值，则NULL将作为一个分组返回。如果列 中有多行NULL值，它们将分为一组</li>
+<li>GROUP BY子句必须出现在WHERE子句之后，ORDER BY子句之前。 </li>
+</ul>
+<p><img src="/2020/03/24/MySQL/groupby.png" alt="groupby"></p>
+<h5 id="HAVING过滤分组"><a href="#HAVING过滤分组" class="headerlink" title="HAVING过滤分组"></a>HAVING过滤分组</h5><p>HAVING支持所有WHERE操作符（包括通配符条件和带多个操作符的子 句），它们的句法是相同的，唯一差别就是WHERE过滤行，而HAVING过滤分组。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>,<span class="keyword">SUM</span>(quantity*price) <span class="keyword">AS</span> ordertotal</span><br><span class="line"><span class="keyword">FROM</span> orders</span><br><span class="line"><span class="keyword">WHERE</span> price &gt;= <span class="number">10</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">id</span></span><br><span class="line"><span class="keyword">HAVING</span> <span class="keyword">SUM</span>(quantity*price)&gt;=<span class="number">50</span>;</span><br><span class="line"><span class="comment">-- 过滤SUM(quantity*price)&gt;=50的分组</span></span><br><span class="line">ORDER BY ordertotal</span><br></pre></td></tr></table></figure>
+
+<h6 id="ORDER-BY和GROUP-BY的区别"><a href="#ORDER-BY和GROUP-BY的区别" class="headerlink" title="ORDER BY和GROUP BY的区别"></a>ORDER BY和GROUP BY的区别</h6><table>
+<thead>
+<tr>
+<th>ORDER BY</th>
+<th>GROUP BY</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>排序产生的输出</td>
+<td>分组行。但输出可能不是分组的顺序</td>
+</tr>
+<tr>
+<td>任意列都可以使用(甚至非选择的列也可以使用)</td>
+<td>只能使用选择列或表达式列，而且必须使用每个选择列表达式</td>
+</tr>
+<tr>
+<td>不一定需要</td>
+<td>如果与聚集函数一起使用列(或表达式)，则必须使用</td>
+</tr>
+</tbody></table>
+<h6 id="SELECT子句顺序"><a href="#SELECT子句顺序" class="headerlink" title="SELECT子句顺序"></a>SELECT子句顺序</h6><table>
+<thead>
+<tr>
+<th>子句</th>
+<th>说明</th>
+<th>是否必须使用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SELECT</td>
+<td>要返回的列或表达式</td>
+<td>是</td>
+</tr>
+<tr>
+<td>FROM</td>
+<td>从中检索数据的表</td>
+<td>仅在从表中选择数据时使用</td>
+</tr>
+<tr>
+<td>WHERE</td>
+<td>行级过滤</td>
+<td>否</td>
+</tr>
+<tr>
+<td>GROUP BY</td>
+<td>分组说明</td>
+<td>仅在按组计算聚集时使用</td>
+</tr>
+<tr>
+<td>HAVING</td>
+<td>组级过滤</td>
+<td>否</td>
+</tr>
+<tr>
+<td>ORDER BY</td>
+<td>输出排序顺序</td>
+<td>否</td>
+</tr>
+<tr>
+<td>LIMIT</td>
+<td>要检索的行数</td>
+<td>否</td>
+</tr>
+</tbody></table>
+<h4 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h4><p>任何SQL语句都是查询。但此术语一般指SELECT 语句。 SQL还允许创建子查询（subquery），即嵌套在其他查询中的查询。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span></span><br><span class="line"><span class="keyword">from</span> orders</span><br><span class="line"><span class="keyword">where</span> order_num <span class="keyword">IN</span> (</span><br><span class="line">    <span class="keyword">select</span> order_num</span><br><span class="line">    <span class="keyword">from</span> orderitems</span><br><span class="line">    <span class="keyword">where</span> itemid=<span class="string">'INT2'</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>相关子查询（correlated subquery） ：涉及外部查询的子查询。</p>
+<p>作为计算字段使用子查询：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>,</span><br><span class="line">	   state,</span><br><span class="line">	   (<span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*)</span><br><span class="line">        <span class="keyword">FROM</span> orders</span><br><span class="line">        <span class="keyword">WHERE</span> orders.id=customers.id) <span class="keyword">AS</span> orderitems</span><br><span class="line"><span class="keyword">FROM</span> customers</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">name</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="内部联结"><a href="#内部联结" class="headerlink" title="内部联结"></a>内部联结</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> vend_name,pro_name,prod_price</span><br><span class="line"><span class="keyword">from</span> vendors,products</span><br><span class="line"><span class="keyword">where</span> vendors.vend_id=products.vend_id</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> vend_name,prod_name;</span><br><span class="line"><span class="comment">-- 等价</span></span><br><span class="line"><span class="keyword">SELECT</span> vend_name,prod_name,prod_price</span><br><span class="line"><span class="keyword">FROM</span> vendors <span class="keyword">INNER</span> <span class="keyword">JOIN</span> products</span><br><span class="line"><span class="keyword">ON</span> vendors.vend_id=products.vend_id</span><br></pre></td></tr></table></figure>
+
+<p>这里，两个表之间的关系是FROM子句的组成部分，以INNER JOIN指定。在使用这种语法时，联结条件用特定的ON子句而不是WHERE 子句给出。传递给ON的实际条件与传递给WHERE的相同。 ANSI SQL规范首选INNER JOIN语法。此外， 尽管使用WHERE子句定义联结的确比较简单，但是使用明确的 联结语法能够确保不会忘记联结条件，有时候这样做也能影响性能。</p>
 
       
     </div>
@@ -612,8 +721,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -673,6 +791,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL事务实现原理"><span class="nav-number">1.</span> <span class="nav-text">MySQL事务实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#91道面试题-https-mp-weixin-qq-com-s-9pfCkm2bX01XLIeJv9ngLw"><span class="nav-number">2.</span> <span class="nav-text">91道面试题](https:&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;9pfCkm2bX01XLIeJv9ngLw)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是MySQL索引，什么时候该用索引什么时候不该用？"><span class="nav-number">3.</span> <span class="nav-text">什么是MySQL索引，什么时候该用索引什么时候不该用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB和MyISAM的区别"><span class="nav-number">4.</span> <span class="nav-text">InnoDB和MyISAM的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行级锁和表级索的区别"><span class="nav-number">5.</span> <span class="nav-text">行级锁和表级索的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主键索引和非主键索引的区别"><span class="nav-number">6.</span> <span class="nav-text">主键索引和非主键索引的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚簇索引和非聚簇索引的区别"><span class="nav-number">7.</span> <span class="nav-text">聚簇索引和非聚簇索引的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排他锁悲观锁和乐观锁"><span class="nav-number">8.</span> <span class="nav-text">排他锁悲观锁和乐观锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#覆盖索引"><span class="nav-number">9.</span> <span class="nav-text">覆盖索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL语句"><span class="nav-number">10.</span> <span class="nav-text">SQL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SELECT"><span class="nav-number">10.1.</span> <span class="nav-text">SELECT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FROM"><span class="nav-number">10.2.</span> <span class="nav-text">FROM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DISTINCT"><span class="nav-number">10.3.</span> <span class="nav-text">DISTINCT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LIMIT"><span class="nav-number">10.4.</span> <span class="nav-text">LIMIT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ORDER-BY"><span class="nav-number">10.5.</span> <span class="nav-text">ORDER BY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WHERE"><span class="nav-number">10.6.</span> <span class="nav-text">WHERE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LIKE操作符"><span class="nav-number">10.7.</span> <span class="nav-text">LIKE操作符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下划线（-）通配符"><span class="nav-number">10.8.</span> <span class="nav-text">下划线（_）通配符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#REGEXP-使用正则表达式进行搜索"><span class="nav-number">10.9.</span> <span class="nav-text">REGEXP 使用正则表达式进行搜索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算字段"><span class="nav-number">10.10.</span> <span class="nav-text">计算字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用数据处理函数"><span class="nav-number">10.11.</span> <span class="nav-text">使用数据处理函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#聚集函数"><span class="nav-number">10.12.</span> <span class="nav-text">聚集函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#GROUP-BY"><span class="nav-number">10.12.1.</span> <span class="nav-text">GROUP BY</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HAVING过滤分组"><span class="nav-number">10.12.2.</span> <span class="nav-text">HAVING过滤分组</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#ORDER-BY和GROUP-BY的区别"><span class="nav-number">10.12.2.1.</span> <span class="nav-text">ORDER BY和GROUP BY的区别</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SELECT子句顺序"><span class="nav-number">10.12.2.2.</span> <span class="nav-text">SELECT子句顺序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子查询"><span class="nav-number">10.13.</span> <span class="nav-text">子查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内部联结"><span class="nav-number">10.14.</span> <span class="nav-text">内部联结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

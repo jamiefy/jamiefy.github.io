@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="[TOC] 程序内存区域分配 一个程序本质上都是由 bss段、data段、text段三个组成的。bss段通常是指用来存放程序中静态变量和未初始化的全局变量一块内存区域，一般在初始化时bss 段部分将会清零。bss段属于静态内存分配，即程序一开始就将其清零了。比如，在C语言之类的程序编译完成之后，已初始化的全局变量保存在.data 段中，静态变量和未初始化的全局变量保存在.bss 段中。text和d">
+<meta name="description" content="[TOC] Linux系统结构详解1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。 用户空间 &#x2F; 内核空间 现在操作系统都是采用虚拟存储器，那么对32位操作系统而言，它的寻址空间（虚拟存储空间）为4G（2的32次方）。 操作系统的核心是内核，独立于普通的应用程序，可以访问受保护的内存空间，也有访问底层硬件设备的所有权限。为了保证用户进程不能直接操作内核（kernel）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操作系统">
 <meta property="og:url" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="翟安然&#39;s Blog">
-<meta property="og:description" content="[TOC] 程序内存区域分配 一个程序本质上都是由 bss段、data段、text段三个组成的。bss段通常是指用来存放程序中静态变量和未初始化的全局变量一块内存区域，一般在初始化时bss 段部分将会清零。bss段属于静态内存分配，即程序一开始就将其清零了。比如，在C语言之类的程序编译完成之后，已初始化的全局变量保存在.data 段中，静态变量和未初始化的全局变量保存在.bss 段中。text和d">
+<meta property="og:description" content="[TOC] Linux系统结构详解1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。 用户空间 &#x2F; 内核空间 现在操作系统都是采用虚拟存储器，那么对32位操作系统而言，它的寻址空间（虚拟存储空间）为4G（2的32次方）。 操作系统的核心是内核，独立于普通的应用程序，可以访问受保护的内存空间，也有访问底层硬件设备的所有权限。为了保证用户进程不能直接操作内核（kernel）">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux%E7%B3%BB%E7%BB%9F%E7%BB%84%E6%88%90.jpg">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux%E5%86%85%E6%A0%B8.jpg">
@@ -100,7 +100,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%BC%82%E6%AD%A5IO.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83.png">
 <meta property="article:published_time" content="2020-03-25T16:23:38.000Z">
-<meta property="article:modified_time" content="2020-05-17T08:37:18.434Z">
+<meta property="article:modified_time" content="2020-05-20T13:06:24.438Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
@@ -367,38 +367,10 @@
 
       
         <p>[TOC]</p>
-<h3 id="程序内存区域分配"><a href="#程序内存区域分配" class="headerlink" title="程序内存区域分配"></a>程序内存区域分配</h3><ol>
-<li>一个程序本质上都是由 bss段、data段、text段三个组成的。bss段通常是指用来存放程序中静态变量和未初始化的全局变量一块内存区域，一般在初始化时bss 段部分将会清零。bss段属于静态内存分配，即程序一开始就将其清零了。比如，在C语言之类的程序编译完成之后，已初始化的全局变量保存在.data 段中，静态变量和未初始化的全局变量保存在.bss 段中。text和data段都在可执行文件中（在嵌入式系统里一般是固化在镜像文件中），由系统从可执行文件中加载；而bss段不在可执行文件中，由系统初始化。bss段（未手动初始化的数据）并不给该段的数据分配空间，只是记录数据所需空间的大小；bss段的大小从可执行文件中得到 ，然后链接器得到这个大小的内存块，紧跟在数据段后面。data段（已手动初始化的数据）则为数据分配空间，数据保存在目标文件中；data段包含经过初始化的全局变量以及它们的值。当这个内存区进入程序的地址空间后全部清零。包含data段和bss段的整个区段此时通常称为数据区。</li>
-</ol>
-<a id="more"></a>
-
-<ol start="2">
-<li>同一进程中的多个线程共享代码段（代码和常量），数据段（全局变量和静态变量），扩展段（堆存储）。</li>
-</ol>
-<h3 id="进程的三种基本状态"><a href="#进程的三种基本状态" class="headerlink" title="进程的三种基本状态"></a>进程的三种基本状态</h3><ul>
-<li>就绪状态</li>
-</ul>
-<p>当进程已分配到除CPU以外的所有必要的资源，只要获得处理机便可立即执行，这时的进程状态就称为就绪状态；</p>
-<ul>
-<li>执行状态：</li>
-</ul>
-<p>当进程已获得处理机，其程序正在处理机上执行，此时的进程状态称为执行状态；</p>
-<ul>
-<li>阻塞状态：</li>
-</ul>
-<p>正在执行的进程，由于等待某个事件发生而无法执行时，便放弃处理机而进入阻塞状态。引起进程阻塞的事件有很多种，例如，等待I/O完成、申请缓冲区不能满足、等待信号等。</p>
-<ul>
-<li>进程三种状态间的转换  </li>
-</ul>
-<blockquote>
-<p>执行–&gt;就绪：时间片完；</p>
-<p>就绪–&gt;执行：被调度；</p>
-<p>执行–&gt;阻塞：等待事件，io请求；</p>
-<p>阻塞-&gt;就绪：io完成</p>
-</blockquote>
-<p>一个进程在运行期间，不断地从一种状态转换到另一种状态，它可以多次处于就绪状态和执行状态，也可以多次处于阻塞状态。<br>A. 就绪—&gt;执行<br>处于就绪状态的进程，当进程调度程序为之分配好了处理机后，该进程便由就绪状态转换为执行状态；<br>B. 执行—&gt;就绪<br>处于执行状态的进程在其执行过程中，因分配给它的一个时间片已经用完而不得不让出处理机，于是进程从执行状态转换为就绪状态；<br>C. 执行—&gt;阻塞<br>正在执行的进程因等待某种事件发生而无法继续执行时，便从执行状态变成阻塞状态；<br>D. 阻塞—&gt;就绪<br>处于阻塞状态的进程，若其等待的事件已经发生，于是进程便从阻塞状态转变为就绪状态。</p>
 <h3 id="Linux系统结构详解"><a href="#Linux系统结构详解" class="headerlink" title="Linux系统结构详解"></a>Linux系统结构详解</h3><h4 id="1-Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。"><a href="#1-Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。" class="headerlink" title="1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。"></a>1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。</h4><p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux%E7%B3%BB%E7%BB%9F%E7%BB%84%E6%88%90.jpg" alt="Linux系统组成部分层次结构"></p>
 <p><strong>用户空间 / 内核空间</strong><br> 现在操作系统都是采用虚拟存储器，那么对32位操作系统而言，它的寻址空间（虚拟存储空间）为4G（2的32次方）。 操作系统的核心是内核，独立于普通的应用程序，可以访问受保护的内存空间，也有访问底层硬件设备的所有权限。为了保证用户进程不能直接操作内核（kernel），保证内核的安全，操作系统将虚拟空间划分为两部分，一部分为内核空间，一部分为用户空间。</p>
+<a id="more"></a>
+
 <p>内核是操作系统的核心，具有很多最基本功能，它负责管理系统的进程、内存、设备驱动程序、文件和网络系统，决定着系统的性能和稳定性。Linux 内核主要由内存管理、进程管理、设备驱动程序、文件系统和网络管理等组成。</p>
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux%E5%86%85%E6%A0%B8.jpg" alt="Linux内核组成"></p>
 <p>由于操作系统都包括内核空间和用户空间（或者说内核态和用户态），内核空间主要存放的是内核代码和数据，是供系统进程使用的空间。而用户空间主要存放的是用户代码和数据，是供用户进程使用的空间。目前Linux系统简化了分段机制，使得虚拟地址与线性地址总是保持一致，因此，Linux系统的虚拟地址也是0~4G。Linux系统将这4G空间分为了两个部分：将最高的1G空间（从虚拟地址0xC0000000到0xFFFFFFFF）供内核使用，即为“内核空间”，而将较低的3G空间（从虚拟地址 0x00000000到0xBFFFFFFF）供用户进程使用，即为“用户空间”。同时由于每个用户进程都可以通过系统调用进入到内核空间，因此Linux的内核空间可以认为是被所有用户进程所共享的，因此对于一个具体用户进程来说，它可以访问的虚拟内存地址就是0~4G。另外Linux系统分为了四种特权级：0～3，主要是用来保护资源。0级特权最高，而3级则为最低，系统进程主要运行在0级，用户进程主要运行在3级。</p>
@@ -415,10 +387,7 @@
 <h4 id="2-内存管理"><a href="#2-内存管理" class="headerlink" title="2. 内存管理"></a>2. 内存管理</h4><p>对任何一台计算机而言，其内存以及其它资源都是有限的。为了让有限的物理内存满足应用程序对内存的大需求量，<strong>Linux  采用了称为“虚拟内存”的内存管理方式</strong>。Linux  将内存划分为容易处理的“内存页”（对于大部分体系结构来说都是 4KB）。Linux 包括了管理可用内存的方式，以及物理和虚拟映射所使用的硬件机制。</p>
 <p>不过内存管理要管理的可不止 4KB 缓冲区。Linux 提供了对 4KB 缓冲区的抽象，例如 slab 分配器。这种内存管理模式使用 4KB 缓冲区为基数，然后从中分配结构，并跟踪内存页使用情况，比如哪些内存页是满的，哪些页面没有完全使用，哪些页面为空。这样就允许该模式根据系统需要来动态调整内存使用。</p>
 <p>为了支持多个用户使用内存，有时会出现可用内存被消耗光的情况。由于这个原因，页面可以移出内存并放入磁盘中。这个过程称为交换，因为页面会被从内存交换到硬盘上。内存管理的源代码可以在 ./linux/mm 中找到。</p>
-<ul>
-<li><h5 id="虚拟内存管理"><a href="#虚拟内存管理" class="headerlink" title="虚拟内存管理"></a>虚拟内存管理</h5></li>
-</ul>
-<p><strong>虚拟内存技术实际上就是建立了“内存—-外存”的两级存储结构，利用局部性原理实现高速缓存。</strong></p>
+<h5 id="虚拟内存管理"><a href="#虚拟内存管理" class="headerlink" title="虚拟内存管理"></a>虚拟内存管理</h5><p><strong>虚拟内存技术实际上就是建立了“内存—-外存”的两级存储结构，利用局部性原理实现高速缓存。</strong></p>
 <p>虚拟内存是计算机系统内存管理的一种技术。它使得应用程序认为它拥有连续的可用的内存（一个连续完整的地址空间），而实际上，它通常是被分隔成多个物理内存碎片，还可以通过覆盖或者把处于不活动状态的程序以及它们的数据全部交换到外部磁盘存储器上临时存储。与没有使用虚拟内存技术的系统相比，使用这种技术的系统使得大型程序的编写变得更容易，对真正的物理内存（例如RAM）的使用也更有效率。</p>
 <p>对于32位的Linux操作系统，系统为每个进程分配4G的虚拟内存。<img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/linux32.png" alt="进程虚拟内存管理"></p>
 <p>虚拟内存中，允许将一个作业分多次调入内存。釆用连续分配方式时，会使相当一部分内存空间都处于暂时或“永久”的空闲状态，造成内存资源的严重浪费，而且也无法从逻辑上扩大内存容量。因此，虚拟内存需要建立在离散分配的内存管理方式的基础上。虚拟内存的实现有以下三种方式：</p>
@@ -443,9 +412,14 @@
 <p>​    4）始终（CLOCK）置换算法</p>
 <p>}</p>
 </li>
-<li><h5 id="物理内存管理"><a href="#物理内存管理" class="headerlink" title="物理内存管理"></a>物理内存管理</h5></li>
 </ul>
-<p>Linux内核管理物理内存是通过分页机制实现的，它将整个内存划分成无数个4k（在i386体系结构中）大小的页，从而分配和回收内存的基本单位便是内存页了。利用分页管理有助于灵活分配内存地址，因为分配时不必要求必须有大块的连续内存，系统可以东一页、西一页的凑出所需要的内存供进程使用。虽然如此，但是实际上系统使用内存时还是倾向于分配连续的内存块，因为分配连续内存时，页表不需要更改，因此能降低TLB的刷新率（频繁刷新会在很大程度上降低访问速度）。物理内存的使用主要分为以下几个方面：</p>
+<h5 id="程序内存区域分配"><a href="#程序内存区域分配" class="headerlink" title="程序内存区域分配"></a>程序内存区域分配</h5><ol>
+<li><p>一个程序本质上都是由 bss段、data段、text段三个组成的。bss段通常是指用来存放程序中静态变量和未初始化的全局变量一块内存区域，一般在初始化时bss 段部分将会清零。bss段属于静态内存分配，即程序一开始就将其清零了。比如，在C语言之类的程序编译完成之后，已初始化的全局变量保存在.data 段中，静态变量和未初始化的全局变量保存在.bss 段中。text和data段都在可执行文件中（在嵌入式系统里一般是固化在镜像文件中），由系统从可执行文件中加载；而bss段不在可执行文件中，由系统初始化。bss段（未手动初始化的数据）并不给该段的数据分配空间，只是记录数据所需空间的大小；bss段的大小从可执行文件中得到 ，然后链接器得到这个大小的内存块，紧跟在数据段后面。data段（已手动初始化的数据）则为数据分配空间，数据保存在目标文件中；data段包含经过初始化的全局变量以及它们的值。当这个内存区进入程序的地址空间后全部清零。包含data段和bss段的整个区段此时通常称为数据区。</p>
+</li>
+<li><p>同一进程中的多个线程共享代码段（代码和常量），数据段（全局变量和静态变量），扩展段（堆存储）。</p>
+</li>
+</ol>
+<h5 id="物理内存管理"><a href="#物理内存管理" class="headerlink" title="物理内存管理"></a>物理内存管理</h5><p>Linux内核管理物理内存是通过分页机制实现的，它将整个内存划分成无数个4k（在i386体系结构中）大小的页，从而分配和回收内存的基本单位便是内存页了。利用分页管理有助于灵活分配内存地址，因为分配时不必要求必须有大块的连续内存，系统可以东一页、西一页的凑出所需要的内存供进程使用。虽然如此，但是实际上系统使用内存时还是倾向于分配连续的内存块，因为分配连续内存时，页表不需要更改，因此能降低TLB的刷新率（频繁刷新会在很大程度上降低访问速度）。物理内存的使用主要分为以下几个方面：</p>
 <p>（1）内核使用</p>
 <p>操作系统启动时，位于/boot目录下的压缩内核文件会被加载到内存中并解压。这部分内容在系统允许期间都会常驻在内存的起始位置。</p>
 <p>（2）slab分配器</p>
@@ -747,7 +721,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#程序内存区域分配"><span class="nav-number">1.</span> <span class="nav-text">程序内存区域分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程的三种基本状态"><span class="nav-number">2.</span> <span class="nav-text">进程的三种基本状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux系统结构详解"><span class="nav-number">3.</span> <span class="nav-text">Linux系统结构详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。"><span class="nav-number">3.1.</span> <span class="nav-text">1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-内存管理"><span class="nav-number">3.2.</span> <span class="nav-text">2. 内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#虚拟内存管理"><span class="nav-number">3.2.1.</span> <span class="nav-text">虚拟内存管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#物理内存管理"><span class="nav-number">3.2.2.</span> <span class="nav-text">物理内存管理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-文件系统"><span class="nav-number">3.3.</span> <span class="nav-text">3. 文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#目录项"><span class="nav-number">3.3.1.</span> <span class="nav-text">目录项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode"><span class="nav-number">3.3.2.</span> <span class="nav-text">inode</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件存储结构示意图"><span class="nav-number">3.3.3.</span> <span class="nav-text">文件存储结构示意图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode的大小"><span class="nav-number">3.3.4.</span> <span class="nav-text">inode的大小</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode号码"><span class="nav-number">3.3.5.</span> <span class="nav-text">inode号码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#硬链接"><span class="nav-number">3.3.6.</span> <span class="nav-text">硬链接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#软链接"><span class="nav-number">3.3.7.</span> <span class="nav-text">软链接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Linux的五种IO模型"><span class="nav-number">3.4.</span> <span class="nav-text">4. Linux的五种IO模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、阻塞IO"><span class="nav-number">3.4.1.</span> <span class="nav-text">1、阻塞IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、非阻塞IO"><span class="nav-number">3.4.2.</span> <span class="nav-text">2、非阻塞IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、IO多路复用"><span class="nav-number">3.4.3.</span> <span class="nav-text">3、IO多路复用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、信号驱动IO"><span class="nav-number">3.4.4.</span> <span class="nav-text">4、信号驱动IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5、异步IO"><span class="nav-number">3.4.5.</span> <span class="nav-text">5、异步IO</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux系统结构详解"><span class="nav-number">1.</span> <span class="nav-text">Linux系统结构详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。"><span class="nav-number">1.1.</span> <span class="nav-text">1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-内存管理"><span class="nav-number">1.2.</span> <span class="nav-text">2. 内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#虚拟内存管理"><span class="nav-number">1.2.1.</span> <span class="nav-text">虚拟内存管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#程序内存区域分配"><span class="nav-number">1.2.2.</span> <span class="nav-text">程序内存区域分配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#物理内存管理"><span class="nav-number">1.2.3.</span> <span class="nav-text">物理内存管理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-文件系统"><span class="nav-number">1.3.</span> <span class="nav-text">3. 文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#目录项"><span class="nav-number">1.3.1.</span> <span class="nav-text">目录项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode"><span class="nav-number">1.3.2.</span> <span class="nav-text">inode</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件存储结构示意图"><span class="nav-number">1.3.3.</span> <span class="nav-text">文件存储结构示意图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode的大小"><span class="nav-number">1.3.4.</span> <span class="nav-text">inode的大小</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode号码"><span class="nav-number">1.3.5.</span> <span class="nav-text">inode号码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#硬链接"><span class="nav-number">1.3.6.</span> <span class="nav-text">硬链接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#软链接"><span class="nav-number">1.3.7.</span> <span class="nav-text">软链接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Linux的五种IO模型"><span class="nav-number">1.4.</span> <span class="nav-text">4. Linux的五种IO模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、阻塞IO"><span class="nav-number">1.4.1.</span> <span class="nav-text">1、阻塞IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、非阻塞IO"><span class="nav-number">1.4.2.</span> <span class="nav-text">2、非阻塞IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、IO多路复用"><span class="nav-number">1.4.3.</span> <span class="nav-text">3、IO多路复用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、信号驱动IO"><span class="nav-number">1.4.4.</span> <span class="nav-text">4、信号驱动IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5、异步IO"><span class="nav-number">1.4.5.</span> <span class="nav-text">5、异步IO</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

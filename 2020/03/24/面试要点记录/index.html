@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/qiuck_sort.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/struct.png">
 <meta property="article:published_time" content="2020-03-24T13:59:01.000Z">
-<meta property="article:modified_time" content="2020-05-17T08:03:02.163Z">
+<meta property="article:modified_time" content="2020-05-19T16:18:20.229Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="面试">
@@ -772,7 +772,7 @@
 <ul>
 <li><p>无名管道pipe:半双工的通信方式，数据单向流动，只能在具有亲缘关系的进程间使用，从结构上看，无名管道没有文件路径名，不占用文件目录项，因此文件目录结构中的链表不适用于这种文件，它只是存在于打开文件结构中的一个临时文件，依附于进程临时存在。</p>
 </li>
-<li><p>命名管道FIFO:半双工，数据单向流动，允许无亲缘关系进程间的通信，FIFO是一种永久性的机制，它具有普通的UNIX系统文件名。在系统下可利用MKNOD命令建立永久的管道，除非刻意删除它，否则它将一直保持在系统中。</p>
+<li><p>命名管道FIFO:半双工，数据单向流动，允许无亲缘关系进程间的通信，FIFO是一种永久性的机制，它具有普通的UNIX系统文件名。在系统下可利用mkfifo命令建立永久的管道，除非刻意删除它，否则它将一直保持在系统中。</p>
 </li>
 <li><p><strong>联系</strong>：</p>
 </li>
@@ -782,25 +782,16 @@
 <ul>
 <li><strong>区别</strong>：</li>
 </ul>
-<ol>
-<li><p>无名管道是无名的，有名管道是有名的；</p>
-</li>
-<li><p>无名管道只能用于父子进程或兄弟进程之间的通信，而有名管道可用于任意两进程之间通信；</p>
-</li>
-<li><p>无名管道是无形的，即无名管道的 inode 结构不是在磁盘上存储的，而是临时生成的，而有名管道的 inode 结点在磁盘上。</p>
-</li>
-<li><p>消息队列：消息的链表存放在内核中并由消息队列标识符标识，克服了信号传递信息少，管道只能承载无格式字节流以及缓冲器大小受限等缺点，但只有在内核重启时才能删除一个消息队列，内核重启也就是系统重启。</p>
-</li>
-<li><p>共享内存：最快的IPC方式，映射一段能被其他进程所访问的内存。往往与其他通信机制如信号两两配合使用，来实现进程间的同步和通信。</p>
-</li>
-<li><p>信号量Semaphore:信号量是一个计数器，可以用来控制多个进程对共享资源的访问。常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，主要作为进程间以及同一进程内不同线程之间的同步手段。</p>
-</li>
-<li><p>套接字Socket:套接字也是一种进程间通信机制，包括IPC 套接字（即 Unix 套接字）给予进程在相同设备（主机）上基于通道的通信能力；而网络套接字给予进程运行在不同主机的能力，因此也带来了网络通信的能力。IPC 套接字依赖于本地系统内核的支持来进行通信。网络套接字需要底层协议的支持，例如 TCP（传输控制协议）或 UDP（用户数据报协议），包括流套接字（TCP/IP）和数据报套接字（UDP/IP），利用三元组（<strong>ip地址，协议，端口</strong>）构成套接字；<a href="https://baike.baidu.com/item/传输层/4329536" target="_blank" rel="noopener">传输层</a>实现<a href="https://baike.baidu.com/item/端到端/8851783" target="_blank" rel="noopener">端到端</a>的通信，传输层连接的端点叫做套接字。</p>
-</li>
-<li><p>进程和线程</p>
-</li>
+<p>(1)无名管道是无名的，有名管道是有名的；</p>
+<p>(2)无名管道只能用于父子进程或兄弟进程之间的通信，而有名管道可用于任意两进程之间通信；</p>
+<p>(3)无名管道是无形的，即无名管道的 inode 结构不是在磁盘上存储的，而是临时生成的，而有名管道的 inode 结点在磁盘上。</p>
+<ol start="3">
+<li>消息队列：消息的链表存放在内核中并由消息队列标识符标识，克服了信号传递信息少，管道只能承载无格式字节流以及缓冲器大小受限等缺点，但只有在内核重启时才能删除一个消息队列，内核重启也就是系统重启。</li>
+<li>共享内存：最快的IPC方式，映射一段能被其他进程所访问的内存。往往与其他通信机制如信号两两配合使用，来实现进程间的同步和通信。</li>
+<li>信号量Semaphore:信号量是一个计数器，可以用来控制多个进程对共享资源的访问。常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，主要作为进程间以及同一进程内不同线程之间的同步手段。</li>
+<li>套接字Socket:套接字也是一种进程间通信机制，包括IPC 套接字（即 Unix 套接字）给予进程在相同设备（主机）上基于通道的通信能力；而网络套接字给予进程运行在不同主机的能力，因此也带来了网络通信的能力。IPC 套接字依赖于本地系统内核的支持来进行通信。网络套接字需要底层协议的支持，例如 TCP（传输控制协议）或 UDP（用户数据报协议），包括流套接字（TCP/IP）和数据报套接字（UDP/IP），利用三元组（<strong>ip地址，协议，端口</strong>）构成套接字；<a href="https://baike.baidu.com/item/传输层/4329536" target="_blank" rel="noopener">传输层</a>实现<a href="https://baike.baidu.com/item/端到端/8851783" target="_blank" rel="noopener">端到端</a>的通信，传输层连接的端点叫做套接字。</li>
 </ol>
-<ul>
+<h5 id="进程创建fork和vfork"><a href="#进程创建fork和vfork" class="headerlink" title="进程创建fork和vfork"></a>进程创建fork和vfork</h5><ul>
 <li><p>进程识别信息：表示哪台主机上的哪一个进程</p>
 <ul>
 <li>主机名称或地址：网络中的哪一个主机。因特网中，用IP地址标识（32位，全球唯一）。</li>
@@ -809,20 +800,15 @@
 </li>
 <li><p>fork后操作系统会复制一个与父进程完全相同的子进程，两个进程共享代码空间，但数据空间相互独立，子进程数据空间中的内容是父进程的完整拷贝，指令指针也完全相同，子进程拥有父进程当前运行到的位置（两进程的程序计数器pc值相同，也就是说子进程是从fork返回处开始执行的），但有一点不同，如果fork成功，子进程中fork的返回值是0，父进程中fork的返回值是子进程的进程号，如果fork不成功，父进程会返回错误。可以这样想象，2个进程一直同时运行，而且步调一致，在fork之后，他们分别作不同的工作，也就是分岔了。这也是fork为什么叫fork的原因至于那一个最先运行，可能与操作系统（调度算法）有关，而且这个问题在实际应用中并不重要，如果需要父子进程协同，可以通过原语的办法解决。</p>
 </li>
-<li><p>fork（）与vfock（）都是创建一个进程，那他们有什么区别呢？总结有以下三点区别：</p>
-<ol>
+<li><h5 id="fork（）与vfock（）都是创建一个进程，那他们有什么区别呢？总结有以下三点区别："><a href="#fork（）与vfock（）都是创建一个进程，那他们有什么区别呢？总结有以下三点区别：" class="headerlink" title="fork（）与vfock（）都是创建一个进程，那他们有什么区别呢？总结有以下三点区别："></a>fork（）与vfock（）都是创建一个进程，那他们有什么区别呢？总结有以下三点区别：</h5><ol>
 <li>fork  （）：子进程拷贝父进程的数据段，代码段<br>vfork （ ）：子进程与父进程共享数据段，<strong>子进程中对父进程变量的修改，会影响父进程</strong></li>
 <li>fork （）父子进程的执行次序不确定<br>vfork 保证子进程先运行，在调用<code>exec()</code> 或<code>_exit()</code> 之前与父进程数据是共享的,在它调用<code>exec()</code>或<code>_exit()</code>之后父进程才可能被调度运行。</li>
 <li>若vfork （）调用exec 或<code>_exit()</code> 之前子进程依赖于父进程的进一步动作，会导致死锁。</li>
 </ol>
 </li>
-<li><p>进程和线程的区别</p>
-<p>​         （1）进程是资源分配和调度的一个独立单元，而线程是CPU调度和分派的基本单元<br>​          （2）一个进程至少包括一个线程，并且同一个进程的所有线程共享整个进程的资源，因此线程执行时一般都要进行同步和互斥<br>​          （3）进程的创建调用fork或者vfork，而线程的创建调用pthread_create，进程结束后它拥有的所有线程都将销毁，而线程的结束不会影响同个进程中的其他线程的结束<br>​          （4）线程是轻量级的进程，它的创建和销毁所需要的时间比进程小很多，所有操作系统中的执行功能都是创建线程去完成的<br>​          （5）进程间通信IPC需要特别的方法，线程间可以直接读写进程数据段（如全局变量）来进行通信。</p>
-</li>
-<li><p>线程有什么是共享的什么是私有的</p>
-</li>
 </ul>
-<p>线程共享的环境包括：</p>
+<h5 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h5><p>​         （1）进程是资源分配和调度的一个独立单元，而线程是CPU调度和分派的基本单元<br>​          （2）一个进程至少包括一个线程，并且同一个进程的所有线程共享整个进程的资源，因此线程执行时一般都要进行同步和互斥<br>​          （3）进程的创建调用fork或者vfork，而线程的创建调用pthread_create，进程结束后它拥有的所有线程都将销毁，而线程的结束不会影响同个进程中的其他线程的结束<br>​          （4）线程是轻量级的进程，它的创建和销毁所需要的时间比进程小很多，所有操作系统中的执行功能都是创建线程去完成的<br>​          （5）进程间通信IPC需要特别的方法，线程间可以直接读写进程数据段（如全局变量）来进行通信。</p>
+<h5 id="线程有什么是共享的什么是私有的"><a href="#线程有什么是共享的什么是私有的" class="headerlink" title="线程有什么是共享的什么是私有的"></a>线程有什么是共享的什么是私有的</h5><p>线程共享的环境包括：</p>
 <p>  1.进程代码段 </p>
 <p>  2.进程的公有数据(利用这些共享的数据，线程很容易的实现相互之间的通讯) </p>
 <p>  3.进程打开的文件描述符、信号的处理器、进程的当前目录和进程用户ID与进程组ID。</p>
@@ -837,6 +823,23 @@
 <p>5.线程的信号屏蔽码</p>
 <p>6.线程的优先级</p>
 <p>注：线程有自己的私有属性线程控制块TCB，进程也有自己的私有属性进程控制块PCB，这些私有属性是不被共享的，用来标示一个进程或一个线程的标志。</p>
+<h5 id="进程的三种基本状态"><a href="#进程的三种基本状态" class="headerlink" title="进程的三种基本状态"></a>进程的三种基本状态</h5><ul>
+<li><p>就绪状态：当进程已分配到除CPU以外的所有必要的资源，只要获得处理机便可立即执行，这时的进程状态就称为就绪状态；</p>
+</li>
+<li><p>执行状态：当进程已获得处理机，其程序正在处理机上执行，此时的进程状态称为执行状态；</p>
+</li>
+<li><p>阻塞状态：正在执行的进程，由于等待某个事件发生而无法执行时，便放弃处理机而进入阻塞状态。引起进程阻塞的事件有很多种，例如，等待I/O完成、申请缓冲区不能满足、等待信号等。</p>
+</li>
+<li><p>进程三种状态间的转换  </p>
+</li>
+</ul>
+<blockquote>
+<p>执行–&gt;就绪：时间片完；</p>
+<p>就绪–&gt;执行：被调度；</p>
+<p>执行–&gt;阻塞：等待事件，io请求；</p>
+<p>阻塞-&gt;就绪：io完成</p>
+</blockquote>
+<p>一个进程在运行期间，不断地从一种状态转换到另一种状态，它可以多次处于就绪状态和执行状态，也可以多次处于阻塞状态。<br>A. 就绪—&gt;执行<br>处于就绪状态的进程，当进程调度程序为之分配好了处理机后，该进程便由就绪状态转换为执行状态；<br>B. 执行—&gt;就绪<br>处于执行状态的进程在其执行过程中，因分配给它的一个时间片已经用完而不得不让出处理机，于是进程从执行状态转换为就绪状态；<br>C. 执行—&gt;阻塞<br>正在执行的进程因等待某种事件发生而无法继续执行时，便从执行状态变成阻塞状态；<br>D. 阻塞—&gt;就绪<br>处于阻塞状态的进程，若其等待的事件已经发生，于是进程便从阻塞状态转变为就绪状态。</p>
 <ul>
 <li>线程同步</li>
 </ul>
@@ -844,15 +847,9 @@
 <p>内核模式下的方法有：事件，信号量，互斥量。</p>
 <p>1、临界区:通过对多线程的串行化来访问公共资源或一段代码，速度快，适合控制数据访问。<br>2、互斥量:为协调共同对一个共享资源的单独访问而设计的。<br>3、信号量:为控制一个具有有限数量用户资源而设计。<br>4、事 件:用来通知线程有一些事件已发生，从而启动后继任务的开始。</p>
 <ul>
-<li><p>进程的几种状态？</p>
-<p>（1）run（运行状态）：正在运行的进程或在等待队列中等待的进程，等待的进程只要一得到cpu就可以运行<br> （2）Sleep（可中断休眠状态）：相当于阻塞或在等待的状态<br> （3）D（不可中断休眠状态）：在磁盘上的进程<br> （4）T（停止状态）：这种状态无法直观的看见，因为是进程停止后就释放了资源，所以不会留在linux中<br> （5）Z（僵尸状态）：子进程先于父进程结束，但父进程没有调用wait或waitpid来回收子进程的资源，所以子进程就成了僵尸进程，如果父进程结束后仍然没有回收子进程的资源，那么1号进程将回收</p>
-</li>
-<li><p>线程间通信：由于多线程共享地址空间和数据空间，所以多个线程间的通信是一个线程的数据可以直接提供给其他线程使用，而不必通过操作系统（也就是内核的调度）。</p>
-</li>
-<li><p>进程间的通信则不同，它的数据空间的独立性决定了它的通信相对比较复杂，需要通过操作系统。以前进程间的通信只能是单机版的，现在操作系统都继承了基于套接字（socket）的进程间的通信机制。这样进程间的通信就不局限于单台计算机了，也可以实现不同操作系统间的网络通信，eg.windows和Linux操作系统通过Socket进行进程间通信。</p>
-</li>
-<li><p>windows进程通信</p>
-</li>
+<li>线程间通信：由于多线程共享地址空间和数据空间，所以多个线程间的通信是一个线程的数据可以直接提供给其他线程使用，而不必通过操作系统（也就是内核的调度）。</li>
+<li>进程间的通信则不同，它的数据空间的独立性决定了它的通信相对比较复杂，需要通过操作系统。以前进程间的通信只能是单机版的，现在操作系统都继承了基于套接字（socket）的进程间的通信机制。这样进程间的通信就不局限于单台计算机了，也可以实现不同操作系统间的网络通信，eg.windows和Linux操作系统通过Socket进行进程间通信。</li>
+<li>windows进程通信</li>
 </ul>
 <p><em>标准的Windows</em>进程间通信方法有三种：匿名管道、命名管道（又叫<em>FIFO</em>，命名管道可以控制读消息的长度，一个命名管道可以有多个实例，具体通信还是一对一）、邮槽（<em>MailSlot</em>）。共享内存也可用于windows进程通信，但因为其实是<em>Windows</em>“内存映射文件”的一个特殊用法，所以不算作标准的windows进程间通信方法。</p>
 <table>
@@ -904,10 +901,7 @@
 <td></td>
 </tr>
 </tbody></table>
-<ul>
-<li>windows命名管道和Linux命名管道的区别</li>
-</ul>
-<table>
+<h5 id="windows命名管道和Linux命名管道的区别"><a href="#windows命名管道和Linux命名管道的区别" class="headerlink" title="windows命名管道和Linux命名管道的区别"></a>windows命名管道和Linux命名管道的区别</h5><table>
 <thead>
 <tr>
 <th align="center">对比点</th>
@@ -945,8 +939,7 @@
 <li>③ 所有线程可以直接共享内存和变量等；</li>
 <li>④ 线程方式消耗的总资源比进程方式好；</li>
 </ul>
-<p>windows多线程通信的方法主要有三种：</p>
-<p><strong>1.全局变量</strong></p>
+<h5 id="windows多线程通信的方法主要有三种："><a href="#windows多线程通信的方法主要有三种：" class="headerlink" title="windows多线程通信的方法主要有三种："></a>windows多线程通信的方法主要有三种：</h5><p><strong>1.全局变量</strong></p>
 <p>由于同一进程下的线程之间共享数据空间。当需要有多个线程来访问一个全局变量时，通常我们会在这个全局变量前加上volatile声明，来告诉编译器这个全局变量是“易变”（更直接的讲是“直接存取原始内存地址”，更明确的说是不要编辑器去读缓存中的数据，而是直接从内存中获取变量的值）的，让编译器不要对这个变量进行优化。</p>
 <p><strong>2.Message消息机制</strong><br>常用的Message通信的接口主要有两个：PostMessage和PostThreadMessage，<br>PostMessage为线程向主窗口发送消息。而PostThreadMessage是任意两个线程之间的通信接口。</p>
 <p><strong>3.CEvent对象</strong></p>
@@ -955,12 +948,8 @@
 <li>Linux线程通信</li>
 </ul>
 <p>线程间无需特别的手段进行通信，因为线程间可以共享数据结构，也就是一个全局变量可以被两个线程同时使用。不过要注意的是线程间需要做好同步，一般用mutex。</p>
-<ol start="22">
-<li><p>死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？</p>
-<pre><code>（1）相互等待资源而产生的一种僵持状态，如果没有外力的干预将一直持续这个状态
- （2）系统资源不足、相互竞争资源、请求资源顺序不当
- （3）互斥、不可剥夺、循环等待、请求与保持
- （4）因为互斥是不可改变的，所以只能破坏其他三个条件中的一个来解除死锁，方法：</code></pre><ul>
+<h5 id="死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？"><a href="#死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？" class="headerlink" title="死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？"></a>死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？</h5><p>​         （1）相互等待资源而产生的一种僵持状态，如果没有外力的干预将一直持续这个状态<br>​          （2）系统资源不足、相互竞争资源、请求资源顺序不当<br>​          （3）互斥、不可剥夺、循环等待、请求与保持<br>​          （4）因为互斥是不可改变的，所以只能破坏其他三个条件中的一个来解除死锁，方法：</p>
+<ul>
 <li><p>破坏“不可剥夺”条件：一个进程不能获得所需要的全部资源时便处于等待状态，等待期间他占有的资源将被隐式的释放重新加入到系统的资源列表中。</p>
 </li>
 <li><p>破坏”请求与保持条件“：第一种方法静态分配即每个进程在开始执行时就申请他所需要的全部资源。第二种是动态分配即每个进程在申请所需要的资源时他本身不占用系统资源。</p>
@@ -968,8 +957,6 @@
 <li><p>破坏“循环等待”条件：资源有序分配（将系统中的所有资源顺序编号，将紧缺的，稀少的采用较大的编号，在申请资源时必须按照编号的顺序进行，一个进程只有获得较小编号的进程才能申请较大编号的进程）</p>
 </li>
 </ul>
-</li>
-</ol>
 <h4 id="（九）SQL"><a href="#（九）SQL" class="headerlink" title="（九）SQL"></a>（九）SQL</h4><ol>
 <li>一致性哈希？渐进性哈希？</li>
 </ol>
@@ -989,31 +976,28 @@
 </ol>
 <p>模板是泛型编程的基础，泛型编程即以一种独立于任何特定类型的方式编写代码。</p>
 <p>模板是创建泛型类或函数的蓝图或公式。库容器，比如迭代器和算法，都是泛型编程的例子，它们都使用了模板的概念。</p>
-<h4 id="（十）计算机网络"><a href="#（十）计算机网络" class="headerlink" title="（十）计算机网络"></a>（十）计算机网络</h4><ol>
-<li>HTTP 与 HTTPS 区别</li>
-</ol>
-<ul>
-<li>http是超文本传输协议，信息是明文传输，未加密；https则是具有安全性的ssl加密传输协议。</li>
+<h4 id="（十）计算机网络"><a href="#（十）计算机网络" class="headerlink" title="（十）计算机网络"></a>（十）计算机网络</h4><h5 id="HTTP-与-HTTPS-区别"><a href="#HTTP-与-HTTPS-区别" class="headerlink" title="HTTP 与 HTTPS 区别"></a>HTTP 与 HTTPS 区别</h5><ul>
+<li>http是超文本传输协议，信息是明文传输，无连接无状态；https则是具有安全性的ssl加密传输协议。</li>
 <li>使用 HTTPS 协议需要到 CA（Certificate Authority，数字证书认证机构） 根证书，一般免费证书较少，因而需要一定费用。</li>
 <li>HTTP 页面响应速度比 HTTPS 快，主要是因为 HTTP 使用 TCP 三次握手建立连接，客户端和服务器需要交换 3 个包，而 HTTPS除了 TCP 的三个包，还要加上 ssl 握手需要的 9 个包，所以一共是 12 个包。</li>
 <li>http 和 https 使用的是完全不同的连接方式，用的端口也不一样，前者是 80，后者是 443。</li>
 <li>HTTPS 其实就是建构在 SSL/TLS 之上的 HTTP 协议，所以，要比较 HTTPS 比 HTTP 要更耗费服务器资源。</li>
 </ul>
-<ol start="2">
-<li>客户端在使用HTTPS方式与Web服务器通信步骤</li>
-</ol>
-<p>　　（1）客户使用https的URL访问Web服务器，要求与Web服务器建立SSL连接。</p>
+<h5 id="客户端在使用HTTPS方式与Web服务器通信步骤"><a href="#客户端在使用HTTPS方式与Web服务器通信步骤" class="headerlink" title="客户端在使用HTTPS方式与Web服务器通信步骤"></a>客户端在使用HTTPS方式与Web服务器通信步骤</h5><p>　　（1）客户使用https的URL访问Web服务器，要求与Web服务器建立SSL连接。</p>
 <p>　　（2）Web服务器收到客户端请求后，会将网站的证书信息（证书中包含公钥）传送一份给客户端。</p>
 <p>　　（3）客户端的浏览器与Web服务器开始协商SSL连接的安全等级，也就是信息加密的等级。</p>
 <p>　　（4）客户端的浏览器根据双方同意的安全等级，建立会话密钥，然后利用网站的公钥将会话密钥加密，并传送给网站。</p>
 <p>　　（5）Web服务器利用自己的私钥解密出会话密钥。</p>
 <p>　　（6）Web服务器利用会话密钥加密与客户端之间的通信。</p>
 <p><img src="%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/https.png" alt="https与web服务器通信步骤"></p>
-<ol start="33">
-<li>怎么理解http协议的无连接无状态</li>
-</ol>
-<p>HTTP协议又称超文本传输协议；是OSI模型中的第七层应用程中协议；具有以下特点：<br> <strong>1、支持客户/服务器模式;<br> 2、简单快速;<br> 3、灵活;<br> 4、无连接;<br> 5、无状态；</strong><br> <strong>无连接：</strong>指的是每次连接只处理一个请求，服务端处理完客户端一次请求，等到客户端作出回应之后便断开连接；这种方式有利于节省传输时间；然后随着互联网的发展，一台服务器同一时间处理的请求越来越多，如果依然采用原来的方式，将会在建立和断开连接上花费大部分时间。为了避免这一劣势，针对http无连接，人们设计了非持久连接和持久连接。实际上关于http协议非持久连接和持久连接是针对tcp协议的。</p>
+<h5 id="怎么理解http协议的无连接无状态"><a href="#怎么理解http协议的无连接无状态" class="headerlink" title="怎么理解http协议的无连接无状态"></a>怎么理解http协议的无连接无状态</h5><p>HTTP协议又称超文本传输协议；是OSI模型中的第七层应用程中协议；具有以下特点：<br> <strong>1、支持客户/服务器模式;<br> 2、简单快速;<br> 3、灵活;<br> 4、无连接;<br> 5、无状态；</strong></p>
+<p>注意：<strong>HTTP不是字面意义上的没有连接</strong>，事实上，这个定义也符合HTTP短连接的定义，但<strong>无连接强调的是HTTP的特性，短连接可理解为一种实现</strong>。而HTTP真正的连接，根据计算机网络体系的协议栈可知，是通过传输层的TCP协议实现的，下层向上层提供了可靠的连接，上层屏蔽了下层的具体实现，所有的操作均在可靠的连接基础之上。HTTP使用TCP的目的是为了保证数据传输的可靠性和完整性。简单来说就是：</p>
 <ul>
+<li><p>TCP的面向连接是基于网络底层的数据传输。</p>
+</li>
+<li><p>HTTP的无连接是基于应用层面的沟通交互。</p>
+<p><strong>无连接：</strong>指的是每次连接只处理一个请求，服务端处理完客户端一次请求，等到客户端作出回应之后便断开连接；这种方式有利于节省传输时间；然后随着互联网的发展，一台服务器同一时间处理的请求越来越多，如果依然采用原来的方式，将会在建立和断开连接上花费大部分时间。为了避免这一劣势，针对http无连接，人们设计了非持久连接和持久连接。实际上关于http协议非持久连接和持久连接是针对tcp协议的。</p>
+</li>
 <li><p>非持久连接：请求一个HTTP请求/响应需要的总时间为客户端发出建立连接和发生请求报文+服务器传输HTML文件的时间。</p>
 </li>
 <li><p>持久连接：服务器在发送响应后，保持该TCP连接打开。在相同的客户机与服务器之间的后续请求和响应报文通过相同的连接进行传送。不需要再次建立tcp连接 ，但是由于所有的连接都是串行的，当某一个请求阻塞时就会导致同一条连接的后续请求被阻塞。为了解决这一问题：提出了pipellining的概念；客户端发起一次请求时不必等待响应便直接发起第二个请求；服务端按照请求的顺序一次返回结果；<br><strong>SPDY和HTTP/2:multiplexing：</strong>多路复用技术出现；能够让多个请求和响应的传输完全混杂在一起进行；通过streamID来互相区别；</p>
@@ -1021,15 +1005,12 @@
 </ul>
 <p> PS:HTTP借助于底层的TCP虚拟连接，HTTP协议本身无需连接；就好比A和B打电话，A和B是借助于底层的简化先连接交换信息；但是A和B本身无需连接；</p>
 <p> <strong>无状态：</strong>是指服务端对于客户端每次发送的请求都认为它是一个新的请求，上一次会话和下一次会话没有联系；HTTP 协议这种特性有优点也有缺点，优点在于解放了服务器，每一次请求“点到为止”不会造成不必要连接占用，缺点在于每次请求会传输大量重复的内容信息。言外之意是说http协议没法保存客户机信息，也就没法区分每次请求的不同之处。关于http无状态阻碍了交互式应用程序的实现。比如记录用户浏览哪些网页、判断用户是否拥有权限访问等。于是，两种用于保持HTTP状态的技术就应运而生了，一个是Cookie，而另一个则是Session。</p>
-<ol start="3">
-<li><p>cookie和session的区别</p>
-<p>1、Cookie和Session都是会话技术，Session是运行在服务器端，用来跟踪用户的状态，数据可以保存在集群、数据库、文件中；Cookie是运行在客户端，用来记录用户的一些信息，也是实现Session的一种方式。</p>
-<p>2、Cookie有大小限制以及浏览器存储cookie的个数也有限制，Session是没有大小限制和存储个数与服务器的内存大小有关。</p>
-<p>3、Cookie有安全隐患，通过拦截或本地文件找得到你的cookie后可以进行攻击。</p>
-<p>4、有效期不同。cookie长期有效；Session有效时间短，假如设置Session的超时时间过长，服务器累计的Session就会越多，越容易招致内存溢出。</p>
-</li>
-<li><p>共享session</p>
-</li>
+<h5 id="cookie和session的区别"><a href="#cookie和session的区别" class="headerlink" title="cookie和session的区别"></a>cookie和session的区别</h5><p> 1、Cookie和Session都是会话技术，Session是运行在服务器端，用来跟踪用户的状态，数据可以保存在集群、数据库、文件中；Cookie是运行在客户端，用来记录用户的一些信息，也是实现Session的一种方式。</p>
+<p>  2、Cookie有大小限制以及浏览器存储cookie的个数也有限制，Session是没有大小限制和存储个数与服务器的内存大小有关。</p>
+<p>  3、Cookie有安全隐患，通过拦截或本地文件找得到你的cookie后可以进行攻击。</p>
+<p>  4、有效期不同。cookie长期有效；Session有效时间短，假如设置Session的超时时间过长，服务器累计的Session就会越多，越容易招致内存溢出。</p>
+<ol start="4">
+<li>共享session</li>
 </ol>
 <ul>
 <li>基于数据库的Session共享</li>
@@ -1039,10 +1020,7 @@
 <li>基于resin/tomcat web容器本身的session复制机制</li>
 <li>基于TT/Redis 或 jbosscache 进行 session 共享。</li>
 </ul>
-<ol start="5">
-<li>http状态码分类</li>
-</ol>
-<table>
+<h5 id="http状态码分类"><a href="#http状态码分类" class="headerlink" title="http状态码分类"></a>http状态码分类</h5><table>
 <thead>
 <tr>
 <th>分类</th>
@@ -1079,10 +1057,7 @@
 <p>  502，Bad Gateway，作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应  </p>
 <p>  503，服务器超载或停机维护  </p>
 <p>  504，Gateway Timeout网关超时服务器作为网关或代理，未及时从上游服务器接收请求</p>
-<ol start="6">
-<li>http</li>
-</ol>
-<ul>
+<h5 id="http请求报文和响应报文格式"><a href="#http请求报文和响应报文格式" class="headerlink" title="http请求报文和响应报文格式"></a>http请求报文和响应报文格式</h5><ul>
 <li><p><strong>客户端发送一个HTTP请求到服务器的请求消息包括请求行（request line）、请求头部（header）、空行和请求数据四个部分</strong></p>
 </li>
 <li><p><strong>HTTP响应也由四个部分组成，分别是：状态行、消息报头、空行和响应正文</strong></p>
@@ -1091,10 +1066,7 @@
 <p>protocol :// hostname[:port] / path / [;parameters] [?query] [#fragment]</p>
 </li>
 </ul>
-<ol start="7">
-<li>get和post的区别：<a href="https://blog.csdn.net/qq_38182125/article/details/89071899" target="_blank" rel="noopener">参考</a></li>
-</ol>
-<p><strong>它们的本质都是 TCP 链接，并无区别，在网络环境好的情况下发送时间也几乎一样。但是由于 HTTP 的规定以及浏览器/服务器的限制，导致它们在应用过程中可能会有所不同</strong>。</p>
+<h5 id="get和post的区别：参考"><a href="#get和post的区别：参考" class="headerlink" title="get和post的区别：参考"></a>get和post的区别：<a href="https://blog.csdn.net/qq_38182125/article/details/89071899" target="_blank" rel="noopener">参考</a></h5><p><strong>它们的本质都是 TCP 链接，并无区别，在网络环境好的情况下发送时间也几乎一样。但是由于 HTTP 的规定以及浏览器/服务器的限制，导致它们在应用过程中可能会有所不同</strong>。</p>
 <table>
 <thead>
 <tr>
@@ -1135,7 +1107,7 @@
 </tr>
 <tr>
 <td align="center">安全性</td>
-<td align="center">安全性较差，因为所发送数据时URL的一部分，发送密码或者其他敏感信息时绝不要使用get</td>
+<td align="center">安全性较差，因为所发送数据是URL的一部分，发送密码或者其他敏感信息时绝不要使用get</td>
 <td align="center">更安全，因为参数不会被保存在浏览历史或web服务器</td>
 </tr>
 <tr>
@@ -1149,10 +1121,7 @@
 <td align="center">两个，浏览器先发送请求行和请求头，服务器响应100 continue,浏览器再发送data，服务器响应200 ok (返回数据)</td>
 </tr>
 </tbody></table>
-<ol start="8">
-<li>TCP和UDP的区别</li>
-</ol>
-<ul>
+<h5 id="TCP和UDP的区别"><a href="#TCP和UDP的区别" class="headerlink" title="TCP和UDP的区别"></a>TCP和UDP的区别</h5><ul>
 <li>TCP 面向连接，建立连接进行三次握手，一对一传输；UDP 面向无连接，不会建立连接，一对一、一对多、多对一传输，可以应用于广播</li>
 <li>UDP程序结构较简单，包头8字节；TCP包头20字节，还有一个可选项长度不确定</li>
 <li>TCP 是面向字节流的，UDP 是基于数据报的</li>
@@ -1227,13 +1196,28 @@
 <li>IO  cache 用法</li>
 </ol>
 <p><strong>Buffer</strong>（缓冲区）是系统两端处理<strong>速度平衡</strong>（从长时间尺度上看）时使用的。它的引入是为了减小短期内突发I/O的影响，起到<strong>流量整形</strong>的作用。比如生产者——消费者问题，他们产生和消耗资源的速度大体接近，加一个buffer可以抵消掉资源刚产生/消耗时的突然变化。<br><strong>Cache</strong>（缓存）则是系统两端处理<strong>速度不匹配</strong>时的一种<strong>折衷策略</strong>。因为CPU和memory之间的速度差异越来越大，所以人们充分利用数据的局部性（locality）特征，通过使用存储系统分级（memory hierarchy）的策略来减小这种差异带来的影响。</p>
-<p>常规文件系统操作（调用read/fread等类函数）中，函数的调用过程：</p>
+<p>常规文件系统操作（调用read/fread/write等类函数）中，函数的调用过程：</p>
 <ul>
-<li>进程发起读文件请求。</li>
-<li>内核通过查找进程文件符表，定位到内核已打开文件集上的文件信息，从而找到此文件的inode。</li>
-<li>inode在address_space上查找要请求的文件页是否已经缓存在页缓存中。如果存在，则直接返回这片文件页的内容。</li>
-<li>如果不存在，则通过inode定位到文件磁盘地址，将数据从磁盘复制到页缓存。之后再次发起读页面过程，进而将页缓存中的数据发给用户进程。</li>
+<li><p><strong>读文件</strong><br>1、进程调用库函数向内核发起读文件请求；</p>
+<p>2、内核通过检查进程的文件描述符定位到虚拟文件系统的已打开文件列表表项；</p>
+<p>3、调用该文件可用的系统调用函数read()</p>
+<p>3、read()函数通过文件表项链接到目录项模块，根据传入的文件路径，在目录项模块中检索，找到该文件的inode；</p>
+<p>4、在inode中，通过文件内容偏移量计算出要读取的页；</p>
+<p>5、通过inode找到文件对应的address_space；</p>
+<p>6、在address_space中访问该文件的页缓存树，查找对应的页缓存结点：</p>
+<p>（1）如果页缓存命中，那么直接返回文件内容；</p>
+<p>（2）如果页缓存缺失，那么产生一个页缺失异常，创建一个页缓存页，同时通过inode找到文件该页的磁盘地址，读取相应的页填充该缓存页；重新进行第6步查找页缓存；</p>
+<p>7、文件内容读取成功。</p>
+<p><strong>写文件</strong><br>前5步和读文件一致，在address_space中查询对应页的页缓存是否存在：</p>
+<p>6、如果页缓存命中，直接把文件内容修改更新在页缓存的页中。写文件就结束了。这时候文件修改位于页缓存，并没有写回到磁盘文件中去。</p>
+<p>7、如果页缓存缺失，那么产生一个页缺失异常，创建一个页缓存页，同时通过inode找到文件该页的磁盘地址，读取相应的页填充该缓存页。此时缓存页命中，进行第6步。</p>
+<p>8、一个页缓存中的页如果被修改，那么会被标记成脏页。脏页需要写回到磁盘中的文件块。有两种方式可以把脏页写回磁盘：</p>
+<p>（1）手动调用sync()或者fsync()系统调用把脏页写回</p>
+<p>（2）pdflush进程会定时把脏页写回到磁盘</p>
+<p>同时注意，脏页不能被置换出内存，如果脏页正在被写回，那么会被设置写回标记，这时候该页就被上锁，其他写请求被阻塞直到锁释放。</p>
+</li>
 </ul>
+<p>将磁盘上的数据缓存在内存中，加速文件的读写。实际上，在一般情况下，read/write是只跟缓存打交道的。read就直接从缓存读数据。如果要读的数据还不在缓存中，则触发一次读盘操作，然后等待磁盘上的数据被更新到磁盘高速缓存中；write也是直接写到缓存里去，然后就不用管了。后续内核会负责将数据写回磁盘。为了实现这样的缓存，每个文件的inode内嵌了一个address_space结构，通过inode-&gt;i_mapping来访问。address_space结构中维护了一棵radix树，用于磁盘高速缓存的内存页面就挂在这棵树上。而既然磁盘高速缓存是跟文件的inode关联上的，则打开这个文件的每个进程都共用同一份缓存。</p>
 <ol start="15">
 <li><p>bitmap   磁盘一亿个数查询target，内存4g</p>
 </li>
@@ -1252,7 +1236,7 @@
 </ol>
 <p>（一）静态链接库与动态链接库都是共享代码的方式，如果采用静态链接库，lib中的指令都全部被直接包含在最终生成的exe文件中了（链接器从静态链接库获取所有被引用函数的二进制代码和库一起放到可执行文件中）。但是若使用dll动态链接库，该dll不必被包含在最终的exe文件中，它允许可执行模块（dll或exe文件）仅包含在运行时定位dll函数的可执行代码的所需信息，执行文件执行时可以动态地引用和卸载这个与exe独立的dll文件。如果某个目标文件需要的函数在参与链接的目标文件中找不到的话，链接器就报错了。目标文件中有两个重要的接口来提供这些信息：一个是符号表，另外一个是重定位表。</p>
 <p>（二）静态链接库不能再包含其他的动态链接库或者静态库，而在动态链接库中还可以再包含其他的动态或静态链接库。 </p>
-<p>（三）动态链接库基本思想是把程序按照模块拆分成各个相对独立部分，在程序运行时才将它们链接在一起形成一个完整的程序，<strong>当程序在运行到指定的代码时，去共享执行内存中已经加载的动态库可执行代码</strong>，而不是像静态链接一样把所有程序模块都链接成一个单独的可执行文件,也就是在需要调用其中的函数时，根据函数映射表找到该函数然后调入堆栈执行。如果在当前工程中有多处对dll文件中同一个函数的调用，那么执行时，这个函数只会留下一份拷贝。但是如果有多处对lib文件中同一个函数的调用，那么执行时，该函数将在当前程序的执行空间里留下多份拷贝，而且是一处调用就产生一份拷贝。</p>
+<p>（三）动态链接库基本思想是把程序按照模块拆分成各个相对独立部分，在程序运行时才将它们链接在一起形成一个完整的程序，<strong>当程序在运行到指定的代码时，去执行共享内存中已经加载的动态库可执行代码</strong>，而不是像静态链接一样把所有程序模块都链接成一个单独的可执行文件,也就是在需要调用其中的函数时，根据函数映射表找到该函数然后调入堆栈执行。如果在当前工程中有多处对dll文件中同一个函数的调用，那么执行时，这个函数只会留下一份拷贝。但是如果有多处对lib文件中同一个函数的调用，那么执行时，该函数将在当前程序的执行空间里留下多份拷贝，而且是一处调用就产生一份拷贝。</p>
 <p><strong>静态链接的优点</strong> </p>
 <p>   (1) 代码装载速度快，执行速度略比动态链接库快，在程序发布的时候就不需要的依赖库（不需要带着库一块发布），程序可以独立执行； </p>
 <p>   (2) 只需保证在开发者的计算机中有正确的.LIB文件，在以二进制形式发布程序时不需考虑在用户的计算机上.LIB文件是否存在及版本问题，可避免DLL地狱等问题。 </p>
@@ -1471,19 +1455,21 @@
 <li>数组和链表的区别  单向链表 双向链表</li>
 <li>析构函数 private  堆栈</li>
 <li>二叉树的建立  存储结构</li>
-<li>函数参数传递方式<ul>
-<li>值传递 </li>
-<li>指针传递 ：指针传递把实参的存储地址传递给对应的形参，从而使得形参指针和实参指针指向同一个地址，因此被调用函数中对形参指针所指向的地址中内容的任何改变都会影响到实参。</li>
-<li>引用传递：被调函数的形参虽然也作为局部变量在堆栈中开辟了内存空间，但是这时存放的是由主调函数放进来的实参变量的地址。被调函数对形参的任何操作都被处理成间接寻址，即通过堆栈中存放的地址访问主调函数中的实参变量。</li>
-</ul>
-</li>
 <li>如何用vector实现队列 <ul>
-<li>deque的内存模型：map+vector  </li>
-<li>简易实现可以使用int值记录头和尾下标）  </li>
+<li>deque的内存模型：指针数组+vector  </li>
+<li>简易实现可以使用int值记录头和尾下标 </li>
 </ul>
 </li>
-<li>static和const谈谈</li>
+<li>static和const的区别</li>
 </ol>
+<ul>
+<li>const定义的常量在超出其作用域之后其空间会被释放。存储在动态区，可以通过取址直接操作指向的内存的值，以绕过编译器对其只读的限制检查；而static定义的静态常量在函数执行后不会释放其存储空间。static修饰的变量作为程序运行时的静态变量，存储于内存的静态区，静态区的数据初始化工作由操作系统在加载完程序后执行main函数前进行。操作系统在加载完程序后，将常量区中存放的变量初值复制给静态变量，完成其初始化。static变量的内存只被分配一次，其值在下次调用时仍维持上次的值。</li>
+<li>static静态成员变量不能在类的内部初始化。在类的内部只是声明，定义必须在类定义体的外部，通常在类的实现文件中初始化；static关键字只能用于类定义体内部的声明中，定义时不能标示为static。</li>
+<li>const成员变量也不能在类定义处初始化，只能通过构造函数初始化列表进行，并且必须有构造函数，运行期间将不能再对const属性进行修改。</li>
+</ul>
+<p><strong>const成员函数主要目的是防止成员函数修改对象的内容。</strong>const成员函数不能修改成员变量的值，但可以访问成员变量。</p>
+<p><strong>static成员函数主要目的是作为类作用域的全局函数。</strong>不能访问类的非静态数据成员。类的静态成员函数没有this指针，这导致：1、不能直接存取类的非静态成员变量，调用非静态成员函数2、不能被声明为virtual</p>
+<p>*<em>static const 和 const static *</em>含义相同，有两种用法，一种是作为预编译声明，一种是作为类的静态常量属性。当作为预编译声明时，static const 属性必须在声明时即指定值，而且类型仅限基本数据类型，保证了程序的健壮性。const static常量存在于内存的常量区，有操作系统加载程序时，加载到内存的常量区。所以可以对其取址，但是不能对该区的内存进行写操作，因为这个区从操作系统级进行了只读限定，任何对该内存区的写操作会导致程序崩溃。</p>
 <h4 id="（十八）华为"><a href="#（十八）华为" class="headerlink" title="（十八）华为"></a>（十八）华为</h4><ol>
 <li>std::thread  线程的启动  线程库</li>
 <li>MySQL内联和外联</li>
@@ -1749,6 +1735,16 @@
 </ol>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sort</span>  </span></span><br><span class="line"><span class="class">&#123;</span>  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span> <span class="params">(<span class="keyword">const</span> <span class="built_in">string</span> &amp;str1, <span class="keyword">const</span> <span class="built_in">string</span> &amp;str2)</span> <span class="keyword">const</span>  <span class="comment">//带两个参数</span></span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> str1 &gt; str2;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;  </span><br><span class="line">然后我们可以用这个类作为参数来初始化<span class="built_in">set</span>容器：</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span>&lt;<span class="built_in">string</span>, Sort&gt; myset;  <span class="comment">//带比较函数的set构造函数,并用函数对象Sort初始化</span></span><br><span class="line">myset.insert(<span class="string">"A"</span>);  </span><br><span class="line">myset.insert(<span class="string">"B"</span>);  </span><br><span class="line"><span class="comment">//输出为：B，A。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Upper</span> </span></span><br><span class="line"><span class="class">&#123;</span>  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    Upper(<span class="keyword">int</span> <span class="built_in">min</span> = <span class="number">0</span>):m_min(<span class="built_in">min</span>)&#123;&#125;  </span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span> <span class="params">(<span class="keyword">int</span> value)</span> <span class="keyword">const</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> value &gt;= m_min;  </span><br><span class="line">    &#125;  </span><br><span class="line"><span class="keyword">private</span>:  </span><br><span class="line">    <span class="keyword">int</span> m_min;  </span><br><span class="line">&#125;;  </span><br><span class="line">从而这样调用 find_if 函数：</span><br><span class="line"></span><br><span class="line">find_if( dest.<span class="built_in">begin</span>(), dest.<span class="built_in">end</span>(), Upper(<span class="number">10</span>) );</span><br><span class="line"></span><br><span class="line">首先生成类 Upper 的对象，并用 <span class="number">10</span> 初始化，调用find_if 时将用该函数对象进行判断。</span><br></pre></td></tr></table></figure>
 
+<ol start="19">
+<li>解决hash冲突的三种方法</li>
+</ol>
+<p>哈希函数的构造方法很多，常用的有直接定址法、数字分析法、平方取中法、折叠法、除留余数法、随机数法等，一般常用除留余数法。</p>
+<ul>
+<li>开放地址法：线性探测、二次探测</li>
+<li>链地址法：又称拉链法，将所有具有相同哈希地址的而不同关键字的元素连接到同一个单链表中。如果选定的哈希表长度为m，则可以将哈希表定义为一个有m个头指针组成的指针数组。</li>
+<li>再散列法：有多个不同的Hash函数，当发生冲突时，使用第二个，第三个，….，等哈希函数计算地址，直到无冲突。虽然不易发生聚集，但是增加了计算时间。</li>
+<li>建立公共溢出去：将哈希表分为基本表和溢出表两部分，凡是和基本表发生冲突的元素，一律填入溢出表</li>
+</ul>
 
       
     </div>
@@ -1927,7 +1923,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）面向对象的三个基本特征：封装、继承、多态"><span class="nav-number">1.</span> <span class="nav-text">（一）面向对象的三个基本特征：封装、继承、多态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）bash-shell"><span class="nav-number">2.</span> <span class="nav-text">（二）bash shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）图"><span class="nav-number">3.</span> <span class="nav-text">（三）图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（四）IO库"><span class="nav-number">4.</span> <span class="nav-text">（四）IO库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（五）搜狗"><span class="nav-number">5.</span> <span class="nav-text">（五）搜狗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（六）手写代码"><span class="nav-number">6.</span> <span class="nav-text">（六）手写代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（七）SAP"><span class="nav-number">7.</span> <span class="nav-text">（七）SAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（八）进程间的通信方式（IPC-inter-Process-Communication）"><span class="nav-number">8.</span> <span class="nav-text">（八）进程间的通信方式（IPC,inter-Process Communication）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（九）SQL"><span class="nav-number">9.</span> <span class="nav-text">（九）SQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十）计算机网络"><span class="nav-number">10.</span> <span class="nav-text">（十）计算机网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十一）百度"><span class="nav-number">11.</span> <span class="nav-text">（十一）百度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十二）网易"><span class="nav-number">12.</span> <span class="nav-text">（十二）网易</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十三）腾讯"><span class="nav-number">13.</span> <span class="nav-text">（十三）腾讯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十五）快手"><span class="nav-number">14.</span> <span class="nav-text">（十五）快手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十六）华为"><span class="nav-number">15.</span> <span class="nav-text">（十六）华为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十七）阿里"><span class="nav-number">16.</span> <span class="nav-text">（十七）阿里</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十八）华为"><span class="nav-number">17.</span> <span class="nav-text">（十八）华为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十九）腾讯测开"><span class="nav-number">18.</span> <span class="nav-text">（十九）腾讯测开</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二十）美团测开"><span class="nav-number">19.</span> <span class="nav-text">（二十）美团测开</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二十一）知识点"><span class="nav-number">20.</span> <span class="nav-text">（二十一）知识点</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#（一）面向对象的三个基本特征：封装、继承、多态"><span class="nav-number">1.</span> <span class="nav-text">（一）面向对象的三个基本特征：封装、继承、多态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）bash-shell"><span class="nav-number">2.</span> <span class="nav-text">（二）bash shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）图"><span class="nav-number">3.</span> <span class="nav-text">（三）图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（四）IO库"><span class="nav-number">4.</span> <span class="nav-text">（四）IO库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（五）搜狗"><span class="nav-number">5.</span> <span class="nav-text">（五）搜狗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（六）手写代码"><span class="nav-number">6.</span> <span class="nav-text">（六）手写代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（七）SAP"><span class="nav-number">7.</span> <span class="nav-text">（七）SAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（八）进程间的通信方式（IPC-inter-Process-Communication）"><span class="nav-number">8.</span> <span class="nav-text">（八）进程间的通信方式（IPC,inter-Process Communication）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进程创建fork和vfork"><span class="nav-number">8.1.</span> <span class="nav-text">进程创建fork和vfork</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#fork（）与vfock（）都是创建一个进程，那他们有什么区别呢？总结有以下三点区别："><span class="nav-number">8.2.</span> <span class="nav-text">fork（）与vfock（）都是创建一个进程，那他们有什么区别呢？总结有以下三点区别：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进程和线程的区别"><span class="nav-number">8.3.</span> <span class="nav-text">进程和线程的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程有什么是共享的什么是私有的"><span class="nav-number">8.4.</span> <span class="nav-text">线程有什么是共享的什么是私有的</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进程的三种基本状态"><span class="nav-number">8.5.</span> <span class="nav-text">进程的三种基本状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#windows命名管道和Linux命名管道的区别"><span class="nav-number">8.6.</span> <span class="nav-text">windows命名管道和Linux命名管道的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#windows多线程通信的方法主要有三种："><span class="nav-number">8.7.</span> <span class="nav-text">windows多线程通信的方法主要有三种：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？"><span class="nav-number">8.8.</span> <span class="nav-text">死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（九）SQL"><span class="nav-number">9.</span> <span class="nav-text">（九）SQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十）计算机网络"><span class="nav-number">10.</span> <span class="nav-text">（十）计算机网络</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#HTTP-与-HTTPS-区别"><span class="nav-number">10.1.</span> <span class="nav-text">HTTP 与 HTTPS 区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端在使用HTTPS方式与Web服务器通信步骤"><span class="nav-number">10.2.</span> <span class="nav-text">客户端在使用HTTPS方式与Web服务器通信步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#怎么理解http协议的无连接无状态"><span class="nav-number">10.3.</span> <span class="nav-text">怎么理解http协议的无连接无状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#cookie和session的区别"><span class="nav-number">10.4.</span> <span class="nav-text">cookie和session的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#http状态码分类"><span class="nav-number">10.5.</span> <span class="nav-text">http状态码分类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#http请求报文和响应报文格式"><span class="nav-number">10.6.</span> <span class="nav-text">http请求报文和响应报文格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#get和post的区别：参考"><span class="nav-number">10.7.</span> <span class="nav-text">get和post的区别：参考</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TCP和UDP的区别"><span class="nav-number">10.8.</span> <span class="nav-text">TCP和UDP的区别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十一）百度"><span class="nav-number">11.</span> <span class="nav-text">（十一）百度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十二）网易"><span class="nav-number">12.</span> <span class="nav-text">（十二）网易</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十三）腾讯"><span class="nav-number">13.</span> <span class="nav-text">（十三）腾讯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十五）快手"><span class="nav-number">14.</span> <span class="nav-text">（十五）快手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十六）华为"><span class="nav-number">15.</span> <span class="nav-text">（十六）华为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十七）阿里"><span class="nav-number">16.</span> <span class="nav-text">（十七）阿里</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十八）华为"><span class="nav-number">17.</span> <span class="nav-text">（十八）华为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（十九）腾讯测开"><span class="nav-number">18.</span> <span class="nav-text">（十九）腾讯测开</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二十）美团测开"><span class="nav-number">19.</span> <span class="nav-text">（二十）美团测开</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二十一）知识点"><span class="nav-number">20.</span> <span class="nav-text">（二十一）知识点</span></a></li></ol></div>
             
 
           </div>
