@@ -259,6 +259,215 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/21/more-effective-c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="翟安然">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="翟安然's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/21/more-effective-c/" itemprop="url">more effective c++</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-21T17:26:49+08:00">
+                2020-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="一、基础议题：pointers、references、casts、arrays、constructors"><a href="#一、基础议题：pointers、references、casts、arrays、constructors" class="headerlink" title="一、基础议题：pointers、references、casts、arrays、constructors"></a>一、基础议题：pointers、references、casts、arrays、constructors</h3><h4 id="条款1：仔细区分pointers和references"><a href="#条款1：仔细区分pointers和references" class="headerlink" title="条款1：仔细区分pointers和references"></a>条款1：仔细区分pointers和references</h4><ul>
+<li>指针和引用的区别：</li>
+</ul>
+<p>（1）引用是别名，创建的同时必须被初始化，一旦被初始化就不能改变引用关系，不能为NULL；指针是变量，独立可变可空</p>
+<p>（2）引用是间接寻址；指针是直接寻址</p>
+<p>（3）引用有类型检查；指针无类型检查</p>
+<ul>
+<li>总结</li>
+</ul>
+<p>当你知道你需要指向某个东西，而且绝不会改变指向其他东西，或是当你实现一个操作符而其语法需求无法由pointers达成（例如operator [ ]特别地必须返回某种“能够被当做assignment赋值对象”的东西），你就应该选择references。任何其他时候，请采用pointers。</p>
+<h4 id="条款2：最好使用c-转型操作符"><a href="#条款2：最好使用c-转型操作符" class="headerlink" title="条款2：最好使用c++转型操作符"></a>条款2：最好使用c++转型操作符</h4><p>reinterpret_cast最常用用途是转换“函数指针”类型。</p>
+<h4 id="条款3：绝对不要以多态（polymorphically）方式处理数组"><a href="#条款3：绝对不要以多态（polymorphically）方式处理数组" class="headerlink" title="条款3：绝对不要以多态（polymorphically）方式处理数组"></a>条款3：绝对不要以多态（polymorphically）方式处理数组</h4><p>多态（polymorphism）和指针算术不能混用。数组对象几乎总是会涉及指针的算术运算，所以数组和多态不要混用。</p>
+<h4 id="条款4：非必要不提供default-constructor"><a href="#条款4：非必要不提供default-constructor" class="headerlink" title="条款4：非必要不提供default constructor"></a>条款4：非必要不提供default constructor</h4><h5 id="C-中的new-delete与operator-new-operator-delete"><a href="#C-中的new-delete与operator-new-operator-delete" class="headerlink" title="C++中的new/delete与operator new/operator delete"></a>C++中的new/delete与operator new/operator delete</h5><p>new operator/delete operator就是new和delete操作符，而operator new/operator delete是函数。</p>
+<h6 id="new-operator"><a href="#new-operator" class="headerlink" title="new operator"></a>new operator</h6><p>（1）调用operator new分配足够的空间，并调用相关对象的构造函数<br>（2）不可以被重载</p>
+<h6 id="operator-new"><a href="#operator-new" class="headerlink" title="operator new"></a>operator new</h6><p>（1）只分配所要求的空间，不调用相关对象的构造函数。当无法满足所要求分配的空间时，则<br>    -&gt;如果有new_handler，则调用new_handler，否则<br>    -&gt;如果没要求不抛出异常（以nothrow参数表达），则执行bad_alloc异常，否则<br>    -&gt;返回0<br>（2）可以被重载<br>（3）重载时，返回类型必须声明为void*<br>（4）重载时，第一个参数类型必须为表达要求分配空间的大小（字节），类型为size_t<br>（5）重载时，可以带其它参数</p>
+<p>delete 与 delete operator类似</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">X</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    X() &#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"constructor of X"</span>&lt;&lt;<span class="built_in">endl</span>; &#125;</span><br><span class="line">    ~X() &#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"destructor of X"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span>* <span class="keyword">operator</span> <span class="title">new</span><span class="params">(<span class="keyword">size_t</span> <span class="built_in">size</span>,<span class="built_in">string</span> str)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"operator new size "</span>&lt;&lt;<span class="built_in">size</span>&lt;&lt;<span class="string">" with string "</span>&lt;&lt;str&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> ::<span class="keyword">operator</span> <span class="keyword">new</span>(<span class="built_in">size</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="keyword">operator</span> <span class="title">delete</span><span class="params">(<span class="keyword">void</span>* pointee)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"operator delete"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        ::<span class="function"><span class="keyword">operator</span> <span class="title">delete</span><span class="params">(pointee)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    X *px = <span class="keyword">new</span>(<span class="keyword">sizeof</span>(str),<span class="string">"A new class"</span>) X;<span class="comment">//operator new</span></span><br><span class="line">    <span class="keyword">delete</span>(px);<span class="comment">//operator delete</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>X* px = new X;</code> //该行代码中的new为new operator，它将调用类X中的operator new，为该类的对象分配空间，然后调用当前实例的构造函数。<br><code>delete px;</code> //该行代码中的delete为delete operator，它将调用该实例的析构函数，然后调用类X中的operator delete，以释放该实例占用的空间。</p>
+<p>new operator与delete operator的行为是不能够也不应该被改变，这是C++标准作出的承诺。而operator new与operator delete和C语言中的malloc与free对应，只负责分配及释放空间。但使用operator new分配的空间必须使用operator delete来释放，而不能使用free，因为它们对内存使用的登记方式不同。反过来亦是一样。你可以重载operator new和operator delete以实现对内存管理的不同要求，但你不能重载new operator或delete operator以改变它们的行为。</p>
+<p>为什么有必要写自己的operator new和operator delete？<br>答案通常是：为了效率。缺省的operator new和operator delete具有非常好的通用性，它的这种灵活性也使得在某些特定的场合下，可以进一步改善它的性能。尤其在那些需要动态分配大量的但很小的对象的应用程序里，情况更是如此。具体可参考《Effective C++》中的第二章内存管理。</p>
+<h6 id="Placement-new"><a href="#Placement-new" class="headerlink" title="Placement new"></a>Placement new</h6><p>placement new 是重载operator new 的一个标准、全局的版本，它不能够被自定义的版本代替（不像普通版本的operator new和operator delete能够被替换）。</p>
+<p>void *operator new( size_t, void * p ) throw() { return p; }</p>
+<p>placement new的执行忽略了size_t参数，只返还第二个参数。其结果是允许用户把一个对象放到一个特定的地方，达到调用构造函数的效果。和其他普通的new不同的是，它在括号里多了另外一个参数。比如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Widget * p = <span class="keyword">new</span> Widget;          <span class="comment">//ordinary new</span></span><br><span class="line">pi = <span class="keyword">new</span> (ptr) <span class="keyword">int</span>;   <span class="comment">//placement new</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>括号里的参数ptr是一个指针，它指向一个内存缓冲器，placement new将在这个缓冲器上分配一个对象。Placement new的返回值是这个被构造对象的地址(比如括号中的传递参数)。placement new主要适用于：在对时间要求非常高的应用程序中，因为这些程序分配的时间是确定的；长时间运行而不被打断的程序；以及执行一个垃圾收集器 (garbage collector)。</p>
+<h6 id="new-、operator-new-和-placement-new-区别"><a href="#new-、operator-new-和-placement-new-区别" class="headerlink" title="new 、operator new 和 placement new 区别"></a>new 、operator new 和 placement new 区别</h6><p>（1）new ：不能被重载，其行为总是一致的。它先调用operator new分配内存，然后调用构造函数初始化那段内存。</p>
+<p>new 操作符的执行过程：</p>
+<ol>
+<li>调用operator new分配内存 ；</li>
+<li>调用构造函数生成类对象；</li>
+<li>返回相应指针。</li>
+</ol>
+<p>（2）operator new：要实现不同的内存分配行为，应该重载operator new，而不是new。</p>
+<p>operator new就像operator + 一样，是可以重载的。如果类中没有重载operator new，那么调用的就是全局的::operator new来完成堆的分配。同理，operator new[]、operator delete、operator delete[]也是可以重载的。</p>
+<p>（3）placement new：只是operator new重载的一个版本。它并不分配内存，只是返回指向已经分配好的某段内存的一个指针。因此不能删除它，但需要调用对象的析构函数。</p>
+<p>如果你想在已经分配的内存中创建一个对象，使用new时行不通的。也就是说placement new允许你在一个已经分配好的内存中（栈或者堆中）构造一个新的对象。原型中void* p实际上就是指向一个已经分配好的内存缓冲区的的首地址。</p>
+<p><strong>Placement new 存在的理由</strong></p>
+<p>1.用placement new 解决buffer的问题</p>
+<p>问题描述：用new分配的数组缓冲时，由于调用了默认构造函数，因此执行效率上不佳。若没有默认构造函数则会发生编译时错误。如果你想在预分配的内存上创建对象，用缺省的new操作符是行不通的。要解决这个问题，你可以用placement new构造。它允许你构造一个新对象到预分配的内存上。</p>
+<p>2.增大时空效率的问题</p>
+<p>使用new操作符分配内存需要在堆中查找足够大的剩余空间，显然这个操作速度是很慢的，而且有可能出现无法分配内存的异常（空间不够）。placement new就可以解决这个问题。我们构造对象都是在一个预先准备好了的内存缓冲区中进行，不需要查找内存，内存分配的时间是常数；而且不会出现在程序运行中途出现内存不足的异常。所以，placement new非常适合那些对时间要求比较高，长时间运行不希望被打断的应用程序。</p>
+<p><strong>Placement new使用步骤</strong></p>
+<p>在很多情况下，placement new的使用方法和其他普通的new有所不同。这里提供了它的使用步骤。</p>
+<p>第一步 缓存提前分配</p>
+<p>有三种方式：</p>
+<p>1.为了保证通过placement new使用的缓存区的memory alignment(内存队列)正确准备，使用普通的new来分配它：在堆上进行分配<br>class Task ;<br>char * buff = new [sizeof(Task)]; //分配内存<br>(请注意auto或者static内存并非都正确地为每一个对象类型排列，所以，你将不能以placement new使用它们。)</p>
+<p>2.在栈上进行分配<br>class Task ;<br>char buf[N*sizeof(Task)]; //分配内存</p>
+<p>3.还有一种方式，就是直接通过地址来使用。(必须是有意义的地址)<br>void* buf = reinterpret_cast&lt;void*&gt; (0xF00F);</p>
+<p>第二步：对象的分配</p>
+<p>在刚才已分配的缓存区调用placement new来构造一个对象。<br>Task *ptask = new (buf) Task</p>
+<p>第三步：使用</p>
+<p>按照普通方式使用分配的对象：</p>
+<p>ptask-&gt;memberfunction();</p>
+<p>ptask-&gt; member;</p>
+<p>//…</p>
+<p>第四步：对象的析构</p>
+<p>一旦你使用完这个对象，你必须调用它的析构函数来毁灭它。按照下面的方式调用析构函数：<br>ptask-&gt;~Task(); //调用外在的析构函数</p>
+<p>第五步：释放</p>
+<p>你可以反复利用缓存并给它分配一个新的对象（重复步骤2，3，4）如果你不打算再次使用这个缓存，你可以象这样释放它：delete [] (buf);</p>
+<p>跳过任何步骤就可能导致运行时间的崩溃，内存泄露，以及其它的意想不到的情况。如果你确实需要使用placement new，请认真遵循以上的步骤。</p>
+<h3 id="二、操作符"><a href="#二、操作符" class="headerlink" title="二、操作符"></a>二、操作符</h3><h4 id="条款5：对定制的“类型转换函数”保持警觉"><a href="#条款5：对定制的“类型转换函数”保持警觉" class="headerlink" title="条款5：对定制的“类型转换函数”保持警觉"></a>条款5：对定制的“类型转换函数”保持警觉</h4><p>两种函数允许编译器执行隐式类型转换：单自变量constructors和隐式类型转换操作符。</p>
+<p>尽量避免使用类型转换操作符。</p>
+<p>阻止编译器不分青红皂白地调用constructors进行隐式类型转换：（1）explicit关键字（2）类内定义使用代理类(proxy classes)</p>
+<h4 id="条款6：区别increment-decrement操作符的前置（prefix）和后置（postfix）形式"><a href="#条款6：区别increment-decrement操作符的前置（prefix）和后置（postfix）形式" class="headerlink" title="条款6：区别increment/decrement操作符的前置（prefix）和后置（postfix）形式"></a>条款6：区别increment/decrement操作符的前置（prefix）和后置（postfix）形式</h4><p>++和–操作符的前置式返回一个reference，后置式返回一个const对象。increment的前置式意义“increment and fetch”（累加然后取出），后置式意义“fetch and increment”（取出后累加）。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/13/Linux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -505,7 +714,8 @@
 
       
         
-          <h4 id="一、让自己习惯C"><a href="#一、让自己习惯C" class="headerlink" title="一、让自己习惯C++"></a>一、让自己习惯C++</h4><h5 id="条款01-视C-为一个语言联邦"><a href="#条款01-视C-为一个语言联邦" class="headerlink" title="条款01:视C++为一个语言联邦"></a>条款01:视C++为一个语言联邦</h5><h5 id="条款02：尽量以const-enums-and-inlines-to-defines"><a href="#条款02：尽量以const-enums-and-inlines-to-defines" class="headerlink" title="条款02：尽量以const,enums,and inlines to #defines"></a>条款02：尽量以const,enums,and inlines to #defines</h5><h5 id="条款03：尽可能使用const"><a href="#条款03：尽可能使用const" class="headerlink" title="条款03：尽可能使用const"></a>条款03：尽可能使用const</h5><h5 id="条款04：确定对象使用前已先被初始化"><a href="#条款04：确定对象使用前已先被初始化" class="headerlink" title="条款04：确定对象使用前已先被初始化"></a>条款04：确定对象使用前已先被初始化</h5><ol>
+          <p>[TOC]</p>
+<h3 id="一、让自己习惯C"><a href="#一、让自己习惯C" class="headerlink" title="一、让自己习惯C++"></a>一、让自己习惯C++</h3><h4 id="条款01-视C-为一个语言联邦"><a href="#条款01-视C-为一个语言联邦" class="headerlink" title="条款01:  视C++为一个语言联邦"></a>条款01:  视C++为一个语言联邦</h4><h4 id="条款02：尽量以const-enums-and-inlines-to-defines"><a href="#条款02：尽量以const-enums-and-inlines-to-defines" class="headerlink" title="条款02：尽量以const,enums,and inlines to #defines"></a>条款02：尽量以const,enums,and inlines to #defines</h4><h4 id="条款03：尽可能使用const"><a href="#条款03：尽可能使用const" class="headerlink" title="条款03：尽可能使用const"></a>条款03：尽可能使用const</h4><h4 id="条款04：确定对象使用前已先被初始化"><a href="#条款04：确定对象使用前已先被初始化" class="headerlink" title="条款04：确定对象使用前已先被初始化"></a>条款04：确定对象使用前已先被初始化</h4><ol>
 <li>如果内置类型（初始化与赋值成本相同）的变量未被显示地初始化，它的值将由定义的位置决定。</li>
 </ol>
 <p>（1）定义在函数体之外的变量将被初始化为0。</p>
@@ -1606,157 +1816,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/24/C-%E6%98%93%E6%B7%B7%E7%82%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="翟安然">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="翟安然's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/24/C-%E6%98%93%E6%B7%B7%E7%82%B9/" itemprop="url">C++易混点</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-24T14:44:02+08:00">
-                2020-03-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="（一）虚函数表指针、虚基类表指针"><a href="#（一）虚函数表指针、虚基类表指针" class="headerlink" title="（一）虚函数表指针、虚基类表指针"></a>（一）虚函数表指针、虚基类表指针</h4><ul>
-<li><p>非虚继承时，不需要额外增加虚函数表指针。单继承：一个虚函数表，一个虚表指针；多继承：子类的虚表指针数=父类数。</p>
-</li>
-<li><p>虚继承时：无论是单虚继承还是多虚继承，需要有一个虚基类表来记录虚继承关系，所以此时子类有且仅有一个虚基类表指针；多虚继承时子类可能持有多个虚函数表：如果子类没有构造函数和析构函数，且子类中的虚函数都是在父类中出现的虚函数，这个时候不需要增加任何虚表指针，只需要像多继承那个持有父类个数的虚函数表指针来标识即可。</p>
-</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/03/24/C-%E6%98%93%E6%B7%B7%E7%82%B9/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1807,7 +1866,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
