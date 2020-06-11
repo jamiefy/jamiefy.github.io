@@ -88,7 +88,10 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux%E7%B3%BB%E7%BB%9F%E7%BB%84%E6%88%90.jpg">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux%E5%86%85%E6%A0%B8.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B%E7%A8%8B.jpg">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/linux32.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%B0%E5%9D%80%E6%98%A0%E5%B0%84.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80.jpg">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3329890-cb2bce0f5e6bcf7f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/411/format/webp">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E6%98%A0%E5%B0%84%E7%89%A9%E7%90%86%E5%86%85%E5%AD%98.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.png">
@@ -100,7 +103,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%BC%82%E6%AD%A5IO.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83.png">
 <meta property="article:published_time" content="2020-03-25T16:23:38.000Z">
-<meta property="article:modified_time" content="2020-05-20T13:06:24.438Z">
+<meta property="article:modified_time" content="2020-05-28T01:25:26.143Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
@@ -389,7 +392,9 @@
 <p>为了支持多个用户使用内存，有时会出现可用内存被消耗光的情况。由于这个原因，页面可以移出内存并放入磁盘中。这个过程称为交换，因为页面会被从内存交换到硬盘上。内存管理的源代码可以在 ./linux/mm 中找到。</p>
 <h5 id="虚拟内存管理"><a href="#虚拟内存管理" class="headerlink" title="虚拟内存管理"></a>虚拟内存管理</h5><p><strong>虚拟内存技术实际上就是建立了“内存—-外存”的两级存储结构，利用局部性原理实现高速缓存。</strong></p>
 <p>虚拟内存是计算机系统内存管理的一种技术。它使得应用程序认为它拥有连续的可用的内存（一个连续完整的地址空间），而实际上，它通常是被分隔成多个物理内存碎片，还可以通过覆盖或者把处于不活动状态的程序以及它们的数据全部交换到外部磁盘存储器上临时存储。与没有使用虚拟内存技术的系统相比，使用这种技术的系统使得大型程序的编写变得更容易，对真正的物理内存（例如RAM）的使用也更有效率。</p>
-<p>对于32位的Linux操作系统，系统为每个进程分配4G的虚拟内存。<img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/linux32.png" alt="进程虚拟内存管理"></p>
+<p>进程由不同长度的段组成：代码段、动态库的代码、全局变量和动态产生数据的堆、栈等，在Linux中为每个进程管理了一套虚拟地址空间：</p>
+<p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B%E7%A8%8B.jpg" alt="每个进程管理一套虚拟地址空间"></p>
+<p>在我们写代码malloc完以后，并没有马上占用那么大的物理内存，而仅仅是维护上面的虚拟地址空间而已，只有在真正需要的时候才分配物理内存，这就是COW（COPY-ON-WRITE:写时复制）技术，而物理分配的过程就是最复杂的缺页异常处理环节。对于32位的Linux操作系统，系统为每个进程分配4G的虚拟内存。<img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/linux32.png" alt="进程虚拟内存管理"></p>
 <p>虚拟内存中，允许将一个作业分多次调入内存。釆用连续分配方式时，会使相当一部分内存空间都处于暂时或“永久”的空闲状态，造成内存资源的严重浪费，而且也无法从逻辑上扩大内存容量。因此，虚拟内存需要建立在离散分配的内存管理方式的基础上。虚拟内存的实现有以下三种方式：</p>
 <ul>
 <li>请求分页存储管理。</li>
@@ -413,13 +418,18 @@
 <p>}</p>
 </li>
 </ul>
+<h5 id="地址映射"><a href="#地址映射" class="headerlink" title="地址映射"></a>地址映射</h5><p>在Linux内部的地址的映射过程为逻辑地址–&gt;线性地址–&gt;物理地址，物理地址最简单：地址总线中传输的数字信号，而线性地址和逻辑地址所表示的则是一种转换规则，线性地址规则如下：</p>
+<p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%B0%E5%9D%80%E6%98%A0%E5%B0%84.jpg" alt="img"></p>
+<p>这部分由MMU完成，其中涉及到主要的寄存器有CR0、CR3。机器指令中出现的是逻辑地址，逻辑地址规则如下：</p>
+<p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80.jpg" alt="逻辑地址规则"></p>
+<p>在Linux中的逻辑地址等于线性地址，也就是说Inter为了兼容把事情搞得很复杂，Linux简化顺便偷个懒。</p>
 <h5 id="程序内存区域分配"><a href="#程序内存区域分配" class="headerlink" title="程序内存区域分配"></a>程序内存区域分配</h5><ol>
 <li><p>一个程序本质上都是由 bss段、data段、text段三个组成的。bss段通常是指用来存放程序中静态变量和未初始化的全局变量一块内存区域，一般在初始化时bss 段部分将会清零。bss段属于静态内存分配，即程序一开始就将其清零了。比如，在C语言之类的程序编译完成之后，已初始化的全局变量保存在.data 段中，静态变量和未初始化的全局变量保存在.bss 段中。text和data段都在可执行文件中（在嵌入式系统里一般是固化在镜像文件中），由系统从可执行文件中加载；而bss段不在可执行文件中，由系统初始化。bss段（未手动初始化的数据）并不给该段的数据分配空间，只是记录数据所需空间的大小；bss段的大小从可执行文件中得到 ，然后链接器得到这个大小的内存块，紧跟在数据段后面。data段（已手动初始化的数据）则为数据分配空间，数据保存在目标文件中；data段包含经过初始化的全局变量以及它们的值。当这个内存区进入程序的地址空间后全部清零。包含data段和bss段的整个区段此时通常称为数据区。</p>
 </li>
 <li><p>同一进程中的多个线程共享代码段（代码和常量），数据段（全局变量和静态变量），扩展段（堆存储）。</p>
 </li>
 </ol>
-<h5 id="物理内存管理"><a href="#物理内存管理" class="headerlink" title="物理内存管理"></a>物理内存管理</h5><p>Linux内核管理物理内存是通过分页机制实现的，它将整个内存划分成无数个4k（在i386体系结构中）大小的页，从而分配和回收内存的基本单位便是内存页了。利用分页管理有助于灵活分配内存地址，因为分配时不必要求必须有大块的连续内存，系统可以东一页、西一页的凑出所需要的内存供进程使用。虽然如此，但是实际上系统使用内存时还是倾向于分配连续的内存块，因为分配连续内存时，页表不需要更改，因此能降低TLB的刷新率（频繁刷新会在很大程度上降低访问速度）。物理内存的使用主要分为以下几个方面：</p>
+<h5 id="物理内存管理"><a href="#物理内存管理" class="headerlink" title="物理内存管理"></a>物理内存管理</h5><p><strong>Linux内核管理物理内存是通过分页机制</strong>实现的，它将整个内存划分成无数个4k（在i386体系结构中）大小的页，从而分配和回收内存的基本单位便是内存页了。利用<strong>分页管理</strong>有助于灵活分配内存地址，因为分配时不必要求必须有大块的连续内存，系统可以东一页、西一页的凑出所需要的内存供进程使用。虽然如此，但是实际上系统使用内存时还是倾向于分配连续的内存块，因为分配连续内存时，页表不需要更改，因此能降低TLB的刷新率（频繁刷新会在很大程度上降低访问速度）。物理内存的使用主要分为以下几个方面：</p>
 <p>（1）内核使用</p>
 <p>操作系统启动时，位于/boot目录下的压缩内核文件会被加载到内存中并解压。这部分内容在系统允许期间都会常驻在内存的起始位置。</p>
 <p>（2）slab分配器</p>
@@ -666,7 +676,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -677,7 +687,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -721,7 +731,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux系统结构详解"><span class="nav-number">1.</span> <span class="nav-text">Linux系统结构详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。"><span class="nav-number">1.1.</span> <span class="nav-text">1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-内存管理"><span class="nav-number">1.2.</span> <span class="nav-text">2. 内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#虚拟内存管理"><span class="nav-number">1.2.1.</span> <span class="nav-text">虚拟内存管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#程序内存区域分配"><span class="nav-number">1.2.2.</span> <span class="nav-text">程序内存区域分配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#物理内存管理"><span class="nav-number">1.2.3.</span> <span class="nav-text">物理内存管理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-文件系统"><span class="nav-number">1.3.</span> <span class="nav-text">3. 文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#目录项"><span class="nav-number">1.3.1.</span> <span class="nav-text">目录项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode"><span class="nav-number">1.3.2.</span> <span class="nav-text">inode</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件存储结构示意图"><span class="nav-number">1.3.3.</span> <span class="nav-text">文件存储结构示意图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode的大小"><span class="nav-number">1.3.4.</span> <span class="nav-text">inode的大小</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode号码"><span class="nav-number">1.3.5.</span> <span class="nav-text">inode号码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#硬链接"><span class="nav-number">1.3.6.</span> <span class="nav-text">硬链接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#软链接"><span class="nav-number">1.3.7.</span> <span class="nav-text">软链接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Linux的五种IO模型"><span class="nav-number">1.4.</span> <span class="nav-text">4. Linux的五种IO模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、阻塞IO"><span class="nav-number">1.4.1.</span> <span class="nav-text">1、阻塞IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、非阻塞IO"><span class="nav-number">1.4.2.</span> <span class="nav-text">2、非阻塞IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、IO多路复用"><span class="nav-number">1.4.3.</span> <span class="nav-text">3、IO多路复用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、信号驱动IO"><span class="nav-number">1.4.4.</span> <span class="nav-text">4、信号驱动IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5、异步IO"><span class="nav-number">1.4.5.</span> <span class="nav-text">5、异步IO</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux系统结构详解"><span class="nav-number">1.</span> <span class="nav-text">Linux系统结构详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。"><span class="nav-number">1.1.</span> <span class="nav-text">1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-内存管理"><span class="nav-number">1.2.</span> <span class="nav-text">2. 内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#虚拟内存管理"><span class="nav-number">1.2.1.</span> <span class="nav-text">虚拟内存管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#地址映射"><span class="nav-number">1.2.2.</span> <span class="nav-text">地址映射</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#程序内存区域分配"><span class="nav-number">1.2.3.</span> <span class="nav-text">程序内存区域分配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#物理内存管理"><span class="nav-number">1.2.4.</span> <span class="nav-text">物理内存管理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-文件系统"><span class="nav-number">1.3.</span> <span class="nav-text">3. 文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#目录项"><span class="nav-number">1.3.1.</span> <span class="nav-text">目录项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode"><span class="nav-number">1.3.2.</span> <span class="nav-text">inode</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件存储结构示意图"><span class="nav-number">1.3.3.</span> <span class="nav-text">文件存储结构示意图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode的大小"><span class="nav-number">1.3.4.</span> <span class="nav-text">inode的大小</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode号码"><span class="nav-number">1.3.5.</span> <span class="nav-text">inode号码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#硬链接"><span class="nav-number">1.3.6.</span> <span class="nav-text">硬链接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#软链接"><span class="nav-number">1.3.7.</span> <span class="nav-text">软链接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Linux的五种IO模型"><span class="nav-number">1.4.</span> <span class="nav-text">4. Linux的五种IO模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、阻塞IO"><span class="nav-number">1.4.1.</span> <span class="nav-text">1、阻塞IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、非阻塞IO"><span class="nav-number">1.4.2.</span> <span class="nav-text">2、非阻塞IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、IO多路复用"><span class="nav-number">1.4.3.</span> <span class="nav-text">3、IO多路复用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、信号驱动IO"><span class="nav-number">1.4.4.</span> <span class="nav-text">4、信号驱动IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5、异步IO"><span class="nav-number">1.4.5.</span> <span class="nav-text">5、异步IO</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

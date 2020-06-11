@@ -91,8 +91,9 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/%E6%89%A7%E8%A1%8C%E7%AE%97%E6%9C%AF.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/distinct.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/groupby.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/E:%5CgitBlog%5Csource_posts%5CMySQL%5Cleft_outer_join.png">
 <meta property="article:published_time" content="2020-03-24T06:17:11.000Z">
-<meta property="article:modified_time" content="2020-05-20T10:05:08.507Z">
+<meta property="article:modified_time" content="2020-05-23T11:11:52.458Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
@@ -514,14 +515,14 @@
 <p>&lt;&gt; 不等于 </p>
 <p>!= 不等于 </p>
 <p>BETWEEN 在指定的两个值之间</p>
-<h4 id="LIKE操作符"><a href="#LIKE操作符" class="headerlink" title="LIKE操作符"></a>LIKE操作符</h4><p>LIKE指示MySQL， 后跟的搜索模式利用通配符匹配而不是直接相等匹配进行比较。 </p>
+<h4 id="IN"><a href="#IN" class="headerlink" title="IN"></a>IN</h4><h4 id="NOT"><a href="#NOT" class="headerlink" title="NOT"></a>NOT</h4><h4 id="LIKE操作符"><a href="#LIKE操作符" class="headerlink" title="LIKE操作符"></a>LIKE操作符</h4><p>LIKE指示MySQL， 后跟的搜索模式利用通配符匹配而不是直接相等匹配进行比较。 </p>
 <p>百分号（%）通配符</p>
 <p>根据MySQL的配置方式，搜索可以是区分大小 写的。如果区分大小写，’jet%’与JetPack 1000将不匹配。似乎%通配符可以匹配任何东西，但有一个例 外，即NULL。即使是WHERE prod_name LIKE ‘%’也不能匹配 用值NULL作为产品名的行。</p>
 <h4 id="下划线（-）通配符"><a href="#下划线（-）通配符" class="headerlink" title="下划线（_）通配符"></a>下划线（_）通配符</h4><p>下划线的用途与%一样，但下划线只匹配单个字符而不是多个字符。</p>
 <h4 id="REGEXP-使用正则表达式进行搜索"><a href="#REGEXP-使用正则表达式进行搜索" class="headerlink" title="REGEXP 使用正则表达式进行搜索"></a>REGEXP 使用正则表达式进行搜索</h4><p>注意：regexp和正则表达式详看MYSQL必知必会第9章：用正则表达式进行搜索</p>
 <p>LIKE与REGEXP  在LIKE和REGEXP之间有一个重要的差别。请 看以下两条语句： </p>
 <p><img src="/2020/03/24/MySQL/regexp.png" alt="LIKE和REGEXP"></p>
-<p>如果执行上述两条语句，会发现第一条语句不返回数据，而第 二条语句返回一行。为什么？ 正如第8章所述，LIKE匹配整个列。如果被匹配的文本在列值 中出现，LIKE将不会找到它，相应的行也不被返回（除非使用通配符）。而REGEXP在列值内进行匹配，如果被匹配的文本在 列值中出现，REGEXP将会找到它，相应的行将被返回。这是一 个非常重要的差别。 那么，REGEXP能不能用来匹配整个列值（从而起与LIKE相同的作用）？答案是肯定的，使用^和$定位符（anchor）即可。</p>
+<p>如果执行上述两条语句，会发现第一条语句不返回数据，而第 二条语句返回一行。为什么？ 正如第8章所述，LIKE匹配整个列。如果被匹配的文本在列值中出现，LIKE将不会找到它，相应的行也不被返回（除非使用通配符）。而REGEXP在列值内进行匹配，如果被匹配的文本在列值中出现，REGEXP将会找到它，相应的行将被返回。这是一 个非常重要的差别。 那么，REGEXP能不能用来匹配整个列值（从而起与LIKE相同的作用）？答案是肯定的，使用^和$定位符（anchor）即可。</p>
 <p><img src="/2020/03/24/MySQL/regexp%E8%BF%9B%E8%A1%8Cor%E5%8C%B9%E9%85%8D.png" alt="regexp进行or匹配"></p>
 <h4 id="计算字段"><a href="#计算字段" class="headerlink" title="计算字段"></a>计算字段</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">Concat</span>(<span class="keyword">RTrim</span>(vend_name),<span class="string">'('</span>,vend_country,<span class="string">')'</span>) <span class="keyword">as</span> vend_title</span><br><span class="line"><span class="keyword">from</span> vendors</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> vend_name;</span><br></pre></td></tr></table></figure>
 
@@ -536,7 +537,19 @@
 <li>用于处理日期和时间值并从这些值中提取特定成分（例如，返回 两个日期之差，检查日期有效性等）的日期和时间函数。</li>
 <li>返回DBMS正使用的特殊信息（如返回用户登录信息，检查版本 细节）的系统函数</li>
 </ul>
-<h4 id="聚集函数"><a href="#聚集函数" class="headerlink" title="聚集函数"></a>聚集函数</h4><p>聚集函数（aggregate function） 运行在行组上，计算和返回单 个值的函数。</p>
+<h4 id="聚集函数"><a href="#聚集函数" class="headerlink" title="聚集函数"></a>聚集函数</h4><p>聚集函数（aggregate function） 运行在行组上，计算和返回单个值的函数。</p>
+<table>
+<thead>
+<tr>
+<th><a href="https://www.w3school.com.cn/sql/sql_func_count.asp" target="_blank" rel="noopener">COUNT(column)</a></th>
+<th>返回某列的行数（不包括NULL值）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://www.w3school.com.cn/sql/sql_func_count_ast.asp" target="_blank" rel="noopener">COUNT(*)</a></td>
+<td>返回被选行数</td>
+</tr>
+</tbody></table>
 <p>MIN()函数与MAX()函数类似， MySQL允许将它用来返回任意列中的最小值，包括返回文本 列中的最小值。在用于文本数据时，如果数据按相应的列排序， 则MIN()返回最前面的行。MAX()、MIN()、SUM()函数均忽略列值为NULL的行。</p>
 <p>SELECT 语句可根据需要包含多个聚集函数，逗号隔开即可。</p>
 <p><img src="/2020/03/24/MySQL/distinct.png" alt="聚集函数参数默认为all"></p>
@@ -624,9 +637,164 @@
 <p>作为计算字段使用子查询：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>,</span><br><span class="line">	   state,</span><br><span class="line">	   (<span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*)</span><br><span class="line">        <span class="keyword">FROM</span> orders</span><br><span class="line">        <span class="keyword">WHERE</span> orders.id=customers.id) <span class="keyword">AS</span> orderitems</span><br><span class="line"><span class="keyword">FROM</span> customers</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">name</span>;</span><br></pre></td></tr></table></figure>
 
-<h4 id="内部联结"><a href="#内部联结" class="headerlink" title="内部联结"></a>内部联结</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> vend_name,pro_name,prod_price</span><br><span class="line"><span class="keyword">from</span> vendors,products</span><br><span class="line"><span class="keyword">where</span> vendors.vend_id=products.vend_id</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> vend_name,prod_name;</span><br><span class="line"><span class="comment">-- 等价</span></span><br><span class="line"><span class="keyword">SELECT</span> vend_name,prod_name,prod_price</span><br><span class="line"><span class="keyword">FROM</span> vendors <span class="keyword">INNER</span> <span class="keyword">JOIN</span> products</span><br><span class="line"><span class="keyword">ON</span> vendors.vend_id=products.vend_id</span><br></pre></td></tr></table></figure>
+<h4 id="联结"><a href="#联结" class="headerlink" title="联结"></a>联结</h4><h5 id="内部联结"><a href="#内部联结" class="headerlink" title="内部联结"></a>内部联结</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 等值联结</span></span><br><span class="line"><span class="comment">-- （1）使用where联结</span></span><br><span class="line"><span class="keyword">select</span> vend_name,pro_name,prod_price</span><br><span class="line"><span class="keyword">from</span> vendors,products</span><br><span class="line"><span class="keyword">where</span> vendors.vend_id=products.vend_id</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> vend_name,prod_name;</span><br><span class="line"><span class="comment">-- （2）使用 INNER JOIN联结（内部联结）</span></span><br><span class="line"><span class="keyword">SELECT</span> vend_name,prod_name,prod_price</span><br><span class="line"><span class="keyword">FROM</span> vendors <span class="keyword">INNER</span> <span class="keyword">JOIN</span> products</span><br><span class="line"><span class="keyword">ON</span> vendors.vend_id=products.vend_id</span><br></pre></td></tr></table></figure>
 
-<p>这里，两个表之间的关系是FROM子句的组成部分，以INNER JOIN指定。在使用这种语法时，联结条件用特定的ON子句而不是WHERE 子句给出。传递给ON的实际条件与传递给WHERE的相同。 ANSI SQL规范首选INNER JOIN语法。此外， 尽管使用WHERE子句定义联结的确比较简单，但是使用明确的 联结语法能够确保不会忘记联结条件，有时候这样做也能影响性能。</p>
+<p>这里，两个表之间的关系是FROM子句的组成部分，以INNER JOIN指定。在使用这种语法时，联结条件用特定的ON子句而不是WHERE 子句给出。传递给ON的实际条件与传递给WHERE的相同。 ANSI SQL规范首选INNER JOIN语法。此外， 尽管使用WHERE子句定义联结的确比较简单，但是使用明确的联结语法能够确保不会忘记联结条件，有时候这样做也能影响性能。</p>
+<h5 id="自联结"><a href="#自联结" class="headerlink" title="自联结"></a>自联结</h5><p>用自联结而不用子查询  自联结通常作为外部语句用来替代 从相同表中检索数据时使用的子查询语句。虽然最终的结果是相同的，但有时候处理联结远比处理子查询快得多。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 子查询，这是第一种解决方案。内部的SELECT语句做 了一个简单的检索，返回生产ID为DTNTR的物品供应商的vend_id。该ID用于外部查询的WHERE子句中，以便检索出这个供应商生产的所有物品。</span></span><br><span class="line"><span class="keyword">SELECT</span> prod_name,prod_id</span><br><span class="line"><span class="keyword">From</span> products</span><br><span class="line"><span class="keyword">Where</span> vend_id=(<span class="keyword">SELECT</span> vend_id</span><br><span class="line">        	   <span class="keyword">FROM</span> products</span><br><span class="line">        	   <span class="keyword">WHERE</span> prod_id=<span class="string">'DTNTR'</span>) ;</span><br><span class="line"><span class="comment">-- 等价于使用自联结，此查询中需要的两个表实际上是相同的表，因此products表在FROM子句中出现了两次。虽然这是完全合法的，但对products 的引用具有二义性，因为MySQL不知道你引用的是products表中的哪个实例。为解决此问题，使用了表别名。products的第一次出现为别名p1， 第二次出现为别名p2。现在可以将这些别名用作表名。例如，SELECT语句使用p1前缀明确地给出所需列的全名。如果不这样，MySQL将返回错误，因为分别存在两个名为prod_id、prod_name的列。MySQL不知道想 要的是哪一个列（即使它们事实上是同一个列）。WHERE（通过匹配p1中 的vend_id和p2中的vend_id）首先联结两个表，然后按第二个表中的 prod_id过滤数据，返回所需的数据。 </span></span><br><span class="line"><span class="keyword">SELECT</span> p1.prod_id,p1.prod_name</span><br><span class="line"><span class="keyword">From</span> products <span class="keyword">AS</span> pa,products <span class="keyword">as</span> p2</span><br><span class="line"><span class="keyword">where</span> p1.vend_id=p2.vend_id </span><br><span class="line"><span class="keyword">AND</span> p2.prod_id = <span class="string">'DTNTR'</span>;</span><br></pre></td></tr></table></figure>
+
+<h5 id="自然联结"><a href="#自然联结" class="headerlink" title="自然联结"></a>自然联结</h5><p>无论何时对表进行联结，应该至少有一个列出现在不止一个表中（被 联结的列）。标准的联结（内部联结）返回所有数据，甚至相同的列多次出现。自然联结排除多次出现，使每个列只返回一次。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> c.*,o.order.num,o.oreder_date,oi.prod_id,</span><br><span class="line">	   oi.quantity,OI.item_price</span><br><span class="line"><span class="keyword">FROM</span> customers <span class="keyword">AS</span> c,orders <span class="keyword">AS</span> o,orderitems <span class="keyword">AS</span> oi</span><br><span class="line"><span class="keyword">where</span> c.cust_id=o.cust_id </span><br><span class="line">	<span class="keyword">AND</span> oi.order_num=o.order_num</span><br><span class="line">	<span class="keyword">AND</span> prod_id=<span class="string">'FB'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，通配符只对第一个表使用。所有其他列明确列出，所以没有重复的列被检索出来。 事实上，迄今为止我们建立的每个内部联结都是自然联结，很可能我们永远都不会用到不是自然联结的内部联结。</p>
+<h5 id="外部联结"><a href="#外部联结" class="headerlink" title="外部联结"></a>外部联结</h5><p> 存在三种基本的外部联结形式：左外部联结（LEFT （OUTER） JOIN）、右外部联结（RIGHT （OUTER） JOIN）和全外联结（FULL （OUTER） JOIN，mySQL不支持）。它们之间的唯一差别是所关联的表的顺序不 同。</p>
+<h6 id="左联结"><a href="#左联结" class="headerlink" title="左联结"></a>左联结</h6><p>左向外联接的结果集包括 LEFT OUTER子句中指定的左表的所有行，而不仅仅是联接列所匹配的行。如果左表的某行在右表中没有匹配行，则在相关联的结果集行中右表的所有选择列表列均为空值。 </p>
+<h6 id="右联结"><a href="#右联结" class="headerlink" title="右联结"></a>右联结</h6><p>右向外联接是左向外联接的反向联接。将返回右表的所有行。如果右表的某行在左表中没有匹配行，则将为左表返回空值。</p>
+<p>下面的SELECT语句给出一个简单的内部联结。它检索所有客户及其订单： </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> customers.cust_id,orders.order_num</span><br><span class="line"><span class="keyword">FROM</span> customers <span class="keyword">INNER</span> <span class="keyword">JOIN</span> orders</span><br><span class="line"><span class="keyword">ON</span> customers.cust_id = orders.cust_id;</span><br></pre></td></tr></table></figure>
+
+<p>外部联结语法类似。为了检索所有客户，包括那些没有订单的客户，可如下进行:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> customers.cust.id,orders.order_num</span><br><span class="line"><span class="keyword">From</span> customers <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> orders</span><br><span class="line"><span class="keyword">ON</span> customers.cust_id = orders.cust_id;</span><br></pre></td></tr></table></figure>
+
+<p>类似于上一章中所看到的内部联结，这条SELECT语句使用了关 键字OUTER JOIN来指定联结的类型（而不是在WHERE子句中指 定）。但是，与内部联结关联两个表中的行不同的是，外部联结还包括没 有关联行的行。在使用OUTER JOIN语法时，必须使用RIGHT或LEFT关键字 指定包括其所有行的表（RIGHT指出的是OUTER JOIN右边的表，而LEFT 指出的是OUTER JOIN左边的表）。上面的例子使用LEFT OUTER JOIN从FROM 子句的左边表（customers表）中选择所有行。为了从右边的表中选择所 有行，应该使用RIGHT OUTER JOIN，左外部联结可通过颠倒FROM或WHERE子句中表的顺序转换为右外部联结。因此，两种类型的外部联结可互 换使用，而究竟使用哪一种纯粹是根据方便而定。 </p>
+<h6 id="全外联结"><a href="#全外联结" class="headerlink" title="全外联结"></a>全外联结</h6><p>完整外部联接返回左表和右表中的所有行。当某行在另一个表中没有匹配行时，则另一个表的选择列表列包含空值。如果表之间有匹配行，则整个结果集行包含基表的数据值。</p>
+<h5 id="交叉联结"><a href="#交叉联结" class="headerlink" title="交叉联结"></a>交叉联结</h5><p>交叉联接返回左表中的所有行，左表中的每一行与右表中的所有行组合。交叉联接也称作笛卡尔积。  </p>
+<h5 id="使用带聚集函数的联结"><a href="#使用带聚集函数的联结" class="headerlink" title="使用带聚集函数的联结"></a>使用带聚集函数的联结</h5><p><img src="/2020/03/24/MySQL/E:%5CgitBlog%5Csource_posts%5CMySQL%5Cleft_outer_join.png" alt="带聚合函数的左联结"></p>
+<h5 id="使用联结和联结条件"><a href="#使用联结和联结条件" class="headerlink" title="使用联结和联结条件"></a>使用联结和联结条件</h5><ul>
+<li>注意所使用的联结类型。一般我们使用内部联结，但使用外部联结也是有效的。 </li>
+<li>保证使用正确的联结条件，否则将返回不正确的数据。 </li>
+<li>应该总是提供联结条件，否则会得出笛卡儿积。 </li>
+<li>在一个联结中可以包含多个表，甚至对于每个联结可以采用不同 的联结类型。虽然这样做是合法的，一般也很有用，但应该在一 起测试它们前，分别测试每个联结。这将使故障排除更为简单。</li>
+</ul>
+<h4 id="IDENTITY"><a href="#IDENTITY" class="headerlink" title="IDENTITY"></a>IDENTITY</h4><p>在 “Persons” 表中插入新记录，我们不必为 “P_Id” 列规定值（会自动添加一个唯一的值）：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Persons (FirstName,LastName)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'Bill'</span>,<span class="string">'Gates'</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="TRUNCATE"><a href="#TRUNCATE" class="headerlink" title="TRUNCATE"></a>TRUNCATE</h4><p>除去表内的数据，但并不删除表本身，使用 TRUNCATE TABLE 命令（仅仅删除表格中的数据）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TRUNCATE TABLE 表名称</span><br></pre></td></tr></table></figure>
+
+<h4 id="DROP-COLUMN"><a href="#DROP-COLUMN" class="headerlink" title="DROP COLUMN"></a>DROP COLUMN</h4><p>删除 “Person” 表中的 “Birthday” 列：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Person</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">COLUMN</span> Birthday</span><br></pre></td></tr></table></figure>
+
+<h4 id="SQL-语句快速参考-gt-详解"><a href="#SQL-语句快速参考-gt-详解" class="headerlink" title="SQL 语句快速参考-&gt;详解"></a>SQL 语句快速参考-&gt;<a href="https://www.w3school.com.cn/sql/index.asp" target="_blank" rel="noopener">详解</a></h4><table>
+<thead>
+<tr>
+<th align="left">语句</th>
+<th align="left">语法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">AND / OR</td>
+<td align="left">SELECT column_name(s) FROM table_name WHERE condition AND|OR condition</td>
+</tr>
+<tr>
+<td align="left">ALTER TABLE (add column)</td>
+<td align="left">ALTER TABLE table_name ADD column_name datatype</td>
+</tr>
+<tr>
+<td align="left">ALTER TABLE (drop column)</td>
+<td align="left">ALTER TABLE table_name DROP COLUMN column_name</td>
+</tr>
+<tr>
+<td align="left">AS (alias for column)</td>
+<td align="left">SELECT column_name AS column_alias FROM table_name</td>
+</tr>
+<tr>
+<td align="left">AS (alias for table)</td>
+<td align="left">SELECT column_name FROM table_name AS table_alias</td>
+</tr>
+<tr>
+<td align="left">BETWEEN</td>
+<td align="left">SELECT column_name(s) FROM table_name WHERE column_name BETWEEN value1 AND value2</td>
+</tr>
+<tr>
+<td align="left">CREATE DATABASE</td>
+<td align="left">CREATE DATABASE database_name</td>
+</tr>
+<tr>
+<td align="left">CREATE INDEX</td>
+<td align="left">CREATE INDEX index_name ON table_name (column_name)</td>
+</tr>
+<tr>
+<td align="left">CREATE TABLE</td>
+<td align="left">CREATE TABLE table_name ( column_name1 data_type, column_name2 data_type, ……. )</td>
+</tr>
+<tr>
+<td align="left">CREATE UNIQUE INDEX</td>
+<td align="left">CREATE UNIQUE INDEX index_name ON table_name (column_name)</td>
+</tr>
+<tr>
+<td align="left">CREATE VIEW</td>
+<td align="left">CREATE VIEW view_name AS SELECT column_name(s) FROM table_name WHERE condition</td>
+</tr>
+<tr>
+<td align="left">DELETE FROM</td>
+<td align="left">DELETE FROM table_name (<strong>Note:</strong> Deletes the entire table!!)<em>or</em>DELETE FROM table_name WHERE condition</td>
+</tr>
+<tr>
+<td align="left">DROP DATABASE</td>
+<td align="left">DROP DATABASE database_name</td>
+</tr>
+<tr>
+<td align="left">DROP INDEX</td>
+<td align="left">DROP INDEX table_name.index_name</td>
+</tr>
+<tr>
+<td align="left">DROP TABLE</td>
+<td align="left">DROP TABLE table_name</td>
+</tr>
+<tr>
+<td align="left">GROUP BY</td>
+<td align="left">SELECT column_name1,SUM(column_name2) FROM table_name GROUP BY column_name1</td>
+</tr>
+<tr>
+<td align="left">HAVING</td>
+<td align="left">SELECT column_name1,SUM(column_name2) FROM table_name GROUP BY column_name1 HAVING SUM(column_name2) condition value</td>
+</tr>
+<tr>
+<td align="left">IN</td>
+<td align="left">SELECT column_name(s) FROM table_name WHERE column_name IN (value1,value2,..)</td>
+</tr>
+<tr>
+<td align="left">INSERT INTO</td>
+<td align="left">INSERT INTO table_name VALUES (value1, value2,….)<em>or</em>INSERT INTO table_name (column_name1, column_name2,…) VALUES (value1, value2,….)</td>
+</tr>
+<tr>
+<td align="left">LIKE</td>
+<td align="left">SELECT column_name(s) FROM table_name WHERE column_name LIKE pattern</td>
+</tr>
+<tr>
+<td align="left">ORDER BY</td>
+<td align="left">SELECT column_name(s) FROM table_name ORDER BY column_name [ASC|DESC]</td>
+</tr>
+<tr>
+<td align="left">SELECT</td>
+<td align="left">SELECT column_name(s) FROM table_name</td>
+</tr>
+<tr>
+<td align="left">SELECT *</td>
+<td align="left">SELECT * FROM table_name</td>
+</tr>
+<tr>
+<td align="left">SELECT DISTINCT</td>
+<td align="left">SELECT DISTINCT column_name(s) FROM table_name</td>
+</tr>
+<tr>
+<td align="left">SELECT INTO (used to create backup copies of tables)</td>
+<td align="left">SELECT * INTO new_table_name FROM original_table_name<em>or</em>SELECT column_name(s) INTO new_table_name FROM original_table_name</td>
+</tr>
+<tr>
+<td align="left">TRUNCATE TABLE (deletes only the data inside the table)</td>
+<td align="left">TRUNCATE TABLE table_name</td>
+</tr>
+<tr>
+<td align="left">UPDATE</td>
+<td align="left">UPDATE table_name SET column_name=new_value [, column_name=new_value] WHERE column_name=some_value</td>
+</tr>
+<tr>
+<td align="left">WHERE</td>
+<td align="left">SELECT column_name(s) FROM table_name WHERE condition</td>
+</tr>
+</tbody></table>
 
       
     </div>
@@ -746,7 +914,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -757,7 +925,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -801,7 +969,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL事务实现原理"><span class="nav-number">1.</span> <span class="nav-text">MySQL事务实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#91道面试题-https-mp-weixin-qq-com-s-9pfCkm2bX01XLIeJv9ngLw"><span class="nav-number">2.</span> <span class="nav-text">91道面试题](https:&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;9pfCkm2bX01XLIeJv9ngLw)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是MySQL索引，什么时候该用索引什么时候不该用？"><span class="nav-number">3.</span> <span class="nav-text">什么是MySQL索引，什么时候该用索引什么时候不该用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB和MyISAM的区别"><span class="nav-number">4.</span> <span class="nav-text">InnoDB和MyISAM的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行级锁和表级索的区别"><span class="nav-number">5.</span> <span class="nav-text">行级锁和表级索的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主键索引和非主键索引的区别"><span class="nav-number">6.</span> <span class="nav-text">主键索引和非主键索引的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚簇索引和非聚簇索引的区别"><span class="nav-number">7.</span> <span class="nav-text">聚簇索引和非聚簇索引的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排他锁悲观锁和乐观锁"><span class="nav-number">8.</span> <span class="nav-text">排他锁悲观锁和乐观锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#覆盖索引"><span class="nav-number">9.</span> <span class="nav-text">覆盖索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL语句"><span class="nav-number">10.</span> <span class="nav-text">SQL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SELECT"><span class="nav-number">10.1.</span> <span class="nav-text">SELECT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FROM"><span class="nav-number">10.2.</span> <span class="nav-text">FROM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DISTINCT"><span class="nav-number">10.3.</span> <span class="nav-text">DISTINCT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LIMIT"><span class="nav-number">10.4.</span> <span class="nav-text">LIMIT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ORDER-BY"><span class="nav-number">10.5.</span> <span class="nav-text">ORDER BY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WHERE"><span class="nav-number">10.6.</span> <span class="nav-text">WHERE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LIKE操作符"><span class="nav-number">10.7.</span> <span class="nav-text">LIKE操作符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下划线（-）通配符"><span class="nav-number">10.8.</span> <span class="nav-text">下划线（_）通配符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#REGEXP-使用正则表达式进行搜索"><span class="nav-number">10.9.</span> <span class="nav-text">REGEXP 使用正则表达式进行搜索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算字段"><span class="nav-number">10.10.</span> <span class="nav-text">计算字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用数据处理函数"><span class="nav-number">10.11.</span> <span class="nav-text">使用数据处理函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#聚集函数"><span class="nav-number">10.12.</span> <span class="nav-text">聚集函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#GROUP-BY"><span class="nav-number">10.12.1.</span> <span class="nav-text">GROUP BY</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HAVING过滤分组"><span class="nav-number">10.12.2.</span> <span class="nav-text">HAVING过滤分组</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#ORDER-BY和GROUP-BY的区别"><span class="nav-number">10.12.2.1.</span> <span class="nav-text">ORDER BY和GROUP BY的区别</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SELECT子句顺序"><span class="nav-number">10.12.2.2.</span> <span class="nav-text">SELECT子句顺序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子查询"><span class="nav-number">10.13.</span> <span class="nav-text">子查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内部联结"><span class="nav-number">10.14.</span> <span class="nav-text">内部联结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL事务实现原理"><span class="nav-number">1.</span> <span class="nav-text">MySQL事务实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#91道面试题-https-mp-weixin-qq-com-s-9pfCkm2bX01XLIeJv9ngLw"><span class="nav-number">2.</span> <span class="nav-text">91道面试题](https:&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;9pfCkm2bX01XLIeJv9ngLw)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是MySQL索引，什么时候该用索引什么时候不该用？"><span class="nav-number">3.</span> <span class="nav-text">什么是MySQL索引，什么时候该用索引什么时候不该用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB和MyISAM的区别"><span class="nav-number">4.</span> <span class="nav-text">InnoDB和MyISAM的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行级锁和表级索的区别"><span class="nav-number">5.</span> <span class="nav-text">行级锁和表级索的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主键索引和非主键索引的区别"><span class="nav-number">6.</span> <span class="nav-text">主键索引和非主键索引的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚簇索引和非聚簇索引的区别"><span class="nav-number">7.</span> <span class="nav-text">聚簇索引和非聚簇索引的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排他锁悲观锁和乐观锁"><span class="nav-number">8.</span> <span class="nav-text">排他锁悲观锁和乐观锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#覆盖索引"><span class="nav-number">9.</span> <span class="nav-text">覆盖索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL语句"><span class="nav-number">10.</span> <span class="nav-text">SQL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SELECT"><span class="nav-number">10.1.</span> <span class="nav-text">SELECT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FROM"><span class="nav-number">10.2.</span> <span class="nav-text">FROM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DISTINCT"><span class="nav-number">10.3.</span> <span class="nav-text">DISTINCT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LIMIT"><span class="nav-number">10.4.</span> <span class="nav-text">LIMIT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ORDER-BY"><span class="nav-number">10.5.</span> <span class="nav-text">ORDER BY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WHERE"><span class="nav-number">10.6.</span> <span class="nav-text">WHERE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IN"><span class="nav-number">10.7.</span> <span class="nav-text">IN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NOT"><span class="nav-number">10.8.</span> <span class="nav-text">NOT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LIKE操作符"><span class="nav-number">10.9.</span> <span class="nav-text">LIKE操作符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下划线（-）通配符"><span class="nav-number">10.10.</span> <span class="nav-text">下划线（_）通配符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#REGEXP-使用正则表达式进行搜索"><span class="nav-number">10.11.</span> <span class="nav-text">REGEXP 使用正则表达式进行搜索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算字段"><span class="nav-number">10.12.</span> <span class="nav-text">计算字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用数据处理函数"><span class="nav-number">10.13.</span> <span class="nav-text">使用数据处理函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#聚集函数"><span class="nav-number">10.14.</span> <span class="nav-text">聚集函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#GROUP-BY"><span class="nav-number">10.14.1.</span> <span class="nav-text">GROUP BY</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HAVING过滤分组"><span class="nav-number">10.14.2.</span> <span class="nav-text">HAVING过滤分组</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#ORDER-BY和GROUP-BY的区别"><span class="nav-number">10.14.2.1.</span> <span class="nav-text">ORDER BY和GROUP BY的区别</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SELECT子句顺序"><span class="nav-number">10.14.2.2.</span> <span class="nav-text">SELECT子句顺序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子查询"><span class="nav-number">10.15.</span> <span class="nav-text">子查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#联结"><span class="nav-number">10.16.</span> <span class="nav-text">联结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#内部联结"><span class="nav-number">10.16.1.</span> <span class="nav-text">内部联结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自联结"><span class="nav-number">10.16.2.</span> <span class="nav-text">自联结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自然联结"><span class="nav-number">10.16.3.</span> <span class="nav-text">自然联结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#外部联结"><span class="nav-number">10.16.4.</span> <span class="nav-text">外部联结</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#左联结"><span class="nav-number">10.16.4.1.</span> <span class="nav-text">左联结</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#右联结"><span class="nav-number">10.16.4.2.</span> <span class="nav-text">右联结</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#全外联结"><span class="nav-number">10.16.4.3.</span> <span class="nav-text">全外联结</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#交叉联结"><span class="nav-number">10.16.5.</span> <span class="nav-text">交叉联结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用带聚集函数的联结"><span class="nav-number">10.16.6.</span> <span class="nav-text">使用带聚集函数的联结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用联结和联结条件"><span class="nav-number">10.16.7.</span> <span class="nav-text">使用联结和联结条件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IDENTITY"><span class="nav-number">10.17.</span> <span class="nav-text">IDENTITY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TRUNCATE"><span class="nav-number">10.18.</span> <span class="nav-text">TRUNCATE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DROP-COLUMN"><span class="nav-number">10.19.</span> <span class="nav-text">DROP COLUMN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-语句快速参考-gt-详解"><span class="nav-number">10.20.</span> <span class="nav-text">SQL 语句快速参考-&gt;详解</span></a></li></ol></li></ol></div>
             
 
           </div>

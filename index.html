@@ -259,6 +259,174 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/24/effective-modern-c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="翟安然">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="翟安然's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/24/effective-modern-c/" itemprop="url">effective modern c++</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-24T09:13:12+08:00">
+                2020-05-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c/" itemprop="url" rel="index">
+                    <span itemprop="name">c++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>[TOC]</p>
+<h2 id="一、型别推导"><a href="#一、型别推导" class="headerlink" title="一、型别推导"></a>一、型别推导</h2><h3 id="条款1：理解模板型别推导"><a href="#条款1：理解模板型别推导" class="headerlink" title="条款1：理解模板型别推导"></a>条款1：理解模板型别推导</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(ParamType param)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="1、T的型别推导结果，不仅仅依赖expr的型别，还依赖ParamType的形式，具体分三种情况讨论"><a href="#1、T的型别推导结果，不仅仅依赖expr的型别，还依赖ParamType的形式，具体分三种情况讨论" class="headerlink" title="1、T的型别推导结果，不仅仅依赖expr的型别，还依赖ParamType的形式，具体分三种情况讨论"></a>1、T的型别推导结果，不仅仅依赖expr的型别，还依赖ParamType的形式，具体分三种情况讨论</h4><p>（1）ParamType是个指针或引用，但不是万能引用</p>
+<p>i）若expr具有引用型别，先将引用部分忽略。</p>
+<p>ii）尔后，对expr的型别和ParamType的型别执行模式匹配，来决定T的型别</p>
+<p>（2）ParamType是个万能引用</p>
+<p>i）如果expr是个左值，T和ParamType都会被推导为左值引用。这个结果具有双重的奇特之处：首先，这是在模板型别推导中，T被推导为引用型别的唯一情形。其次，尽管在声明时使用的是右值引用的语法，它的型别推导结果却是左值引用。</p>
+<p>ii）如果expr是个右值，则应用“常规”（即情况1中的）规则。</p>
+<p>（3）ParamType既非指针也非引用</p>
+<p>i）一如之前，若expr具有引用型别，则忽略其引用部分。</p>
+<p>ii）忽略expr的引用性后，若expr是个cv（const and volatile）对象，也忽略之（volatile对象不常用，一般仅用于实现设备驱动程序）。</p>
+<h4 id="2、数组实参和函数实参"><a href="#2、数组实参和函数实参" class="headerlink" title="2、数组实参和函数实参"></a>2、数组实参和函数实参</h4><p><strong>数组参数在c++中可以退化为指针进行传参</strong>，所以补充对数组参数的类型推导。<strong>针对数组型别推导的一切讨论都适用于函数及其向函数指针的退化</strong>。</p>
+<ul>
+<li>当PT为传值类型（就是T）时，推导为退化的指针类型；</li>
+<li>当PT为引用类型（T&amp;），推导为带有数组大小的明确的数组类型（如const char[13]）；</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数组参数 </span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> name[] = <span class="string">"C++11"</span>; </span><br><span class="line"><span class="meta">#template<span class="meta-string">&lt;typename T&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(T param)</span></span>;</span><br><span class="line">f(name); <span class="comment">//PT为 const char[6]由指针退化规则退化为const char*,T被推导为const char*  </span></span><br><span class="line"></span><br><span class="line"><span class="meta">#template<span class="meta-string">&lt;typename T&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(T&amp; param)</span></span>;</span><br><span class="line">f(name); <span class="comment">//PT为const char (&amp;)[6], T被推导为const char[6]</span></span><br></pre></td></tr></table></figure>
+
+<p>利用数组引用这一能力创造出一个模板，用来推导出数组含有的元素个数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="built_in">std</span>::<span class="keyword">size_t</span>&gt;</span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="built_in">std</span>::<span class="keyword">size_t</span> <span class="title">arraySize</span><span class="params">(T (&amp;)[N])</span> <span class="keyword">noexcept</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> N;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> keyVals[]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> mappedVals[arraySize(keyVals)]; <span class="comment">//mappedVals被指定与keyVals尺寸相同</span></span><br></pre></td></tr></table></figure>
+
+<p>将函数声明为constexpr，能够使得其返回值在编译期就可用，相对于内建数组，优选std::array:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">array</span>&lt;<span class="keyword">int</span>,arraySize(keyVals)&gt; mappedVals;</span><br></pre></td></tr></table></figure>
+
+<h5 id="在模板型别推导过程中，数组或函数型别的实参会退化成对应的指针，除非它们被用来初始化引用。"><a href="#在模板型别推导过程中，数组或函数型别的实参会退化成对应的指针，除非它们被用来初始化引用。" class="headerlink" title="在模板型别推导过程中，数组或函数型别的实参会退化成对应的指针，除非它们被用来初始化引用。"></a>在模板型别推导过程中，数组或函数型别的实参会退化成对应的指针，除非它们被用来初始化引用。</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">someFunc</span><span class="params">(<span class="keyword">int</span>,<span class="keyword">double</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f1</span><span class="params">(T param)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f2</span><span class="params">(T&amp; param)</span></span>;</span><br><span class="line"></span><br><span class="line">f1(someFunc);<span class="comment">//param被推导为函数指针，void (*)(int,double)</span></span><br><span class="line">f2(someFunc);<span class="comment">//param被推导为函数引用，void (&amp;)(int,double)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="条款2：理解auto型别推导"><a href="#条款2：理解auto型别推导" class="headerlink" title="条款2：理解auto型别推导"></a>条款2：理解auto型别推导</h3><h4 id="1、一般情况下，auto型别推导和模板型别推导一模一样，但auto型别推导会假定用大括号括起来的初始化表达式代表一个std-initializer-list，模板型别推导则不能。"><a href="#1、一般情况下，auto型别推导和模板型别推导一模一样，但auto型别推导会假定用大括号括起来的初始化表达式代表一个std-initializer-list，模板型别推导则不能。" class="headerlink" title="1、一般情况下，auto型别推导和模板型别推导一模一样，但auto型别推导会假定用大括号括起来的初始化表达式代表一个std::initializer_list，模板型别推导则不能。"></a>1、一般情况下，auto型别推导和模板型别推导一模一样，但auto型别推导会假定用大括号括起来的初始化表达式代表一个std::initializer_list，模板型别推导则不能。</h4><h4 id="2、在函数返回值或lambda表达式的形参中使用auto，意思是使用模板型别推导而非auto型别推导。"><a href="#2、在函数返回值或lambda表达式的形参中使用auto，意思是使用模板型别推导而非auto型别推导。" class="headerlink" title="2、在函数返回值或lambda表达式的形参中使用auto，意思是使用模板型别推导而非auto型别推导。"></a>2、在函数返回值或lambda表达式的形参中使用auto，意思是使用模板型别推导而非auto型别推导。</h4><h2 id="三、转向现代C"><a href="#三、转向现代C" class="headerlink" title="三、转向现代C++"></a>三、转向现代C++</h2><h3 id="条款14：只要函数不会发射异常，就为其加上noexcept声明"><a href="#条款14：只要函数不会发射异常，就为其加上noexcept声明" class="headerlink" title="条款14：只要函数不会发射异常，就为其加上noexcept声明"></a>条款14：只要函数不会发射异常，就为其加上noexcept声明</h3><h4 id="1、noexcept声明时函数接口的组成部分，这意味着调用方可能会对它有依赖。"><a href="#1、noexcept声明时函数接口的组成部分，这意味着调用方可能会对它有依赖。" class="headerlink" title="1、noexcept声明时函数接口的组成部分，这意味着调用方可能会对它有依赖。"></a>1、noexcept声明时函数接口的组成部分，这意味着调用方可能会对它有依赖。</h4><h4 id="2、相对于不带noexcept声明的函数，带有noexcept声明的函数有更多机会得到优化。"><a href="#2、相对于不带noexcept声明的函数，带有noexcept声明的函数有更多机会得到优化。" class="headerlink" title="2、相对于不带noexcept声明的函数，带有noexcept声明的函数有更多机会得到优化。"></a>2、相对于不带noexcept声明的函数，带有noexcept声明的函数有更多机会得到优化。</h4><h4 id="3、noexcept性质对于移动操作、swap、内存释放函数和析构函数最有价值。"><a href="#3、noexcept性质对于移动操作、swap、内存释放函数和析构函数最有价值。" class="headerlink" title="3、noexcept性质对于移动操作、swap、内存释放函数和析构函数最有价值。"></a>3、noexcept性质对于移动操作、swap、内存释放函数和析构函数最有价值。</h4><h4 id="4、大多数函数都是异常中立的，不具备noexcept性质。"><a href="#4、大多数函数都是异常中立的，不具备noexcept性质。" class="headerlink" title="4、大多数函数都是异常中立的，不具备noexcept性质。"></a>4、大多数函数都是异常中立的，不具备noexcept性质。</h4><h3 id="条款15：只要有可能使用constexpr，就使用它"><a href="#条款15：只要有可能使用constexpr，就使用它" class="headerlink" title="条款15：只要有可能使用constexpr，就使用它"></a>条款15：只要有可能使用constexpr，就使用它</h3><h4 id="1、constexpr对象都具有const属性，并由编译期已知的值完成初始化。"><a href="#1、constexpr对象都具有const属性，并由编译期已知的值完成初始化。" class="headerlink" title="1、constexpr对象都具有const属性，并由编译期已知的值完成初始化。"></a>1、constexpr对象都具有const属性，并由编译期已知的值完成初始化。</h4><h4 id="2、constexpr函数在调用时若传入的实参值时编译期已知的，则会产出编译期结果。"><a href="#2、constexpr函数在调用时若传入的实参值时编译期已知的，则会产出编译期结果。" class="headerlink" title="2、constexpr函数在调用时若传入的实参值时编译期已知的，则会产出编译期结果。"></a>2、constexpr函数在调用时若传入的实参值时编译期已知的，则会产出编译期结果。</h4><h4 id="3、比起非constexpr对象或constexpr函数而言，constexpr对象或是constexpr函数可以用在一个作用域更广的语境中。"><a href="#3、比起非constexpr对象或constexpr函数而言，constexpr对象或是constexpr函数可以用在一个作用域更广的语境中。" class="headerlink" title="3、比起非constexpr对象或constexpr函数而言，constexpr对象或是constexpr函数可以用在一个作用域更广的语境中。"></a>3、比起非constexpr对象或constexpr函数而言，constexpr对象或是constexpr函数可以用在一个作用域更广的语境中。</h4><h3 id="条款16：保证const成员函数的线程安全性"><a href="#条款16：保证const成员函数的线程安全性" class="headerlink" title="条款16：保证const成员函数的线程安全性"></a>条款16：保证const成员函数的线程安全性</h3><h4 id="1、保证const成员函数的线程安全性，除非可以确信它们不会用在并发语境中。"><a href="#1、保证const成员函数的线程安全性，除非可以确信它们不会用在并发语境中。" class="headerlink" title="1、保证const成员函数的线程安全性，除非可以确信它们不会用在并发语境中。"></a>1、保证const成员函数的线程安全性，除非可以确信它们不会用在并发语境中。</h4><h4 id="2、运用std-atomic型别的变量会比运用互斥量提供更好的性能，但前者仅适用对单个变量或内存区域的操作。"><a href="#2、运用std-atomic型别的变量会比运用互斥量提供更好的性能，但前者仅适用对单个变量或内存区域的操作。" class="headerlink" title="2、运用std::atomic型别的变量会比运用互斥量提供更好的性能，但前者仅适用对单个变量或内存区域的操作。"></a>2、运用std::atomic型别的变量会比运用互斥量提供更好的性能，但前者仅适用对单个变量或内存区域的操作。</h4>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/21/more-effective-c/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -351,77 +519,20 @@
 
       
         
-          
-            <h3 id="一、基础议题：pointers、references、casts、arrays、constructors"><a href="#一、基础议题：pointers、references、casts、arrays、constructors" class="headerlink" title="一、基础议题：pointers、references、casts、arrays、constructors"></a>一、基础议题：pointers、references、casts、arrays、constructors</h3><h4 id="条款1：仔细区分pointers和references"><a href="#条款1：仔细区分pointers和references" class="headerlink" title="条款1：仔细区分pointers和references"></a>条款1：仔细区分pointers和references</h4><ul>
+          <p>[TOC]</p>
+<h3 id="一、基础议题：pointers、references、casts、arrays、constructors"><a href="#一、基础议题：pointers、references、casts、arrays、constructors" class="headerlink" title="一、基础议题：pointers、references、casts、arrays、constructors"></a>一、基础议题：pointers、references、casts、arrays、constructors</h3><h4 id="条款1：仔细区分pointers和references"><a href="#条款1：仔细区分pointers和references" class="headerlink" title="条款1：仔细区分pointers和references"></a>条款1：仔细区分pointers和references</h4><ul>
 <li>指针和引用的区别：</li>
 </ul>
 <p>（1）引用是别名，创建的同时必须被初始化，一旦被初始化就不能改变引用关系，不能为NULL；指针是变量，独立可变可空</p>
 <p>（2）引用是间接寻址；指针是直接寻址</p>
 <p>（3）引用有类型检查；指针无类型检查</p>
-<ul>
-<li>总结</li>
-</ul>
-<p>当你知道你需要指向某个东西，而且绝不会改变指向其他东西，或是当你实现一个操作符而其语法需求无法由pointers达成（例如operator [ ]特别地必须返回某种“能够被当做assignment赋值对象”的东西），你就应该选择references。任何其他时候，请采用pointers。</p>
-<h4 id="条款2：最好使用c-转型操作符"><a href="#条款2：最好使用c-转型操作符" class="headerlink" title="条款2：最好使用c++转型操作符"></a>条款2：最好使用c++转型操作符</h4><p>reinterpret_cast最常用用途是转换“函数指针”类型。</p>
-<h4 id="条款3：绝对不要以多态（polymorphically）方式处理数组"><a href="#条款3：绝对不要以多态（polymorphically）方式处理数组" class="headerlink" title="条款3：绝对不要以多态（polymorphically）方式处理数组"></a>条款3：绝对不要以多态（polymorphically）方式处理数组</h4><p>多态（polymorphism）和指针算术不能混用。数组对象几乎总是会涉及指针的算术运算，所以数组和多态不要混用。</p>
-<h4 id="条款4：非必要不提供default-constructor"><a href="#条款4：非必要不提供default-constructor" class="headerlink" title="条款4：非必要不提供default constructor"></a>条款4：非必要不提供default constructor</h4><h5 id="C-中的new-delete与operator-new-operator-delete"><a href="#C-中的new-delete与operator-new-operator-delete" class="headerlink" title="C++中的new/delete与operator new/operator delete"></a>C++中的new/delete与operator new/operator delete</h5><p>new operator/delete operator就是new和delete操作符，而operator new/operator delete是函数。</p>
-<h6 id="new-operator"><a href="#new-operator" class="headerlink" title="new operator"></a>new operator</h6><p>（1）调用operator new分配足够的空间，并调用相关对象的构造函数<br>（2）不可以被重载</p>
-<h6 id="operator-new"><a href="#operator-new" class="headerlink" title="operator new"></a>operator new</h6><p>（1）只分配所要求的空间，不调用相关对象的构造函数。当无法满足所要求分配的空间时，则<br>    -&gt;如果有new_handler，则调用new_handler，否则<br>    -&gt;如果没要求不抛出异常（以nothrow参数表达），则执行bad_alloc异常，否则<br>    -&gt;返回0<br>（2）可以被重载<br>（3）重载时，返回类型必须声明为void*<br>（4）重载时，第一个参数类型必须为表达要求分配空间的大小（字节），类型为size_t<br>（5）重载时，可以带其它参数</p>
-<p>delete 与 delete operator类似</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">X</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    X() &#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"constructor of X"</span>&lt;&lt;<span class="built_in">endl</span>; &#125;</span><br><span class="line">    ~X() &#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"destructor of X"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span>* <span class="keyword">operator</span> <span class="title">new</span><span class="params">(<span class="keyword">size_t</span> <span class="built_in">size</span>,<span class="built_in">string</span> str)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"operator new size "</span>&lt;&lt;<span class="built_in">size</span>&lt;&lt;<span class="string">" with string "</span>&lt;&lt;str&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> ::<span class="keyword">operator</span> <span class="keyword">new</span>(<span class="built_in">size</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="keyword">operator</span> <span class="title">delete</span><span class="params">(<span class="keyword">void</span>* pointee)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"operator delete"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        ::<span class="function"><span class="keyword">operator</span> <span class="title">delete</span><span class="params">(pointee)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    X *px = <span class="keyword">new</span>(<span class="keyword">sizeof</span>(str),<span class="string">"A new class"</span>) X;<span class="comment">//operator new</span></span><br><span class="line">    <span class="keyword">delete</span>(px);<span class="comment">//operator delete</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>X* px = new X;</code> //该行代码中的new为new operator，它将调用类X中的operator new，为该类的对象分配空间，然后调用当前实例的构造函数。<br><code>delete px;</code> //该行代码中的delete为delete operator，它将调用该实例的析构函数，然后调用类X中的operator delete，以释放该实例占用的空间。</p>
-<p>new operator与delete operator的行为是不能够也不应该被改变，这是C++标准作出的承诺。而operator new与operator delete和C语言中的malloc与free对应，只负责分配及释放空间。但使用operator new分配的空间必须使用operator delete来释放，而不能使用free，因为它们对内存使用的登记方式不同。反过来亦是一样。你可以重载operator new和operator delete以实现对内存管理的不同要求，但你不能重载new operator或delete operator以改变它们的行为。</p>
-<p>为什么有必要写自己的operator new和operator delete？<br>答案通常是：为了效率。缺省的operator new和operator delete具有非常好的通用性，它的这种灵活性也使得在某些特定的场合下，可以进一步改善它的性能。尤其在那些需要动态分配大量的但很小的对象的应用程序里，情况更是如此。具体可参考《Effective C++》中的第二章内存管理。</p>
-<h6 id="Placement-new"><a href="#Placement-new" class="headerlink" title="Placement new"></a>Placement new</h6><p>placement new 是重载operator new 的一个标准、全局的版本，它不能够被自定义的版本代替（不像普通版本的operator new和operator delete能够被替换）。</p>
-<p>void *operator new( size_t, void * p ) throw() { return p; }</p>
-<p>placement new的执行忽略了size_t参数，只返还第二个参数。其结果是允许用户把一个对象放到一个特定的地方，达到调用构造函数的效果。和其他普通的new不同的是，它在括号里多了另外一个参数。比如：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Widget * p = <span class="keyword">new</span> Widget;          <span class="comment">//ordinary new</span></span><br><span class="line">pi = <span class="keyword">new</span> (ptr) <span class="keyword">int</span>;   <span class="comment">//placement new</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>括号里的参数ptr是一个指针，它指向一个内存缓冲器，placement new将在这个缓冲器上分配一个对象。Placement new的返回值是这个被构造对象的地址(比如括号中的传递参数)。placement new主要适用于：在对时间要求非常高的应用程序中，因为这些程序分配的时间是确定的；长时间运行而不被打断的程序；以及执行一个垃圾收集器 (garbage collector)。</p>
-<h6 id="new-、operator-new-和-placement-new-区别"><a href="#new-、operator-new-和-placement-new-区别" class="headerlink" title="new 、operator new 和 placement new 区别"></a>new 、operator new 和 placement new 区别</h6><p>（1）new ：不能被重载，其行为总是一致的。它先调用operator new分配内存，然后调用构造函数初始化那段内存。</p>
-<p>new 操作符的执行过程：</p>
-<ol>
-<li>调用operator new分配内存 ；</li>
-<li>调用构造函数生成类对象；</li>
-<li>返回相应指针。</li>
-</ol>
-<p>（2）operator new：要实现不同的内存分配行为，应该重载operator new，而不是new。</p>
-<p>operator new就像operator + 一样，是可以重载的。如果类中没有重载operator new，那么调用的就是全局的::operator new来完成堆的分配。同理，operator new[]、operator delete、operator delete[]也是可以重载的。</p>
-<p>（3）placement new：只是operator new重载的一个版本。它并不分配内存，只是返回指向已经分配好的某段内存的一个指针。因此不能删除它，但需要调用对象的析构函数。</p>
-<p>如果你想在已经分配的内存中创建一个对象，使用new时行不通的。也就是说placement new允许你在一个已经分配好的内存中（栈或者堆中）构造一个新的对象。原型中void* p实际上就是指向一个已经分配好的内存缓冲区的的首地址。</p>
-<p><strong>Placement new 存在的理由</strong></p>
-<p>1.用placement new 解决buffer的问题</p>
-<p>问题描述：用new分配的数组缓冲时，由于调用了默认构造函数，因此执行效率上不佳。若没有默认构造函数则会发生编译时错误。如果你想在预分配的内存上创建对象，用缺省的new操作符是行不通的。要解决这个问题，你可以用placement new构造。它允许你构造一个新对象到预分配的内存上。</p>
-<p>2.增大时空效率的问题</p>
-<p>使用new操作符分配内存需要在堆中查找足够大的剩余空间，显然这个操作速度是很慢的，而且有可能出现无法分配内存的异常（空间不够）。placement new就可以解决这个问题。我们构造对象都是在一个预先准备好了的内存缓冲区中进行，不需要查找内存，内存分配的时间是常数；而且不会出现在程序运行中途出现内存不足的异常。所以，placement new非常适合那些对时间要求比较高，长时间运行不希望被打断的应用程序。</p>
-<p><strong>Placement new使用步骤</strong></p>
-<p>在很多情况下，placement new的使用方法和其他普通的new有所不同。这里提供了它的使用步骤。</p>
-<p>第一步 缓存提前分配</p>
-<p>有三种方式：</p>
-<p>1.为了保证通过placement new使用的缓存区的memory alignment(内存队列)正确准备，使用普通的new来分配它：在堆上进行分配<br>class Task ;<br>char * buff = new [sizeof(Task)]; //分配内存<br>(请注意auto或者static内存并非都正确地为每一个对象类型排列，所以，你将不能以placement new使用它们。)</p>
-<p>2.在栈上进行分配<br>class Task ;<br>char buf[N*sizeof(Task)]; //分配内存</p>
-<p>3.还有一种方式，就是直接通过地址来使用。(必须是有意义的地址)<br>void* buf = reinterpret_cast&lt;void*&gt; (0xF00F);</p>
-<p>第二步：对象的分配</p>
-<p>在刚才已分配的缓存区调用placement new来构造一个对象。<br>Task *ptask = new (buf) Task</p>
-<p>第三步：使用</p>
-<p>按照普通方式使用分配的对象：</p>
-<p>ptask-&gt;memberfunction();</p>
-<p>ptask-&gt; member;</p>
-<p>//…</p>
-<p>第四步：对象的析构</p>
-<p>一旦你使用完这个对象，你必须调用它的析构函数来毁灭它。按照下面的方式调用析构函数：<br>ptask-&gt;~Task(); //调用外在的析构函数</p>
-<p>第五步：释放</p>
-<p>你可以反复利用缓存并给它分配一个新的对象（重复步骤2，3，4）如果你不打算再次使用这个缓存，你可以象这样释放它：delete [] (buf);</p>
-<p>跳过任何步骤就可能导致运行时间的崩溃，内存泄露，以及其它的意想不到的情况。如果你确实需要使用placement new，请认真遵循以上的步骤。</p>
-<h3 id="二、操作符"><a href="#二、操作符" class="headerlink" title="二、操作符"></a>二、操作符</h3><h4 id="条款5：对定制的“类型转换函数”保持警觉"><a href="#条款5：对定制的“类型转换函数”保持警觉" class="headerlink" title="条款5：对定制的“类型转换函数”保持警觉"></a>条款5：对定制的“类型转换函数”保持警觉</h4><p>两种函数允许编译器执行隐式类型转换：单自变量constructors和隐式类型转换操作符。</p>
-<p>尽量避免使用类型转换操作符。</p>
-<p>阻止编译器不分青红皂白地调用constructors进行隐式类型转换：（1）explicit关键字（2）类内定义使用代理类(proxy classes)</p>
-<h4 id="条款6：区别increment-decrement操作符的前置（prefix）和后置（postfix）形式"><a href="#条款6：区别increment-decrement操作符的前置（prefix）和后置（postfix）形式" class="headerlink" title="条款6：区别increment/decrement操作符的前置（prefix）和后置（postfix）形式"></a>条款6：区别increment/decrement操作符的前置（prefix）和后置（postfix）形式</h4><p>++和–操作符的前置式返回一个reference，后置式返回一个const对象。increment的前置式意义“increment and fetch”（累加然后取出），后置式意义“fetch and increment”（取出后累加）。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/05/21/more-effective-c/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1660,162 +1771,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="翟安然">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="翟安然's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/" itemprop="url">面试要点记录</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-24T21:59:01+08:00">
-                2020-03-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index">
-                    <span itemprop="name">面试</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>[TOC]</p>
-<h4 id="（一）面向对象的三个基本特征：封装、继承、多态"><a href="#（一）面向对象的三个基本特征：封装、继承、多态" class="headerlink" title="（一）面向对象的三个基本特征：封装、继承、多态"></a>（一）面向对象的三个基本特征：封装、继承、多态</h4><ol>
-<li>继承</li>
-</ol>
-<ul>
-<li>子类对象可以直接调用父类中的成员函数</li>
-<li>子类对象可以直接赋值给父类对象。</li>
-<li>子类对象可以直接初始化父类对象。</li>
-<li>父类引用可以直接引用子类对象。</li>
-<li>父类指针可以直接指向子类对象。</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1866,7 +1821,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1877,7 +1832,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
