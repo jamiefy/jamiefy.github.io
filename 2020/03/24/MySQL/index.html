@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/groupby.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/E:%5CgitBlog%5Csource_posts%5CMySQL%5Cleft_outer_join.png">
 <meta property="article:published_time" content="2020-03-24T06:17:11.000Z">
-<meta property="article:modified_time" content="2020-05-23T11:11:52.458Z">
+<meta property="article:modified_time" content="2020-06-17T15:40:29.804Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
@@ -393,7 +393,7 @@
 </thead>
 <tbody><tr>
 <td align="center">Serializable（串行化）</td>
-<td align="center">可避免脏读、不可重复读、虚读情况的发生</td>
+<td align="center">可避免脏读、不可重复读、幻读情况的发生</td>
 </tr>
 <tr>
 <td align="center">Repeatable read（可重复读）</td>
@@ -422,7 +422,7 @@
 <ul>
 <li>使用原则：（并不是每个字段度设置索引就好，也不是索引越多越好，而是需要自己合理的使用）</li>
 </ul>
-<p>（1）对经常更新的表就避免对其进行过多的索引，对经常用于查询的字段应该创建索引，</p>
+<p>（1）对经常修改的表就避免对其进行过多的索引，对经常用于查询的字段应该创建索引，</p>
 <p>（2）数据量小的表最好不要使用索引，因为由于数据较少，可能查询全部数据花费的时间比遍历索引的时间还要短，索引就可能不会产生优化效果。</p>
 <p>（3）在一同值少的列上(字段上)不要建立索引，比如在学生表的”性别”字段上只有男，女两个不同值。相反的，在一个字段上不同值较多可是建立索引。</p>
 <ul>
@@ -441,9 +441,12 @@
 <p>组合索引：在表中的多个字段组合上创建的索引，只有在查询条件中使用了这些字段的左边字段时，索引才会被使用，使用组合索引时遵循最左前缀原则。</p>
 <p>全文索引：全文索引，只有在MyISAM引擎上才能使用，只能在CHAR,VARCHAR,TEXT类型字段上使用全文索引，介绍了要求，说说什么是全文索引，就是在一堆文字中，通过其中的某个关键字等，就能找到该字段所属的记录行。</p>
 <p>空间索引：空间索引是对空间数据类型的字段建立的索引，MySQL中的空间数据类型有四种，GEOMETRY、POINT、LINESTRING、POLYGON。在创建空间索引时，使用SPATIAL关键字。要求引擎为MyISAM，创建空间索引的列，必须将其声明为NOT NULL。</p>
+<p>参照：</p>
+<p><a href="https://www.cnblogs.com/wezheng/p/8399305.html" target="_blank" rel="noopener">数据库中的索引</a></p>
+<p><a href="https://blog.csdn.net/u013967628/article/details/84305511" target="_blank" rel="noopener">MySQL索引原理及BTree</a></p>
 <h3 id="InnoDB和MyISAM的区别"><a href="#InnoDB和MyISAM的区别" class="headerlink" title="InnoDB和MyISAM的区别"></a><a href="https://blog.csdn.net/qq_35642036/article/details/82820178" target="_blank" rel="noopener">InnoDB和MyISAM的区别</a></h3><p>（1）InnoDB支持事务，MyISAM不支持。</p>
 <p>（2）InnoDB支持外键，MyISAM不支持。</p>
-<p>（3）<strong>InnoDB是聚簇索引，使用B+树作为索引结构</strong>，行数据是和（主键）索引绑在一起的（表数据文件本身就是按B+Tree组织的一个索引结构），<strong>主键索引的叶子结点就是数据文件</strong>，辅助索引的叶子结点是主键的值，所以<strong>InnoDB必须有主键，MyISAM可以没有</strong>。主键索引效率很高，但是辅助索引需要两次查询，先查询到主键，然后再通过主键查询到数据。因此，主键不应该过大，因为主键太大，其他索引也都会很大；<strong>MyISAM是非聚簇索引，使用B+树作为索引结构，索引和数据文件是分离的，主键索引和辅助索引的叶子结点都是数据文件的地址指针</strong>（MyISAM的主键索引和辅助索引没有区别，主键索引仅仅只是一个叫做PRIMARY的唯一非空的索引，且MyISAM可以不设主键。<a href="https://www.cnblogs.com/qlqwjy/p/7770580.html" target="_blank" rel="noopener">参考</a></p>
+<p>（3）<strong>InnoDB是聚簇索引，使用B+树作为索引结构</strong>，行数据是和（主键）索引绑在一起的（表数据文件本身就是按B+Tree组织的一个索引结构），<strong>主键索引的叶子结点就是数据文件</strong>，辅助索引的叶子结点是主键的值，所以<strong>InnoDB必须有主键，MyISAM可以没有</strong>。InnoDB主键索引效率很高，但是辅助索引需要两次查询，先查询到主键，然后再通过主键查询到数据。因此，主键不应该过大，因为主键太大，其他索引也都会很大；<strong>MyISAM是非聚簇索引，使用B+树作为索引结构，索引和数据文件是分离的，主键索引和辅助索引的叶子结点都是数据文件的地址指针</strong>（MyISAM的主键索引和辅助索引没有区别，主键索引仅仅只是一个叫做PRIMARY的唯一非空的索引，且MyISAM可以不设主键。<a href="https://www.cnblogs.com/qlqwjy/p/7770580.html" target="_blank" rel="noopener">参考</a></p>
 <p>（4） <strong>InnoDB不保存表的具体行数，执行select count(*) from table时需要全表扫描。而MyISAM用一个变量保存了整个表的行数，执行上述语句时只需要读出该变量即可，速度很快（注意不能加有任何WHERE条件）</strong>。</p>
 <p>（5）<strong>MyISAM表格可以被压缩后进行查询操作</strong>。</p>
 <p>（6）<strong>InnoDB支持表、行(默认)级锁，而MyISAM支持表级锁</strong>。</p>
@@ -473,9 +476,10 @@
 </ul>
 </li>
 </ul>
-<h3 id="主键索引和非主键索引的区别"><a href="#主键索引和非主键索引的区别" class="headerlink" title="主键索引和非主键索引的区别"></a>主键索引和非主键索引的区别</h3><p>InnoDB中，非主键索引的叶子节点存放的是<strong>主键的值</strong>，而主键索引的叶子节点存放的是<strong>整行数据</strong>。非主键索引也被称为<strong>二级索引</strong>，而主键索引也被称为<strong>聚簇索引</strong>。</p>
+<h3 id="主键索引和非主键索引的区别"><a href="#主键索引和非主键索引的区别" class="headerlink" title="主键索引和非主键索引的区别"></a>主键索引和非主键索引的区别</h3><p>InnoDB中，非主键索引的叶子节点的data域存放的是<strong>主键的值</strong>，而主键索引的叶子节点存放的是<strong>数据记录</strong>。非主键索引也被称为<strong>二级索引、辅助索引</strong>，而主键索引也被称为<strong>聚簇索引</strong>。</p>
+<p>MyISAM中，主键索引和非主键索引的叶子节点的data域存放的都是数据记录的地址。如果指定的Key存在，则取出其data域的值，然后以data域的值为地址，读取相应数据记录。MyISAM的索引方式也叫做<strong>非聚簇索引</strong>。</p>
 <h3 id="聚簇索引和非聚簇索引的区别"><a href="#聚簇索引和非聚簇索引的区别" class="headerlink" title="聚簇索引和非聚簇索引的区别"></a>聚簇索引和非聚簇索引的区别</h3><ul>
-<li><p>聚集索引：索引项的顺序与表中记录的物理顺序一致，叶子结点存储真实的数据行，不再有另外单独的数据页。 在一张表上最多只能创建一个聚簇索引，因为真实数据的物理顺序只能有一种。</p>
+<li><p>聚集索引：索引项的顺序与表中记录的物理顺序一致，叶子结点存储真实的数据记录，不再有另外单独的数据页。 在一张表上最多只能创建一个聚簇索引，因为真实数据的物理顺序只能有一种。</p>
 </li>
 <li><p>非聚簇索引：表数据存储顺序与索引顺序无关，叶结点包含索引字段值即指向数据页数据行的逻辑指针，其行数量与数据表行数据量一致。</p>
 <p>总结一下：聚集索引是一种稀疏索引，数据页上一级的索引页存储的是页指针，而不是行指针。而对于非聚集索引，则是密集索引，在数据页的上一级索引页它为每一个数据行存储一条索引记录。与非聚集索引相比，聚集索引有着更快的检索速度。</p>
