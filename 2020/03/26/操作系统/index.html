@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="[TOC] Linux系统结构详解1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。 用户空间 &#x2F; 内核空间 现在操作系统都是采用虚拟存储器，那么对32位操作系统而言，它的寻址空间（虚拟存储空间）为4G（2的32次方）。 操作系统的核心是内核，独立于普通的应用程序，可以访问受保护的内存空间，也有访问底层硬件设备的所有权限。为了保证用户进程不能直接操作内核（kernel）">
+<meta name="description" content="Linux系统结构详解1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。 用户空间 &#x2F; 内核空间 现在操作系统都是采用虚拟存储器，那么对32位操作系统而言，它的寻址空间（虚拟存储空间）为4G（2的32次方）。 操作系统的核心是内核，独立于普通的应用程序，可以访问受保护的内存空间，也有访问底层硬件设备的所有权限。为了保证用户进程不能直接操作内核（kernel），保证内核的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操作系统">
 <meta property="og:url" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="翟安然&#39;s Blog">
-<meta property="og:description" content="[TOC] Linux系统结构详解1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。 用户空间 &#x2F; 内核空间 现在操作系统都是采用虚拟存储器，那么对32位操作系统而言，它的寻址空间（虚拟存储空间）为4G（2的32次方）。 操作系统的核心是内核，独立于普通的应用程序，可以访问受保护的内存空间，也有访问底层硬件设备的所有权限。为了保证用户进程不能直接操作内核（kernel）">
+<meta property="og:description" content="Linux系统结构详解1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。 用户空间 &#x2F; 内核空间 现在操作系统都是采用虚拟存储器，那么对32位操作系统而言，它的寻址空间（虚拟存储空间）为4G（2的32次方）。 操作系统的核心是内核，独立于普通的应用程序，可以访问受保护的内存空间，也有访问底层硬件设备的所有权限。为了保证用户进程不能直接操作内核（kernel），保证内核的">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux%E7%B3%BB%E7%BB%9F%E7%BB%84%E6%88%90.jpg">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux%E5%86%85%E6%A0%B8.jpg">
@@ -95,6 +95,7 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3329890-cb2bce0f5e6bcf7f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/411/format/webp">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E6%98%A0%E5%B0%84%E7%89%A9%E7%90%86%E5%86%85%E5%AD%98.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/inode.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%98%BB%E5%A1%9EIO.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%9D%9E%E9%98%BB%E5%A1%9EIO.png">
@@ -102,8 +103,10 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BF%A1%E5%8F%B7%E9%A9%B1%E5%8A%A8IO.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%BC%82%E6%AD%A5IO.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/process.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%87%AA%E6%97%8B%E9%94%81.png">
 <meta property="article:published_time" content="2020-03-25T16:23:38.000Z">
-<meta property="article:modified_time" content="2020-05-28T01:25:26.143Z">
+<meta property="article:modified_time" content="2020-07-07T09:15:01.000Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
@@ -153,7 +156,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
@@ -369,9 +372,8 @@
       
 
       
-        <p>[TOC]</p>
-<h3 id="Linux系统结构详解"><a href="#Linux系统结构详解" class="headerlink" title="Linux系统结构详解"></a>Linux系统结构详解</h3><h4 id="1-Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。"><a href="#1-Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。" class="headerlink" title="1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。"></a>1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。</h4><p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux%E7%B3%BB%E7%BB%9F%E7%BB%84%E6%88%90.jpg" alt="Linux系统组成部分层次结构"></p>
-<p><strong>用户空间 / 内核空间</strong><br> 现在操作系统都是采用虚拟存储器，那么对32位操作系统而言，它的寻址空间（虚拟存储空间）为4G（2的32次方）。 操作系统的核心是内核，独立于普通的应用程序，可以访问受保护的内存空间，也有访问底层硬件设备的所有权限。为了保证用户进程不能直接操作内核（kernel），保证内核的安全，操作系统将虚拟空间划分为两部分，一部分为内核空间，一部分为用户空间。</p>
+        <h6 id="Linux系统结构详解"><a href="#Linux系统结构详解" class="headerlink" title="Linux系统结构详解"></a>Linux系统结构详解</h6><h3 id="1-Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。"><a href="#1-Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。" class="headerlink" title="1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。"></a>1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。</h3><p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux%E7%B3%BB%E7%BB%9F%E7%BB%84%E6%88%90.jpg" alt="Linux系统组成部分层次结构"></p>
+<h4 id="用户空间-内核空间"><a href="#用户空间-内核空间" class="headerlink" title="用户空间 / 内核空间"></a><strong>用户空间 / 内核空间</strong></h4><p> 现在操作系统都是采用虚拟存储器，那么对32位操作系统而言，它的寻址空间（虚拟存储空间）为4G（2的32次方）。 操作系统的核心是内核，独立于普通的应用程序，可以访问受保护的内存空间，也有访问底层硬件设备的所有权限。为了保证用户进程不能直接操作内核（kernel），保证内核的安全，操作系统将虚拟空间划分为两部分，一部分为内核空间，一部分为用户空间。</p>
 <a id="more"></a>
 
 <p>内核是操作系统的核心，具有很多最基本功能，它负责管理系统的进程、内存、设备驱动程序、文件和网络系统，决定着系统的性能和稳定性。Linux 内核主要由内存管理、进程管理、设备驱动程序、文件系统和网络管理等组成。</p>
@@ -387,10 +389,10 @@
 <p><strong>进程阻塞</strong><br> 正在执行的进程，由于期待的某些事件未发生，如请求系统资源失败、等待某种操作的完成、新数据尚未到达或无新工作做等，则由系统自动执行阻塞原语(Block)，使自己由运行状态变为阻塞状态。可见，进程的阻塞是进程自身的一种主动行为，也因此只有处于运行态的进程（获得了CPU资源），才可能将其转为阻塞状态。当进程进入阻塞状态，是不占用CPU资源的。</p>
 <p><strong>文件描述符</strong><br> 文件描述符（File descriptor）是计算机科学中的一个术语，是一个用于表述指向文件的引用的抽象化概念。<br> 文件描述符在形式上是一个非负整数。实际上，它是一个索引值，指向内核为每一个进程所维护的该进程打开文件的记录表。当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。在程序设计中，一些涉及底层的程序编写往往会围绕着文件描述符展开。但是文件描述符这一概念往往只适用于UNIX、Linux这样的操作系统。</p>
 <p><strong>缓存I/O</strong><br> 缓存I/O又称为标准I/O，大多数文件系统的默认I/O操作都是缓存I/O。在Linux的缓存I/O机制中，操作系统会将I/O的数据缓存在文件系统的页缓存中，即数据会先被拷贝到操作系统内核的缓冲区中，然后才会从操作系统内核的缓冲区拷贝到应用程序的地址空间。</p>
-<h4 id="2-内存管理"><a href="#2-内存管理" class="headerlink" title="2. 内存管理"></a>2. 内存管理</h4><p>对任何一台计算机而言，其内存以及其它资源都是有限的。为了让有限的物理内存满足应用程序对内存的大需求量，<strong>Linux  采用了称为“虚拟内存”的内存管理方式</strong>。Linux  将内存划分为容易处理的“内存页”（对于大部分体系结构来说都是 4KB）。Linux 包括了管理可用内存的方式，以及物理和虚拟映射所使用的硬件机制。</p>
+<h3 id="2-内存管理"><a href="#2-内存管理" class="headerlink" title="2. 内存管理"></a>2. 内存管理</h3><p>对任何一台计算机而言，其内存以及其它资源都是有限的。为了让有限的物理内存满足应用程序对内存的大需求量，<strong>Linux  采用了称为“虚拟内存”的内存管理方式</strong>。Linux  将内存划分为容易处理的“内存页”（对于大部分体系结构来说都是 4KB）。Linux 包括了管理可用内存的方式，以及物理和虚拟映射所使用的硬件机制。</p>
 <p>不过内存管理要管理的可不止 4KB 缓冲区。Linux 提供了对 4KB 缓冲区的抽象，例如 slab 分配器。这种内存管理模式使用 4KB 缓冲区为基数，然后从中分配结构，并跟踪内存页使用情况，比如哪些内存页是满的，哪些页面没有完全使用，哪些页面为空。这样就允许该模式根据系统需要来动态调整内存使用。</p>
 <p>为了支持多个用户使用内存，有时会出现可用内存被消耗光的情况。由于这个原因，页面可以移出内存并放入磁盘中。这个过程称为交换，因为页面会被从内存交换到硬盘上。内存管理的源代码可以在 ./linux/mm 中找到。</p>
-<h5 id="虚拟内存管理"><a href="#虚拟内存管理" class="headerlink" title="虚拟内存管理"></a>虚拟内存管理</h5><p><strong>虚拟内存技术实际上就是建立了“内存—-外存”的两级存储结构，利用局部性原理实现高速缓存。</strong></p>
+<h4 id="虚拟内存管理"><a href="#虚拟内存管理" class="headerlink" title="虚拟内存管理"></a>虚拟内存管理</h4><p><strong>虚拟内存技术实际上就是建立了“内存—-外存”的两级存储结构，利用局部性原理实现高速缓存。</strong></p>
 <p>虚拟内存是计算机系统内存管理的一种技术。它使得应用程序认为它拥有连续的可用的内存（一个连续完整的地址空间），而实际上，它通常是被分隔成多个物理内存碎片，还可以通过覆盖或者把处于不活动状态的程序以及它们的数据全部交换到外部磁盘存储器上临时存储。与没有使用虚拟内存技术的系统相比，使用这种技术的系统使得大型程序的编写变得更容易，对真正的物理内存（例如RAM）的使用也更有效率。</p>
 <p>进程由不同长度的段组成：代码段、动态库的代码、全局变量和动态产生数据的堆、栈等，在Linux中为每个进程管理了一套虚拟地址空间：</p>
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B%E7%A8%8B.jpg" alt="每个进程管理一套虚拟地址空间"></p>
@@ -418,18 +420,18 @@
 <p>}</p>
 </li>
 </ul>
-<h5 id="地址映射"><a href="#地址映射" class="headerlink" title="地址映射"></a>地址映射</h5><p>在Linux内部的地址的映射过程为逻辑地址–&gt;线性地址–&gt;物理地址，物理地址最简单：地址总线中传输的数字信号，而线性地址和逻辑地址所表示的则是一种转换规则，线性地址规则如下：</p>
+<h4 id="地址映射"><a href="#地址映射" class="headerlink" title="地址映射"></a>地址映射</h4><p>在Linux内部的地址的映射过程为逻辑地址–&gt;线性地址–&gt;物理地址，物理地址最简单：地址总线中传输的数字信号，而线性地址和逻辑地址所表示的则是一种转换规则，线性地址规则如下：</p>
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9C%B0%E5%9D%80%E6%98%A0%E5%B0%84.jpg" alt="img"></p>
 <p>这部分由MMU完成，其中涉及到主要的寄存器有CR0、CR3。机器指令中出现的是逻辑地址，逻辑地址规则如下：</p>
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80.jpg" alt="逻辑地址规则"></p>
 <p>在Linux中的逻辑地址等于线性地址，也就是说Inter为了兼容把事情搞得很复杂，Linux简化顺便偷个懒。</p>
-<h5 id="程序内存区域分配"><a href="#程序内存区域分配" class="headerlink" title="程序内存区域分配"></a>程序内存区域分配</h5><ol>
+<h4 id="程序内存区域分配"><a href="#程序内存区域分配" class="headerlink" title="程序内存区域分配"></a>程序内存区域分配</h4><ol>
 <li><p>一个程序本质上都是由 bss段、data段、text段三个组成的。bss段通常是指用来存放程序中静态变量和未初始化的全局变量一块内存区域，一般在初始化时bss 段部分将会清零。bss段属于静态内存分配，即程序一开始就将其清零了。比如，在C语言之类的程序编译完成之后，已初始化的全局变量保存在.data 段中，静态变量和未初始化的全局变量保存在.bss 段中。text和data段都在可执行文件中（在嵌入式系统里一般是固化在镜像文件中），由系统从可执行文件中加载；而bss段不在可执行文件中，由系统初始化。bss段（未手动初始化的数据）并不给该段的数据分配空间，只是记录数据所需空间的大小；bss段的大小从可执行文件中得到 ，然后链接器得到这个大小的内存块，紧跟在数据段后面。data段（已手动初始化的数据）则为数据分配空间，数据保存在目标文件中；data段包含经过初始化的全局变量以及它们的值。当这个内存区进入程序的地址空间后全部清零。包含data段和bss段的整个区段此时通常称为数据区。</p>
 </li>
 <li><p>同一进程中的多个线程共享代码段（代码和常量），数据段（全局变量和静态变量），扩展段（堆存储）。</p>
 </li>
 </ol>
-<h5 id="物理内存管理"><a href="#物理内存管理" class="headerlink" title="物理内存管理"></a>物理内存管理</h5><p><strong>Linux内核管理物理内存是通过分页机制</strong>实现的，它将整个内存划分成无数个4k（在i386体系结构中）大小的页，从而分配和回收内存的基本单位便是内存页了。利用<strong>分页管理</strong>有助于灵活分配内存地址，因为分配时不必要求必须有大块的连续内存，系统可以东一页、西一页的凑出所需要的内存供进程使用。虽然如此，但是实际上系统使用内存时还是倾向于分配连续的内存块，因为分配连续内存时，页表不需要更改，因此能降低TLB的刷新率（频繁刷新会在很大程度上降低访问速度）。物理内存的使用主要分为以下几个方面：</p>
+<h4 id="物理内存管理"><a href="#物理内存管理" class="headerlink" title="物理内存管理"></a>物理内存管理</h4><p><strong>Linux内核管理物理内存是通过分页机制</strong>实现的，它将整个内存划分成无数个4k（在i386体系结构中）大小的页，从而分配和回收内存的基本单位便是内存页了。利用<strong>分页管理</strong>有助于灵活分配内存地址，因为分配时不必要求必须有大块的连续内存，系统可以东一页、西一页的凑出所需要的内存供进程使用。虽然如此，但是实际上系统使用内存时还是倾向于分配连续的内存块，因为分配连续内存时，页表不需要更改，因此能降低TLB的刷新率（频繁刷新会在很大程度上降低访问速度）。物理内存的使用主要分为以下几个方面：</p>
 <p>（1）内核使用</p>
 <p>操作系统启动时，位于/boot目录下的压缩内核文件会被加载到内存中并解压。这部分内容在系统允许期间都会常驻在内存的起始位置。</p>
 <p>（2）slab分配器</p>
@@ -445,7 +447,7 @@
 <p><strong>总结</strong>：系统内核为每个进程都维护了一份从虚拟内存到物理内存的映射表，称为页表。页表根据虚拟地址，查找出锁映射的物理页位置和数据在物理页中的偏移量，便得到了实际需要访问的物理地址。</p>
 <p>进程在运行过程中，会加载许多操作系统的动态库，比如 libc.so、libld.so等。这些库对于每个进程而言都是公用的，它们在内存中实际只会加载一份，这部分称为<strong>共享内存</strong>。如途中进程1和进程2的共享内存段，实际都映射到同一块物理内存。注意，进程占用的共享内存也是计算到驻留内存中的。</p>
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E6%98%A0%E5%B0%84%E7%89%A9%E7%90%86%E5%86%85%E5%AD%98.png" alt="虚拟内存映射物理内存"></p>
-<h4 id="3-文件系统"><a href="#3-文件系统" class="headerlink" title="3. 文件系统"></a>3. 文件系统</h4><p>文件系统指文件存在的物理空间，linux系统中每个分区都是一个文件系统，都有自己的目录层次结构。linux会将这些分属不同分区的、单独的文件系统按一定的方式形成一个系统的总的目录层次结构。一个操作系统的运行离不开对文件的操作，因此必然要拥有并维护自己的文件系统。</p>
+<h3 id="3-文件系统"><a href="#3-文件系统" class="headerlink" title="3. 文件系统"></a>3. 文件系统</h3><p>文件系统指文件存在的物理空间，linux系统中每个分区都是一个文件系统，都有自己的目录层次结构。linux会将这些分属不同分区的、单独的文件系统按一定的方式形成一个系统的总的目录层次结构。一个操作系统的运行离不开对文件的操作，因此必然要拥有并维护自己的文件系统。</p>
 <p>和 DOS 等操作系统不同，Linux 操作系统中单独的文件系统并不是由驱动器号或驱动器名称（如 A:  或 C:  等）来标识的。相反，和 UNIX  操作系统一样，Linux 操作系统将独立的文件系统组合成了一个层次化的树形结构，并且由一个单独的实体代表这一文件系统。Linux  将新的文件系统通过一个称为“挂装”或“挂上”的操作将其挂装到某个目录上，从而让不同的文件系统结合成为一个整体。Linux  操作系统的一个重要特点是它支持许多不同类型的文件系统。Linux 中最普遍使用的文件系统是 Ext2，它也是 Linux  土生土长的文件系统。但 Linux  也能够支持 FAT、VFAT、FAT32、MINIX 等不同类型的文件系统，从而可以方便地和其它操作系统交换数据。由于 Linux  支持许多不同的文件系统，并且将它们组织成了一个统一的虚拟文件系统.</p>
 <p>虚拟文件系统（VirtualFileSystem,VFS）:隐藏了各种硬件的具体细节，把文件系统操作和不同文件系统的具体实现细节分离了开来，为所有的设备提供了统一的接口，VFS提供了多达数十种不同的文件系统。虚拟文件系统可以分为逻辑文件系统和设备驱动程序。逻辑文件系统指Linux所支持的文件系统，如ext2,fat等，设备驱动程序指为每一种硬件控制器所编写的设备驱动程序模块。</p>
 <p>虚拟文件系统（VFS）是 Linux 内核中非常有用的一个方面，因为它为文件系统提供了一个通用的接口抽象。VFS 在 SCI 和内核所支持的文件系统之间提供了一个交换层。即<strong>VFS 在用户和文件系统之间提供了一个交换层</strong>。</p>
@@ -455,11 +457,52 @@
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.png" alt="文件系统结构"></p>
 <p>微软的DOS和windows也是采用树型结构，但是在DOS和 windows中这样的树型结构的根是磁盘分区的盘符，有几个分区就有几个树型结构，他们之间的关系是并列的。最顶部的是不同的磁盘（分区），如：C，D，E，F等。</p>
 <p>但是在linux中，无论操作系统管理几个磁盘分区，这样的目录树只有一个。从结构上讲，各个磁盘分区上的树型目录不一定是并列的。</p>
-<ul>
-<li>Linux文件存储结构</li>
-</ul>
-<p>大部分的Linux文件系统（如ext2、ext3）规定，一个文件由目录项、inode和数据区组成。</p>
+<p><strong>Linux文件存储结构：大部分的Linux文件系统（如ext2、ext3）规定，一个文件由目录项、inode和数据区组成</strong>。</p>
 <p>目录项：包括文件名和inode节点号。<br>inode：又称文件索引节点，包含文件的基础信息以及数据块的指针。<br>数据块：包含文件的具体内容。</p>
+<h5 id="IO-和cache的区别"><a href="#IO-和cache的区别" class="headerlink" title="IO 和cache的区别"></a>IO 和cache的区别</h5><p><strong>Buffer</strong>（缓冲区）是系统两端处理<strong>速度平衡</strong>（从长时间尺度上看）时使用的。它的引入是为了减小短期内突发I/O的影响，起到<strong>流量整形</strong>的作用。比如生产者——消费者问题，他们产生和消耗资源的速度大体接近，加一个buffer可以抵消掉资源刚产生/消耗时的突然变化。<br><strong>Cache</strong>（缓存）则是系统两端处理<strong>速度不匹配</strong>时的一种<strong>折衷策略</strong>。因为CPU和memory之间的速度差异越来越大，所以人们充分利用数据的局部性（locality）特征，通过使用存储系统分级（memory hierarchy）的策略来减小这种差异带来的影响。</p>
+<h5 id="常规文件系统操作（调用read-fread-write等类函数）中函数的调用过程"><a href="#常规文件系统操作（调用read-fread-write等类函数）中函数的调用过程" class="headerlink" title="常规文件系统操作（调用read/fread/write等类函数）中函数的调用过程"></a>常规文件系统操作（调用read/fread/write等类函数）中函数的调用过程</h5><p>VFS所隐含的主要思想在于引入了一个通用的文件模型（common file model)，这个模型能够表示所有支持的文件系统。linux内核对每个文件读写操作都必须使用一个指针，指向要访问的具体文件系统的适当函数。换句话说，当应用程序对read()或是write()调用引起内核调用相应的sys_read()或是sys_write()服务例程，文件在内核内存中是由一个file数据结构来表示的。这种数据结构中包含一个称为f_op的字段，该字段中包含一个指向专对某一个文件系统(如sysfs虚拟文件系统)的读写函数指针，sys_read()或是sys_write()查找到指向该函数的指针，并调用它。这样一来，应用程序的read()或是write()就被转化为相对间接的调用：</p>
+<p>file-&gt;f_op-&gt;read() 或 file-&gt;f_op-&gt;write()</p>
+<p><a href="https://blog.csdn.net/qq_28114615/article/details/94590598" target="_blank" rel="noopener">参考</a></p>
+<ul>
+<li><p><strong>读文件</strong><br>1、进程调用库函数向内核发起读文件请求；</p>
+<p>2、内核通过检查进程的文件描述符定位到虚拟文件系统VFS的已打开文件列表表项；</p>
+<p>3、调用该文件可用的系统调用函数read()</p>
+<p>3、read()函数通过文件表项链接到目录项模块，根据传入的文件路径，在目录项模块中检索，找到该文件的inode；</p>
+<p>4、在inode中，通过文件内容偏移量计算出要读取的页；</p>
+<p>5、通过inode找到文件对应的address_space；</p>
+<p>6、在address_space中访问该文件的页缓存树，查找对应的页缓存结点：</p>
+<p>（1）如果页缓存命中，那么直接返回文件内容；</p>
+<p>（2）如果页缓存缺失，那么产生一个页缺失异常，创建一个页缓存页，同时通过inode找到文件该页的磁盘地址，读取相应的页填充该缓存页；重新进行第6步查找页缓存；</p>
+<p>7、文件内容读取成功。</p>
+<p><strong>写文件</strong><br>前5步和读文件一致，在address_space中查询对应页的页缓存是否存在：</p>
+<p>6、如果页缓存命中，直接把文件内容修改更新在页缓存的页中。写文件就结束了。这时候文件修改位于页缓存，并没有写回到磁盘文件中去。</p>
+<p>7、如果页缓存缺失，那么产生一个页缺失异常，创建一个页缓存页，同时通过inode找到文件该页的磁盘地址，读取相应的页填充该缓存页。此时缓存页命中，进行第6步。</p>
+<p>8、一个页缓存中的页如果被修改，那么会被标记成脏页。脏页需要写回到磁盘中的文件块。有两种方式可以把脏页写回磁盘：</p>
+<p>（1）手动调用sync()或者fsync()系统调用把脏页写回</p>
+<p>（2）pdflush进程会定时把脏页写回到磁盘</p>
+<p>同时注意，脏页不能被置换出内存，如果脏页正在被写回，那么会被设置写回标记，这时候该页就被上锁，其他写请求被阻塞直到锁释放。</p>
+</li>
+</ul>
+<p>将磁盘上的数据缓存在内存中，加速文件的读写。实际上，在一般情况下，read/write是只跟缓存打交道的。read就直接从缓存读数据。如果要读的数据还不在缓存中，则触发一次读盘操作，然后等待磁盘上的数据被更新到磁盘高速缓存中；write也是直接写到缓存里去，然后就不用管了。后续内核会负责将数据写回磁盘。为了实现这样的缓存，每个文件的inode内嵌了一个address_space结构，通过inode-&gt;i_mapping来访问。<strong>address_space结构中维护了一棵radix树，用于磁盘高速缓存的内存页面就挂在这棵树上。而既然磁盘高速缓存是跟文件的inode关联上的，则打开这个文件的每个进程都共用同一份缓存</strong>。</p>
+<h5 id="文件描述符、打开文件描述符表、文件表、inode节点"><a href="#文件描述符、打开文件描述符表、文件表、inode节点" class="headerlink" title="文件描述符、打开文件描述符表、文件表、inode节点"></a>文件描述符、打开文件描述符表、文件表、inode节点</h5><p>在内核中每一个打开的文件都需要由3种数据结构来进行维护：</p>
+<p>1）每个进程对应一张<strong>打开文件描述符表</strong>，这是进程级数据结构，也就是每一个进程都各自有这样一个数据结构；</p>
+<p>2）内核维持一张打开文件表，<strong>文件表</strong>由多个文件表项组成，这是系统级数据结构，也就是说这样的数据结构是针对于整个内核而言的，每个进程都可共享的；</p>
+<p>3.每个打开的文件对应一个i节点（i-node）数据结构（Linux下只有i节点没有v节点），由于这是每一个打开的文件与之对应的，因此这也是一个系统级数据结构，存在于内核中，非进程所独有。</p>
+<p>不同进程打开现存文件或新建文件时，内核会返回一个<strong>文件描述符</strong>（file descriptor），它是个非负整数。对于每一个进程，都会分配一个PCB数据结构，它其中包含了该进程的所有信息，而在代码实现上，这个数据结构名为<strong>task_struct</strong>， 在<strong>task_struct</strong>中，有一个成员变量名为<strong>files</strong>，这是一个描述打开文件信息的变量，其类型为<strong>struct files_struct</strong>。在所有进程的PCB（Process Control Block）中均会保存一份<strong>打开文件描述符表</strong>，实际上就是files_struct 中的成员struct file * fd_array[NR_OPEN_DEFAULT]它是一个指针数组，数组每一个元素都是一个指向file类型的指针，可想而知，这些指针都会指向一个打开的文件，并且file这一数据结构就是用来描述一个打开的文件的，<strong>而我们所说的文件描述符，实际上就是这个指针数组的索引</strong>。这也是为什么文件描述符是非负整数。文件描述符就是这个表的索引（数组下标），每个表项都有一个指向已打开文件的指针（数组的内容），<strong>具体是指向文件表中该文件对应的表格项</strong>。</p>
+<p>在Linux系统中，已打开的文件形成<strong>打开文件表</strong>（open file table），存放在<strong>内核空间</strong>（系统级）中，并由系统里的所有进程共享。该表中每个表格保存了一个打开文件的全部信息，如下所示：</p>
+<ul>
+<li>当前文件偏移量（调用read()和write()时更新，或使用lseek()直接修改）；</li>
+<li>打开文件时所使用的状态标识（即，open()的flags参数）；<br>文件访问模式（如调用open()时所设置的只读模式、只写模式或读写模式）；</li>
+<li>与信号驱动相关的设置；</li>
+<li>对该文件<strong>i-node</strong>对象的引用；</li>
+<li>文件类型（例如：常规文件、套接字或FIFO）和访问权限；</li>
+<li>一个指针，指向该文件所持有的锁列表；</li>
+<li>文件的各种属性，包括文件大小以及与不同类型操作相关的时间戳；</li>
+</ul>
+<p>文件表项的数据结构就是file结构体，而在实际上内核中也并不存在这样一张文件表，只是每个打开的文件都对应一个file结构体，也就是一个文件表项，<strong>打开文件描述符表struct file * fd_array[NR_OPEN_DEFAULT]</strong>数组中的每一项都会指向这样一个文件表项。 在file结构体中，不得不再说一下它的f_path成员，这是一个struct path类型的变量，该类型定义于include/linux/path.h：</p>
+<p>struct path {<br>    struct vfsmount <em>mnt;<br>    struct dentry <em>dentry;<br>};<br>    这里的dentry实际上就指向文件所在的目录项了，struct dentry的类型定义于include/linux/dcache.h。 在dentry结构体中，描述了根结点、父节点等等信息，尤其还要注意的是</em></em>struct inode *d_inode**这一变量，它则是指向了一个i-node结点。</p>
+<p>文件描述符是一个POSIX标准下的概念，为系统调用接口，常见于Linux系统。Windows也是声称遵循POSIX标准的，所以Windows也有文件描述符等概念，但不常用。文件描述符的分配规则： 从当前未被分配的最小整数处分匹配，特别的有：标准输入（stdin）的文件描述符是 0；标准输出（stdout）的文件描述符是 1；标准错误（stderr）的文件描述符是 2。</p>
+<p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/inode.png" alt></p>
 <h5 id="目录项"><a href="#目录项" class="headerlink" title="目录项"></a>目录项</h5><p>Linux系统中，目录（directory）也是一种文件。打开目录，实际上就是打开目录文件。目录文件的结构非常简单，就是一系列目录项（dirent）的列表。每个目录项，由两部分组成：所包含文件的文件名，以及该文件名对应的inode号码。</p>
 <p>ls命令只列出目录文件中的所有文件名：ls /etc<br>ls -i命令列出整个目录文件，即文件名和inode号码：ls -i /etc</p>
 <h5 id="inode"><a href="#inode" class="headerlink" title="inode"></a>inode</h5><p>理解inode，要从文件储存说起。文件储存在硬盘上，硬盘的最小存储单位叫做”扇区”（Sector），每个扇区储存512字节（相当于0.5KB）。操作系统读取硬盘的时候，不会一个扇区一个扇区地读取，这样效率太低，而是一次性连续读取多个扇区，即一次性读取一个”块”（block）。这种由多个扇区组成的”块”，是文件存取的最小单位。”块”的大小，最常见的是4KB，即连续八个sector组成一个block。</p>
@@ -484,7 +527,7 @@
 <h5 id="软链接"><a href="#软链接" class="headerlink" title="软链接"></a>软链接</h5><p>除了硬链接以外，还有一种特殊情况。文件A和文件B的inode号码虽然不一样，但是文件A的内容是文件B的路径。读取文件A时，系统会自动将访问者导向文件B。因此，无论打开哪一个文件，最终读取的都是文件B。这时，文件A就称为文件B的”软链接”（soft link）或者”符号链接（symbolic link）。<br>这意味着，文件A依赖于文件B而存在，如果删除了文件B，打开文件A就会报错：”No such file or directory”。这是软链接与硬链接最大的不同：文件A指向文件B的文件名，而不是文件B的inode号码，文件B的inode”链接数”不会因此发生变化。</p>
 <p>ln -s命令可以创建软链接，语法为：</p>
 <p>ln -s source_file target_file</p>
-<h4 id="4-Linux的五种IO模型"><a href="#4-Linux的五种IO模型" class="headerlink" title="4. Linux的五种IO模型"></a>4. Linux的五种IO模型</h4><p>1）阻塞IO</p>
+<h3 id="4-Linux的五种IO模型"><a href="#4-Linux的五种IO模型" class="headerlink" title="4. Linux的五种IO模型"></a>4. Linux的五种IO模型</h3><p>1）阻塞IO</p>
 <p>2）非阻塞IO</p>
 <p>3）IO复用（select和poll）</p>
 <p>4）信号驱动IO（sigio）</p>
@@ -492,13 +535,13 @@
 <p>一般来说，IO操作都分为两个阶段，就拿套接口的输入操作来说，它的两个阶段主要是：</p>
 <p>1）等待网络数据到来，当分组到来时，将其拷贝到内核空间的临时缓冲区中</p>
 <p>2）将内核空间临时缓冲区中的数据拷贝到用户空间缓冲区中</p>
-<h5 id="1、阻塞IO"><a href="#1、阻塞IO" class="headerlink" title="1、阻塞IO"></a>1、阻塞IO</h5><p>默认情况下，所有套接口都是阻塞的。</p>
+<h4 id="1、阻塞IO"><a href="#1、阻塞IO" class="headerlink" title="1、阻塞IO"></a>1、阻塞IO</h4><p>默认情况下，所有套接口都是阻塞的。</p>
 <p>例如recvfrom函数是一个系统调用：</p>
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%98%BB%E5%A1%9EIO.png" alt="img"></p>
 <p>说明：任何一个系统调用都会产生一个由用户态到内核态切换，再从内核态到用户态切换的过程，而进程上下文切换是通过系统中断程序来实现的，需要保存当前进程的上下文状态，这是一个极其费力的过程。</p>
-<h5 id="2、非阻塞IO"><a href="#2、非阻塞IO" class="headerlink" title="2、非阻塞IO"></a>2、非阻塞IO</h5><p>当我们把套接口设置成非阻塞时，就是由用户进程不停地询问内核某种操作是否准备就绪，这就是我们常说的“轮询”。这同样是一件比较浪费CPU的方式。</p>
+<h4 id="2、非阻塞IO"><a href="#2、非阻塞IO" class="headerlink" title="2、非阻塞IO"></a>2、非阻塞IO</h4><p>当我们把套接口设置成非阻塞时，就是由用户进程不停地询问内核某种操作是否准备就绪，这就是我们常说的“轮询”。这同样是一件比较浪费CPU的方式。</p>
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%9D%9E%E9%98%BB%E5%A1%9EIO.png" alt="img"></p>
-<h5 id="3、IO多路复用"><a href="#3、IO多路复用" class="headerlink" title="3、IO多路复用"></a>3、IO多路复用</h5><p>我们常用到的IO多路复用，主要是select和poll。这里同样是会阻塞进程的，但是这里进程是阻塞在select或者poll这两个系统调用上，而不是阻塞在真正的IO操作上。</p>
+<h4 id="3、-IO多路复用"><a href="#3、-IO多路复用" class="headerlink" title="3、 IO多路复用"></a>3、 IO多路复用</h4><p>我们常用到的IO多路复用，主要是select和poll。这里同样是会阻塞进程的，但是这里进程是阻塞在select或者poll这两个系统调用上，而不是阻塞在真正的IO操作上。</p>
 <p>看起来它与blocking I/O很相似，两个阶段都阻塞。但它与blocking I/O的一个重要区别就是它可以等待多个数据报就绪（datagram ready），即可以处理多个连接，而阻塞IO一次性只能监听一个套接口。这里的select相当于一个“代理”，调用select以后进程会被select阻塞，这时候在内核空间内select会监听指定的多个datagram (如socket连接)，如果其中任意一个数据就绪了就返回。此时程序再进行数据读取操作，将数据拷贝至当前进程内。</p>
 <p>在select模型中每个socket一般都设置成non-blocking，虽然等待数据阶段仍然是阻塞状态，但是它是被select调用阻塞的，而不是直接被I/O阻塞的。select底层通过轮询机制来判断每个socket读写是否就绪。</p>
 <p>当然select也有一些缺点，比如底层轮询机制会增加开销、支持的文件描述符数量过少等。为此，Linux引入了epoll作为select的改进版本。</p>
@@ -547,9 +590,9 @@
 </tr>
 </tbody></table>
 <p>epoll是Linux目前大规模网络并发程序开发的首选模型。在绝大多数情况下性能远超select和poll。目前流行的高性能web服务器Nginx正式依赖于epoll提供的高效网络套接字轮询服务。但是，在并发连接不高的情况下，多线程+阻塞I/O方式可能性能更好。</p>
-<h5 id="4、信号驱动IO"><a href="#4、信号驱动IO" class="headerlink" title="4、信号驱动IO"></a>4、信号驱动IO</h5><p>信号驱动IO就是说我们可以通过sigaction系统调用注册一个信号处理程序，然后主程序可以继续向下执行，当我们所监控的套接口有IO操作准备就绪时，由内核通知触发前面注册的信号处理程序执行，然后将我们所需要的数据从内核空间拷贝到用户空间。</p>
+<h4 id="4、信号驱动IO"><a href="#4、信号驱动IO" class="headerlink" title="4、信号驱动IO"></a>4、信号驱动IO</h4><p>信号驱动IO就是说我们可以通过sigaction系统调用注册一个信号处理程序，然后主程序可以继续向下执行，当我们所监控的套接口有IO操作准备就绪时，由内核通知触发前面注册的信号处理程序执行，然后将我们所需要的数据从内核空间拷贝到用户空间。</p>
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BF%A1%E5%8F%B7%E9%A9%B1%E5%8A%A8IO.png" alt="img"></p>
-<h5 id="5、异步IO"><a href="#5、异步IO" class="headerlink" title="5、异步IO"></a>5、异步IO</h5><p>异步IO与信号驱动IO最主要的区别就是信号驱动IO是由内核通知我们何时可以进行IO操作了，而异步IO则是由内核告诉我们IO操作何时完成了。具体来说就是，信号驱动IO当内核通知触发信号处理程序时，信号处理程序还需要阻塞在从内核空间缓冲区拷贝数据到用户空间缓冲区这个阶段，而异步IO直接是在第二个阶段完成后内核直接通知可以进程后续操作了。</p>
+<h4 id="5、异步IO"><a href="#5、异步IO" class="headerlink" title="5、异步IO"></a>5、异步IO</h4><p>异步IO与信号驱动IO最主要的区别就是信号驱动IO是由内核通知我们何时可以进行IO操作了，而异步IO则是由内核告诉我们IO操作何时完成了。具体来说就是，信号驱动IO当内核通知触发信号处理程序时，信号处理程序还需要阻塞在从内核空间缓冲区拷贝数据到用户空间缓冲区这个阶段，而异步IO直接是在第二个阶段完成后内核直接通知可以进程后续操作了。</p>
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%BC%82%E6%AD%A5IO.png" alt="img"></p>
 <p>综上所述，我们发现 前四种IO模型的主要区别是在第一阶段，因为它们的第二阶段都是在阻塞等待数据由内核空间拷贝到用户空间；而异步IO很明显与前面四种有所不同，它在第一阶段和第二阶段都不会阻塞。具体参考如下：</p>
 <p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B%E6%AF%94%E8%BE%83.png" alt="img"></p>
@@ -557,6 +600,187 @@
 <p>1）同步IO操作会引起进程阻塞直到IO操作完成。</p>
 <p>2）异步IO操作不引起进程阻塞。</p>
 <p>因此，由上面定义可以看出，阻塞IO、非阻塞IO、IO复用、信号驱动IO都是属于同步IO，而异步IO模型才与异步IO定义所匹配。</p>
+<h3 id="5-Linux进程管理"><a href="#5-Linux进程管理" class="headerlink" title="5. Linux进程管理"></a>5. Linux进程管理</h3><h4 id="进程的状态与转换"><a href="#进程的状态与转换" class="headerlink" title="进程的状态与转换"></a>进程的状态与转换</h4><p>进程在其生命周期内通常进程有以下三种状态：</p>
+<p>1) 运行状态：进程正在处理机上运行。在单处理机环境下，每一时刻最多只有一个进程处于运行状态。</p>
+<p>2) 就绪状态：进程已处于准备运行的状态，即进程获得了除处理机之外的一切所需资源，一旦得到处理机即可运行。</p>
+<p>3) 阻塞状态，又称等待状态：进程正在等待某一事件而暂停运行，如等待某资源为可用（不包括处理机）或等待输入/输出完成。即使处理机空闲，该进程也不能运行。</p>
+<p>注意区别就绪状态和等待状态：就绪状态是指进程仅缺少处理机，只要获得处理机资源就立即执行；而等待状态是指进程需要其他资源（除了处理机）或等待某一事件。之所以把处理机和其他资源划分开，是因为在分时系统的时间片轮转机制中，每个进程分到的时间片是若干毫秒。也就是说，进程得到处理机的时间很短且非常频繁，进程在运行过程中实际上是频繁地转换到就绪状态的；而其他资源（如外设）的使用和分配或者某一事件的发生（如I/O操作的完成）对应的时间相对来说很长，进程转换到等待状态的次数也相对较少。这样来看，就绪状态和等待状态是进程生命周期中两个完全不同的状态，需要加以区分。</p>
+<p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/process.jpg" alt="进程状态转换"></p>
+<p>就绪状态 -&gt; 运行状态：CPU 空闲时选择一个就绪进程，处于就绪状态的进程被调度后，获得处理机资源（分派处理机时间片），于是进程由就绪状态转换为运行状态。</p>
+<p>运行状态 -&gt; 就绪状态：处于运行状态的进程在时间片用完后，不得不让出处理机，从而进程由运行状态转换为就绪状态。此外，在可剥夺的操作系统中，当有更高优先级的进程就绪时，调度程度将正执行的进程转换为就绪状态，让更高优先级的进程执行。</p>
+<p>运行状态 -&gt; 阻塞状态：当进程请求某一资源（如外设）的使用和分配或等待某一事件的发生（如I/O操作的完成）时，它就从运行状态转换为阻塞状态。进程以系统调用的形式请求操作系统提供服务，这是一种特殊的、由运行用户态程序调用操作系统内核过程的形式。</p>
+<p>阻塞状态 -&gt; 就绪状态：当进程等待的事件到来时，如I/O操作结束或中断结束时，中断处理程序必须把相应进程的状态由阻塞状态转换为就绪状态。</p>
+<h4 id="进程创建fork和vfork"><a href="#进程创建fork和vfork" class="headerlink" title="进程创建fork和vfork"></a>进程创建fork和vfork</h4><ul>
+<li><p>进程描述符task_struct</p>
+</li>
+<li><p>fork后操作系统会复制一个与父进程完全相同的子进程，两个进程共享代码空间，但数据空间相互独立，子进程数据空间中的内容是父进程的完整拷贝，指令指针也完全相同，子进程拥有父进程当前运行到的位置（两进程的程序计数器pc值相同，也就是说子进程是从fork返回处开始执行的），但有一点不同，如果fork成功，子进程中fork的返回值是0，父进程中fork的返回值是子进程的进程号，如果fork不成功，父进程会返回错误。可以这样想象，2个进程一直同时运行，而且步调一致，在fork之后，他们分别作不同的工作，也就是分岔了。</p>
+</li>
+<li><p>fork（）会产生一个和父进程完全相同的子进程，但子进程在此后多会exec系统调用，出于效率考虑，linux中引入了“写时复制“技术，也就是只有进程空间的各段的内容要发生变化时，才会将父进程的内容复制一份给子进程。在fork之后exec之前两个进程用的是相同的物理空间（内存区），子进程的代码段、数据段、堆栈都是指向父进程的物理空间，也就是说，两者的虚拟空间不同，但其对应的物理空间是同一个。当父子进程中有更改相应段的行为发生时，再为子进程相应的段分配物理空间，如果不是因为调用了exec，内核会给子进程的数据段、堆栈段分配相应的物理空间（至此两者有各自的进程空间，互不影响），而代码段继续共享父进程的物理空间（两者的代码完全相同）。而如果是因为调用了exec，exec负责读取可执行文件并将其载入地址空间开始运行，由于两者执行的代码不同，子进程的代码段也会分配单独的物理空间。</p>
+<pre><code>fork之后内核会通过将子进程放在队列的前面，以让子进程先执行，因为一般紫禁城都会马上调用exec()函数，这样可以避免写时拷贝的额外开销，如果父进程首先执行的话，有可能会开始向地址空间写入。</code></pre><p>fork时子进程获得父进程数据空间、堆和栈的复制，所以变量的地址（当然是虚拟地址）也是一样的。每个进程都有自己的虚拟地址空间，不同进程的相同的虚拟地址显然可以对应不同的物理地址。因此地址相同（虚拟地址）而值不同没什么奇怪。<br>具体过程是这样的：<br>fork子进程完全复制父进程的栈空间，也复制了页表，但没有复制物理页面，所以这时虚拟地址相同，物理地址也相同，但是会把父子共享的页面标记为“只读”（类似mmap的private的方式），如果父子进程一直对这个页面是同一个页面，知道其中任何一个进程要对共享的页面“写操作”，这时内核会复制一个物理页面给这个进程使用，同时修改页表。而把原来的只读页面标记为“可写”，留给另外一个进程使用。</p>
+<p><strong>fork（）与vfock（）都是创建一个进程，那他们有什么区别呢？总结有以下三点区别：</strong></p>
+<ol>
+<li>fork ()：子进程拷贝父进程的数据段、代码段<br>vfork ()：子进程与父进程共享数据段、代码段，子进程不能向地址空间写入。</li>
+<li>fork ()父子进程的执行次序不确定<br>vfork 保证子进程先运行，子进程作为父进程的一个单独的线程在它的地址空间里运行，父进程被阻塞，知道子进程退出或执行exec()。</li>
+<li>若vfork ()调用exec 或<code>_exit()</code> 之前子进程依赖于父进程的进一步动作，会导致死锁。</li>
+</ol>
+<p><strong>现在由于在执行fork()时引入了写时拷贝页并且明确了子进程先执行，vfork()的好处就仅限于不拷贝父进程的页表项了，另外最好不要使用vfork()（如果exec调用失败，试想会发生什么）</strong></p>
+</li>
+</ul>
+<h4 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h4><p>​         （1）进程是资源分配和调度的一个独立单元，而线程是CPU调度和分派的基本单元<br>​          （2）一个进程至少包括一个线程，并且同一个进程的所有线程共享整个进程的资源，因此线程执行时一般都要进行同步和互斥<br>​          （3）进程的创建调用fork或者vfork，而线程的创建调用pthread_create，进程结束后它拥有的所有线程都将销毁，而线程的结束不会影响同个进程中的其他线程的结束<br>​          （4）线程是轻量级的进程，它的创建和销毁所需要的时间比进程小很多，所有操作系统中的执行功能都是创建线程去完成的<br>​          （5）进程间通信IPC需要特别的方法，线程间可以直接读写进程数据段（如全局变量）来进行通信。</p>
+<h4 id="线程有什么是共享的什么是私有的"><a href="#线程有什么是共享的什么是私有的" class="headerlink" title="线程有什么是共享的什么是私有的"></a>线程有什么是共享的什么是私有的</h4><p>线程共享的环境包括：</p>
+<p>  1.进程数据段、代码段 </p>
+<p>  2.进程的公有数据(利用这些共享的数据，线程很容易的实现相互之间的通讯) </p>
+<p>  3.进程打开的文件描述符、信号的处理器、进程的当前目录和进程用户ID与进程组ID。</p>
+<p>线程独立的资源包括：</p>
+<p>1.线程ID</p>
+<p>2.寄存器组的值</p>
+<p>由于线程间是并发运行的，每个线程有自己不同的运行线索，当从一个线程切换到另一个线程上时，必须将原有的线程的寄存器集合的状态保存，以便将来该线程在被重新切换到时能得以恢复。</p>
+<p>3.线程的堆栈</p>
+<p>堆栈是保证线程独立运行所必须的。线程函数可以调用函数，而被调用函数中又是可以层层嵌套的，所以线程必须拥有自己的函数堆栈， 使得函数调用可以正常执行，不受其他线程的影响。</p>
+<p>4.线程的错误返回码</p>
+<p>由于同一个进程中有很多个线程在同时运行，可能某个线程进行系统调用后设置了errno值，而在该线程还没有处理这个错误，另外一个线程就在此时被调度器投入运行，这样错误值就有可能被修改。所以，不同的线程应该拥有自己的错误返回码变量。</p>
+<p>5.线程的信号屏蔽码</p>
+<p>6.线程的优先级</p>
+<p>注：线程有自己的私有属性线程控制块TCB，进程也有自己的私有属性进程控制块PCB，这些私有属性是不被共享的，用来标示一个进程或一个线程的标志</p>
+<h4 id="线程同步"><a href="#线程同步" class="headerlink" title="线程同步"></a>线程同步</h4><p>用户态下的方法有：</p>
+<ul>
+<li>临界区：通过对多线程的串行化来访问公共资源或一段代码，速度快，适合控制数据访问。在任意时刻只允许一个线程对共享资源进行访问，如果有多个线程试图访问公共资源，那么在有一个线程进入后，其他试图访问公共资源的线程将被挂起，并一直等到进入临界区的线程离开，临界区在被释放后，其他线程才可以抢占。只允许一个进程访问，不可能两个进程进行竞争。一个进程创建了临界区以后，其他进程是不可能获取到该临界区的进入权利的，但是允许进程内的多个线程竞争。适用范围是单一进程的各线程之间。它是<strong>一个局部性对象，不是一个核心对象。</strong>快速而有效率。<strong>不能够同时有一个以上的 critical section 被等待。</strong>无法侦测是否已被某个线程放弃。</li>
+</ul>
+<p>内核态的方法：原子操作、自旋锁、完成变量，信号量，互斥体。</p>
+<p>1、自旋锁：一个被征用的自旋锁使得请求它的线程在等待锁重新可用时自旋（特别浪费处理器时间）。自旋锁不可睡眠，不可递归，顺序锁可递归。</p>
+<p>2、互斥体（Mutex）:为协调共同对一个共享资源的单独访问而设计的。以排他的方式，防止共享资源被并发访问；互斥锁为<strong>二元变量</strong>， 状态为<strong>0-开锁</strong>、<strong>1-上锁</strong>;开锁必须由上锁的线程执行，不受其它线程干扰.相比信号量优先使用mutex。<br>3、信号量:为控制一个具有有限数量用户资源而设计的一种睡眠锁。如果有一个任务试图获得一个不可用（已被占用）的信号量时，信号量会将其推进一个等待队列，然后让其睡眠，这时处理器重获自由，从而去执行其他代码。当持有的信号量可用（被释放）后，处于等待队列中的那个任务将被唤醒，被获得该信号量。<br>4、条件变量（完成变量）:用来通知线程有一些事件已发生，从而启动后继任务的开始。满足某个特定条件时，可通过条件变量通知其它线程do-something;必须与互斥锁<strong>*联合使用</strong>，单独无法执行.</p>
+<p>5、读写锁：针对<strong>多读者，少写者</strong>的情况设定</p>
+<blockquote>
+<ul>
+<li>允许<strong>多读</strong>，但此时<strong>不可写</strong>；</li>
+<li><strong>唯一写</strong>，此时<strong>不可读</strong>.</li>
+</ul>
+</blockquote>
+<p><strong>线程间通信：由于多线程共享地址空间和数据空间，所以多个线程间的通信是一个线程的数据可以直接提供给其他线程使用，而不必通过操作系统（也就是内核的调度）,不过要注意的是线程间需要做好同步，一般用mutex。</strong></p>
+<p>就使用效率来说，临界区的效率是最高的，因为它不是内核对象，而其它的三个都是核心对象，要借助操作系统来实现，效率相对来说就比较低。但如果要跨进程使用还是要用到互斥体、事件对象和信号量。</p>
+<p><img src="/2020/03/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%87%AA%E6%97%8B%E9%94%81.png" alt="信号量"></p>
+<h4 id="进程间的通信方式（IPC-inter-Process-Communication）"><a href="#进程间的通信方式（IPC-inter-Process-Communication）" class="headerlink" title="进程间的通信方式（IPC,inter-Process Communication）"></a>进程间的通信方式（IPC,inter-Process Communication）</h4><p>同一主机中两个进程间的通信由操作系统决定，不同主机间的通信进程通过网络交换报文进行。</p>
+<ol>
+<li><p>信号：用于通知进程某个事件已经发生</p>
+</li>
+<li><p>管道：读写操作符合先进先出原则，对于两端的进程而言就是文件，向管道中写入数据时,linux将不保证写入的原子性，管道缓冲区一有空闲区域，写进程就会试图向管道写入数据。如果读进程不读走管道缓冲区中的数据，那么写操作将一直阻塞。</p>
+</li>
+</ol>
+<ul>
+<li><p>无名管道pipe:半双工的通信方式，数据单向流动，只能在具有亲缘关系的进程间使用，从结构上看，无名管道没有文件路径名，不占用文件目录项，因此文件目录结构中的链表不适用于这种文件，它只是存在于打开文件结构中的一个临时文件，依附于进程临时存在。</p>
+</li>
+<li><p>命名管道FIFO:半双工，数据单向流动，允许无亲缘关系进程间的通信，FIFO是一种永久性的机制，它具有普通的UNIX系统文件名。在系统下可利用mkfifo命令建立永久的管道，除非刻意删除它，否则它将一直保持在系统中。</p>
+</li>
+<li><p><strong>联系</strong>：</p>
+</li>
+</ul>
+<p>1) 通信数据只存在于内存缓冲页面中；</p>
+<p>2) 都是半双工通信；</p>
+<ul>
+<li><strong>区别</strong>：</li>
+</ul>
+<p>(1)无名管道是无名的，有名管道是有名的；</p>
+<p>(2)无名管道只能用于父子进程或兄弟进程之间的通信，而有名管道可用于任意两进程之间通信</p>
+<p>(3)无名管道是无形的，即无名管道的 inode 结构不是在磁盘上存储的，而是临时生成的，而有名管道的 inode 结点在磁盘上。</p>
+<ol start="3">
+<li>消息队列：消息的链表存放在内核中并由消息队列标识符标识，克服了信号传递信息少，管道只能承载无格式字节流以及缓冲区大小受限等缺点，但只有在内核重启时才能删除一个消息队列，内核重启也就是系统重启。</li>
+<li>共享内存：最快的IPC方式，映射一段能被其他进程所访问的内存。往往与其他通信机制如信号两两配合使用，来实现进程间的同步和通信。</li>
+<li>信号量Semaphore:信号量是一个计数器，可以用来控制多个进程对共享资源的访问。常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，<strong>主要作为进程间以及同一进程内不同线程之间的同步手段</strong>。</li>
+<li>套接字Socket:套接字也是一种进程间通信机制，包括IPC 套接字（即 Unix 套接字）给予进程在相同设备（主机）上基于通道的通信能力；而网络套接字给予进程运行在不同主机的能力，因此也带来了网络通信的能力。IPC 套接字依赖于本地系统内核的支持来进行通信。网络套接字需要底层协议的支持，例如 TCP（传输控制协议）或 UDP（用户数据报协议），包括流套接字（TCP/IP）和数据报套接字（UDP/IP），利用三元组（<strong>ip地址，协议，端口</strong>）构成套接字；传输层实现端到端的通信，传输层连接的端点叫做套接字。</li>
+</ol>
+<h4 id="windows进程通信"><a href="#windows进程通信" class="headerlink" title="windows进程通信"></a>windows进程通信</h4><p><em>标准的Windows</em>进程间通信方法有三种：匿名管道、命名管道（又叫<em>FIFO</em>，命名管道可以控制读消息的长度，一个命名管道可以有多个实例，具体通信还是一对一）、邮槽（<em>MailSlot</em>）。共享内存也可用于windows进程通信，但因为其实是<em>Windows</em>“内存映射文件”的一个特殊用法，所以不算作标准的windows进程间通信方法。</p>
+<table>
+<thead>
+<tr>
+<th align="center">对比点</th>
+<th align="center">匿名管道</th>
+<th align="center">命名管道</th>
+<th align="center">邮槽</th>
+<th align="center">共享内存</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">消息格式</td>
+<td align="center">字符</td>
+<td align="center">二进制</td>
+<td align="center">数据包</td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="center">工作模式</td>
+<td align="center">半双工</td>
+<td align="center">全双工</td>
+<td align="center">单向</td>
+<td align="center">双向</td>
+</tr>
+<tr>
+<td align="center">访问模式</td>
+<td align="center">只能在一台机器上</td>
+<td align="center">可以跨网络</td>
+<td align="center">可以跨网络</td>
+<td align="center">只能在一台机器上</td>
+</tr>
+<tr>
+<td align="center">通信模式</td>
+<td align="center">父子进程用</td>
+<td align="center">不同进程均可用</td>
+<td align="center">广播机制</td>
+<td align="center">-</td>
+</tr>
+</tbody></table>
+<h4 id="windows命名管道和Linux命名管道的区别"><a href="#windows命名管道和Linux命名管道的区别" class="headerlink" title="windows命名管道和Linux命名管道的区别"></a>windows命名管道和Linux命名管道的区别</h4><table>
+<thead>
+<tr>
+<th align="center">对比点</th>
+<th align="center">Linux命名管道</th>
+<th align="center">Windows命名管道</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">消息格式</td>
+<td align="center">字节流</td>
+<td align="center">二进制</td>
+<td align="center">windows更牛</td>
+</tr>
+<tr>
+<td align="center">工作模式</td>
+<td align="center">半双工</td>
+<td align="center">全双工</td>
+<td align="center">windows更牛</td>
+</tr>
+<tr>
+<td align="center">访问模式</td>
+<td align="center">只能在一台机器上</td>
+<td align="center">可以跨网络</td>
+<td align="center">windows更牛</td>
+</tr>
+</tbody></table>
+<h4 id="死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？"><a href="#死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？" class="headerlink" title="死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？"></a>死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？</h4><p>​            (1）相互等待资源而产生的一种僵持状态，如果没有外力的干预将一直持续这个状态<br>​          （2）系统资源不足、相互竞争资源、请求资源顺序不当<br>​          （3）互斥、不可剥夺、循环等待、请求与保持<br>​          （4）因为互斥是不可改变的，所以只能破坏其他三个条件中的一个来解除死锁，方法：</p>
+<ul>
+<li>破坏“不可剥夺”条件：一个进程不能获得所需要的全部资源时便处于等待状态，等待期间他占有的资源将被隐式的释放重新加入到系统的资源列表中。</li>
+<li>破坏”请求与保持条件“：第一种方法静态分配即每个进程在开始执行时就申请他所需要的全部资源。第二种是动态分配即每个进程在申请所需要的资源时他本身不占用系统资源。</li>
+<li>破坏“循环等待”条件：资源有序分配（将系统中的所有资源顺序编号，将紧缺的，稀少的采用较大的编号，在申请资源时必须按照编号的顺序进行，一个进程只有获得较小编号的进程才能申请较大编号的进程）</li>
+</ul>
+<h4 id="进程调度"><a href="#进程调度" class="headerlink" title="进程调度"></a>进程调度</h4><h5 id="抢占和上下文"><a href="#抢占和上下文" class="headerlink" title="抢占和上下文"></a>抢占和上下文</h5><p>上下文代表着内核活动的范围。实际上我们可以将每个处理器在任何指定时间点上的活动必然概况为下列三者之一：</p>
+<ul>
+<li>运行于用户空间，执行用户进程</li>
+<li>运行于内核空间，处于进程上下文，代表某个特定的进程执行</li>
+<li>运行于内核空间，处于中断上下文，与任何进程无关，处理某个特定的中断</li>
+</ul>
+<p>当CPU空闲时，内核就运行一个空进程，处于进程上下文，但运行于内核空间。</p>
+<h6 id="进程上下文"><a href="#进程上下文" class="headerlink" title="进程上下文"></a>进程上下文</h6><p>可执行程序代码是进程的重要组成部分。这些代码从一个可执行文件载入到进程的地址空间执行。一般程序在用户空间执行。当一个程序调用执行了系统调用或者触发了异常，他就陷入了内核空间，此时我们称内核“代表进程执行”并处于进程上下文中。在此上下文中current宏是有效的。除非在此间隙有更高优先级的进程需要执行并由调度器做出了相应调整，否则在内核退出时，程序恢复在用户空间会继续执行。</p>
+<p>系统调用和异常处理程序是对内核明确定义的接口。进程只有通过这些接口才能陷入内核执行—对内核的所有访问必须通过这些接口。</p>
+<h6 id="用户抢占"><a href="#用户抢占" class="headerlink" title="用户抢占"></a>用户抢占</h6><ul>
+<li>从系统调用返回用户空间时</li>
+<li>从中断处理程序返回用户空间时</li>
+</ul>
+<h6 id="内核抢占"><a href="#内核抢占" class="headerlink" title="内核抢占"></a>内核抢占</h6><ul>
+<li>中断处理程序正在执行，且返回内核空间之前</li>
+<li>内核代码再一次具有可抢占性</li>
+<li>如果内核中的任务显示调用schedule</li>
+<li>如果内核中的任务阻塞（这同样也会导致调用schedule）</li>
+</ul>
 
       
     </div>
@@ -676,7 +900,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -731,7 +955,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux系统结构详解"><span class="nav-number">1.</span> <span class="nav-text">Linux系统结构详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。"><span class="nav-number">1.1.</span> <span class="nav-text">1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-内存管理"><span class="nav-number">1.2.</span> <span class="nav-text">2. 内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#虚拟内存管理"><span class="nav-number">1.2.1.</span> <span class="nav-text">虚拟内存管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#地址映射"><span class="nav-number">1.2.2.</span> <span class="nav-text">地址映射</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#程序内存区域分配"><span class="nav-number">1.2.3.</span> <span class="nav-text">程序内存区域分配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#物理内存管理"><span class="nav-number">1.2.4.</span> <span class="nav-text">物理内存管理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-文件系统"><span class="nav-number">1.3.</span> <span class="nav-text">3. 文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#目录项"><span class="nav-number">1.3.1.</span> <span class="nav-text">目录项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode"><span class="nav-number">1.3.2.</span> <span class="nav-text">inode</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件存储结构示意图"><span class="nav-number">1.3.3.</span> <span class="nav-text">文件存储结构示意图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode的大小"><span class="nav-number">1.3.4.</span> <span class="nav-text">inode的大小</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode号码"><span class="nav-number">1.3.5.</span> <span class="nav-text">inode号码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#硬链接"><span class="nav-number">1.3.6.</span> <span class="nav-text">硬链接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#软链接"><span class="nav-number">1.3.7.</span> <span class="nav-text">软链接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Linux的五种IO模型"><span class="nav-number">1.4.</span> <span class="nav-text">4. Linux的五种IO模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、阻塞IO"><span class="nav-number">1.4.1.</span> <span class="nav-text">1、阻塞IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、非阻塞IO"><span class="nav-number">1.4.2.</span> <span class="nav-text">2、非阻塞IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、IO多路复用"><span class="nav-number">1.4.3.</span> <span class="nav-text">3、IO多路复用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、信号驱动IO"><span class="nav-number">1.4.4.</span> <span class="nav-text">4、信号驱动IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5、异步IO"><span class="nav-number">1.4.5.</span> <span class="nav-text">5、异步IO</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#Linux系统结构详解"><span class="nav-number">1.</span> <span class="nav-text">Linux系统结构详解</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。"><span class="nav-number"></span> <span class="nav-text">1. Linux系统一般有4个主要部分：内核、shell、文件系统和应用程序。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用户空间-内核空间"><span class="nav-number"></span> <span class="nav-text">用户空间 &#x2F; 内核空间</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-内存管理"><span class="nav-number"></span> <span class="nav-text">2. 内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟内存管理"><span class="nav-number"></span> <span class="nav-text">虚拟内存管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#地址映射"><span class="nav-number"></span> <span class="nav-text">地址映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#程序内存区域分配"><span class="nav-number"></span> <span class="nav-text">程序内存区域分配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#物理内存管理"><span class="nav-number"></span> <span class="nav-text">物理内存管理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-文件系统"><span class="nav-number"></span> <span class="nav-text">3. 文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#IO-和cache的区别"><span class="nav-number"></span> <span class="nav-text">IO 和cache的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常规文件系统操作（调用read-fread-write等类函数）中函数的调用过程"><span class="nav-number"></span> <span class="nav-text">常规文件系统操作（调用read&#x2F;fread&#x2F;write等类函数）中函数的调用过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件描述符、打开文件描述符表、文件表、inode节点"><span class="nav-number"></span> <span class="nav-text">文件描述符、打开文件描述符表、文件表、inode节点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#目录项"><span class="nav-number"></span> <span class="nav-text">目录项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode"><span class="nav-number"></span> <span class="nav-text">inode</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件存储结构示意图"><span class="nav-number"></span> <span class="nav-text">文件存储结构示意图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode的大小"><span class="nav-number"></span> <span class="nav-text">inode的大小</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#inode号码"><span class="nav-number"></span> <span class="nav-text">inode号码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#硬链接"><span class="nav-number"></span> <span class="nav-text">硬链接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#软链接"><span class="nav-number"></span> <span class="nav-text">软链接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Linux的五种IO模型"><span class="nav-number"></span> <span class="nav-text">4. Linux的五种IO模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、阻塞IO"><span class="nav-number"></span> <span class="nav-text">1、阻塞IO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、非阻塞IO"><span class="nav-number"></span> <span class="nav-text">2、非阻塞IO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、-IO多路复用"><span class="nav-number"></span> <span class="nav-text">3、 IO多路复用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、信号驱动IO"><span class="nav-number"></span> <span class="nav-text">4、信号驱动IO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、异步IO"><span class="nav-number"></span> <span class="nav-text">5、异步IO</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Linux进程管理"><span class="nav-number"></span> <span class="nav-text">5. Linux进程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程的状态与转换"><span class="nav-number"></span> <span class="nav-text">进程的状态与转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程创建fork和vfork"><span class="nav-number"></span> <span class="nav-text">进程创建fork和vfork</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程和线程的区别"><span class="nav-number"></span> <span class="nav-text">进程和线程的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程有什么是共享的什么是私有的"><span class="nav-number"></span> <span class="nav-text">线程有什么是共享的什么是私有的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程同步"><span class="nav-number"></span> <span class="nav-text">线程同步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程间的通信方式（IPC-inter-Process-Communication）"><span class="nav-number"></span> <span class="nav-text">进程间的通信方式（IPC,inter-Process Communication）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#windows进程通信"><span class="nav-number"></span> <span class="nav-text">windows进程通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#windows命名管道和Linux命名管道的区别"><span class="nav-number"></span> <span class="nav-text">windows命名管道和Linux命名管道的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？"><span class="nav-number"></span> <span class="nav-text">死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程调度"><span class="nav-number"></span> <span class="nav-text">进程调度</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#抢占和上下文"><span class="nav-number"></span> <span class="nav-text">抢占和上下文</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#进程上下文"><span class="nav-number">1.</span> <span class="nav-text">进程上下文</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#用户抢占"><span class="nav-number">2.</span> <span class="nav-text">用户抢占</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#内核抢占"><span class="nav-number">3.</span> <span class="nav-text">内核抢占</span></a></li></ol></div>
             
 
           </div>
