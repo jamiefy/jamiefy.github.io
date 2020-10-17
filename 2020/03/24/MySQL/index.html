@@ -79,13 +79,16 @@
 
 
 
-<meta name="description" content="[TOC] MySQL事务实现原理首先了解什么是事务，事务是执行一系列数据库操作构成的单个逻辑工作单元，要么完全地执行，要么完全地不执行。 简单的说，事务就是并发控制的单位，是用户定义的一个操作序列。 （1）事务四大特性（ACID）  原子性（Atomicity）原子性是指事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。 一致性（Consistency）事务前后数据的完整性必须">
+<meta name="description" content="MySQL事务实现原理 91道面试题 MVCC 快照读和当前读 快照读 快照读的实现方式：undolog和多版本并发控制MVCC   当前读   mysql加锁机制，RC，RR，与字段的索引还有关系 mysql RC和RR隔离级别的加锁方式   数据库如何防止死锁，不同情况的加锁 是否所有的视图都可以更新？为什么？ 什么是MySQL索引，什么时候该用索引什么时候不该用？ B+树 Inno">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL">
 <meta property="og:url" content="http://yoursite.com/2020/03/24/MySQL/index.html">
 <meta property="og:site_name" content="翟安然&#39;s Blog">
-<meta property="og:description" content="[TOC] MySQL事务实现原理首先了解什么是事务，事务是执行一系列数据库操作构成的单个逻辑工作单元，要么完全地执行，要么完全地不执行。 简单的说，事务就是并发控制的单位，是用户定义的一个操作序列。 （1）事务四大特性（ACID）  原子性（Atomicity）原子性是指事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。 一致性（Consistency）事务前后数据的完整性必须">
+<meta property="og:description" content="MySQL事务实现原理 91道面试题 MVCC 快照读和当前读 快照读 快照读的实现方式：undolog和多版本并发控制MVCC   当前读   mysql加锁机制，RC，RR，与字段的索引还有关系 mysql RC和RR隔离级别的加锁方式   数据库如何防止死锁，不同情况的加锁 是否所有的视图都可以更新？为什么？ 什么是MySQL索引，什么时候该用索引什么时候不该用？ B+树 Inno">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/IXISXS.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/undolog.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/%E5%BD%93%E5%89%8D%E8%AF%BB.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/B+%E6%A0%91%E8%8C%83%E5%9B%B4%E6%9F%A5%E8%AF%A2.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/regexp.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/regexp%E8%BF%9B%E8%A1%8Cor%E5%8C%B9%E9%85%8D.png">
@@ -94,11 +97,11 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/groupby.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/left_outer_join.png">
 <meta property="article:published_time" content="2020-03-24T06:17:11.000Z">
-<meta property="article:modified_time" content="2020-08-20T09:33:21.000Z">
+<meta property="article:modified_time" content="2020-10-15T02:08:50.000Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/03/24/MySQL/B+%E6%A0%91%E8%8C%83%E5%9B%B4%E6%9F%A5%E8%AF%A2.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/24/MySQL/IXISXS.png">
 
 
 
@@ -360,7 +363,93 @@
       
 
       
-        <p>[TOC]</p>
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+<ul>
+<li><a href="#mysql事务实现原理">MySQL事务实现原理</a></li>
+<li><a href="#91道面试题httpsmpweixinqqcoms9pfckm2bx01xliejv9nglw">91道面试题</a></li>
+<li><a href="#mvcc">MVCC</a></li>
+<li><a href="#快照读和当前读">快照读和当前读</a><ul>
+<li><a href="#快照读">快照读</a><ul>
+<li><a href="#快照读的实现方式undolog和多版本并发控制mvcc">快照读的实现方式：undolog和多版本并发控制MVCC</a></li>
+</ul>
+</li>
+<li><a href="#当前读">当前读</a></li>
+</ul>
+</li>
+<li><a href="#mysql加锁机制rcrr与字段的索引还有关系">mysql加锁机制，RC，RR，与字段的索引还有关系</a><ul>
+<li><a href="#mysql-rc和rr隔离级别的加锁方式">mysql RC和RR隔离级别的加锁方式</a></li>
+</ul>
+</li>
+<li><a href="#数据库如何防止死锁不同情况的加锁">数据库如何防止死锁，不同情况的加锁</a></li>
+<li><a href="#是否所有的视图都可以更新为什么">是否所有的视图都可以更新？为什么？</a></li>
+<li><a href="#什么是mysql索引什么时候该用索引什么时候不该用">什么是MySQL索引，什么时候该用索引什么时候不该用？</a></li>
+<li><a href="#b树">B+树</a></li>
+<li><a href="#innodb和myisam的区别httpsblogcsdnnetqq_35642036articledetails82820178">InnoDB和MyISAM的区别</a></li>
+<li><a href="#行级锁和表级索的区别">行级锁和表级索的区别</a></li>
+<li><a href="#主键索引和非主键索引的区别">主键索引和非主键索引的区别</a></li>
+<li><a href="#聚簇索引和非聚簇索引的区别">聚簇索引和非聚簇索引的区别</a></li>
+<li><a href="#共享锁排他锁悲观锁和乐观锁httpsblogcsdnnethanchao5272articledetails98607314">共享锁排他锁悲观锁和乐观锁</a></li>
+<li><a href="#覆盖索引">覆盖索引</a></li>
+<li><a href="#mysql优化httpswwwcnblogscomsharpestp10390035html">Mysql优化</a></li>
+<li><a href="#char和varchar的区别">char和varchar的区别</a></li>
+<li><a href="#联合索引在b树上的数据结构及查找方式httpswwwcnblogscomibigboyp12373978html">联合索引在B+树上的数据结构及查找方式</a></li>
+<li><a href="#存储过程">存储过程</a></li>
+<li><a href="#sql语句">SQL语句</a><ul>
+<li><a href="#select">SELECT</a></li>
+<li><a href="#from">FROM</a></li>
+<li><a href="#distinct">DISTINCT</a></li>
+<li><a href="#limit">LIMIT</a></li>
+<li><a href="#order-by">ORDER BY</a></li>
+<li><a href="#where">WHERE</a></li>
+<li><a href="#in">IN</a></li>
+<li><a href="#not">NOT</a></li>
+<li><a href="#like操作符">LIKE操作符</a></li>
+<li><a href="#全文索引">全文索引</a></li>
+<li><a href="#下划线_通配符">下划线（_）通配符</a></li>
+<li><a href="#regexp-使用正则表达式进行搜索">REGEXP 使用正则表达式进行搜索</a></li>
+<li><a href="#计算字段">计算字段</a></li>
+<li><a href="#使用数据处理函数">使用数据处理函数</a></li>
+<li><a href="#聚集函数">聚集函数</a><ul>
+<li><a href="#group-by">GROUP BY</a></li>
+<li><a href="#having过滤分组">HAVING过滤分组</a><ul>
+<li><a href="#order-by和group-by的区别">ORDER BY和GROUP BY的区别</a></li>
+<li><a href="#select子句顺序">SELECT子句顺序</a></li>
+<li><a href="#临时表-视图">临时表-视图</a></li>
+<li><a href="#on-where-group-by-having">on、where、group by、having</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#子查询">子查询</a></li>
+<li><a href="#联结">联结</a><ul>
+<li><a href="#内部联结">内部联结</a></li>
+<li><a href="#自联结">自联结</a></li>
+<li><a href="#自然联结">自然联结</a></li>
+<li><a href="#外部联结">外部联结</a><ul>
+<li><a href="#左联结">左联结</a></li>
+<li><a href="#右联结">右联结</a></li>
+<li><a href="#全外联结">全外联结</a></li>
+</ul>
+</li>
+<li><a href="#交叉联结">交叉联结</a></li>
+<li><a href="#使用带聚集函数的联结">使用带聚集函数的联结</a></li>
+<li><a href="#使用联结和联结条件">使用联结和联结条件</a></li>
+</ul>
+</li>
+<li><a href="#identity">IDENTITY</a></li>
+<li><a href="#truncate">TRUNCATE</a></li>
+<li><a href="#drop-column">DROP COLUMN</a></li>
+<li><a href="#sql-语句快速参考-详解httpswwww3schoolcomcnsqlindexasp">SQL 语句快速参考-&gt;详解</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+
+
+
 <h3 id="MySQL事务实现原理"><a href="#MySQL事务实现原理" class="headerlink" title="MySQL事务实现原理"></a>MySQL事务实现原理</h3><p>首先了解什么是事务，事务是执行一系列数据库操作构成的单个逻辑工作单元，要么完全地执行，要么完全地不执行。 简单的说，事务就是并发控制的单位，是用户定义的一个操作序列。</p>
 <p>（1）事务四大特性（ACID）</p>
 <ul>
@@ -416,9 +505,108 @@
 
 <p>这里需要注意的是：与 SQL 标准不同的地方在于 InnoDB 存储引擎在 <strong>REPEATABLE-READ（可重读）</strong> 事务隔离级别下使用的是Next-Key Lock 锁算法，因此可以避免幻读的产生，这与其他数据库系统(如 SQL Server) 是不同的。所以说InnoDB 存储引擎的默认支持的隔离级别是 <strong>REPEATABLE-READ（可重读）</strong> 已经可以完全保证事务的隔离性要求，即达到了 SQL标准的 <strong>SERIALIZABLE(可串行化)</strong> 隔离级别。因为隔离级别越低，事务请求的锁越少，所以大部分数据库系统的隔离级别都是 <strong>READ-COMMITTED(读取提交内容)</strong> ，但是你要知道的是InnoDB 存储引擎默认使用 <strong>REPEATABLE-READ（可重读）</strong> 并不会有任何性能损失。</p>
 <p>InnoDB 存储引擎在 <strong>分布式事务</strong> 的情况下一般会用到 <strong>SERIALIZABLE(可串行化)</strong> 隔离级别。</p>
-<h3 id="91道面试题-https-mp-weixin-qq-com-s-9pfCkm2bX01XLIeJv9ngLw"><a href="#91道面试题-https-mp-weixin-qq-com-s-9pfCkm2bX01XLIeJv9ngLw" class="headerlink" title="91道面试题](https://mp.weixin.qq.com/s/9pfCkm2bX01XLIeJv9ngLw)"></a>91道面试题](<a href="https://mp.weixin.qq.com/s/9pfCkm2bX01XLIeJv9ngLw" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/9pfCkm2bX01XLIeJv9ngLw</a>)</h3><h3 id="是否所有的视图都可以更新？为什么？"><a href="#是否所有的视图都可以更新？为什么？" class="headerlink" title="是否所有的视图都可以更新？为什么？"></a>是否所有的视图都可以更新？为什么？</h3><p>不是所有的视图都可以更新，视图更新必须遵循以下规则：<br>   （1）若视图的字段是来自字段表达式或常数，则不允许对此视图执行INSERT、UPDATE操作，允许执行DELETE操作；<br>   （2）若视图的字段是来自库函数，则此视图不允许更新；<br>   （3）若视图的定义中有GROUP BY子句或聚集函数时，则此视图不允许更新；<br>   （4）若视图的定义中有DISTINCT任选项，则此视图不允许更新；<br>   （5）若视图的定义中有嵌套查询，并且嵌套查询的FROM子句中涉及的表也是导出该视图的基表，则此视图不允许更新；<br>   （6）若视图是由两个以上的基表导出的，此视图不允许更新；<br>   （7）一个不允许更新的视图上定义的视图也不允许更新；<br>   （8）由一个基表定义的视图，只含有基表的主键或候补键，并且视图中没有用表达式或函数定义的属性，才允许更新。</p>
+<p><img src="/2020/03/24/MySQL/IXISXS.png" alt></p>
+<p><strong>总结</strong>：</p>
+<ol>
+<li>InnoDB 支持多粒度锁，特定场景下，行级锁可以与表级锁共存。</li>
+<li>意向锁之间互不排斥，但除了 IS 与 S 兼容外，意向锁会与 共享锁 / 排他锁 互斥。</li>
+<li>IX，IS是表级锁，不会和行级的X，S锁发生冲突。只会和表级的X，S发生冲突。</li>
+<li>意向锁在保证并发性的前提下，实现了行锁和表锁共存且满足事务隔离性的要求</li>
+</ol>
+<h3 id="91道面试题"><a href="#91道面试题" class="headerlink" title="91道面试题"></a><a href="https://mp.weixin.qq.com/s/9pfCkm2bX01XLIeJv9ngLw" target="_blank" rel="noopener">91道面试题</a></h3><h3 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h3><p><a href="https://www.jianshu.com/p/f692d4f8a53e" target="_blank" rel="noopener">mysql mvcc实现原理</a></p>
+<ol>
+<li>事务2只能查询创建时间小于等于2、并且过期时间大于等于2</li>
+<li>就算在当前事务提交的时候，也不会读取到DATA_TRX_ID大于当前事务ID的数据记录（而默认情况下，RR隔离级别下，当前事务一commit，就能够读取到其他事务的commit）。这也是MVCC能够解决幻读的原因。</li>
+<li>使用MVCC核心优势：<br>（1）在mysql中，使用MVCC本质上是为了在进行读操作的时候代替加锁，减少加锁带来的负担。<br>（2）在mysql的InnoDB引擎，并且是在RR隔离级别下，通过使用MVCC和gap锁来解决幻读问题.</li>
+</ol>
+<p>注：本来只有串读隔离级别才可以解决幻读问题，而实际上由于快照读的特性使可重复读也解决了幻读问题。</p>
+<p>注：当前读是因为innodb默认为它加入了间隙锁，防止在事务期间对相关数据集插入记录，从而避免出现幻读。</p>
+<p>使用场景：</p>
+<ol>
+<li>快照读(snapshot read)</li>
+</ol>
+<p>简单的select操作(不包括 select … lock in share mode, select … for update)</p>
+<p>2.当前读(current read)</p>
+<p>select … lock in share mode</p>
+<p>select … for update</p>
+<p>insert</p>
+<p>update</p>
+<p>delete</p>
+<p>注：在RR级别下，快照读是通过MVVC(多版本控制)和undo log来实现的，当前读是通过加record lock(记录锁)和gap lock(间隙锁)来实现的。如果需要实时显示数据，还是需要通过手动加锁来实现。这个时候会使用next-key技术来实现。</p>
+<p>注：在mysql中，提供了两种事务隔离技术，第一个是mvcc，第二个是next-key技术。这个在使用不同的语句的时候可以动态选择。不加lock inshare mode之类的快照读就使用mvcc。否则 当前读使用next-key。mvcc的优势是不加锁，并发性高。缺点是不是实时数据。next-key的优势是获取实时数据，但是需要加锁。</p>
+<h3 id="快照读和当前读"><a href="#快照读和当前读" class="headerlink" title="快照读和当前读"></a>快照读和当前读</h3><h4 id="快照读"><a href="#快照读" class="headerlink" title="快照读"></a>快照读</h4><p>  读取的是记录数据的可见版本（可能是过期的数据），不用加锁.<br>单纯的select操作，不包括上述 select … lock in share mode, select … for update。　　　　</p>
+<p>Read Committed隔离级别：每次select都生成一个快照读。<br>Read Repeatable隔离级别：开启事务后第一个select语句才是快照读的地方，而不是一开启事务就快照读。</p>
+<h5 id="快照读的实现方式：undolog和多版本并发控制MVCC"><a href="#快照读的实现方式：undolog和多版本并发控制MVCC" class="headerlink" title="快照读的实现方式：undolog和多版本并发控制MVCC"></a>快照读的实现方式：undolog和多版本并发控制MVCC</h5><p>　　下图右侧绿色的是数据：一行数据记录，主键ID是10，name=’Jack’，age=10,  被update更新set为name= ‘Tom’，age=23。</p>
+<p>　　事务会先使用“排他锁”锁定改行，将该行当前的值复制到undo log中，然后再真正地修改当前行的值，最后填写事务的DB_TRX_ID，使用回滚指针DB_ROLL_PTR指向undo log中修改前的行DB_ROW_ID。<br><img src="/2020/03/24/MySQL/undolog.png" alt></p>
+<p>　　DB_TRX_ID: 6字节DB_TRX_ID字段，表示最后更新的事务id(update,delete,insert)。此外，删除在内部被视为更新，其中行中的特殊位被设置为将其标记为已软删除。</p>
+<p>　　DB_ROLL_PTR: 7字节回滚指针，指向前一个版本的undolog记录，组成undo链表。如果更新了行，则撤消日志记录包含在更新行之前重建行内容所需的信息。<br>　　DB_ROW_ID: 6字节的DB_ROW_ID字段，包含一个随着新行插入而单调递增的行ID, 当由innodb自动产生聚集索引时，聚集索引会包括这个行ID的值，否则这个行ID不会出现在任何索引中。如果表中没有主键或合适的唯一索引, 也就是无法生成聚簇索引的时候, InnoDB会帮我们自动生成聚集索引, 聚簇索引会使用DB_ROW_ID的值来作为主键; 如果表中有主键或者合适的唯一索引, 那么聚簇索引中也就不会包含 DB_ROW_ID了 。  </p>
+<p>　　其它：insert undo log只在事务回滚时需要, 事务提交就可以删掉了。update undo log包括update 和 delete , 回滚和快照读 都需要。</p>
+<h4 id="当前读"><a href="#当前读" class="headerlink" title="当前读"></a>当前读</h4><p>当前读, 读取的是最新版本, 并且对读取的记录加锁, 保证其他事务不会再并发的修改这条记录,避免出现安全问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select...lock in share mode (共享读锁)</span><br><span class="line">select...for update</span><br><span class="line">update , delete , insert</span><br></pre></td></tr></table></figure>
+<p>当前读的实现方式：next-key锁(行记录锁+Gap间隙锁)<br> 　　间隙锁：只有在Read Repeatable、Serializable隔离级别才有，就是锁定范围空间的数据，假设id有3,4,5，锁定id&gt;3的数据，是指的4，5及后面的数字都会被锁定，因为此时如果不锁定没有的数据，例如当加入了新的数据id=6，就会出现幻读，间隙锁避免了幻读。</p>
+<p>　　1.对主键或唯一索引，如果当前读时，where条件全部精确命中(=或者in)，这种场景本身就不会出现幻读，所以只会加行记录锁。</p>
+<p>　　2.没有索引的列，当前读操作时，会加全表gap锁，生产环境要注意。</p>
+<p>　　3.非唯一索引列，如果where条件部分命中(&gt;、&lt;、like等)或者全未命中，则会加附近Gap间隙锁。例如，某表数据如下，非唯一索引2,6,9,9,11,15。如下语句要操作非唯一索引列9的数据，gap锁将会锁定的列是(6,11]，该区间内无法插入数据。<br><img src="/2020/03/24/MySQL/%E5%BD%93%E5%89%8D%E8%AF%BB.png" alt></p>
+<p>假设你开启了两个事务，分别是A和B，这里有个张表，user表，里面有四条数据。</p>
+<p>1、select快照读（照片）<br>  当你执行select *之后，在A与B事务中都会返回4条一样的数据，这是不用想的，当执行select的时候，innodb默认会执行快照读，相当于就是给你目前的状态找了一张照片，以后执行select 的时候就会返回当前照片里面的数据，当其他事务提交了也对你不造成影响，和你没关系，这就实现了可重复读了，那这个照片是什么时候生成的呢？不是开启事务的时候，是当你第一次执行select的时候，也就是说，当A开启了事务，然后没有执行任何操作，这时候B insert了一条数据然后commit,这时候A执行 select，那么返回的数据中就会有B添加的那条数据……之后无论再有其他事务commit都没有关系，因为照片已经生成了，而且不会再生成了，以后都会参考这张照片。</p>
+<p>2、update、insert、delete 当前读<br>  当你执行这几个操作的时候默认会执行当前读，也就是会读取最新的记录，也就是别的事务提交的数据你也可以看到，这样很好理解啊，假设你要update一个记录，另一个事务已经delete这条数据并且commit了，这样不是会产生冲突吗，所以你update的时候肯定要知道最新的信息啊。</p>
+<p>  我在这里介绍一下update的过程吧，首先会执行当前读，然后把返回的数据加锁，之后执行update。加锁是防止别的事务在这个时候对这条记录做什么，默认加的是排他锁，也就是你读都不可以，这样就可以保证数据不会出错了。但注意一点，就算你这里加了写锁，别的事务也还是能访问的，是不是很奇怪？数据库采取了一致性非锁定读，别的事务会去读取一个快照数据。<br>  innodb默认隔离级别是RR， 是通过MVVC来实现了，读方式有两种，执行select的时候是快照读，其余是当前读，所以，mvvc不能根本上解决幻读的情况</p>
+<h3 id="mysql加锁机制，RC，RR，与字段的索引还有关系"><a href="#mysql加锁机制，RC，RR，与字段的索引还有关系" class="headerlink" title="mysql加锁机制，RC，RR，与字段的索引还有关系"></a>mysql加锁机制，RC，RR，与字段的索引还有关系</h3><p>注意：Index Key   索引查找，第一遍找出最小值，随后需要逐个比较是否满足最大值的条件，得到最大值。</p>
+<p>Index First Key — Index Last Key</p>
+<p>Index Filter  索引过滤，对于索引查找出的值，均需要与索引过滤条件对比</p>
+<p>Table Filter  对于没有命中索引的字段，需要回表查出完整记录，对其进行过滤</p>
+<p>mysql innodb的锁是通过锁索引来实现的。</p>
+<p>select for update . 排它锁举例。<br>如果字段没有索引，即使使用wehre条件也会进行表级锁</p>
+<p>如果有索引，会锁定对应where条件中索引值的所有行，可理解为对该索引值进行了索引（所以即使另一事务查询的是其他行，但因为索引值相同也会被锁住。）</p>
+<p>有索引，而且使用了不同的索引值查数据，但是查询 的结果是同一行，可以理解为真正的数据行锁。</p>
+<h4 id="mysql-RC和RR隔离级别的加锁方式"><a href="#mysql-RC和RR隔离级别的加锁方式" class="headerlink" title="mysql RC和RR隔离级别的加锁方式"></a>mysql RC和RR隔离级别的加锁方式</h4><p>现在有student表有以下数据<br>id    name<br>1    a<br>2    b<br>3    d<br>4    f</p>
+<p>RC模式<br>delete student where  id=1;</p>
+<p>如果id列是主键</p>
+<p>将会在id为1的的聚簇索引上加上X锁</p>
+<p>如果id列为唯一索引</p>
+<p>将会在唯一索引上加上X锁 同时根据唯一索引找到聚簇索引 并加锁    为什么在唯一索引上面加了X锁还要在聚簇索引上加锁  因为如果这个时候另外一个事物根据聚簇索引更新数据 将感知不到锁</p>
+<p>比如上面表 name为聚簇索引  delete student where  id=1;   id=1的索引将加上锁  这个但是聚簇索引name没有加上 update  student id=2 where name=a 这个时候 name=a 获取锁成功能将能修改成功</p>
+<p>上面的解释但是会有疑惑 既然加锁都加载聚簇索引上为什么还要多此一举的在非聚簇索引列上加锁(个人理解 判断锁互斥时 直接根据条件的索引 而不用再次根据索引找到聚簇索引)</p>
+<p>如果id列非唯一索引</p>
+<p>跟唯一索引加锁机制一样</p>
+<p>如果id列无索引</p>
+<p>将在走聚簇索引 全表扫描不管是否满足条件的数据都会加上X锁  但是RC模式有优化 不满足条件的加锁之后又会释放</p>
+<p>RR模式<br>如果id列是主键</p>
+<p>将会在满足条件的聚簇索引上加上X锁</p>
+<p>如果id列为唯一索引</p>
+<p>在id列上加上X锁同时在 对应的聚簇索引加上X锁</p>
+<p>如果id列非唯一索引</p>
+<p>将在id列上加上next-key锁 同时在聚簇索引加上x锁</p>
+<p>如果id列无索引</p>
+<p>将在走聚簇索引 全表扫描不管是否满足条件的数据都会加上next-key锁  跟RC模式不同的是将不会释放</p>
+<h3 id="数据库如何防止死锁，不同情况的加锁"><a href="#数据库如何防止死锁，不同情况的加锁" class="headerlink" title="数据库如何防止死锁，不同情况的加锁"></a>数据库如何防止死锁，不同情况的加锁</h3><ol>
+<li>意向锁是InnoDB自动加的，不需用户干预。对于UPDATE、DELETE和INSERT语句，InnoDB会自动给涉及数据集加排他锁（X)；对于普通SELECT语句，InnoDB不会加任何锁；事务可以通过以下语句显示给记录集加共享锁或排他锁。</li>
+</ol>
+<p>共享锁（S）：SELECT * FROM table_name WHERE … LOCK IN SHARE MODE<br>排他锁（X)：SELECT * FROM table_name WHERE … FOR UPDATE<br>用SELECT … IN SHARE MODE获得共享锁，主要用在需要数据依存关系时来确认某行记录是否存在，并确保没有人对这个记录进行UPDATE或者DELETE操作。<br>但是如果当前事务也需要对该记录进行更新操作，则很有可能造成死锁，对于锁定行记录后需要进行更新操作的应用，应该使用SELECT… FOR UPDATE方式获得排他锁。</p>
+<ol start="2">
+<li>InnoDB行锁实现方式</li>
+</ol>
+<p>InnoDB行锁是通过给索引上的索引项加锁来实现的，只有通过索引条件检索数据，InnoDB才使用行级锁，否则，InnoDB将使用表锁<br>在实际应用中，要特别注意InnoDB行锁的这一特性，不然的话，可能导致大量的锁冲突，从而影响并发性能。下面通过一些实际例子来加以说明。<br>（1）在不通过索引条件查询的时候，InnoDB确实使用的是表锁，而不是行锁。<br>（2）由于MySQL的行锁是针对索引加的锁，不是针对记录加的锁，所以虽然是访问不同行的记录，但是如果是使用相同的索引键，是会出现<strong>锁冲突</strong>的。<br>（3）当表有多个索引的时候，不同的事务可以使用不同的索引锁定不同的行，另外，不论是使用主键索引、唯一索引或普通索引，InnoDB都会使用行锁来对数据加锁。<br>（4）即便在条件中使用了索引字段，但是否使用索引来检索数据是由MySQL通过判断不同执行计划的代价来决定的，如果MySQL认为全表扫描效率更高，比如对一些很小的表，它就不会使用索引，这种情况下InnoDB将使用表锁，而不是行锁。因此，在分析锁冲突时，别忘了检查SQL的执行计划，以确认是否真正使用了索引。</p>
+<ol start="3">
+<li>间隙锁（Next-Key锁）</li>
+</ol>
+<p>当我们用范围条件而不是相等条件检索数据，并请求共享或排他锁时，InnoDB会给符合条件的已有数据记录的索引项加锁；<br>对于键值在条件范围内但并不存在的记录，叫做“间隙（GAP)”，InnoDB也会对这个“间隙”加锁，这种锁机制就是所谓的间隙锁（Next-Key锁）。<br>例：<br>假如emp表中只有101条记录，其empid的值分别是 1,2,…,100,101，下面的SQL：</p>
+<p>mysql&gt; select * from emp where empid &gt; 100 for update;<br>是一个范围条件的检索，InnoDB不仅会对符合条件的empid值为101的记录加锁，也会对empid大于101（这些记录并不存在）的“间隙”加锁。<br>InnoDB使用间隙锁的目的：<br>（1）防止幻读，以满足相关隔离级别的要求。对于上面的例子，要是不使用间隙锁，如果其他事务插入了empid大于100的任何记录，那么本事务如果再次执行上述语句，就会发生幻读；<br>（2）为了满足其恢复和复制的需要。<br>很显然，在使用范围条件检索并锁定记录时，即使某些不存在的键值也会被无辜的锁定，而造成在锁定的时候无法插入锁定键值范围内的任何数据。在某些场景下这可能会对性能造成很大的危害。<br>除了间隙锁给InnoDB带来性能的负面影响之外，通过索引实现锁定的方式还存在其他几个较大的性能隐患：<br>（1）当Query无法利用索引的时候，InnoDB会放弃使用行级别锁定而改用表级别的锁定，造成并发性能的降低；<br>（2）当Query使用的索引并不包含所有过滤条件的时候，数据检索使用到的索引键所只想的数据可能有部分并不属于该Query的结果集的行列，但是也会被锁定，因为间隙锁锁定的是一个范围，而不是具体的索引键；<br>（3）当Query在使用索引定位数据的时候，如果使用的索引键一样但访问的数据行不同的时候（索引只是过滤条件的一部分），一样会被锁定。<br>因此，在实际应用开发中，尤其是并发插入比较多的应用，我们要尽量优化业务逻辑，尽量使用相等条件来访问更新数据，避免使用范围条件。<br>还要特别说明的是，InnoDB除了通过范围条件加锁时使用间隙锁外，如果使用相等条件请求给一个不存在的记录加锁，InnoDB也会使用间隙锁。</p>
+<ol start="4">
+<li>死锁</li>
+</ol>
+<p>上文讲过，MyISAM表锁是deadlock free的，这是因为MyISAM总是一次获得所需的全部锁，要么全部满足，要么等待，因此不会出现死锁。但在InnoDB中，除单个SQL组成的事务外，锁是逐步获得的，当两个事务都需要获得对方持有的排他锁才能继续完成事务，这种循环锁等待就是典型的死锁。<br>在InnoDB的事务管理和锁定机制中，有专门检测死锁的机制，会在系统中产生死锁之后的很短时间内就检测到该死锁的存在。当InnoDB检测到系统中产生了死锁之后，InnoDB会通过相应的判断来选这产生死锁的两个事务中较小的事务来回滚，而让另外一个较大的事务成功完成。<br>那InnoDB是以什么来为标准判定事务的大小的呢？MySQL官方手册中也提到了这个问题，实际上在InnoDB发现死锁之后，会计算出两个事务各自插入、更新或者删除的数据量来判定两个事务的大小。也就是说哪个事务所改变的记录条数越多，在死锁中就越不会被回滚掉。<br>但是有一点需要注意的就是，当产生死锁的场景中涉及到不止InnoDB存储引擎的时候，InnoDB是没办法检测到该死锁的，这时候就只能通过锁定超时限制参数InnoDB_lock_wait_timeout来解决。<br>需要说明的是，这个参数并不是只用来解决死锁问题，在并发访问比较高的情况下，如果大量事务因无法立即获得所需的锁而挂起，会占用大量计算机资源，造成严重性能问题，甚至拖跨数据库。我们通过设置合适的锁等待超时阈值，可以避免这种情况发生。<br>通常来说，死锁都是应用设计的问题，通过调整业务流程、数据库对象设计、事务大小，以及访问数据库的SQL语句，绝大部分死锁都可以避免。下面就通过实例来介绍几种避免死锁的常用方法：<br>（1）在应用中，如果不同的程序会并发存取多个表，应尽量约定以相同的顺序来访问表，这样可以大大降低产生死锁的机会。<br>（2）在程序以批量方式处理数据的时候，如果事先对数据排序，保证每个线程按固定的顺序来处理记录，也可以大大降低出现死锁的可能。<br>（3）在事务中，如果要更新记录，应该直接申请足够级别的锁，即排他锁，而不应先申请共享锁，更新时再申请排他锁，因为当用户申请排他锁时，其他事务可能又已经获得了相同记录的共享锁，从而造成锁冲突，甚至死锁。<br>（4）在REPEATABLE-READ隔离级别下，如果两个线程同时对相同条件记录用SELECT…FOR UPDATE加排他锁，在没有符合该条件记录情况下，两个线程都会加锁成功。程序发现记录尚不存在，就试图插入一条新记录，如果两个线程都这么做，就会出现死锁。这种情况下，将隔离级别改成READ COMMITTED，就可避免问题。</p>
+<p>（5）当隔离级别为READ COMMITTED时，如果两个线程都先执行SELECT…FOR UPDATE，判断是否存在符合条件的记录，如果没有，就插入记录。此时，只有一个线程能插入成功，另一个线程会出现锁等待，当第1个线程提交后，第2个线程会因主键重出错，但虽然这个线程出错了，却会获得一个排他锁。这时如果有第3个线程又来申请排他锁，也会出现死锁。对于这种情况，可以直接做插入操作，然后再捕获主键重异常，或者在遇到主键重错误时，总是执行ROLLBACK释放获得的排他锁。</p>
+<ol start="5">
+<li>什么时候使用表锁</li>
+</ol>
+<p>对于InnoDB表，在绝大部分情况下都应该使用行级锁，因为事务和行锁往往是我们之所以选择InnoDB表的理由。但在个别特殊事务中，也可以考虑使用表级锁：<br>（1）事务需要更新大部分或全部数据，表又比较大，如果使用默认的行锁，不仅这个事务执行效率低，而且可能造成其他事务长时间锁等待和锁冲突，这种情况下可以考虑使用表锁来提高该事务的执行速度。<br>（2）事务涉及多个表，比较复杂，很可能引起死锁，造成大量事务回滚。这种情况也可以考虑一次性锁定事务涉及的表，从而避免死锁、减少数据库因事务回滚带来的开销。<br>当然，应用中这两种事务不能太多，否则，就应该考虑使用MyISAM表了。<br>在InnoDB下，使用表锁要注意以下两点。<br>（1）使用LOCK TABLES虽然可以给InnoDB加表级锁，但必须说明的是，表锁不是由InnoDB存储引擎层管理的，而是由其上一层──MySQL Server负责的，仅当autocommit=0、InnoDB_table_locks=1（默认设置）时，InnoDB层才能知道MySQL加的表锁，MySQL Server也才能感知InnoDB加的行锁，这种情况下，InnoDB才能自动识别涉及表级锁的死锁，否则，InnoDB将无法自动检测并处理这种死锁。<br>（2）在用 LOCK TABLES对InnoDB表加锁时要注意，要将AUTOCOMMIT设为0，否则MySQL不会给表加锁；事务结束前，不要用UNLOCK TABLES释放表锁，因为UNLOCK TABLES会隐含地提交事务；COMMIT或ROLLBACK并不能释放用LOCK TABLES加的表级锁，必须用UNLOCK TABLES释放表锁。正确的方式见如下语句：<br>例如，如果需要写表t1并从表t读，可以按如下做：</p>
+<p>SET AUTOCOMMIT=0;<br>LOCK TABLES t1 WRITE, t2 READ, …;<br>[do something with tables t1 and t2 here];<br>COMMIT;<br>UNLOCK TABLES;</p>
+<p>6.InnoDB行锁优化建议</p>
+<p>InnoDB存储引擎由于实现了行级锁定，虽然在锁定机制的实现方面所带来的性能损耗可能比表级锁定会要更高一些，但是在整体并发处理能力方面要远远优于MyISAM的表级锁定的。当系统并发量较高的时候，InnoDB的整体性能和MyISAM相比就会有比较明显的优势了。但是，InnoDB的行级锁定同样也有其脆弱的一面，当我们使用不当的时候，可能会让InnoDB的整体性能表现不仅不能比MyISAM高，甚至可能会更差。<br>（1）要想合理利用InnoDB的行级锁定，我们必须做好以下工作：<br>a)尽可能让所有的数据检索都通过索引来完成，从而避免InnoDB因为无法通过索引键加锁而升级为表级锁定；<br>b)合理设计索引，让InnoDB在索引键上面加锁的时候尽可能准确，尽可能的缩小锁定范围，避免造成不必要的锁定而影响其他Query的执行；<br>c)尽可能减少基于范围的数据检索过滤条件，避免因为间隙锁带来的负面影响而锁定了不该锁定的记录；<br>d)尽量控制事务的大小，减少锁定的资源量和锁定时间长度；<br>e)在业务环境允许的情况下，尽量使用较低级别的事务隔离，以减少MySQL因为实现事务隔离级别所带来的附加成本。<br>（2）由于InnoDB的行级锁定和事务性，所以肯定会产生死锁，下面是一些比较常用的减少死锁产生概率的小建议：<br>a)类似业务模块中，尽可能按照相同的访问顺序来访问，防止产生死锁；<br>b)在同一个事务中，尽可能做到一次锁定所需要的所有资源，减少死锁产生概率；<br>c)对于非常容易产生死锁的业务部分，可以尝试使用升级锁定颗粒度，通过表级锁定来减少死锁产生的概率。</p>
+<h3 id="是否所有的视图都可以更新？为什么？"><a href="#是否所有的视图都可以更新？为什么？" class="headerlink" title="是否所有的视图都可以更新？为什么？"></a>是否所有的视图都可以更新？为什么？</h3><p>不是所有的视图都可以更新，视图更新必须遵循以下规则：<br>   （1）若视图的字段是来自字段表达式或常数，则不允许对此视图执行INSERT、UPDATE操作，允许执行DELETE操作；<br>   （2）若视图的字段是来自库函数，则此视图不允许更新；<br>   （3）若视图的定义中有GROUP BY子句或聚集函数时，则此视图不允许更新；<br>   （4）若视图的定义中有DISTINCT任选项，则此视图不允许更新；<br>   （5）若视图的定义中有嵌套查询，并且嵌套查询的FROM子句中涉及的表也是导出该视图的基表，则此视图不允许更新；<br>   （6）若视图是由两个以上的基表导出的，此视图不允许更新；<br>   （7）一个不允许更新的视图上定义的视图也不允许更新；<br>   （8）由一个基表定义的视图，只含有基表的主键或候补键，并且视图中没有用表达式或函数定义的属性，才允许更新。</p>
 <h3 id="什么是MySQL索引，什么时候该用索引什么时候不该用？"><a href="#什么是MySQL索引，什么时候该用索引什么时候不该用？" class="headerlink" title="什么是MySQL索引，什么时候该用索引什么时候不该用？"></a>什么是MySQL索引，什么时候该用索引什么时候不该用？</h3><ul>
-<li>索引(Index)是帮助MySQL高效获取数据的数据结构。我们可以简单理解为：<strong>快速查找排好序的一种数据结构。</strong>Mysql索引主要有两种结构：B+Tree索引和Hash索引。我们平常所说的索引，如果没有特别指明，一般都是指B树结构组织的索引(B+Tree索引)。</li>
+<li>索引(Index)是帮助MySQL高效获取数据的数据结构。我们可以简单理解为：<strong>快速查找排好序的一种数据结构</strong>Mysql索引主要有两种结构：B+Tree索引和Hash索引。我们平常所说的索引，如果没有特别指明，一般都是指B树结构组织的索引(B+Tree索引)。</li>
 <li>优点：</li>
 </ul>
 <p>1、索引大大减少了服务器需要扫描的数据量</p>
@@ -468,7 +656,7 @@
 <p>　　B树的范围查找用的是中序遍历，而B+树用的是在链表上遍历。B树在提高了IO性能的同时并没有解决元素遍历的效率低下的问题，正是为了解决这个问题，B+树应用而生。B+树只需要去遍历叶子节点就可以实现整棵树的遍历。而且在数据库中基于范围的查询是非常频繁的，而B树不支持这样的操作或者说效率太低。</p>
 <h3 id="InnoDB和MyISAM的区别"><a href="#InnoDB和MyISAM的区别" class="headerlink" title="InnoDB和MyISAM的区别"></a><a href="https://blog.csdn.net/qq_35642036/article/details/82820178" target="_blank" rel="noopener">InnoDB和MyISAM的区别</a></h3><p>（1）InnoDB支持事务，MyISAM不支持。</p>
 <p>（2）InnoDB支持外键，MyISAM不支持。</p>
-<p>（3）InnoDB支持聚簇索引，使用B+树作为索引结构<strong>，行数据是和（主键）索引绑在一起的（表数据文件本身就是按B+Tree组织的一个索引结构），</strong>主键索引的叶子结点就是数据文件，辅助索引的叶子结点是主键的值，所以InnoDB必须有主键。主键索引效率很高，但是辅助索引（二级索引，非聚簇索引）需要两次查询，先查询到主键，然后再通过主键查询到数据。因此，主键不应该过大，因为主键太大，其他索引也都会很大；<strong>MyISAM不支持聚簇索引，是非聚簇索引，使用B+树作为索引结构，索引和数据文件是分离的，主键索引和辅助索引的叶子结点都是数据文件的地址指针</strong>（MyISAM的主键索引和辅助索引没有区别，主键索引仅仅只是一个叫做PRIMARY的唯一非空的索引，且MyISAM可以不设主键。<a href="https://www.cnblogs.com/qlqwjy/p/7770580.html" target="_blank" rel="noopener">参考</a></p>
+<p>（3）<strong>InnoDB支持聚簇索引，使用B+树作为索引结构，行数据是和（主键）索引绑在一起的（表数据文件本身就是按B+Tree组织的一个索引结构）</strong>，主键索引的叶子结点就是数据文件，辅助索引的叶子结点是主键的值，所以InnoDB必须有主键。主键索引效率很高，但是辅助索引（二级索引，非聚簇索引）需要两次查询，先查询到主键，然后再通过主键查询到数据。因此，主键不应该过大，因为主键太大，其他索引也都会很大；<strong>MyISAM不支持聚簇索引，是非聚簇索引，使用B+树作为索引结构，索引和数据文件是分离的，主键索引和辅助索引的叶子结点都是数据文件的地址指针</strong>（MyISAM的主键索引和辅助索引没有区别，主键索引仅仅只是一个叫做PRIMARY的唯一非空的索引，且MyISAM可以不设主键。<a href="https://www.cnblogs.com/qlqwjy/p/7770580.html" target="_blank" rel="noopener">参考</a></p>
 <p>（4） <strong>InnoDB不保存表的具体行数，执行select count(*) from table时需要全表扫描。而MyISAM用一个变量保存了整个表的行数，执行上述语句时只需要读出该变量即可，速度很快（注意不能加有任何WHERE条件）</strong>。</p>
 <p>（5）<strong>MyISAM表格和索引可以被压缩后进行查询操作</strong>。</p>
 <p>（6）<strong>InnoDB支持表、行(默认)级锁，而MyISAM支持表级锁</strong>。</p>
@@ -525,6 +713,9 @@
 </ul>
 <p>悲观地认为，并发问题极易发生。悲观锁认为并发问题极易发生，所以每次操作，无论读写，都会对记录加锁，以防止其他线程对数据进行修改。实现方式：数据库的行锁、读锁和写锁。</p>
 <h3 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h3><p>一个包含查询所需字段的索引称为“覆盖索引”，覆盖索引只是特定于具体select语句而言的联合索引。也就是说一个联合索引对于某个select语句，通过索引可以直接获取查询结果，而不再需要回表查询，就称该联合索引覆盖了这条select语句。覆盖索引是sql性能提升的关键，减少IO，提高了效率。</p>
+<h3 id="Mysql优化"><a href="#Mysql优化" class="headerlink" title="Mysql优化"></a><a href="https://www.cnblogs.com/sharpest/p/10390035.html" target="_blank" rel="noopener">Mysql优化</a></h3><h3 id="char和varchar的区别"><a href="#char和varchar的区别" class="headerlink" title="char和varchar的区别"></a>char和varchar的区别</h3><p>存储空间相同。但是对于内存的消耗是不同的。对于VARCHAR数据类型来说，硬盘上的存储空间虽然都是根据实际字符长度来分配存储空间的，但是对于内存来说，则不是。其时使用固定大小的内存块来保存值。简单的说，就是使用字符类型中定义的长度，即200个字符空间。显然，这对于排序或者临时表(这些内容都需要通过内存来实现)作业会产生比较大的不利影响。<br>从碎片角度考虑：<br>使用CHAR时，由于存储空间都是一次性分配的。从这个角度来讲，不存在碎片的困扰。而使用varchar时，因为存储的长度是可变的，当数据长度在更改前后不一致时，就不可避免地会出现碎片的问题。故使用varchar时，数据库管理员要时不时的对碎片进行整理。如执行数据库导出导入作业来消除碎片。<br>mysql的vachar字段的类型虽然最大长度是65535，但是并不是能存这么多数据，最大可以到65533，其中需要1到2个字节来存储数据长度（如果列声明的长度超过255，则使用两个字节来存储长度，否则1个）字节，当不允许非空字段的时候（因为要用一个字节来存储不可为空的标识），当允许非空字段的时候只能到65532(省下了存储非空的那个字节)</p>
+<h3 id="联合索引在B-树上的数据结构及查找方式"><a href="#联合索引在B-树上的数据结构及查找方式" class="headerlink" title="联合索引在B+树上的数据结构及查找方式"></a><a href="https://www.cnblogs.com/ibigboy/p/12373978.html" target="_blank" rel="noopener">联合索引在B+树上的数据结构及查找方式</a></h3><h3 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h3><p> 存储过程（Stored Procedure）是在大型数据库系统中，一组为了完成特定功能的SQL 语句集，它存储在数据库中，一次编译后永久有效，用户通过指定存储过程的名字并给出参数（如果该存储过程带有参数）来执行它。</p>
+<p><a href="https://www.cnblogs.com/shanzzs/p/10677810.html" target="_blank" rel="noopener">函数和存储过程的区别</a></p>
 <h3 id="SQL语句"><a href="#SQL语句" class="headerlink" title="SQL语句"></a>SQL语句</h3><p>SQL语句不区分大小写，习惯上SQL关键字使用大写，而对所有列和表名使用小写；有些情况下需要完全限定表名（数据库.表）/列名（表.列）</p>
 <h4 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h4><h4 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h4><h4 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h4><p>不能部分使用DISTINCT  DISTINCT关键字应用于所有列而 不仅是前置它的列。如果给出SELECT DISTINCT  id,name检索出来的所有行的列组合都不同。</p>
 <h4 id="LIMIT"><a href="#LIMIT" class="headerlink" title="LIMIT"></a>LIMIT</h4><p>行0  检索出来的第一行为行0而不是行1。因此，LIMIT 1, 1 将检索出第二行而不是第一行。 </p>
@@ -580,7 +771,9 @@
 <td>返回被选行数</td>
 </tr>
 </tbody></table>
-<p>MIN()函数与MAX()函数类似， MySQL允许将它用来返回任意列中的最小值，包括返回文本 列中的最小值。在用于文本数据时，如果数据按相应的列排序， 则MIN()返回最前面的行。MAX()、MIN()、SUM()函数均忽略列值为NULL的行。</p>
+<p>MIN()函数与MAX()函数类似， MySQL允许将它用来返回任意列中的最小值，包括返回文本 列中的最小值。在用于文本数据时，如果数据按相应的列排序， 则MIN()返回最前面的行。MAX()、MIN()、SUM()函数均忽略列值为NULL的行。<br><a href="https://www.yiibai.com/mysql/group_concat.html" target="_blank" rel="noopener">group_concat()</a>:separator</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">GROUP_CONCAT(DISTINCT expression</span><br><span class="line">    ORDER BY expression</span><br><span class="line">    SEPARATOR sep);</span><br><span class="line">SQL</span><br><span class="line">以下是演示GROUP_CONCAT()函数如何工作的一个示例。</span><br><span class="line">USE testdb;</span><br><span class="line">CREATE TABLE t (</span><br><span class="line">    v CHAR</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">INSERT INTO t(v) VALUES(&#39;A&#39;),(&#39;B&#39;),(&#39;C&#39;),(&#39;B&#39;);</span><br><span class="line"></span><br><span class="line">SELECT </span><br><span class="line">    GROUP_CONCAT(DISTINCT v</span><br><span class="line">        ORDER BY v ASC</span><br><span class="line">        SEPARATOR &#39;;&#39;)</span><br><span class="line">FROM t;</span><br><span class="line">-- SELECT v FROM t GROUP BY v;</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">+---------------------------------------------------------------------+</span><br><span class="line">| GROUP_CONCAT(DISTINCT v</span><br><span class="line">        ORDER BY v ASC</span><br><span class="line">        SEPARATOR &#39;;&#39;) |</span><br><span class="line">+---------------------------------------------------------------------+</span><br><span class="line">| A;B;C                                                               |</span><br><span class="line">+---------------------------------------------------------------------+</span><br><span class="line">1 row in set</span><br></pre></td></tr></table></figure>
+
 <p>SELECT 语句可根据需要包含多个聚集函数，逗号隔开即可。</p>
 <p><img src="/2020/03/24/MySQL/distinct.png" alt="聚集函数参数默认为all"></p>
 <h5 id="GROUP-BY"><a href="#GROUP-BY" class="headerlink" title="GROUP BY"></a>GROUP BY</h5><p>在具体使用GROUP BY子句前，需要知道一些重要的规定:</p>
@@ -1014,7 +1207,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL事务实现原理"><span class="nav-number">1.</span> <span class="nav-text">MySQL事务实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#91道面试题-https-mp-weixin-qq-com-s-9pfCkm2bX01XLIeJv9ngLw"><span class="nav-number">2.</span> <span class="nav-text">91道面试题](https:&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s&#x2F;9pfCkm2bX01XLIeJv9ngLw)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#是否所有的视图都可以更新？为什么？"><span class="nav-number">3.</span> <span class="nav-text">是否所有的视图都可以更新？为什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是MySQL索引，什么时候该用索引什么时候不该用？"><span class="nav-number">4.</span> <span class="nav-text">什么是MySQL索引，什么时候该用索引什么时候不该用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树"><span class="nav-number">5.</span> <span class="nav-text">B+树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB和MyISAM的区别"><span class="nav-number">6.</span> <span class="nav-text">InnoDB和MyISAM的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行级锁和表级索的区别"><span class="nav-number">7.</span> <span class="nav-text">行级锁和表级索的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主键索引和非主键索引的区别"><span class="nav-number">8.</span> <span class="nav-text">主键索引和非主键索引的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚簇索引和非聚簇索引的区别"><span class="nav-number">9.</span> <span class="nav-text">聚簇索引和非聚簇索引的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#共享锁排他锁悲观锁和乐观锁"><span class="nav-number">10.</span> <span class="nav-text">共享锁排他锁悲观锁和乐观锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#覆盖索引"><span class="nav-number">11.</span> <span class="nav-text">覆盖索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL语句"><span class="nav-number">12.</span> <span class="nav-text">SQL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SELECT"><span class="nav-number">12.1.</span> <span class="nav-text">SELECT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FROM"><span class="nav-number">12.2.</span> <span class="nav-text">FROM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DISTINCT"><span class="nav-number">12.3.</span> <span class="nav-text">DISTINCT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LIMIT"><span class="nav-number">12.4.</span> <span class="nav-text">LIMIT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ORDER-BY"><span class="nav-number">12.5.</span> <span class="nav-text">ORDER BY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WHERE"><span class="nav-number">12.6.</span> <span class="nav-text">WHERE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IN"><span class="nav-number">12.7.</span> <span class="nav-text">IN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NOT"><span class="nav-number">12.8.</span> <span class="nav-text">NOT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LIKE操作符"><span class="nav-number">12.9.</span> <span class="nav-text">LIKE操作符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全文索引"><span class="nav-number">12.10.</span> <span class="nav-text">全文索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下划线（-）通配符"><span class="nav-number">12.11.</span> <span class="nav-text">下划线（_）通配符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#REGEXP-使用正则表达式进行搜索"><span class="nav-number">12.12.</span> <span class="nav-text">REGEXP 使用正则表达式进行搜索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算字段"><span class="nav-number">12.13.</span> <span class="nav-text">计算字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用数据处理函数"><span class="nav-number">12.14.</span> <span class="nav-text">使用数据处理函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#聚集函数"><span class="nav-number">12.15.</span> <span class="nav-text">聚集函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#GROUP-BY"><span class="nav-number">12.15.1.</span> <span class="nav-text">GROUP BY</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HAVING过滤分组"><span class="nav-number">12.15.2.</span> <span class="nav-text">HAVING过滤分组</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#ORDER-BY和GROUP-BY的区别"><span class="nav-number">12.15.2.1.</span> <span class="nav-text">ORDER BY和GROUP BY的区别</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SELECT子句顺序"><span class="nav-number">12.15.2.2.</span> <span class="nav-text">SELECT子句顺序</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#临时表-视图"><span class="nav-number">12.15.2.3.</span> <span class="nav-text">临时表-视图</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#on、where、group-by、having"><span class="nav-number">12.15.2.4.</span> <span class="nav-text">on、where、group by、having</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子查询"><span class="nav-number">12.16.</span> <span class="nav-text">子查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#联结"><span class="nav-number">12.17.</span> <span class="nav-text">联结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#内部联结"><span class="nav-number">12.17.1.</span> <span class="nav-text">内部联结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自联结"><span class="nav-number">12.17.2.</span> <span class="nav-text">自联结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自然联结"><span class="nav-number">12.17.3.</span> <span class="nav-text">自然联结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#外部联结"><span class="nav-number">12.17.4.</span> <span class="nav-text">外部联结</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#左联结"><span class="nav-number">12.17.4.1.</span> <span class="nav-text">左联结</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#右联结"><span class="nav-number">12.17.4.2.</span> <span class="nav-text">右联结</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#全外联结"><span class="nav-number">12.17.4.3.</span> <span class="nav-text">全外联结</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#交叉联结"><span class="nav-number">12.17.5.</span> <span class="nav-text">交叉联结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用带聚集函数的联结"><span class="nav-number">12.17.6.</span> <span class="nav-text">使用带聚集函数的联结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用联结和联结条件"><span class="nav-number">12.17.7.</span> <span class="nav-text">使用联结和联结条件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IDENTITY"><span class="nav-number">12.18.</span> <span class="nav-text">IDENTITY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TRUNCATE"><span class="nav-number">12.19.</span> <span class="nav-text">TRUNCATE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DROP-COLUMN"><span class="nav-number">12.20.</span> <span class="nav-text">DROP COLUMN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-语句快速参考-gt-详解"><span class="nav-number">12.21.</span> <span class="nav-text">SQL 语句快速参考-&gt;详解</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL事务实现原理"><span class="nav-number">1.</span> <span class="nav-text">MySQL事务实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#91道面试题"><span class="nav-number">2.</span> <span class="nav-text">91道面试题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVCC"><span class="nav-number">3.</span> <span class="nav-text">MVCC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快照读和当前读"><span class="nav-number">4.</span> <span class="nav-text">快照读和当前读</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#快照读"><span class="nav-number">4.1.</span> <span class="nav-text">快照读</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#快照读的实现方式：undolog和多版本并发控制MVCC"><span class="nav-number">4.1.1.</span> <span class="nav-text">快照读的实现方式：undolog和多版本并发控制MVCC</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#当前读"><span class="nav-number">4.2.</span> <span class="nav-text">当前读</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql加锁机制，RC，RR，与字段的索引还有关系"><span class="nav-number">5.</span> <span class="nav-text">mysql加锁机制，RC，RR，与字段的索引还有关系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql-RC和RR隔离级别的加锁方式"><span class="nav-number">5.1.</span> <span class="nav-text">mysql RC和RR隔离级别的加锁方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库如何防止死锁，不同情况的加锁"><span class="nav-number">6.</span> <span class="nav-text">数据库如何防止死锁，不同情况的加锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#是否所有的视图都可以更新？为什么？"><span class="nav-number">7.</span> <span class="nav-text">是否所有的视图都可以更新？为什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是MySQL索引，什么时候该用索引什么时候不该用？"><span class="nav-number">8.</span> <span class="nav-text">什么是MySQL索引，什么时候该用索引什么时候不该用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树"><span class="nav-number">9.</span> <span class="nav-text">B+树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB和MyISAM的区别"><span class="nav-number">10.</span> <span class="nav-text">InnoDB和MyISAM的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行级锁和表级索的区别"><span class="nav-number">11.</span> <span class="nav-text">行级锁和表级索的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主键索引和非主键索引的区别"><span class="nav-number">12.</span> <span class="nav-text">主键索引和非主键索引的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚簇索引和非聚簇索引的区别"><span class="nav-number">13.</span> <span class="nav-text">聚簇索引和非聚簇索引的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#共享锁排他锁悲观锁和乐观锁"><span class="nav-number">14.</span> <span class="nav-text">共享锁排他锁悲观锁和乐观锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#覆盖索引"><span class="nav-number">15.</span> <span class="nav-text">覆盖索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mysql优化"><span class="nav-number">16.</span> <span class="nav-text">Mysql优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#char和varchar的区别"><span class="nav-number">17.</span> <span class="nav-text">char和varchar的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#联合索引在B-树上的数据结构及查找方式"><span class="nav-number">18.</span> <span class="nav-text">联合索引在B+树上的数据结构及查找方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储过程"><span class="nav-number">19.</span> <span class="nav-text">存储过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL语句"><span class="nav-number">20.</span> <span class="nav-text">SQL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SELECT"><span class="nav-number">20.1.</span> <span class="nav-text">SELECT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FROM"><span class="nav-number">20.2.</span> <span class="nav-text">FROM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DISTINCT"><span class="nav-number">20.3.</span> <span class="nav-text">DISTINCT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LIMIT"><span class="nav-number">20.4.</span> <span class="nav-text">LIMIT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ORDER-BY"><span class="nav-number">20.5.</span> <span class="nav-text">ORDER BY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WHERE"><span class="nav-number">20.6.</span> <span class="nav-text">WHERE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IN"><span class="nav-number">20.7.</span> <span class="nav-text">IN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NOT"><span class="nav-number">20.8.</span> <span class="nav-text">NOT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LIKE操作符"><span class="nav-number">20.9.</span> <span class="nav-text">LIKE操作符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全文索引"><span class="nav-number">20.10.</span> <span class="nav-text">全文索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下划线（-）通配符"><span class="nav-number">20.11.</span> <span class="nav-text">下划线（_）通配符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#REGEXP-使用正则表达式进行搜索"><span class="nav-number">20.12.</span> <span class="nav-text">REGEXP 使用正则表达式进行搜索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算字段"><span class="nav-number">20.13.</span> <span class="nav-text">计算字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用数据处理函数"><span class="nav-number">20.14.</span> <span class="nav-text">使用数据处理函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#聚集函数"><span class="nav-number">20.15.</span> <span class="nav-text">聚集函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#GROUP-BY"><span class="nav-number">20.15.1.</span> <span class="nav-text">GROUP BY</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HAVING过滤分组"><span class="nav-number">20.15.2.</span> <span class="nav-text">HAVING过滤分组</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#ORDER-BY和GROUP-BY的区别"><span class="nav-number">20.15.2.1.</span> <span class="nav-text">ORDER BY和GROUP BY的区别</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SELECT子句顺序"><span class="nav-number">20.15.2.2.</span> <span class="nav-text">SELECT子句顺序</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#临时表-视图"><span class="nav-number">20.15.2.3.</span> <span class="nav-text">临时表-视图</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#on、where、group-by、having"><span class="nav-number">20.15.2.4.</span> <span class="nav-text">on、where、group by、having</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子查询"><span class="nav-number">20.16.</span> <span class="nav-text">子查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#联结"><span class="nav-number">20.17.</span> <span class="nav-text">联结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#内部联结"><span class="nav-number">20.17.1.</span> <span class="nav-text">内部联结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自联结"><span class="nav-number">20.17.2.</span> <span class="nav-text">自联结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自然联结"><span class="nav-number">20.17.3.</span> <span class="nav-text">自然联结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#外部联结"><span class="nav-number">20.17.4.</span> <span class="nav-text">外部联结</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#左联结"><span class="nav-number">20.17.4.1.</span> <span class="nav-text">左联结</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#右联结"><span class="nav-number">20.17.4.2.</span> <span class="nav-text">右联结</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#全外联结"><span class="nav-number">20.17.4.3.</span> <span class="nav-text">全外联结</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#交叉联结"><span class="nav-number">20.17.5.</span> <span class="nav-text">交叉联结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用带聚集函数的联结"><span class="nav-number">20.17.6.</span> <span class="nav-text">使用带聚集函数的联结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用联结和联结条件"><span class="nav-number">20.17.7.</span> <span class="nav-text">使用联结和联结条件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IDENTITY"><span class="nav-number">20.18.</span> <span class="nav-text">IDENTITY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TRUNCATE"><span class="nav-number">20.19.</span> <span class="nav-text">TRUNCATE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DROP-COLUMN"><span class="nav-number">20.20.</span> <span class="nav-text">DROP COLUMN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-语句快速参考-gt-详解"><span class="nav-number">20.21.</span> <span class="nav-text">SQL 语句快速参考-&gt;详解</span></a></li></ol></li></ol></div>
             
 
           </div>
