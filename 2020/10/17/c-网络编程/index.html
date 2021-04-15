@@ -79,13 +79,15 @@
 
 
 
+<meta name="description" content="socket服务端在开启监听模式（listen）后阻塞于accept,直到半连接队列中存在socket,accept从半连接队列中取出来放入连接队列中，返回客户端socket。服务端有两个socket，一个监听socket，接收到连接后开启一个客户端socket。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="c++网络编程">
 <meta property="og:url" content="http://yoursite.com/2020/10/17/c-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/index.html">
 <meta property="og:site_name" content="翟安然&#39;s Blog">
+<meta property="og:description" content="socket服务端在开启监听模式（listen）后阻塞于accept,直到半连接队列中存在socket,accept从半连接队列中取出来放入连接队列中，返回客户端socket。服务端有两个socket，一个监听socket，接收到连接后开启一个客户端socket。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-10-17T07:30:18.000Z">
-<meta property="article:modified_time" content="2020-10-17T07:30:41.430Z">
+<meta property="article:modified_time" content="2020-10-17T09:46:00.007Z">
 <meta property="article:author" content="翟安然">
 <meta name="twitter:card" content="summary">
 
@@ -327,7 +329,8 @@
       
 
       
-        
+        <h2 id="socket"><a href="#socket" class="headerlink" title="socket"></a>socket</h2><p>服务端在开启监听模式（listen）后阻塞于accept,直到半连接队列中存在socket,accept从半连接队列中取出来放入连接队列中，返回客户端socket。服务端有两个socket，一个监听socket，接收到连接后开启一个客户端socket。</p>
+
       
     </div>
     
@@ -411,8 +414,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -427,7 +439,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -438,7 +450,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -449,7 +461,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -473,6 +485,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#socket"><span class="nav-number">1.</span> <span class="nav-text">socket</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -486,7 +514,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

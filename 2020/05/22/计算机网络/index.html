@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试,网络," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、IP地址、子网掩码、网关、网段 ip地址 子网掩码 练习   二、HTTP1.0 HTTP1.1和HTTP2.0的区别 访问一个网页的全过程：参考 HTTP1.0 HTTP 1.1主要区别 Http怎么处理长连接 对短链接和长连接的理解？ 模拟长连接 长连接和短连接的优点和缺点 什么时候用长连接，短连接？ 长连接如何保持 HTTP1.1 和 HTTP 2.0的主要区别 为什么 HTT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络">
+<meta property="og:url" content="http://yoursite.com/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="翟安然&#39;s Blog">
+<meta property="og:description" content="一、IP地址、子网掩码、网关、网段 ip地址 子网掩码 练习   二、HTTP1.0 HTTP1.1和HTTP2.0的区别 访问一个网页的全过程：参考 HTTP1.0 HTTP 1.1主要区别 Http怎么处理长连接 对短链接和长连接的理解？ 模拟长连接 长连接和短连接的优点和缺点 什么时候用长连接，短连接？ 长连接如何保持 HTTP1.1 和 HTTP 2.0的主要区别 为什么 HTT">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/net.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/OSI%E5%8D%8F%E8%AE%AE.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/34.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/msl.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%B5%8F%E8%A7%88url1.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%B5%8F%E8%A7%88url2.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/URI.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87URI.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/get.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/post.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/https.png">
+<meta property="og:image" content="c:/Users/I538989/OneDrive/_posts/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/https.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/TCP%E5%A4%B4%E9%83%A8.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/UDP.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/IP%E5%A4%B4%E9%83%A8.jpg">
+<meta property="article:published_time" content="2020-05-22T14:49:00.000Z">
+<meta property="article:modified_time" content="2021-04-15T12:31:01.103Z">
+<meta property="article:author" content="翟安然">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/net.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/22/计算机网络/"/>
+
+
+
+
+
+  <title>计算机网络 | 翟安然's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">翟安然's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="翟安然">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="翟安然's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">计算机网络</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-22T22:49:00+08:00">
+                2020-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+<ul>
+<li><a href="#一-ip地址-子网掩码-网关-网段">一、IP地址、子网掩码、网关、网段</a><ul>
+<li><a href="#ip地址">ip地址</a></li>
+<li><a href="#子网掩码">子网掩码</a></li>
+<li><a href="#练习">练习</a></li>
+</ul>
+</li>
+<li><a href="#二-http10-http11和http20的区别">二、HTTP1.0 HTTP1.1和HTTP2.0的区别</a><ul>
+<li><a href="#访问一个网页的全过程参考httpsblogcsdnnetu012862311articledetails78753232">访问一个网页的全过程：参考</a></li>
+<li><a href="#http10-http-11主要区别">HTTP1.0 HTTP 1.1主要区别</a></li>
+<li><a href="#http怎么处理长连接">Http怎么处理长连接</a></li>
+<li><a href="#对短链接和长连接的理解">对短链接和长连接的理解？</a></li>
+<li><a href="#模拟长连接">模拟长连接</a></li>
+<li><a href="#长连接和短连接的优点和缺点">长连接和短连接的优点和缺点</a></li>
+<li><a href="#什么时候用长连接短连接">什么时候用长连接，短连接？</a></li>
+<li><a href="#长连接如何保持">长连接如何保持</a></li>
+<li><a href="#http11-和-http-20的主要区别">HTTP1.1 和 HTTP 2.0的主要区别</a></li>
+<li><a href="#为什么-http2-需要多路传输">为什么 HTTP/2 需要多路传输?</a></li>
+<li><a href="#消息头为什么需要压缩">消息头为什么需要压缩?</a></li>
+<li><a href="#服务器推送的好处是什么">服务器推送的好处是什么？</a></li>
+<li><a href="#tcp连接-http连接-socket连接的区别httpsblogcsdnnetmccand1234articledetails91346202">TCP连接  HTTP连接 Socket连接的区别</a></li>
+<li><a href="#time_wait端口重用">TIME_WAIT端口重用</a></li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+
+<ul>
+<li><a href="#三-osi-和tcpip">三、OSI 和TCP/IP</a><ul>
+<li><a href="#tcp拥塞控制慢启动-拥塞避免-重传机制-快恢复">TCP拥塞控制：慢启动 拥塞避免 重传机制 快恢复</a><ul>
+<li><a href="#慢启动">慢启动</a></li>
+<li><a href="#拥塞避免">拥塞避免</a></li>
+<li><a href="#重传机制">重传机制</a><ul>
+<li><a href="#超时重传">超时重传</a></li>
+<li><a href="#快重传">快重传</a></li>
+</ul>
+</li>
+<li><a href="#快恢复">快恢复</a></li>
+<li><a href="#tfo-prr-拥塞避免httpswwwzhuxiaodongnet2018tcp-performance-optimize-instruction">TFO PRR 拥塞避免</a></li>
+<li><a href="#aimd倍减加增httpsbaikebaiducomitemaimd10641459">AIMD倍减加增</a></li>
+<li><a href="#拥塞窗口httpsmpweixinqqcomsxe3deu17mgtqm46lrfxzhg">拥塞窗口</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#四-tcp和udp">四、TCP和UDP</a><ul>
+<li><a href="#tcp和udp的区别">TCP和UDP的区别</a></li>
+<li><a href="#使用udp实现tcp">使用UDP实现TCP</a></li>
+<li><a href="#优化tcp">优化TCP</a></li>
+<li><a href="#tcp粘包拆包">TCP粘包拆包</a></li>
+<li><a href="#建立tcp连接需要什么资源">建立TCP连接需要什么资源</a></li>
+<li><a href="#三次握手四次挥手httpswwwcnblogscomzmlcttp3690998html">三次握手四次挥手</a><ul>
+<li><a href="#为什么a还要发送一次确认呢可以二次握手吗">为什么A还要发送一次确认呢？可以二次握手吗？</a></li>
+</ul>
+</li>
+<li><a href="#server端易受到syn攻击">Server端易受到SYN攻击？</a></li>
+<li><a href="#为什么在time-wait状态必须等待2msl的时间">为什么在TIME-WAIT状态必须等待2MSL的时间？</a></li>
+<li><a href="#tcp三次握手能携带数据吗httpsblogcsdnnetweixin_34198797articledetails90687285">TCP三次握手能携带数据吗</a></li>
+<li><a href="#tcp三次握手有哪些漏洞httpswwwcnblogscomhuihp12599048html">TCP三次握手有哪些漏洞？</a></li>
+<li><a href="#为什么连接的时候是三次握手关闭的时候却是四次握手">为什么连接的时候是三次握手，关闭的时候却是四次握手？</a></li>
+</ul>
+</li>
+<li><a href="#五-图解http要点记录">五、图解HTTP要点记录</a><ul>
+<li><a href="#http请求报文和响应报文格式httpswwwcnblogscomwxismep6212797html">http请求报文和响应报文格式</a></li>
+<li><a href="#cookie的状态管理">cookie的状态管理</a></li>
+<li><a href="#http报文结构-内容编码-请求首部-响应首部-实体首部">HTTP报文结构   内容编码   请求首部  响应首部   实体首部</a></li>
+<li><a href="#http状态码">HTTP状态码</a></li>
+<li><a href="#http状态码分类">http状态码分类</a></li>
+<li><a href="#代理-网关-代理-隧道">代理、网关、代理、隧道</a></li>
+<li><a href="#http加密认证完整性保护https">HTTP+加密+认证+完整性保护=HTTPS</a><ul>
+<li><a href="#https的通信步骤">https的通信步骤</a></li>
+<li><a href="#http-与-https-区别">HTTP 与 HTTPS 区别</a></li>
+</ul>
+</li>
+<li><a href="#怎么理解http协议的无连接无状态">怎么理解http协议的无连接无状态</a></li>
+<li><a href="#cookie和session的区别">cookie和session的区别</a></li>
+<li><a href="#get和post的区别参考httpsblogcsdnnetqq_38182125articledetails89071899">get和post的区别：参考</a></li>
+</ul>
+</li>
+<li><a href="#六-tcpip详解要点记录">六、TCP/IP详解要点记录</a></li>
+<li><a href="#arp的解析过程">ARP的解析过程</a><ul>
+<li><a href="#arp协议工作流程">ARP协议工作流程</a></li>
+<li><a href="#工作过程">工作过程</a></li>
+</ul>
+</li>
+<li><a href="#网站访问速度慢的排查方法">网站访问速度慢的排查方法</a></li>
+<li><a href="#tcp和ip头部">TCP和IP头部</a></li>
+<li><a href="#路由器跟交换机的区别">路由器跟交换机的区别</a></li>
+</ul>
+<!-- /code_chunk_output -->
+
+
+
+
+<h3 id="一、IP地址、子网掩码、网关、网段"><a href="#一、IP地址、子网掩码、网关、网段" class="headerlink" title="一、IP地址、子网掩码、网关、网段"></a>一、IP地址、子网掩码、网关、网段</h3><h4 id="ip地址"><a href="#ip地址" class="headerlink" title="ip地址"></a>ip地址</h4><p><strong>IP地址</strong>：整个互联网就是一个单一的、抽象的网络。IP地址就是给互联网上的每一台主机（或路由器）的每一个接口分配一个在全世界范围内是唯一的 32 位的标识符。每个IP地址都是独一无二的，就像人的身份证号码一样。 是给每个连接在Internet上的主机分配的一个32bit地址。地址由两部分组成，一部分为网络地址，另一部分为主机地址。</p>
+<p><strong>IP地址分类</strong>：IP地址分为A、B、C、D、E 5类。常用的是B和C两类。网络地址的位数直接决定了可以分配的网络数；主机地址的位数则决定了网络中最大的主机数。</p>
+<p>A类地址： 网络位8（7）位+主机位24位，0+++++++ <strong>***</strong> <strong>****</strong> <strong>****</strong></p>
+<p>IP范围：1.0.0.0–126.255.255.255</p>
+<p>0.0.0.0 和127.0.0.0保留,127网络位是本地测试地址，不能用于数据通讯。</p>
+<p>B类地址：网络位16（14）位+主机位16位，10+++++++ ++++++++ <strong>****</strong> <strong>****</strong></p>
+<p>IP范围：128.0.0.0–191.255.255.255</p>
+<p>128.0.0.0和191.255.0.0保留 </p>
+<p>C类地址：网络位24（21）位+主机位8位，110+++++ ++++++++ ++++++++ <strong>****</strong></p>
+<p>IP范围：192.0.0.0–223.255.255.255</p>
+<p>192.0.0.0和223.255.255.0保留  </p>
+<p>D：224.0.0.0——239.255.255.255</p>
+<p>E：240.0.0.0——255.255.255.255</p>
+<p>一个简便知道你的ip属于哪个类的办法：看ip地址的<strong>第一个段</strong>在哪个类的区间，例：193.xxx.xxx.xxx,193在c类的区间中，他就属于c类ip地址。</p>
+<h4 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h4><p><strong>定义</strong>：互联网是由许多小型网络构成的，每个网络上都有许多主机，这样便构成了一个有层次的结构。IP地址在设计时就考虑到地址分配的层次特点，将每个IP地址都分割成网络号和主机号两部分，以便于IP地址的寻址操作。 <strong>IP地址的网络号和主机号各是多少位呢？如果不指定，就不知道哪些位是网络号、哪些是主机号，这就需要通过子网掩码来实现</strong>。什么是子网掩码 子网掩码不能单独存在，它必须结合IP地址一起使用。<strong>子网掩码只有一个作用，就是将某个IP地址划分成网络地址和主机地址两部分。</strong></p>
+<p><strong>规则</strong>：与IP地址相同，子网掩码的长度也是32位，左边是网络位，用二进制数字“1”表示；右边是主机位，用二进制数字“0”表示。</p>
+<p>例子：IP地址为“192.168.1.1”和子网掩码为“255.255.255.0”。</p>
+<p>子网掩码的比特位格式：11111111 11111111 11111111 00000000，其中，“1”有24个，代表与此相对应的IP地址左边24位是网络号；“0”有8个，代表与此相对应的IP地址右边8位是主机号。这样，子网掩码就确定了一个IP地址的32位二进制数字中哪些是网络号、哪些是主机号。</p>
+<p>（1）子网掩码是“255.255.255.0”的网络：最后面一个数字可以在0~255范围内任意变化，因此可以提供256个IP地址。但是实际可用的IP地址数量是256-2，即254个，因为主机号不能全是“0”或全是“1”。</p>
+<p>（2）子网掩码是“255.255.0.0”的网络：后面两个数字可以在0~255范围内任意变化，可以提供255*255个IP地址。但是实际可用的IP地址数量是2552-2，即65023个。</p>
+<h4 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h4><p>如果告诉你一个带网络前缀的IP地址，那么你应该可以根据它推算出该地址的子网掩码，默认网关地址，默认广播地址，网络地址，受限广播地址，本机网络地址，以及如何平均划分子网空间。举个例子，已知分配给创新实验室的地址块中的一个地址为193.6.7.0/24，请回答下列问题：</p>
+<p><strong>（1）该网络的网络前缀是多少？</strong></p>
+<p>答案：24</p>
+<p>解析：193.6.7.0/<strong>24</strong> 加粗部分就是网络前缀</p>
+<p><strong>（2）该网络的子网掩码是多少？</strong></p>
+<p>答案：255.255.255.0</p>
+<p>解析：子网掩码是根据网络前缀推算的，255.255.255.0转换成二进制表示为11111111.11111111.11111111.00000000，网络前缀代表的是该地址的网络位，前面说到一个IP地址是由32位二进制数表示的，网络前缀为24就表示从左往右数前24位为该网络的网络位，剩下的后8位为该网络的主机位。而子网掩码就是网络位全为1，主机位全为0，比如说如果本题中给出的网络前缀变成26，意思就是该网络的子网掩码为11111111.11111111.11111111.11000000，换算成十进制数就是255.255.255.192</p>
+<p><strong>（3）该网络的默认网关地址为多少？</strong></p>
+<p>答案：193.6.7.254/24</p>
+<p>解析 ：默认网关地址是主机位<strong>除最后一位全置1</strong>后得到的，根据网络前缀24可知前24位为网络位，后8位为主机位，因此该网络的默认网关地址就是IP地址193.6.7.<strong>11111110</strong>（加粗的部分为主机位），换算成十进制数即193.6.7.254/24（注意，但凡是跟IP地址格式一样的都要加网络前缀，跟子网掩码格式一样的就不用加），假如本题的网络前缀变成26，那么主机位就变成32-26=6位了，即默认网关地址为193.6.7.00 111110 =193.6.7.62/26</p>
+<p><strong>（4）该网络的默认广播地址是多少？</strong></p>
+<p>答案：193.6.7.255/24</p>
+<p>解析：默认广播地址和默认网关地址可以一起记，因为<strong>默认广播地址就是主机位全为1</strong>，假如本题的网络前缀变成26，默认广播地址为193.6.7.00 111111 =193.6.7.63/26 </p>
+<p><strong>（5）该网络的网络地址是多少？</strong></p>
+<p>答案：193.6.7.0/24</p>
+<p>解析：网络地址是IP地址与子网掩码转换成二进制数再相与运算得来的结果，与运算的规则：1&amp;1 = 1； 1&amp;0 = 0； 0&amp;1 = 0； 0&amp;0 = 0，也就是说只有两者都为1时结果才为1。</p>
+<p><strong>（6）该网络的受限广播地址为多少？</strong></p>
+<p>答案：255.255.255.255</p>
+<p>解析：所有网络的受限广播地址都是4个255</p>
+<p><strong>（7）本主计所在的本机网络地址为多少？</strong></p>
+<p>答案：0.0.0.0</p>
+<p>解析：所有本机网络地址都是4个0</p>
+<p><strong>（8）如果将该网络平均划分为4个子网，请计算出这4个子网的地址空间</strong></p>
+<p>答案：</p>
+<p>193.6.7.0/26~193.6.7.63/26</p>
+<p>193.6.7.64/26~193.6.7.127/26</p>
+<p>193.6.7.128/26~193.6.7.191/26</p>
+<p>193.6.7.192/26~193.6.7.255/26 </p>
+<p><img src="/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/net.png" alt="img"></p>
+<p>解析：不管平均划分成几个子网，计算得到相应的节点之后便能划分出子网的地址空间，需要注意的是，每两个节点之间都是等间隔的，也就是说最后一段不一定是到255，而是根据间隔大小推算的，比如本题的网络前缀如果换成25，则答案变为：</p>
+<p>193.6.7.0/27~193.6.7.31/27</p>
+<p>193.6.7.32/27~193.6.7.63/27</p>
+<p>193.6.7.64/27~193.6.7.95/27</p>
+<p>193.6.7.96/27~193.6.7.127/27</p>
+<p><strong>（9）这四个子网的有效地址空间是什么？</strong></p>
+<p>答案：</p>
+<p>193.6.7.1/26~193.6.7.62/26</p>
+<p>193.6.7.65/26~193.6.7.126/26</p>
+<p>193.6.7.129/26~193.6.7.190/26</p>
+<p>193.6.7.193/26~193.6.7.254/26</p>
+<p>解析：有效地址空间就是去掉主机位全为0和主机位全为1的地址，第一段中，193.6.7.00 000000和193.6.7.193.6.7.00 111111，因此去掉这两个地址。以此类推，后面三段中都去掉全0和全1的地址（左加右减）。</p>
+<h3 id="二、HTTP1-0-HTTP1-1和HTTP2-0的区别"><a href="#二、HTTP1-0-HTTP1-1和HTTP2-0的区别" class="headerlink" title="二、HTTP1.0 HTTP1.1和HTTP2.0的区别"></a>二、HTTP1.0 HTTP1.1和HTTP2.0的区别</h3><p>HTTP（HyperText Transfer Protocol）协议是基于TCP/IP的应用层协议，它不关心数据传输的细节，主要是用来规定客户端和服务端的数据传输格式，最初是用来向客户端传输HTML页面的内容。默认端口是80。</p>
+<p>一般来说，浏览器在解析域名时，会首先查看<strong>1) 本地硬盘的hosts文件</strong>。若hosts文件内有域名和IP地址的对应关系，则直接使用该IP地址通信。若没有，则浏览器会发出一个 DNS请求到<strong>2) 本地DNS服务器</strong>。本地DNS服务器一般由网络接入服务器商提供，中国电信、中国移动等。本地DNS服务器首先查询<strong>缓存记录</strong>。若缓存中有域名对应的IP地址记录，则直接使用该记录返回IP地址。若没有，则本地服务器向<strong>3) DNS根服务器</strong>查询。DNS根服务器没有记录具体的域名和IP地址的对应关系，而是告诉本地DNS服务器，可以到<strong>4) 域服务器</strong>上去继续查询，并给出域服务器的地址。域服务器收到请求之后，也不会直接返回域名和IP地址的对应关系，而是告诉本地DNS服务器，<strong>5) 域名的解析服务器</strong>的地址。最后，本地DNS服务器向域名的解析服务器发出请求，这时就能收到一个域名和IP地址对应关系，本地DNS不仅要把IP地址返回给用户电脑，还要把这个对应关系保存在缓存中以备下次别的用户查询时，可以直接返回结果，加快网络访问。</p>
+<h5 id="访问一个网页的全过程：参考"><a href="#访问一个网页的全过程：参考" class="headerlink" title="访问一个网页的全过程：参考"></a>访问一个网页的全过程：<a href="https://blog.csdn.net/u012862311/article/details/78753232" target="_blank" rel="noopener">参考</a></h5><ul>
+<li>域名解析成IP地址（搜索浏览器自身缓存，没有的话向DNS服务器发出解析请求）；</li>
+<li>与目的主机进行TCP连接（<a href="[https://baike.baidu.com/item/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/5111559](https://baike.baidu.com/item/三次握手/5111559)">三次握手</a>）；</li>
+<li>发送与收取数据（浏览器发送http请求，目的主机发送HTTP应答）；</li>
+<li>与目的主机断开TCP连接（<a href="https://blog.csdn.net/O9A0MA/article/details/90731748" target="_blank" rel="noopener">TCP四次挥手</a>）；</li>
+</ul>
+<h5 id="HTTP1-0-HTTP-1-1主要区别"><a href="#HTTP1-0-HTTP-1-1主要区别" class="headerlink" title="HTTP1.0 HTTP 1.1主要区别"></a>HTTP1.0 HTTP 1.1主要区别</h5><ol>
+<li><strong>长连接</strong></li>
+</ol>
+<p>HTTP 1.0需要使用keep-alive参数来告知服务器端要建立一个长连接。大多实现为每个请求/响应交换使用新的连接。HTTP 1.0规定浏览器与服务器只保持短暂的连接，浏览器的每次请求都需要与服务器建立一个TCP连接，服务器完成请求处理后立即断开TCP连接，服务器不跟踪每个客户也不记录过去的请求。</p>
+<p>HTTP 1.1支持长连接（PersistentConnection）和请求的流水线（Pipelining）处理，在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延迟，在HTTP1.1中默认开启Connection： keep-alive，一定程度上弥补了HTTP1.0每次请求都要创建连接的缺点。</p>
+<p>在 HTTP/1.1 中,一个连接可用于一次或多次请求/响应交换,尽管连接可能由于各种原因被关闭。HTTP 1.1支持持久连接，在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延迟。一个包含有许多图像的网页文件的多个请求和应答可以在一个连接中传输，但每个单独的网页文件的请求和应答仍然需要使用各自的连接。HTTP 1.1还允许客户端不用等待上一次请求结果返回，就可以发出下一次请求，但服务器端必须按照接收到客户端请求的先后顺序依次回送响应结果，以保证客户端能够区分出每次请求的响应内容，这样也显著地减少了整个下载过程所需要的时间。</p>
+<ol start="2">
+<li><strong>节约带宽</strong></li>
+</ol>
+<p>HTTP 1.1支持只发送header信息(不带任何body信息)，如果服务器认为客户端有权限请求服务器，则返回100，否则返回403。客户端如果接受到100，才开始把请求body发送到服务器。当服务器返回403的时候，客户端就可以不用发送请求body了，节约了带宽。</p>
+<p>HTTP1.1则在请求头引入了range头域，它允许只请求资源的某个部分，即返回码是206（Partial Content），这样就方便了开发者自由的选择以便于充分利用带宽和连接。这是支持文件断点续传的基础。</p>
+<ol start="3">
+<li><strong>HOST域</strong></li>
+</ol>
+<p>HTTP 1.1还通过增加更多的请求头和响应头来改进和扩充HTTP 1.0的功能。</p>
+<p>在HTTP1.0中认为每台服务器都绑定一个唯一的IP地址，因此，请求消息中的URL并没有传递主机名（hostname）。但随着虚拟主机技术的发展，在一台物理服务器上可以存在多个虚拟主机（Multi-homed Web Servers），并且它们共享一个IP地址。HTTP1.1的请求消息和响应消息都应支持Host头域，且请求消息中如果没有Host头域会报告一个错误（400 Bad Request）。</p>
+<p>HTTP 1.1还提供了与身份认证、状态管理和Cache缓存等机制相关的请求头和响应头。</p>
+<ol start="4">
+<li><strong>缓存处理</strong></li>
+</ol>
+<p>在HTTP1.0中主要使用header里的If-Modified-Since,Expires来做为缓存判断的标准，HTTP1.1则引入了更多的缓存控制策略例如Entity tag，If-Unmodified-Since, If-Match, If-None-Match等更多可供选择的缓存头来控制缓存策略。</p>
+<ol start="5">
+<li><strong>错误状态码的增多</strong></li>
+</ol>
+<p>在HTTP1.1中新增了24个错误状态响应码，如409（Conflict）表示请求的资源与资源的当前状态发生冲突；410（Gone）表示服务器上的某个资源被永久性的删除。</p>
+<h5 id="Http怎么处理长连接"><a href="#Http怎么处理长连接" class="headerlink" title="Http怎么处理长连接"></a>Http怎么处理长连接</h5><p>​     在HTTP1.0和HTTP1.1协议中都有对长连接的支持。其中HTTP1.0需要在request中增加”Connection： keep-alive“ header才能够支持，而HTTP1.1默认支持.</p>
+<p>   http1.0请求与服务端的交互过程:</p>
+<p>   （1）客户端发出带有包含一个header：”Connection： keep-alive“的请求</p>
+<p>   （2）服务端接收到这个请求后,根据http1.0和”Connection： keep-alive“判断出这是一个长连接,就会在response的header中也增加”Connection： keep-alive“，同时不会关闭已建立的tcp连接.</p>
+<p>   （3）客户端收到服务端的response后,发现其中包含”Connection： keep-alive“，就认为是一个长连接，不关闭这个连接。并用该连接再发送request.转到（1）</p>
+<p>  http1.1请求与服务端的交互过程:</p>
+<p>  （1）客户端发出http1.1的请求</p>
+<p>  （2）服务端收到http1.1后就认为这是一个长连接,会在返回的response设置Connection： keep-alive,同时不会关闭已建立的连接.</p>
+<p>  （3）客户端收到服务端的response后,发现其中包含”Connection： keep-alive“，就认为是一个长连接，不关闭这个连接。并用该连接再发送request.转到（1）</p>
+<p>   基于http协议的长连接减少了请求,减少了建立连接的时间,但是每次交互都是由客户端发起的,客户端发送消息,服务端才能返回客户端消息。因为客户端也不知道服务端什么时候会把结果准备好，所以客户端的很多请求是多余的,仅是维持一个心跳,浪费了带宽。</p>
+<h5 id="对短链接和长连接的理解？"><a href="#对短链接和长连接的理解？" class="headerlink" title="对短链接和长连接的理解？"></a>对短链接和长连接的理解？</h5><p>在HTTP/1.0中，默认使用的是短连接。也就是说，浏览器和服务器每进行一次HTTP操作，就建立一次连接，但任务结束就中断连接。如果客户端浏览器访问的某个HTML或其他类型的 Web页中包含有其他的Web资源，如JavaScript文件、图像文件、CSS文件等；当浏览器每遇到这样一个Web资源，就会建立一个HTTP会话。</p>
+<p>但从 HTTP/1.1起，默认使用长连接，用以保持连接特性。使用长连接的HTTP协议，会在响应头有加入这行代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Connection</span><span class="selector-pseudo">:keep-alive</span></span><br></pre></td></tr></table></figure>
+
+<p>在使用长连接的情况下，当一个网页打开完成后，客户端和服务器之间用于传输HTTP数据的 TCP连接不会关闭，如果客户端再次访问这个服务器上的网页，会继续使用这一条已经建立的连接。Keep-Alive不会永久保持连接，它有一个保持时间，可以在不同的服务器软件（如Apache）中设定这个时间。实现长连接要客户端和服务端都支持长连接。</p>
+<p>HTTP协议的长连接和短连接，实质上是TCP协议的长连接和短连接。 </p>
+<h5 id="模拟长连接"><a href="#模拟长连接" class="headerlink" title="模拟长连接"></a>模拟长连接</h5><p>接下来我们再模拟一下长连接的情况，client向server发起连接，server接受client连接，双方建立连接。Client与server完成一次读写之后，它们之间的连接并不会主动关闭，后续的读写操作会继续使用这个连接。</p>
+<p>首先说一下TCP/IP详解上讲到的TCP保活功能，保活功能主要为服务器应用提供，服务器应用希望知道客户主机是否崩溃，从而可以代表客户使用资源。如果客户已经消失，使得服务器上保留一个半开放的连接，而服务器又在等待来自客户端的数据，则服务器将应远等待客户端的数据，保活功能就是试图在服务器端检测到这种半开放的连接。</p>
+<p>如果一个给定的连接在两小时内没有任何的动作，则服务器就向客户发一个探测报文段，客户主机必须处于以下4个状态之一：</p>
+<ol>
+<li>客户主机依然正常运行，并从服务器可达。客户的TCP响应正常，而服务器也知道对方是正常的，服务器在两小时后将保活定时器复位。</li>
+<li>客户主机已经崩溃，并且关闭或者正在重新启动。在任何一种情况下，客户的TCP都没有响应。服务端将不能收到对探测的响应，并在75秒后超时。服务器总共发送10个这样的探测 ，每个间隔75秒。如果服务器没有收到一个响应，它就认为客户主机已经关闭并终止连接。</li>
+<li>客户主机崩溃并已经重新启动。服务器将收到一个对其保活探测的响应，这个响应是一个复位，使得服务器终止这个连接。</li>
+<li>客户机正常运行，但是服务器不可达，这种情况与2类似，TCP能发现的就是没有收到探查的响应。</li>
+</ol>
+<h5 id="长连接和短连接的优点和缺点"><a href="#长连接和短连接的优点和缺点" class="headerlink" title="长连接和短连接的优点和缺点"></a>长连接和短连接的优点和缺点</h5><p>由上可以看出，长连接可以省去较多的TCP建立和关闭的操作，减少浪费，节约时间。对于频繁请求资源的客户来说，较适用长连接。不过这里存在一个问题，存活功能的探测周期太长，还有就是它只是探测TCP连接的存活，属于比较斯文的做法，遇到恶意的连接时，保活功能就不够使了。在长连接的应用场景下，client端一般不会主动关闭它们之间的连接，Client与server之间的连接如果一直不关闭的话，会存在一个问题，随着客户端连接越来越多，server早晚有扛不住的时候，这时候server端需要采取一些策略，如关闭一些长时间没有读写事件发生的连接，这样可 以避免一些恶意连接导致server端服务受损；如果条件再允许就可以以客户端机器为颗粒度，限制每个客户端的最大长连接数，这样可以完全避免某个蛋疼的客户端连累后端服务。</p>
+<p>短连接对于服务器来说管理较为简单，存在的连接都是有用的连接，不需要额外的控制手段。但如果客户请求频繁，将在TCP的建立和关闭操作上浪费时间和带宽。</p>
+<p>长连接和短连接的产生在于client和server采取的关闭策略，具体的应用场景采用具体的策略，没有十全十美的选择，只有合适的选择。</p>
+<h5 id="什么时候用长连接，短连接？"><a href="#什么时候用长连接，短连接？" class="headerlink" title="什么时候用长连接，短连接？"></a>什么时候用长连接，短连接？</h5><p>长连接多用于操作频繁，点对点的通讯，而且连接数不能太多情况，。每个TCP连接都需要三步握手，这需要时间，如果每个操作都是先连接，再操作的话那么处理速度会降低很多，所以每个操作完后都不断开，次处理时直接发送数据包就OK了，不用建立TCP连接。例如：数据库的连接用长连接， 如果用短连接频繁的通信会造成socket错误，而且频繁的socket 创建也是对资源的浪费。</p>
+<p>而像WEB网站的http服务一般都用短链接，因为长连接对于服务端来说会耗费一定的资源，而像WEB网站这么频繁的成千上万甚至上亿客户端的连接用短连接会更省一些资源，如果用长连接，而且同时有成千上万的用户，如果每个用户都占用一个连接的话，那可想而知吧。所以并发量大，但每个用户无需频繁操作情况下需用短连好。</p>
+<p><strong>1、 一个复杂的具备很多HTTP资源的网页会建立多少TCP连接，如何使用这些连接？</strong></p>
+<p><strong>2、 已经建立的TCP连接是否会自动断开，时间是多久？</strong></p>
+<p>对于第一个问题。现在浏览器都有最大并发连接数限制，应该说如果需要，就会尽量在允许范围内建立更多的TCP持久连接来处理HTTP请求，同样滴，一个TCP持久连接可以不断传输多个HTTP请求，但是如果上一个请求的响应还未收到，则不能处理下一个请求(Pipeling管道技术可以解决这个问题从而进一步提升性能)，所以说很多浏览器其实都可以修改允许最大并发连接数以提升浏览网页的速度。</p>
+<p>对于第二个问题。问题在于服务器端对于长连接的实现，特别是在对长连接的维护上。FTP协议及SMTP协议中有NOOP消息，这个就可以认为是心跳报文，但HTTP协议没有类似的消息，这样服务器端只能使用超时断开的策略来维护连接。设想超时时间非常短，那么有效空闲时间就非常短，换句话讲：一旦链路上没有数据发送，服务器端很快就关闭连接。</p>
+<p>也就是说其实HTTP的长连接很容易在空闲后自动断开，一般来说这个时间是300s左右。 </p>
+<h5 id="长连接如何保持"><a href="#长连接如何保持" class="headerlink" title="长连接如何保持"></a>长连接如何保持</h5><p>方法1：应用层自己实现的心跳包<br>由应用程序自己发送心跳包来检测连接是否正常，大致的方法是：服务器在一个 Timer事件中定时向客户端发送一个短小精悍的数据包，然后启动一个低级别的线程，在该线程中不断检测客户端的回应， 如果在一定时间内没有收到客户端的回应，即认为客户端已经掉线；同样，如果客户端在一定时间内没有收到服务器的心跳包，则认为连接不可用。</p>
+<p>方法2：TCP的KeepAlive保活机制<br>因为要考虑到一个服务器通常会连接多个客户端，因此由用户在应用层自己实现心跳包，代码较多 且稍显复杂，而利用TCP／IP协议层为内置的KeepAlive功能来实现心跳功能则简单得多。 不论是服务端还是客户端，一方开启KeepAlive功能后，就会自动在规定时间内向对方发送心跳包， 而另一方在收到心跳包后就会自动回复，以告诉对方我仍然在线。 因为开启KeepAlive功能需要消耗额外的宽带和流量，所以TCP协议层默认并不开启KeepAlive功 能，尽管这微不足道，但在按流量计费的环境下增加了费用，另一方面，KeepAlive设置不合理时可能会 因为短暂的网络波动而断开健康的TCP连接。并且，默认的KeepAlive超时需要7,200，000 MilliSeconds， 即2小时，探测次数为5次。对于很多服务端应用程序来说，2小时的空闲时间太长。因此，我们需要手工开启KeepAlive功能并设置合理的KeepAlive参数。</p>
+<h5 id="HTTP1-1-和-HTTP-2-0的主要区别"><a href="#HTTP1-1-和-HTTP-2-0的主要区别" class="headerlink" title="HTTP1.1 和 HTTP 2.0的主要区别"></a>HTTP1.1 和 HTTP 2.0的主要区别</h5><p><strong>新的二进制格式</strong>（Binary Format）</p>
+<p>HTTP1.x的解析是基于文本。基于文本协议的格式解析存在天然缺陷，文本的表现形式有多样性，要做到健壮性考虑的场景必然很多，二进制则不同，只认0和1的组合，二进制协议解析起来更高效、“线上”更紧凑，更重要的是错误更少。基于这种考虑HTTP2.0的协议解析决定采用二进制格式，实现方便且健壮。</p>
+<p><strong>多路复用</strong></p>
+<p>HTTP2.0 是完全多路复用的，而非有序并阻塞的——只需一个连接即可实现并行，即连接共享，即每一个request都是用作连接共享机制的。一个request对应一个id，这样一个连接上可以有多个request，每个连接的request可以随机的混杂在一起，接收方可以根据request的 id将request再归属到各自不同的服务端请求里面。</p>
+<p>HTTP2.0使用了多路复用的技术，做到同一个连接并发处理多个请求，而且并发请求的数量比HTTP1.1大了好几个数量级。当然HTTP1.1也可以多建立几个TCP连接，来支持处理更多并发的请求，但是创建TCP连接本身也是有开销的。TCP连接有一个预热和保护的过程，先检查数据是否传送成功，一旦成功过，则慢慢加大传输速度。因此对应瞬时并发的连接，服务器的响应就会变慢。所以最好能使用一个建立好的连接，并且这个连接可以支持瞬时并发的请求。</p>
+<p><strong>数据压缩</strong></p>
+<p>HTTP1.1不支持header数据的压缩，HTTP2.0使用HPACK算法对header的数据进行压缩，这样数据体积小了，在网络上传输就会更快。HTTP1.x的header带有大量信息，而且每次都要重复发送，HTTP2.0使用encoder来减少需要传输的header大小，通讯双方各自cache一份header fields表，既避免了重复header的传输，又减小了需要传输的大小。</p>
+<p><strong>服务器推送</strong></p>
+<p>服务器可以将响应主动“推送”到客户端缓存中。</p>
+<p>意思是说，当我们对支持HTTP2.0的web server请求数据的时候，服务器会顺便把一些客户端需要的资源一起推送到客户端，免得客户端再次创建连接发送请求到服务器端获取。这种方式非常合适加载静态资源。</p>
+<p>服务器端推送的这些资源其实存在客户端的某处地方，客户端直接从本地加载这些资源就可以了，不用走网络，速度自然是快很多的。</p>
+<h5 id="为什么-HTTP-2-需要多路传输"><a href="#为什么-HTTP-2-需要多路传输" class="headerlink" title="为什么 HTTP/2 需要多路传输?"></a>为什么 HTTP/2 需要多路传输?</h5><p>HTTP/1.x 有个问题叫线端阻塞(head-of-line blocking), 它是指一个连接(connection)一次只提交一个请求的效率比较高, 多了就会变慢。 HTTP/1.1 试过用流水线(pipelining)来解决这个问题, 但是效果并不理想(数据量较大或者速度较慢的响应, 会阻碍排在他后面的请求). 此外, 由于网络媒介(intermediary )和服务器不能很好的支持流水线, 导致部署起来困难重重。而多路传输(Multiplexing)能很好的解决这些问题, 因为它能同时处理多个消息的请求和响应; 甚至可以在传输过程中将一个消息跟另外一个掺杂在一起。所以客户端只需要一个连接就能加载一个页面。</p>
+<h5 id="消息头为什么需要压缩"><a href="#消息头为什么需要压缩" class="headerlink" title="消息头为什么需要压缩?"></a>消息头为什么需要压缩?</h5><p>假定一个页面有80个资源需要加载（这个数量对于今天的Web而言还是挺保守的）, 而每一次请求都有1400字节的消息头（着同样也并不少见，因为Cookie和引用等东西的存在）, 至少要7到8个来回去“在线”获得这些消息头。这还不包括响应时间——那只是从客户端那里获取到它们所花的时间而已。这全都由于TCP的慢启动机制，它会基于对已知有多少个包，来确定还要来回去获取哪些包 – 这很明显的限制了最初的几个来回可以发送的数据包的数量。相比之下，即使是头部轻微的压缩也可以是让那些请求只需一个来回就能搞定——有时候甚至一个包就可以了。这种开销是可以被节省下来的，特别是当你考虑移动客户端应用的时候，即使是良好条件下，一般也会看到几百毫秒的来回延迟。</p>
+<h5 id="服务器推送的好处是什么？"><a href="#服务器推送的好处是什么？" class="headerlink" title="服务器推送的好处是什么？"></a>服务器推送的好处是什么？</h5><p>当浏览器请求一个网页时，服务器将会发回HTML，在服务器开始发送JavaScript、图片和CSS前，服务器需要等待浏览器解析HTML和发送所有内嵌资源的请求。服务器推送服务通过“推送”那些它认为客户端将会需要的内容到客户端的缓存中，以此来避免往返的延迟。</p>
+<h5 id="TCP连接-HTTP连接-Socket连接的区别"><a href="#TCP连接-HTTP连接-Socket连接的区别" class="headerlink" title="TCP连接  HTTP连接 Socket连接的区别"></a><a href="https://blog.csdn.net/mccand1234/article/details/91346202" target="_blank" rel="noopener">TCP连接  HTTP连接 Socket连接的区别</a></h5><h5 id="TIME-WAIT端口重用"><a href="#TIME-WAIT端口重用" class="headerlink" title="TIME_WAIT端口重用"></a>TIME_WAIT端口重用</h5><p>tcp_tw_reuse 和 SO_REUSEADDR 选项，是两个完全不同的东西。tcp_tw_reuse 是内核选项，而 SO_REUSEADDR 用户态的选项，使用 SO_REUSEADDR 是告诉内核，如果端口忙，但 TCP 状态位于 TIME_WAIT，可以重用端口。如果端口忙，而 TCP 状态位于其他状态，重用端口时依旧得到一个错误信息，指明 Address already in use”。如果你的服务程序停止后想立即重启，而新套接字依旧使用同一端口，此时 SO_REUSEADDR 选项非常有用。</p>
+<h3 id="三、OSI-和TCP-IP"><a href="#三、OSI-和TCP-IP" class="headerlink" title="三、OSI 和TCP/IP"></a>三、OSI 和TCP/IP</h3><p><a href="https://zhuanlan.zhihu.com/p/199284611?utm_source=wechat_session&utm_medium=social&utm_oi=1126107633157103616" target="_blank" rel="noopener">彻底搞懂TCP协议</a></p>
+<p>数据链路层和传输层都有差错控制和流量控制，但数据链路层的流量控制仅通过简单滑动窗口和简单的差错控制算法。</p>
+<h4 id="TCP拥塞控制：慢启动-拥塞避免-重传机制-快恢复"><a href="#TCP拥塞控制：慢启动-拥塞避免-重传机制-快恢复" class="headerlink" title="TCP拥塞控制：慢启动 拥塞避免 重传机制 快恢复"></a>TCP拥塞控制：慢启动 拥塞避免 重传机制 快恢复</h4><p>TCP 的拥塞控制主要原理依赖于一个拥塞窗口(cwnd)来控制，根据前面的讨论，我们知道有一个接收端通告的接收窗口(rwnd)用于流量控制；加上拥塞控制后，发送端真正的发送窗口=min(rwnd,cwnd)。关于 cwnd 的单位，在 TCP 中是以字节来做单位的，我们假设 TCP 每次传输都是按照 MSS 大小来发送数据，因此你可以认为 cwnd 按照数据包个数来做单位也可以理解，下面如果没有特别说明是字节，那么 cwnd 增加 1 也就是相当于字节数增加 1 个 MSS 大小。</p>
+<h5 id="慢启动"><a href="#慢启动" class="headerlink" title="慢启动"></a>慢启动</h5><p>cwnd=cwnd*2</p>
+<h5 id="拥塞避免"><a href="#拥塞避免" class="headerlink" title="拥塞避免"></a>拥塞避免</h5><p>cwnd++</p>
+<p>为了防止拥塞窗口cwnd增加过快而导致网络拥塞，所以需要设置一个慢开始门限ssthresh状态变量：</p>
+<p>​          1.  当cwnd &lt; ssthresh,使用慢启动算法，</p>
+<p>​          2.  当cwnd &gt; ssthresh,使用拥塞避免算法，停用慢启动算法。</p>
+<p>​          3.  当cwnd = ssthresh，这两个算法都可以。</p>
+<h5 id="重传机制"><a href="#重传机制" class="headerlink" title="重传机制"></a>重传机制</h5><h6 id="超时重传"><a href="#超时重传" class="headerlink" title="超时重传"></a>超时重传</h6><p>拥塞发生算法：</p>
+<ul>
+<li><code>ssthresh</code> = <code>cwnd/2</code>，</li>
+<li><code>cwnd</code> 重置为 <code>1</code>，慢启动</li>
+</ul>
+<h6 id="快重传"><a href="#快重传" class="headerlink" title="快重传"></a>快重传</h6><p>快重传算法规定，如果发送方一连收到 3 个重复的确认，就应当立即传送对方未收到的报文 M3，而不必等待 M3 的重传计时器到期。</p>
+<p>进入快恢复状态：</p>
+<ul>
+<li><p><code>ssthresh = cwnd</code>/2</p>
+</li>
+<li><p><code>cwnd = ssthresh+ACK个数*MSS</code> (一般收到三个dup ACK)</p>
+</li>
+<li><p>拥塞避免算法</p>
+</li>
+</ul>
+<h5 id="快恢复"><a href="#快恢复" class="headerlink" title="快恢复"></a>快恢复</h5><p>注意：MSS就是TCP数据包每次能够传输的最大数据分段。以太网的MTU是1500，减去IP数据包包头的大小20Bytes和TCP数据段的包头20Bytes，所以往往MSS为1460。</p>
+<hr>
+<p>首先来看TCP是如何确定网络进入了拥塞状态的，TCP认为网络拥塞的主要依据是它重传了一个报文段。上面提到过，TCP对每一个报文段都有一个定时器，称为重传定时器(RTO)，当RTO超时且还没有得到数据确认，那么TCP就会对该报文段进行重传，当发生超时时，那么出现拥塞的可能性就很大，某个报文段可能在网络中某处丢失，并且后续的报文段也没有了消息，在这种情况下，TCP反应比较“强烈”：<br>1.把ssthresh降低为cwnd值的一半<br>2.把cwnd重新设置为1<br>3.重新进入慢启动过程。<br>从整体上来讲，TCP拥塞控制窗口变化的原则是AIMD原则，即加法增大、乘法减小。可以看出TCP的该原则可以较好地保证流之间的公平性，因为一旦出现丢包，那么立即减半退避，可以给其他新建的流留有足够的空间，从而保证整个的公平性。</p>
+<p>其实TCP还有一种情况会进行重传：那就是收到3个相同的ACK。TCP在收到乱序到达包时就会立即发送ACK，TCP利用3个相同的ACK来判定数据包的丢失，此时进行快速重传，快速重传做的事情有：<br>1.把ssthresh设置为cwnd的一半<br>2.把cwnd再设置为ssthresh的值(具体实现有些为ssthresh+3)<br>3.重新进入拥塞避免阶段。</p>
+<p>后来的“快速恢复”算法是在上述的“快速重传”算法后添加的，当收到3个重复ACK时，TCP最后进入的不是拥塞避免阶段，而是快速恢复阶段。快速重传和快速恢复算法一般同时使用。快速恢复的思想是“数据包守恒”原则，即同一个时刻在网络中的数据包数量是恒定的，只有当“老”数据包离开了网络后，才能向网络中发送一个“新”的数据包，如果发送方收到一个重复的ACK，那么根据TCP的ACK机制就表明有一个数据包离开了网络，于是cwnd加1。如果能够严格按照该原则那么网络中很少会发生拥塞，事实上拥塞控制的目的也就在修正违反该原则的地方。</p>
+<p>具体来说快速恢复的主要步骤是：<br>1.当收到3个重复ACK时，把ssthresh设置为cwnd的一半，把cwnd设置为ssthresh的值加3，然后重传丢失的报文段，加3的原因是因为收到3个重复的ACK，表明有3个“老”的数据包离开了网络。<br>2.再收到重复的ACK时，拥塞窗口增加1。<br>3.当收到新的数据包的ACK时，把cwnd设置为第一步中的ssthresh的值。原因是因为该ACK确认了新的数据，说明从重复ACK时的数据都已收到，该恢复过程已经结束，可以回到恢复之前的状态了，也即再次进入拥塞避免状态。</p>
+<p>快速重传算法首次出现在4.3BSD的Tahoe版本，快速恢复首次出现在4.3BSD的Reno版本，也称之为Reno版的TCP拥塞控制算法。<br>可以看出Reno的快速重传算法是针对一个包的重传情况的，然而在实际中，一个重传超时可能导致许多的数据包的重传，因此当多个数据包从一个数据窗口中丢失时并且触发快速重传和快速恢复算法时，问题就产生了。因此NewReno出现了，它在Reno快速恢复的基础上稍加了修改，可以恢复一个窗口内多个包丢失的情况。具体来讲就是：Reno在收到一个新的数据的ACK时就退出了快速恢复状态了，而NewReno需要收到该窗口内所有数据包的确认后才会退出快速恢复状态，从而更一步提高吞吐量。</p>
+<p>SACK就是改变TCP的确认机制，最初的TCP只确认当前已连续收到的数据，SACK则把乱序等信息会全部告诉对方，从而减少数据发送方重传的盲目性。比如说序号1，2，3，5，7的数据收到了，那么普通的ACK只会确认序列号4，而SACK会把当前的5，7已经收到的信息在SACK选项里面告知对端，从而提高性能，当使用SACK的时候，NewReno算法可以不使用，因为SACK本身携带的信息就可以使得发送方有足够的信息来知道需要重传哪些包，而不需要重传哪些包。</p>
+<h5 id="TFO-PRR-拥塞避免"><a href="#TFO-PRR-拥塞避免" class="headerlink" title="TFO PRR 拥塞避免"></a><a href="https://www.zhuxiaodong.net/2018/tcp-performance-optimize-instruction/" target="_blank" rel="noopener">TFO PRR 拥塞避免</a></h5><h5 id="AIMD倍减加增"><a href="#AIMD倍减加增" class="headerlink" title="AIMD倍减加增"></a><a href="https://baike.baidu.com/item/AIMD/10641459" target="_blank" rel="noopener">AIMD倍减加增</a></h5><h5 id="拥塞窗口"><a href="#拥塞窗口" class="headerlink" title="拥塞窗口"></a><a href="https://mp.weixin.qq.com/s/xe3dEu17mGTqM46LRFxzhg" target="_blank" rel="noopener">拥塞窗口</a></h5><h3 id="四、TCP和UDP"><a href="#四、TCP和UDP" class="headerlink" title="四、TCP和UDP"></a>四、TCP和UDP</h3><p><img src="/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/OSI%E5%8D%8F%E8%AE%AE.png" alt="OSI"></p>
+<h5 id="TCP和UDP的区别"><a href="#TCP和UDP的区别" class="headerlink" title="TCP和UDP的区别"></a>TCP和UDP的区别</h5><ul>
+<li>TCP 面向连接，建立连接进行三次握手，一对一传输；UDP 面向无连接，不会建立连接，一对一、一对多、多对一传输，可以应用于广播</li>
+<li>UDP程序结构较简单，包头8字节；TCP包头20字节，还有一个可选项长度不确定</li>
+<li>TCP 是面向字节流的，UDP 是基于数据报的</li>
+<li>TCP 保证数据正确性，有流量控制、拥塞控制、累计确认和超时重传机制；UDP 可能丢包（丢包在网络层），没有流量控制和拥塞控制</li>
+<li>TCP 保证数据顺序，UDP 不保证</li>
+</ul>
+<p>(TCP和UDP都是全双工)</p>
+<h5 id="使用UDP实现TCP"><a href="#使用UDP实现TCP" class="headerlink" title="使用UDP实现TCP"></a>使用UDP实现TCP</h5><ol>
+<li>添加seq/ack机制，确保数据发送到对端</li>
+<li>添加发送和接收缓冲区，主要是用户超时重传</li>
+<li>添加超时重传机制<br>详细说明：发送端发送数据时，生成一个随机seq=x，然后每一片按照数据大小分配seq。数据到达接收端后接收端放入缓存，并发送一个ack=x的包，表示对方已经收到了数据。发送端收到了ack包后，删除缓冲区对应的数据。时间到后，定时任务检查是否需要重传数据。</li>
+</ol>
+<h5 id="优化TCP"><a href="#优化TCP" class="headerlink" title="优化TCP"></a>优化TCP</h5><h5 id="TCP粘包拆包"><a href="#TCP粘包拆包" class="headerlink" title="TCP粘包拆包"></a>TCP粘包拆包</h5><h5 id="建立TCP连接需要什么资源"><a href="#建立TCP连接需要什么资源" class="headerlink" title="建立TCP连接需要什么资源"></a>建立TCP连接需要什么资源</h5><p>CPU 、内存、带宽、IP、端口、socket文件描述符fd</p>
+<h5 id="三次握手四次挥手"><a href="#三次握手四次挥手" class="headerlink" title="三次握手四次挥手"></a><a href="https://www.cnblogs.com/zmlctt/p/3690998.html" target="_blank" rel="noopener">三次握手四次挥手</a></h5><p><img src="/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/34.png" alt="34"></p>
+<p>注意：<br>backlog+1==已连接队列长度<br>从已准备好的连接队列中获取一个请求，如果队列为空，accept函数将阻塞等待。在listen到一个连接时将socket放到半连接队列，处于半连接状态（listen-&gt;SYN-RCVD(当backlog+1&lt;建立的连接数时多出来的那些连接就处于SYN-RCVD状态，此时accept阻塞) -&gt; ESTABLISHED-&gt;accept返回）。<br>accept()函数功能是，从处于 established 状态的连接队列头部取出一个已经完成的连接，如果这个队列没有已经完成的连接，accept()函数就会阻塞，直到取出队列中已完成的用户连接为止。</p>
+<h6 id="为什么A还要发送一次确认呢？可以二次握手吗？"><a href="#为什么A还要发送一次确认呢？可以二次握手吗？" class="headerlink" title="为什么A还要发送一次确认呢？可以二次握手吗？"></a>为什么A还要发送一次确认呢？可以二次握手吗？</h6><p>　　答：主要为了防止已失效的连接请求报文段突然又传送到了B，因而产生错误。如A发出连接请求，但因连接请求报文丢失而未收到确认，于是A再重传一次连接请求。后来收到了确认，建立了连接。数据传输完毕后，就释放了连接，A工发出了两个连接请求报文段，其中第一个丢失，第二个到达了B，但是第一个丢失的报文段只是在某些网络结点长时间滞留了，延误到连接释放以后的某个时间才到达B，此时B误认为A又发出一次新的连接请求，于是就向A发出确认报文段，同意建立连接，不采用三次握手，只要B发出确认，就建立新的连接了，此时A不理睬B的确认且不发送数据，则B一致等待A发送数据，浪费资源。</p>
+<h5 id="Server端易受到SYN攻击？"><a href="#Server端易受到SYN攻击？" class="headerlink" title="Server端易受到SYN攻击？"></a>Server端易受到SYN攻击？</h5><p>服务器端的资源分配是在二次握手时分配的，而客户端的资源是在完成三次握手时分配的，所以服务器容易受到SYN洪泛攻击，SYN攻击就是Client在短时间内伪造大量不存在的IP地址，并向Server不断地发送SYN包，Server则回复确认包，并等待Client确认，由于源地址不存在，因此Server需要不断重发直至超时，这些伪造的SYN包将长时间占用未连接队列，导致正常的SYN请求因为队列满而被丢弃，从而引起网络拥塞甚至系统瘫痪。</p>
+<p>防范SYN攻击措施：降低主机的等待时间使主机尽快的释放半连接的占用，短时间受到某IP的重复SYN则丢弃后续请求。</p>
+<h5 id="为什么在TIME-WAIT状态必须等待2MSL的时间？"><a href="#为什么在TIME-WAIT状态必须等待2MSL的时间？" class="headerlink" title="为什么在TIME-WAIT状态必须等待2MSL的时间？"></a>为什么在TIME-WAIT状态必须等待2MSL的时间？</h5><p>MSL最长报文段存活时间Maximum Segment Lifetime，MSL=2</p>
+<p><img src="/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/msl.jpg" alt="TCP/IP详解"></p>
+<p>答：两个理由：<br>1）保证A发送的最后一个ACK报文段能够到达B，可靠的实现TCP全双工连接终止。<br>2）防止“已失效的连接请求报文段”出现在下一个相同IP地址和端口之间的连接中。</p>
+<p>1）这个ACK报文段有可能丢失，使得处于LAST-ACK状态的B收不到对已发送的FIN+ACK报文段的确认，B超时重传FIN+ACK报文段，而A能在2MSL时间内收到这个重传的FIN+ACK报文段，接着A重传一次确认，重新启动2MSL计时器，最后A和B都进入到CLOSED状态，若A在TIME-WAIT状态不等待一段时间，而是发送完ACK报文段后立即释放连接，则无法收到B重传的FIN+ACK报文段，所以不会再发送一次确认报文段，则B无法正常进入到CLOSED状态。<br>2）A在发送完最后一个ACK报文段后，再经过2MSL，就可以使本连接持续的时间内所产生的所有报文段都从网络中消失，使下一个新的连接中不会出现这种旧的连接请求报文段。</p>
+<p><strong>TTL：生存时间</strong><br>　　指定数据包被路由器丢弃之前允许通过的网段数量。<br>　　TTL 是由发送主机设置的，以防止数据包不断在 IP 互联网络上永不终止地循环。转发 IP 数据包时，要求路由器至少将 TTL 减小 1。</p>
+<p>TTL=128是表示二个意思:</p>
+<p>1,请求主机是一台WINDOWS系统的电脑</p>
+<p>2,并且没有经过路由中转，也就是请求的是本机。</p>
+<h5 id="TCP三次握手能携带数据吗"><a href="#TCP三次握手能携带数据吗" class="headerlink" title="TCP三次握手能携带数据吗"></a><a href="https://blog.csdn.net/weixin_34198797/article/details/90687285" target="_blank" rel="noopener">TCP三次握手能携带数据吗</a></h5><h5 id="TCP三次握手有哪些漏洞？"><a href="#TCP三次握手有哪些漏洞？" class="headerlink" title="TCP三次握手有哪些漏洞？"></a><a href="https://www.cnblogs.com/HuiH/p/12599048.html" target="_blank" rel="noopener">TCP三次握手有哪些漏洞？</a></h5><p><strong>SYN Flood 攻击</strong></p>
+<p>　SYN Flood 是 <strong>DDoS 攻击</strong>的方式之一，这是一种利用TCP协议缺陷，发送大量伪造的TCP连接请求，从而使得被攻击方资源耗尽（CPU满负荷或内存不足）的攻击方式。</p>
+<p>　要明白这种攻击的基本原理，还是要从TCP连接建立的过程开始说起：</p>
+<p>　　首先，请求端（客户端）发送一个包含SYN标志的TCP报文，SYN即同步（Synchronize），同步报文会指明客户端使用的端口以及TCP连接的初始序号。</p>
+<p>　　第二部，服务器在收到客户端的SYN报文后，将返回一个SYN+ACK的报文，表示客户端的请求被接受，同时TCP序号被加一，ACK即确认（Acknowledgment）。</p>
+<p>　　第三部，客户端也返回一个确认报文ACK给服务器端，同样TCP序列号被加一，到此一个TCP连接完成。</p>
+<p>　以上的连接过程在TCP协议中称为三次握手。</p>
+<p>　问题就出在TCP连接的三次握手中，假设一个用户向服务器发送了SYN报文后突然死机或掉线，那么服务器在发出SYN+ACK应答报文后是无法收到客户端的ACK报文的（第三次握手无法完成），这种情况下服务器端一般会不停地重试（再次发送SYN+ACK给客户端）并等待一段时间后丢弃这个未完成的连接，这段时间的长度我们称为SYN Timeout（大约为30秒-2分钟），默认情况下重试5次 syn_retries，这样的话，对于服务器内存和带宽有很大的消耗。；一个用户出现异常导致服务器的一个线程等待1分钟并不是什么很大的问题，但如果有一个恶意的攻击者发送大量伪造原IP地址的攻击报文。发送到服务端，服务器将为了维护一个非常大的半连接队列而消耗非常多的CPU时间和内存。服务器端也将忙于处理攻击者伪造的TCP连接请求而无暇理睬客户的正常需求（毕竟客户端的正常请求比率非常之小），此时从正常客户的角度看来，服务器失去响应，这种情况我们称作：服务器端受到了SYN Flood攻击（SYN 洪水攻击）。</p>
+<p>　　<strong>原理：</strong>攻击者首先伪造地址对服务器发起SYN请求，服务器回应（SYN+ACK）包，而真实的IP会认为，我没有发送请求，不作回应。服务器没有收到回应，这样的话，服务器不知道（SYN+ACK）是否发送成功，默认情况下会重试5次（tcp_syn_retries）。这样的话，对于服务器的内存，带宽都有很大的消耗。攻击者如果处于公网，可以伪造IP的话，对于服务器就很难根据IP来判断攻击者，给防护带来很大的困难。</p>
+<p><strong>解决方法：</strong></p>
+<p>　　<strong>第一种是缩短SYN Timeout时间；</strong></p>
+<p>　　由于SYN Flood 攻击的效果取决于服务器上保持的SYN半连接数，这个值=SYN攻击的频度 x SYN Timeout ，所以通过缩短从接收到SYN报文到确定这个报文无效并丢弃该连接的时间，例如设置为20秒以下（过低的SYN Timeout 设置可能会影响客户的正常访问），可以成倍地降低服务器的负荷。</p>
+<p>　　<strong>第二种方法是设置 SYN Cookie；</strong></p>
+<p>　　就是给每一个请求连接的IP地址分配一个Cookie，如果短时间内连续受到某个IP的重复SYN报文，就认定是受到了攻击。以后从这个IP地址来的包会被丢弃。</p>
+<p>　　可是上述的两种方法只能对付比较原始的SYN Flood攻击，缩短SYN Timeout时间仅在对方攻击频度不高的情况下生效，SYN Cookie更依赖于对方使用真实的IP地址，如果攻击者以数万/秒的速度发送SYN报文，同时利用随机改写IP报文中的源地址，以上的方法将毫无用武之地。例如SOCK_RAW 返回的套接字通过适当的设置可以自己完全控制IP头的内容从而实现IP欺骗。</p>
+<p>　　<strong>第三种方法是Syn Cache技术；</strong></p>
+<p>　　这种技术在收到SYN时不急着去分配系统资源，而是先回应一个ACK报文，并在一个专用的HASH表中（Cache）中保存这种半开连接，直到收到正确的ACK报文再去分配系统。</p>
+<p>　　<strong>第四种方法是使用硬件防火墙；</strong></p>
+<p>　　SYN Flood攻击很容易就能被防火墙拦截。</p>
+<p><strong>扩展：DDOS攻击的原理，如何防止DDOS攻击？</strong></p>
+<p>DDOS是英文Distributed Denial of Service 的缩写，意即“<strong>分布式拒绝服务</strong>”。</p>
+<p>当下主要有2种流行的DDOS攻击：</p>
+<p>　　<strong>1、SYN Flood攻击：这种攻击方法是经典最有效的DDOS方法。</strong></p>
+<p>　　<strong>2、TCP全连接攻击</strong></p>
+<p>　　这种攻击是为了绕过常规防火墙的检查而设计的，一般情况下，常规防火墙大多具备过滤Land等DOS攻击的能力，但对于正常的TCP连接时放过的，很多网络服务程序（如：IIS、Apache等Web服务器）能接受的TCP连接数是有限的，一旦有大量的TCP连接，则会导致网站访问非常缓慢甚至无法访问。</p>
+<p>　　TCP全连接攻击就是通过许多僵尸主机不断地与受害服务器建立大量的TCP连接，直到服务器的内存等资源被耗尽而被拖垮，从而造成拒绝服务。</p>
+<p>　　这种攻击的特点是可绕过一般防火墙的防护而达到攻击目的。</p>
+<p>　　缺点是需要找很多僵尸主机，并且由于僵尸主机的IP是暴露的，因此容易被追踪。</p>
+<p><strong>如何防止呢？</strong></p>
+<p>　　1、<strong>限制SYN流量</strong></p>
+<p>　　用户在路由器上配置SYN的最大流量来限制SYN封包所能占有的最高频宽，这样，当出现大量的超过所限定的SYN流量时，说明不是正常的网络访问，而是有黑客入侵。</p>
+<p>　　2、<strong>定期扫描</strong></p>
+<p>　　定期扫描现有的网络主节点，清查可能存在的安全漏洞，对新出现的漏洞及时进行清理。</p>
+<p>　　3、<strong>在骨干节点配置防火墙</strong></p>
+<p>　　防火墙本身能抵御DDOS攻击和其他一些攻击。在发现受到攻击的时候，可以将攻击导向一些牺牲主机，这样可以保护真正的主机不被攻击。当然导向的这些牺牲主机可以选择不重要的，或者是Linux以及unix等漏洞少和天生防范攻击优秀的系统。</p>
+<p>　　4、<strong>用足够的机器承受黑客攻击</strong></p>
+<p>　　这是一种较为理想的应对策略。如果用户拥有足够的容量和足够的资源给黑客攻击，在它不断访问用户、夺取用户资源之时，自己的能量也在逐渐耗失，或许未等用户被攻死，黑客已无力支招了。不过此方法需要投入的资金比较多，平时大多数设备处于空闲状态，和目前中小企业网络实际运行情况不相符。</p>
+<p>　　5、<strong>过滤不必要的服务和端口</strong></p>
+<p>　　可以使用Inexpress、Express、Forwarding等工具来过滤不必要的服务和端口，即在路由器上过滤假IP。</p>
+<p><strong>Land攻击</strong></p>
+<p>　　LAND攻击利用了TCP连接建立的三次握手过程，通过向一个目标主机发送一个用于建立请求连接的TCP SYN报文而实现对目标主机的攻击。<strong>与正常的TCP SYN报文不同的是：LAND攻击报文的源IP地址和目的IP地址是相同的，都是目标主机的IP地址</strong>。这样目标主机接在收到这个SYN报文后，就会向该报文的源地址发送一个ACK报文，并建立一个TCP连接控制结构，而该报文的源地址就是自己。由于目的IP地址和源IP地址是相同的，都是目标主机的IP地址，因此这个ACK报文就发给目标主机本身。这样如果攻击者发送了足够多的SYN报文，则目标计算机的TCB可能会耗尽，最终不能正常服务。</p>
+<p><strong>TCP存在的缺陷有哪些？</strong></p>
+<p>　　1、TCP三次握手可能会出现SYN Flood攻击。</p>
+<p>　　2、TCP三次握手可能会出现Land攻击。</p>
+<p>　　3、Connection Flood攻击。</p>
+<p>　　<strong>原理</strong>是利用真实的IP地址向服务器发起大量的连接，并且建立连接之后很长时间不释放并定时发送垃圾数据包给服务器使连接得以长时间保持，占用服务器的资源，造成服务器上残余连接（WAI-time状态）过多，效率降低，甚至资源耗尽，无法响应其他客户所发起的连接。</p>
+<p>　　<strong>防范</strong>该攻击主要有如下方法：</p>
+<p>　　　　1、限制每个源IP的连接数</p>
+<p>　　　　2、对恶意连接的IP进行封禁</p>
+<p>　　　　3、主动清除残余连接TCP三次握手的缺陷</p>
+<ol start="2">
+<li>HTTPS的不安全性：2011年认证机构被黑了，伪造认证书，伪装成服务器</li>
+</ol>
+<h5 id="为什么连接的时候是三次握手，关闭的时候却是四次握手？"><a href="#为什么连接的时候是三次握手，关闭的时候却是四次握手？" class="headerlink" title="为什么连接的时候是三次握手，关闭的时候却是四次握手？"></a>为什么连接的时候是三次握手，关闭的时候却是四次握手？</h5><p>答：TCP全双工通信。因为当Server端收到Client端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当Server端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉Client端，”你发的FIN报文我收到了”。只有等到我Server端所有的报文都发送完了，我才能发送FIN报文，因此不能一起发送。故需要四步握手。</p>
+<h3 id="五、图解HTTP要点记录"><a href="#五、图解HTTP要点记录" class="headerlink" title="五、图解HTTP要点记录"></a>五、图解HTTP要点记录</h3><ol>
+<li>FTP（File Transfer Protocol，文件传输协议）和DNS（Domain Name System，域名系统）服务都是应用层服务。</li>
+<li>ARP 是一种用以解析地址的协议，在网络层根据通信方的 IP 地址就可以反查出对应的 MAC 地址。RARP相反。</li>
+<li>浏览网页的详细过程</li>
+</ol>
+<p><img src="/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%B5%8F%E8%A7%88url1.png" alt="image"></p>
+<p><img src="/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%B5%8F%E8%A7%88url2.png" alt="image"></p>
+<ol start="4">
+<li>URI 用字符串标识某一互联网资源，而 URL 表示资源的地点（互联网上所处的位置）。可见 URL 是 URI 的子集。</li>
+</ol>
+<h5 id="http请求报文和响应报文格式"><a href="#http请求报文和响应报文格式" class="headerlink" title="http请求报文和响应报文格式"></a><a href="https://www.cnblogs.com/wxisme/p/6212797.html" target="_blank" rel="noopener">http请求报文和响应报文格式</a></h5><ul>
+<li><p><strong>客户端发送一个HTTP请求到服务器的请求消息包括请求行（request line）、请求头部（header）、空行和请求数据四个部分</strong></p>
+</li>
+<li><p><strong>HTTP响应也由四个部分组成，分别是：状态行、消息报头、空行和响应正文</strong></p>
+</li>
+<li><p>URL由4部分组成：协议、主机、端口、路径;一般语法格式为(带方括号[]的为可选项,<a href="https://baike.baidu.com/item/URL格式/10056474" target="_blank" rel="noopener">参考</a>)：</p>
+<p>protocol :// hostname[:port] / path / [;parameters] [?query] [#fragment]</p>
+<p><img src="/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/URI.png" alt="URI"></p>
+</li>
+<li><p>请求报文是由请求方法、请求 URI、协议版本、可选的请求首部字段和内容实体构成</p>
+</li>
+</ul>
+<p>请求访问某台 HTTP 服务器上的 /index.htm 页面资源：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /index.htm HTTP/<span class="number">1.1</span></span><br><span class="line">Host: hackr.jp</span><br></pre></td></tr></table></figure>
+
+<p>起始行开头的GET表示请求访问服务器的类型，称为方法（method）。随后的字符串 /index.htm 指明了请求<br>访问的资源对象，也叫做请求 URI（request-URI）。最后的 HTTP/1.1，即 HTTP 的版本号，用来提示客户端使用的 HTTP 协议功能。</p>
+<ul>
+<li>响应报文基本上由协议版本、状态码（表示请求成功或失败的数字代码）、用以解释状态码的原因短语、可选的响应首部字段以及实体主体构成</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HTTP/<span class="number">1.1</span> <span class="number">200</span> OK</span><br><span class="line"><span class="built_in">Date</span>: Tue, <span class="number">10</span> Jul <span class="number">2012</span> <span class="number">06</span>:<span class="number">50</span>:<span class="number">15</span> GMT</span><br><span class="line">Content-Length: <span class="number">362</span></span><br><span class="line">Content-Type: text/html</span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+
+<p>在起始行开头的 HTTP/1.1 表示服务器对应的 HTTP 版本。紧挨着的 200 OK 表示请求的处理结果的状态码（status code）和原因短语（reason-phrase）。下一行显示了创建响应的日期时间，是首部字段（header field）内的一个属性。接着以一空行分隔，之后的内容称为资源实体的主体（entity body）。</p>
+<p><img src="/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87URI.png" alt="指定请求URI"></p>
+<p><img src="/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/get.png" alt="get"></p>
+<p>POST 方法用来传输实体的主体。虽然用 GET 方法也可以传输实体的主体，但一般不用 GET 方法进行传输，而是用 POST 方法。虽说 POST的功能与 GET 很相似，但 POST 的主要目的并不是获取响应的主体内容。</p>
+<p><img src="/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/post.png" alt="post"></p>
+<h5 id="cookie的状态管理"><a href="#cookie的状态管理" class="headerlink" title="cookie的状态管理"></a>cookie的状态管理</h5><p>参见章节2.8 使用Cookie的状态管理</p>
+<h5 id="HTTP报文结构-内容编码-请求首部-响应首部-实体首部"><a href="#HTTP报文结构-内容编码-请求首部-响应首部-实体首部" class="headerlink" title="HTTP报文结构   内容编码   请求首部  响应首部   实体首部"></a>HTTP报文结构   内容编码   请求首部  响应首部   实体首部</h5><p>参见章节3 HTTP报文内的HTTP信息  章节6 HTTP报文首部</p>
+<h5 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h5><p>参见章节4 返回结果的HTTP状态码</p>
+<h5 id="http状态码分类"><a href="#http状态码分类" class="headerlink" title="http状态码分类"></a>http状态码分类</h5><table>
+<thead>
+<tr>
+<th>分类</th>
+<th>分类描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1**</td>
+<td>信息，服务器收到请求，需要请求者继续执行操作</td>
+</tr>
+<tr>
+<td>2**</td>
+<td>成功，操作被成功接收并处理</td>
+</tr>
+<tr>
+<td>3**</td>
+<td>重定向，需要进一步的操作以完成请求</td>
+</tr>
+<tr>
+<td>4**</td>
+<td>客户端错误，请求包含语法错误或无法完成请求</td>
+</tr>
+<tr>
+<td>5**</td>
+<td>服务端错误，服务器在处理请求的过程中发生了错误</td>
+</tr>
+</tbody></table>
+<p>  200，请求成功  </p>
+<p>  301，资源（网页等）被永久转移到其它URL  </p>
+<p>  302，资源临时移动  </p>
+<p>  403，forbidden，服务器理解请求客户端的请求，但是拒绝执行此请求。请求资源被拒绝，通常原因是服务器上某些文件或目录设置了权限，客户端权限不够 </p>
+<p>  404，not found，用户输入错误的链接，该链接指向的网页不存在。除此之外，也可以在服务器端拒绝请求且不想说明理由时使用。 </p>
+<p>  500，internal server error 服务器内部错误（比如浏览器代理除了问题，ip，端口不对等）该状态码表明服务器端在执行请求时发生了错误。也有可能是Web应用存在的bug或某些临时的故障。 </p>
+<p>  502，Bad Gateway，作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应  </p>
+<p>  503，服务器超载或停机维护  </p>
+<p>  504，Gateway Timeout网关超时服务器作为网关或代理，未及时从上游服务器接收请求</p>
+<h5 id="代理、网关、代理、隧道"><a href="#代理、网关、代理、隧道" class="headerlink" title="代理、网关、代理、隧道"></a>代理、网关、代理、隧道</h5><p>参见章节5 与HTTP协作的Web服务器</p>
+<h5 id="HTTP-加密-认证-完整性保护-HTTPS"><a href="#HTTP-加密-认证-完整性保护-HTTPS" class="headerlink" title="HTTP+加密+认证+完整性保护=HTTPS"></a>HTTP+加密+认证+完整性保护=HTTPS</h5><p>参见章节7 确保Web安全得HTTPS</p>
+<h6 id="https的通信步骤"><a href="#https的通信步骤" class="headerlink" title="https的通信步骤"></a>https的通信步骤</h6><p><img src="%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/https.png" alt="https"></p>
+<p>HTTPS 通信：<br>步骤 1： 客户端通过发送 Client Hello 报文开始 SSL 通信。报文中包含客户端支持的 SSL 的指定版本、加密组件（Cipher Suite）列表（所使用的加密算法及密钥长度等）。<br>步骤 2： 服务器可进行 SSL 通信时，会以 Server Hello 报文作为应答。和客户端一样，在报文中包含 SSL版本以及加密组件。服务器的加密组件内容是从接收到的客户端加密组件内筛选出来的。<br>步骤 3： 之后服务器发送 Certificate 报文。报文中包含公开密钥证书。<br>步骤 4： 最后服务器发送 Server Hello Done 报文通知客户端，最初阶段的 SSL 握手协商部分结束。<br>步骤 5： SSL 第一次握手结束之后，客户端以 Client Key Exchange 报文作为回应。报文中包含通信加密中使用的一种被称为 Pre-master secret 的随机密码串。该报文已用步骤 3 中的公开密钥进行加密。<br>步骤 6： 接着客户端继续发送 Change Cipher Spec 报文。该报文会提示服务器，在此报文之后的通信会采用 Pre-master secret 密钥加密。<br>步骤 7： 客户端发送 Finished 报文。该报文包含连接至今全部报文的整体校验值。这次握手协商是否能够成功，要以服务器是否能够正确解密该报文作为判定标准。<br>步骤 8： 服务器同样发送 Change Cipher Spec 报文。<br>步骤 9： 服务器同样发送 Finished 报文。<br>步骤 10： 服务器和客户端的 Finished 报文交换完毕之后，SSL 连接就算建立完成。当然，通信会受到 SSL的保护。从此处开始进行应用层协议的通信，即发送 HTTP 请求。<br>步骤 11： 应用层协议通信，即发送 HTTP 响应。<br>步骤 12： 最后由客户端断开连接。断开连接时，发送 close_notify 报文。上图做了一些省略，这步之后再发送 TCP FIN 报文来关闭与 TCP 的通信。</p>
+<p>在以上流程中，应用层发送数据时会附加一种叫做 MAC（Message Authentication Code）的报文摘要。MAC 能够查知报文是否遭到篡改，从而保护报文的完整性。</p>
+<h6 id="HTTP-与-HTTPS-区别"><a href="#HTTP-与-HTTPS-区别" class="headerlink" title="HTTP 与 HTTPS 区别"></a>HTTP 与 HTTPS 区别</h6><ul>
+<li>http是超文本传输协议，信息是明文传输，无连接无状态；https则是具有安全性的ssl加密超文本传输协议。</li>
+<li>使用 HTTPS 协议需要到 CA（Certificate Authority，数字证书认证机构） 根证书，一般免费证书较少，因而需要一定费用。</li>
+<li>HTTP 页面响应速度比 HTTPS 快，主要是因为 HTTP 使用 TCP 三次握手建立连接，客户端和服务器需要交换 3 个包，而 HTTPS除了 TCP 的三个包，还要加上 ssl 握手需要的 9 个包，所以一共是 12 个包。</li>
+<li>http 和 https 使用的是完全不同的连接方式，用的端口也不一样，前者是 80，后者是 443。</li>
+<li>HTTPS 其实就是建构在 SSL/TLS 之上的 HTTP 协议，所以，要比较 HTTPS 比 HTTP 要更耗费服务器资源。</li>
+</ul>
+<p><a href="https://www.jianshu.com/p/99ae4470bf60" target="_blank" rel="noopener">详细抓包以及通信流程1</a></p>
+<p><a href="https://www.freebuf.com/articles/network/116497.html" target="_blank" rel="noopener">详细抓包以及通信流程2</a></p>
+<p>客户端在使用HTTPS方式与Web服务器通信步骤概括理解，具体详参上述链接</p>
+<p>　　（1）客户使用https的URL访问Web服务器，要求与Web服务器建立SSL连接。</p>
+<p>　　（2）Web服务器收到客户端请求后，会将网站的证书信息（证书中包含公钥）传送一份给客户端（采用CA证书私钥加密）。</p>
+<p>　　（3）客户端的浏览器与Web服务器开始协商SSL连接的安全等级，也就是信息加密的等级。</p>
+<p>　　（4）客户端的浏览器根据双方同意的安全等级，建立会话密钥，然后利用网站的公钥将会话密钥加密，并传送给网站。</p>
+<p>　　（5）Web服务器利用自己的私钥解密出会话密钥。</p>
+<p>　　（6）Web服务器利用会话密钥加密与客户端之间的通信。</p>
+<p><img src="C:/Users/I538989/OneDrive/_posts/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/https.png" alt="https与web服务器通信步骤"></p>
+<h5 id="怎么理解http协议的无连接无状态"><a href="#怎么理解http协议的无连接无状态" class="headerlink" title="怎么理解http协议的无连接无状态"></a>怎么理解http协议的无连接无状态</h5><p>HTTP协议又称超文本传输协议；是OSI模型中的第七层应用程中协议；具有以下特点：<br> <strong>1、支持客户/服务器模式;<br> 2、简单快速;<br> 3、灵活;<br> 4、无连接;<br> 5、无状态；</strong></p>
+<p>注意：<strong>HTTP不是字面意义上的没有连接</strong>，事实上，这个定义也符合HTTP短连接的定义，但<strong>无连接强调的是HTTP的特性，短连接可理解为一种实现</strong>。而HTTP真正的连接，根据计算机网络体系的协议栈可知，是通过传输层的TCP协议实现的，下层向上层提供了可靠的连接，上层屏蔽了下层的具体实现，所有的操作均在可靠的连接基础之上。HTTP使用TCP的目的是为了保证数据传输的可靠性和完整性。简单来说就是：</p>
+<ul>
+<li><p>TCP的面向连接是基于网络底层的数据传输。</p>
+</li>
+<li><p>HTTP的无连接是基于应用层面的沟通交互。</p>
+<p><strong>无连接</strong>：指的是每次连接只处理一个请求，服务端处理完客户端一次请求，等到客户端作出回应之后便断开连接；这种方式有利于节省传输时间；然后随着互联网的发展，一台服务器同一时间处理的请求越来越多，如果依然采用原来的方式，将会在建立和断开连接上花费大部分时间。为了避免这一劣势，针对http无连接，人们设计了非持久连接和持久连接。实际上关于http协议非持久连接和持久连接是针对tcp协议的。</p>
+</li>
+<li><p>非持久连接：请求一个HTTP请求/响应需要的总时间为客户端发出建立连接和发生请求报文+服务器传输HTML文件的时间。</p>
+</li>
+<li><p>持久连接：服务器在发送响应后，保持该TCP连接打开。在相同的客户机与服务器之间的后续请求和响应报文通过相同的连接进行传送。不需要再次建立tcp连接 ，但是由于所有的连接都是串行的，当某一个请求阻塞时就会导致同一条连接的后续请求被阻塞。为了解决这一问题：提出了pipellining的概念；客户端发起一次请求时不必等待响应便直接发起第二个请求；服务端按照请求的顺序一次返回结果；<br><strong>SPDY和HTTP/2:multiplexing：</strong>多路复用技术出现；能够让多个请求和响应的传输完全混杂在一起进行；通过streamID来互相区别；</p>
+</li>
+</ul>
+<p> PS:HTTP借助于底层的TCP虚拟连接，HTTP协议本身无需连接；就好比A和B打电话，A和B是借助于底层的简化先连接交换信息；但是A和B本身无需连接；</p>
+<p> <strong>无状态</strong>：是指服务端对于客户端每次发送的请求都认为它是一个新的请求，上一次会话和下一次会话没有联系；HTTP 协议这种特性有优点也有缺点，优点在于解放了服务器，每一次请求“点到为止”不会造成不必要连接占用，缺点在于每次请求会传输大量重复的内容信息。言外之意是说http协议没法保存客户机信息，也就没法区分每次请求的不同之处。关于http无状态阻碍了交互式应用程序的实现。比如记录用户浏览哪些网页、判断用户是否拥有权限访问等。于是，两种用于保持HTTP状态的技术就应运而生了，一个是Cookie，而另一个则是Session。</p>
+<p>HTTPS协议，它比HTTP协议相比多了以下优势:</p>
+<ul>
+<li>数据隐私性：内容经过对称<strong>加密</strong>，每个连接生成一个唯一的加密密钥</li>
+<li>数据<strong>完整</strong>性：内容传输经过完整性校验</li>
+<li>身份<strong>认证</strong>：第三方无法伪造服务端（客户端）身份</li>
+</ul>
+<p>数字证书认证机构的业务流程：</p>
+<p>服务器的运营人员向第三方机构CA提交公钥、组织信息、个人信息(域名)等信息并申请认证;</p>
+<p>CA通过线上、线下等多种手段验证申请者提供信息的真实性，如组织是否存在、企业是否合法，是否拥有域名的所有权等;</p>
+<p>如信息审核通过，CA会向申请者签发认证文件-证书。证书包含以下信息：申请者公钥、申请者的组织信息和个人信息、签发机构 CA的信息、有效时间、证书序列号等信息的明文，同时包含一个签名。其中签名的产生算法：首先，使用散列函数计算公开的明文信息的信息摘要，然后，<strong>采用 CA的私钥对信息摘要进行加密</strong>，密文即签名;</p>
+<p>客户端 Client 向服务器 Server 发出请求时，Server 返回证书文件;</p>
+<p>客户端 Client 读取证书中的相关的明文信息，采用相同的散列函数计算得到信息摘要，然后，<strong>利用对应 CA的公钥解密签名数据</strong>，对比证书的信息摘要，如果一致，则可以确认证书的合法性，即服务器的公开密钥是值得信赖的。</p>
+<p>客户端还会验证证书相关的域名信息、有效时间等信息; 客户端会内置信任CA的证书信息(包含公钥)，如果CA不被信任，则找不到对应 CA的证书，证书也会被判定非法。因为没有CA私钥，黑客无法伪造CA证书。</p>
+<h5 id="cookie和session的区别"><a href="#cookie和session的区别" class="headerlink" title="cookie和session的区别"></a>cookie和session的区别</h5><p> 1、Cookie和Session都是会话技术，Session是运行在服务器端，用来跟踪用户的状态，数据可以保存在集群、数据库、文件中；Cookie是运行在客户端，用来记录用户的一些信息，也是实现Session的一种方式。</p>
+<p>  2、Cookie有大小限制以及浏览器存储cookie的个数也有限制，Session是没有大小限制和存储个数与服务器的内存大小有关。</p>
+<p>  3、Cookie有安全隐患，通过拦截或本地文件找得到你的cookie后可以进行攻击。</p>
+<p>  4、有效期不同。cookie长期有效；Session有效时间短，假如设置Session的超时时间过长，服务器累计的Session就会越多，越容易招致内存溢出。</p>
+<h5 id="get和post的区别：参考"><a href="#get和post的区别：参考" class="headerlink" title="get和post的区别：参考"></a>get和post的区别：<a href="https://blog.csdn.net/qq_38182125/article/details/89071899" target="_blank" rel="noopener">参考</a></h5><p><strong>它们的本质都是 TCP 链接，并无区别，在网络环境好的情况下发送时间也几乎一样。但是由于 HTTP 的规定以及浏览器/服务器的限制，导致它们在应用过程中可能会有所不同</strong>。</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">get</th>
+<th align="center">post</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">后退按钮/刷新</td>
+<td align="center">无害</td>
+<td align="center">数据会被重新提交（浏览器会告知用户数据会被重新提交）</td>
+</tr>
+<tr>
+<td align="center">书签</td>
+<td align="center">可收藏为书签</td>
+<td align="center">不可收藏为书签</td>
+</tr>
+<tr>
+<td align="center">缓存</td>
+<td align="center">浏览器自动缓存</td>
+<td align="center">不能被缓存</td>
+</tr>
+<tr>
+<td align="center">历史</td>
+<td align="center">参数能保留在浏览器历史中</td>
+<td align="center">参数不会保存在浏览器历史中</td>
+</tr>
+<tr>
+<td align="center">对数据长度的限制</td>
+<td align="center">数据在URL中，因此URL长度受限（最大长度2048个字符，不同浏览器和服务器限制不同）</td>
+<td align="center">没有限制</td>
+</tr>
+<tr>
+<td align="center">对数据类型的限制</td>
+<td align="center">只允许ASCLL字符</td>
+<td align="center">没有限制，也允许二进制数据。</td>
+</tr>
+<tr>
+<td align="center">安全性</td>
+<td align="center">安全性较差，因为所发送数据是URL的一部分，发送密码或者其他敏感信息时绝不要使用get</td>
+<td align="center">更安全，因为参数不会被保存在浏览历史或web服务器</td>
+</tr>
+<tr>
+<td align="center">可见性</td>
+<td align="center">数据在URL中对所有人可见</td>
+<td align="center">数据不会显示在URL中</td>
+</tr>
+<tr>
+<td align="center">TCP数据包</td>
+<td align="center">一个，把头部和数据一并发出去</td>
+<td align="center">两个，浏览器先发送请求行和请求头，服务器响应100 continue,浏览器再发送data，服务器响应200 ok (返回数据)</td>
+</tr>
+</tbody></table>
+<h3 id="六、TCP-IP详解要点记录"><a href="#六、TCP-IP详解要点记录" class="headerlink" title="六、TCP/IP详解要点记录"></a>六、TCP/IP详解要点记录</h3><h3 id="ARP的解析过程"><a href="#ARP的解析过程" class="headerlink" title="ARP的解析过程"></a>ARP的解析过程</h3><h4 id="ARP协议工作流程"><a href="#ARP协议工作流程" class="headerlink" title="ARP协议工作流程"></a>ARP协议工作流程</h4><p>地址解析协议，即ARP（Address Resolution Protocol），是根据IP地址获取物理地址的一个TCP/IP协议。主机发送信息时将包含目标IP地址的ARP请求广播到网络上的所有主机，并接收返回消息，以此确定目标的物理地址；收到返回消息后将该IP地址和物理地址存入本机ARP缓存中并保留一定时间，下次请求时直接查询ARP缓存以节约资源。地址解析协议是建立在网络中各个主机互相信任的基础上的，网络上的主机可以自主发送ARP应答消息，其他主机收到应答报文时不会检测该报文的真实性就会将其记入本机ARP缓存；由此攻击者就可以向某一主机发送伪ARP应答报文，使其发送的信息无法到达预期的主机或到达错误的主机，这就构成了一个ARP欺骗。ARP命令可用于查询本机ARP缓存中IP地址和MAC地址的对应关系、添加或删除静态对应关系等。相关协议有RARP、代理ARP。NDP用于在IPv6中代替地址解析协议。</p>
+<h4 id="工作过程"><a href="#工作过程" class="headerlink" title="工作过程"></a>工作过程</h4><p>主机A的IP地址为192.168.1.1，MAC地址为0A-11-22-33-44-01；<br>主机B的IP地址为192.168.1.2，MAC地址为0A-11-22-33-44-02；<br>当主机A要与主机B通信时，地址解析协议可以将主机B的IP地址（192.168.1.2）解析成主机B的MAC地址，以下为工作流程：<br>第1步：根据主机A上的路由表内容，IP确定用于访问主机B的转发IP地址是192.168.1.2。然后A主机在自己的本地ARP缓存中检查主机B的匹配MAC地址。<br>第2步：如果主机A在ARP缓存中没有找到映射，它将询问192.168.1.2的硬件地址，从而将ARP请求帧广播到本地网络上的所有主机。源主机A的IP地址和MAC地址都包括在ARP请求中。本地网络上的每台主机都接收到ARP请求并且检查是否与自己的IP地址匹配。如果主机发现请求的IP地址与自己的IP地址不匹配，它将丢弃ARP请求。<br>第3步：主机B确定ARP请求中的IP地址与自己的IP地址匹配，则将主机A的IP地址和MAC地址映射添加到本地ARP缓存中。<br>第4步：主机B将包含其MAC地址的ARP回复消息直接发送回主机A。<br>第5步：当主机A收到从主机B发来的ARP回复消息时，会用主机B的IP和MAC地址映射更新ARP缓存。本机缓存是有生存期的，生存期结束后，将再次重复上面的过程。主机B的MAC地址一旦确定，主机A就能向主机B发送IP通信了。</p>
+<h3 id="网站访问速度慢的排查方法"><a href="#网站访问速度慢的排查方法" class="headerlink" title="网站访问速度慢的排查方法"></a>网站访问速度慢的排查方法</h3><ol>
+<li><p>当网站访问较慢时，首先查看本地网络是否正常。<br>方法：先用网络测速测下本地的网络速率：网络速率低于50KB/s，访问网站自然也慢。 </p>
+</li>
+<li><p>本地网络速率正常时，再检查下所访问的网站是否正常。<br>方法：测一下网站的访问性能操作：在网站检测中，输入IP或域名，选择单文件或全页面进行测试，<br>分析报告： DNS服务器：显示访问者的出口DNS，作用是通过出口DNS获取访问者所在的网络，如：xx.xx.xx.xx（北京 网通）网站解析IP：网页的IP地址，作用获悉IP地址，可使用ping命令检查该IP的连通性，诊断该网站是否正常，如ping网页时丢包较严重，访问速率也会越低。<br>总时间：网站的响应时间，可了解网站的性能瓶颈或者是利用谷歌或IE浏览器的F12开发者工具查看下网站的大小和网站的打开速度成不成正比。</p>
+</li>
+<li><p>网站出现无法访问时，使用故障诊断命令定位故障点。<br>命令分析： ping：检测IP或域名的连通性 dig/nslookup：查看DNS解析情况 traceroute：显示从访问者到网站的路由连接状态，如果有节点无法连接，只需针对该故障点进行修复便可快速恢复网络。</p>
+</li>
+<li><p>通过Chrome浏览器开发者工具排查网站打开慢<br>网站打开速度很慢，通过阿里云ECS控制台“实例监控信息”查看网站所在服务器的性能情况，如果网站所在的服务器性能没有瓶颈，那么可以通过Chrome浏览器中的开发者工具来排查是哪些资源导致了网站打开速度慢。 </p>
+</li>
+</ol>
+<h3 id="TCP和IP头部"><a href="#TCP和IP头部" class="headerlink" title="TCP和IP头部"></a>TCP和IP头部</h3><p>TCP帧结构<br><img src="/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/TCP%E5%A4%B4%E9%83%A8.jpg" alt></p>
+<p>UDP帧结构<br><img src="/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/UDP.jpg" alt></p>
+<p>IP帧结构<br><img src="/2020/05/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/IP%E5%A4%B4%E9%83%A8.jpg" alt></p>
+<h3 id="路由器跟交换机的区别"><a href="#路由器跟交换机的区别" class="headerlink" title="路由器跟交换机的区别"></a>路由器跟交换机的区别</h3><ol>
+<li><p>路由器可以给你的局域网自动分配IP，虚拟拨号，就像一个交通警察，指挥着你的电脑该往哪走，你自己不用操心那么多了。交换机只是用来分配网络数据的。</p>
+</li>
+<li><p>路由器在网络层，路由器根据IP地址寻址，路由器可以处理TCP/IP协议，交换机不可以。</p>
+</li>
+<li><p>交换机在数据链路层，交换机根据MAC地址寻址。路由器可以把一个IP分配给很多个主机使用，这些主机对外只表现出一个IP。交换机可以把很多主机连起来，这些主机对外各有各的IP。</p>
+</li>
+<li><p>路由器提供防火墙的服务，交换机不能提供该功能。集线器、交换机都是做端口扩展的，就是扩大局域网(通常都是以太网)的接入点，也就是能让局域网可以连进来更多的电脑。路由器是用来做网间连接，也就是用来连接不同的网络。</p>
+</li>
+<li><p>交换机是利用物理地址或者说MAC地址来确定转发数据的目的地址（转发表，也称MAC表）。而路由器则是利用不同网络的ID号(即IP地址)来确定数据转发的地址（路由表）。IP地址是在软件中实现的，描述的是设备所在的网络，有时这些第三层的地址也称为协议地址或者网络地址。MAC地址通常是硬件自带的，由网卡生产商来分配的，而且已经固化到了网卡中去，一般来说是不可更改的。而IP地址则通常由网络管理员或系统自动分配。</p>
+</li>
+</ol>
+<p><strong>注意</strong><br><strong>ARP表</strong>：网络中每个节点都会通过运行ARP协议而维护节点内部的一张ARP缓存表，用于完成从IP地址到MAC地址的映射，在发送数据之前往往会先查询本地ARP表中对应目的IP地址的MAC地址，若没有表项则会发起ARP广播请求直至获取对应主机响应并发来应答，将该应答中包含的目的IP地址与MAC地址的映射关系添加到ARP缓存表之后，在数据链路层就可以以该MAC地址为目的MAC地址封装数据帧并发送。</p>
+<h3 id="IP基础知识全家桶"><a href="#IP基础知识全家桶" class="headerlink" title="IP基础知识全家桶"></a><a href="https://zhuanlan.zhihu.com/p/138235610?utm_source=wechat_session&utm_medium=social&utm_oi=1126107633157103616" target="_blank" rel="noopener">IP基础知识全家桶</a></h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"># 面试</a>
+          
+            <a href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag"># 网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/21/more-effective-c/" rel="next" title="more effective c++">
+                <i class="fa fa-chevron-left"></i> more effective c++
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/24/effective-modern-c/" rel="prev" title="effective modern c++">
+                effective modern c++ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">翟安然</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、IP地址、子网掩码、网关、网段"><span class="nav-number">1.</span> <span class="nav-text">一、IP地址、子网掩码、网关、网段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ip地址"><span class="nav-number">1.1.</span> <span class="nav-text">ip地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子网掩码"><span class="nav-number">1.2.</span> <span class="nav-text">子网掩码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#练习"><span class="nav-number">1.3.</span> <span class="nav-text">练习</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、HTTP1-0-HTTP1-1和HTTP2-0的区别"><span class="nav-number">2.</span> <span class="nav-text">二、HTTP1.0 HTTP1.1和HTTP2.0的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#访问一个网页的全过程：参考"><span class="nav-number">2.0.1.</span> <span class="nav-text">访问一个网页的全过程：参考</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HTTP1-0-HTTP-1-1主要区别"><span class="nav-number">2.0.2.</span> <span class="nav-text">HTTP1.0 HTTP 1.1主要区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Http怎么处理长连接"><span class="nav-number">2.0.3.</span> <span class="nav-text">Http怎么处理长连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对短链接和长连接的理解？"><span class="nav-number">2.0.4.</span> <span class="nav-text">对短链接和长连接的理解？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模拟长连接"><span class="nav-number">2.0.5.</span> <span class="nav-text">模拟长连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#长连接和短连接的优点和缺点"><span class="nav-number">2.0.6.</span> <span class="nav-text">长连接和短连接的优点和缺点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么时候用长连接，短连接？"><span class="nav-number">2.0.7.</span> <span class="nav-text">什么时候用长连接，短连接？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#长连接如何保持"><span class="nav-number">2.0.8.</span> <span class="nav-text">长连接如何保持</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HTTP1-1-和-HTTP-2-0的主要区别"><span class="nav-number">2.0.9.</span> <span class="nav-text">HTTP1.1 和 HTTP 2.0的主要区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么-HTTP-2-需要多路传输"><span class="nav-number">2.0.10.</span> <span class="nav-text">为什么 HTTP&#x2F;2 需要多路传输?</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#消息头为什么需要压缩"><span class="nav-number">2.0.11.</span> <span class="nav-text">消息头为什么需要压缩?</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#服务器推送的好处是什么？"><span class="nav-number">2.0.12.</span> <span class="nav-text">服务器推送的好处是什么？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TCP连接-HTTP连接-Socket连接的区别"><span class="nav-number">2.0.13.</span> <span class="nav-text">TCP连接  HTTP连接 Socket连接的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TIME-WAIT端口重用"><span class="nav-number">2.0.14.</span> <span class="nav-text">TIME_WAIT端口重用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、OSI-和TCP-IP"><span class="nav-number">3.</span> <span class="nav-text">三、OSI 和TCP&#x2F;IP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP拥塞控制：慢启动-拥塞避免-重传机制-快恢复"><span class="nav-number">3.1.</span> <span class="nav-text">TCP拥塞控制：慢启动 拥塞避免 重传机制 快恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#慢启动"><span class="nav-number">3.1.1.</span> <span class="nav-text">慢启动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#拥塞避免"><span class="nav-number">3.1.2.</span> <span class="nav-text">拥塞避免</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#重传机制"><span class="nav-number">3.1.3.</span> <span class="nav-text">重传机制</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#超时重传"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">超时重传</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#快重传"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">快重传</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#快恢复"><span class="nav-number">3.1.4.</span> <span class="nav-text">快恢复</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TFO-PRR-拥塞避免"><span class="nav-number">3.1.5.</span> <span class="nav-text">TFO PRR 拥塞避免</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AIMD倍减加增"><span class="nav-number">3.1.6.</span> <span class="nav-text">AIMD倍减加增</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#拥塞窗口"><span class="nav-number">3.1.7.</span> <span class="nav-text">拥塞窗口</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、TCP和UDP"><span class="nav-number">4.</span> <span class="nav-text">四、TCP和UDP</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#TCP和UDP的区别"><span class="nav-number">4.0.1.</span> <span class="nav-text">TCP和UDP的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用UDP实现TCP"><span class="nav-number">4.0.2.</span> <span class="nav-text">使用UDP实现TCP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#优化TCP"><span class="nav-number">4.0.3.</span> <span class="nav-text">优化TCP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TCP粘包拆包"><span class="nav-number">4.0.4.</span> <span class="nav-text">TCP粘包拆包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#建立TCP连接需要什么资源"><span class="nav-number">4.0.5.</span> <span class="nav-text">建立TCP连接需要什么资源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三次握手四次挥手"><span class="nav-number">4.0.6.</span> <span class="nav-text">三次握手四次挥手</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#为什么A还要发送一次确认呢？可以二次握手吗？"><span class="nav-number">4.0.6.1.</span> <span class="nav-text">为什么A还要发送一次确认呢？可以二次握手吗？</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Server端易受到SYN攻击？"><span class="nav-number">4.0.7.</span> <span class="nav-text">Server端易受到SYN攻击？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么在TIME-WAIT状态必须等待2MSL的时间？"><span class="nav-number">4.0.8.</span> <span class="nav-text">为什么在TIME-WAIT状态必须等待2MSL的时间？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TCP三次握手能携带数据吗"><span class="nav-number">4.0.9.</span> <span class="nav-text">TCP三次握手能携带数据吗</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TCP三次握手有哪些漏洞？"><span class="nav-number">4.0.10.</span> <span class="nav-text">TCP三次握手有哪些漏洞？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么连接的时候是三次握手，关闭的时候却是四次握手？"><span class="nav-number">4.0.11.</span> <span class="nav-text">为什么连接的时候是三次握手，关闭的时候却是四次握手？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、图解HTTP要点记录"><span class="nav-number">5.</span> <span class="nav-text">五、图解HTTP要点记录</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#http请求报文和响应报文格式"><span class="nav-number">5.0.1.</span> <span class="nav-text">http请求报文和响应报文格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#cookie的状态管理"><span class="nav-number">5.0.2.</span> <span class="nav-text">cookie的状态管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HTTP报文结构-内容编码-请求首部-响应首部-实体首部"><span class="nav-number">5.0.3.</span> <span class="nav-text">HTTP报文结构   内容编码   请求首部  响应首部   实体首部</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HTTP状态码"><span class="nav-number">5.0.4.</span> <span class="nav-text">HTTP状态码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#http状态码分类"><span class="nav-number">5.0.5.</span> <span class="nav-text">http状态码分类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代理、网关、代理、隧道"><span class="nav-number">5.0.6.</span> <span class="nav-text">代理、网关、代理、隧道</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HTTP-加密-认证-完整性保护-HTTPS"><span class="nav-number">5.0.7.</span> <span class="nav-text">HTTP+加密+认证+完整性保护&#x3D;HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#https的通信步骤"><span class="nav-number">5.0.7.1.</span> <span class="nav-text">https的通信步骤</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#HTTP-与-HTTPS-区别"><span class="nav-number">5.0.7.2.</span> <span class="nav-text">HTTP 与 HTTPS 区别</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#怎么理解http协议的无连接无状态"><span class="nav-number">5.0.8.</span> <span class="nav-text">怎么理解http协议的无连接无状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#cookie和session的区别"><span class="nav-number">5.0.9.</span> <span class="nav-text">cookie和session的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#get和post的区别：参考"><span class="nav-number">5.0.10.</span> <span class="nav-text">get和post的区别：参考</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、TCP-IP详解要点记录"><span class="nav-number">6.</span> <span class="nav-text">六、TCP&#x2F;IP详解要点记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARP的解析过程"><span class="nav-number">7.</span> <span class="nav-text">ARP的解析过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ARP协议工作流程"><span class="nav-number">7.1.</span> <span class="nav-text">ARP协议工作流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工作过程"><span class="nav-number">7.2.</span> <span class="nav-text">工作过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网站访问速度慢的排查方法"><span class="nav-number">8.</span> <span class="nav-text">网站访问速度慢的排查方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP和IP头部"><span class="nav-number">9.</span> <span class="nav-text">TCP和IP头部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由器跟交换机的区别"><span class="nav-number">10.</span> <span class="nav-text">路由器跟交换机的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP基础知识全家桶"><span class="nav-number">11.</span> <span class="nav-text">IP基础知识全家桶</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">翟安然</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  
+    <script src="/js/cursor/fireworks.js"></script>
+  
+
+</body>
+</html>
+

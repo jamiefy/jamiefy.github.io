@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="（一）面向对象的三个基本特征：封装、继承、多态 （二）bash shell （三）图q （四）IO库 （五）搜狗 （六）手写代码 （七）SAP （八）进程间的通信方式（IPC,inter-Process Communication） 进程创建fork和vfork 进程和线程的区别 线程有什么是共享的什么是私有的 进程的三种基本状态 windows命名管道和Linux命名管道的区别 win">
+<meta name="description" content="（一）面向对象的三个基本特征：封装、继承、多态 （二）bash shell （三）图 （四）IO库 （五）搜狗 （六）手写代码 （七）SAP （八）进程间的通信方式（IPC,inter-Process Communication） 进程创建fork和vfork 进程和线程的区别 线程有什么是共享的什么是私有的 进程的三种基本状态 windows命名管道和Linux命名管道的区别 wind">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面试要点记录">
 <meta property="og:url" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="翟安然&#39;s Blog">
-<meta property="og:description" content="（一）面向对象的三个基本特征：封装、继承、多态 （二）bash shell （三）图q （四）IO库 （五）搜狗 （六）手写代码 （七）SAP （八）进程间的通信方式（IPC,inter-Process Communication） 进程创建fork和vfork 进程和线程的区别 线程有什么是共享的什么是私有的 进程的三种基本状态 windows命名管道和Linux命名管道的区别 win">
+<meta property="og:description" content="（一）面向对象的三个基本特征：封装、继承、多态 （二）bash shell （三）图 （四）IO库 （五）搜狗 （六）手写代码 （七）SAP （八）进程间的通信方式（IPC,inter-Process Communication） 进程创建fork和vfork 进程和线程的区别 线程有什么是共享的什么是私有的 进程的三种基本状态 windows命名管道和Linux命名管道的区别 wind">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/seekgseekp.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/qiuck_sort.png">
@@ -104,8 +104,9 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/lock.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/struct.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/fflush.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/proc.jpg">
 <meta property="article:published_time" content="2020-03-24T13:59:01.000Z">
-<meta property="article:modified_time" content="2020-10-15T05:38:58.000Z">
+<meta property="article:modified_time" content="2021-04-15T13:48:34.510Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="面试">
@@ -380,7 +381,7 @@
 <ul>
 <li><a href="#一面向对象的三个基本特征封装-继承-多态">（一）面向对象的三个基本特征：封装、继承、多态</a></li>
 <li><a href="#二bash-shell">（二）bash shell</a></li>
-<li><a href="#三图">（三）图q</a></li>
+<li><a href="#三图">（三）图</a></li>
 <li><a href="#四io库">（四）IO库</a></li>
 <li><a href="#五搜狗">（五）搜狗</a></li>
 <li><a href="#六手写代码">（六）手写代码</a></li>
@@ -395,7 +396,7 @@
 <li><a href="#死锁死锁产生的原因死锁的必要条件怎么处理死锁">死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？</a></li>
 </ul>
 </li>
-<li><a href="#九sql">（九）SQL</a></li>
+<li><a href="#九sql">（九）SQL</a><a id="more"></a></li>
 <li><a href="#十一百度">（十一）百度</a><ul>
 <li><a href="#百度后台开发cphp实习">百度后台开发c++/PHP实习</a></li>
 <li><a href="#百度b2b后台开发cphp提前批">百度B2B后台开发c++/PHP提前批</a><ul>
@@ -425,9 +426,13 @@
 <li><a href="#十三腾讯">（十三）腾讯</a><ul>
 <li><a href="#腾讯测开实习">腾讯测开实习</a></li>
 <li><a href="#腾讯后台开发基础框架提前批一面">腾讯后台开发基础框架提前批一面</a></li>
+<li><a href="#腾讯qq音乐">腾讯QQ音乐</a></li>
 </ul>
 </li>
-<li><a href="#十四招商银行信用卡中心">（十四）招商银行信用卡中心</a></li>
+<li><a href="#十四招商银行信用卡中心">（十四）招商银行信用卡中心</a><ul>
+<li><a href="#正式批一面">正式批一面</a></li>
+</ul>
+</li>
 <li><a href="#十五快手">（十五）快手</a><ul>
 <li><a href="#c工程师-ai平台">c++工程师-AI平台</a></li>
 </ul>
@@ -444,6 +449,7 @@
 <li><a href="#三-链接过程">三、链接过程</a></li>
 <li><a href="#为创建可执行文件链接器必须要完成的主要任务">为创建可执行文件，链接器必须要完成的主要任务</a></li>
 <li><a href="#四-加载过程">四、加载过程</a></li>
+<li><a href="#sleep-和-wait-的区别">sleep 和 wait 的区别</a></li>
 <li><a href="#字符串分隔符分隔和定义比较函数">字符串分隔符分隔和定义比较函数</a></li>
 </ul>
 </li>
@@ -520,6 +526,10 @@
 <li><a href="#25-linux-虚拟内存和物理内存的理解httpsgithubcomdurant35durant35githubioissues24">25. Linux 虚拟内存和物理内存的理解</a></li>
 <li><a href="#26socket通信httpswwwcnblogscomfengffp10984251html">26.Socket通信</a></li>
 <li><a href="#27索引使用原则httpswwwcnblogscomwangxusummerp5329813html">27.索引使用原则</a></li>
+<li><a href="#28-内存对齐">28. 内存对齐</a></li>
+<li><a href="#29-如果有一个空的类编译器会给他默认生产什么">29. 如果有一个空的类，编译器会给他默认生产什么</a></li>
+<li><a href="#30-linux用户态与内核态通信的几种方式">30 .Linux用户态与内核态通信的几种方式</a></li>
+<li><a href="#31-malloc分配的是虚拟空间还是物理空间">31. malloc分配的是虚拟空间还是物理空间</a></li>
 </ul>
 </li>
 </ul>
@@ -536,7 +546,7 @@
 <li>父类引用可以直接引用子类对象。</li>
 <li>父类指针可以直接指向子类对象。</li>
 </ul>
-<a id="more"></a>
+<!--more-->
 
 <ul>
 <li>子类初始化一定会先初始化父类，析构顺序相反。</li>
@@ -581,6 +591,7 @@
 <li>虚函数表指针在内存中的分布:<a href="https://blog.csdn.net/li1914309758/article/details/79916414" target="_blank" rel="noopener">参考</a></li>
 <li>编译期多态</li>
 </ul>
+<p><strong>总结</strong>：<br>    总之，C++多态的核心，就是用一个更通用的基类指针指向不同的子类实例，为了能调用正确的方法，我们需要用到<a href="https://www.jianshu.com/p/02183498a2c2" target="_blank" rel="noopener">虚函数和虚继承</a>。在内存中，通过虚函数表来实现子类方法的正确调用，通过虚基类指针，仅保留一份基类的内存结构，避免冲突。<br>    所谓虚，就是把“直接”的东西变“间接”。成员函数原先是由静态的成员函数指针来定义的，而虚函数则是由一个虚函数表来指向真正的函数指针，从而达到在运行时，间接地确定想要的函数实现。继承原先是直接将基类的内存空间拷贝一份来实现的，而虚继承则用一个虚基类指针来指向虚基类，避免基类的重复。<br>    普通函数在编译汇编期就已经把函数定义地址记录在了符号表上，在静态链接期把定义跟符号引用绑定在一起。所以虚函数表中有且仅有虚函数。</p>
 <p>对模板参数而言，多态是通过模板具现化和函数重载解析实现的。<strong>以不同的模板参数具现化导致调用不同的函数</strong>，这就是所谓的编译期多态。</p>
 <p>（1）编译期多态优点</p>
 <ol>
@@ -771,7 +782,7 @@
 <p>std::map:红黑树，自动排序，稳定查找插入删除时间复杂度O(lgn)，空间占用高，因为红黑树每一个节点都需要额外保存父节点，孩子节点以及红/黑性质，使得每一个节点都占用大量的空间</p>
 <p>std::unordered_map:哈希表，无序，快速查找插入删除，insert/find/erase的平均时间复杂度是O(1)，但是最坏复杂度是O(N)，相比于map空间占用更高，哈希表建立比较耗费时间，其遍历顺序与创建该容器时输入元素的顺序是不一定一致的，遍历是按照哈希表地址顺序从前往后依次遍历的</p>
 <p>存储小对象，内存消耗依次是：vector &lt;&lt;map &lt;&lt;unordered_map;当存储的对象增大时，vector的优势变得并不明显。因为随着对象增大，用于存储对象的空间所占的比例越来越大。因此单从内存消耗的角度来看，当存储的是小对象时，vector占很大的优势。但是，当存储的对象本身大小增大时，它的优势变得不再那么明显。</p>
-<p>hash表：（1）插入删除接近常量，大o表示法最快的方式（2）哈希表查询也快,但是底层存储结构是数组，一旦创建无法改变大小（3）哈希表无法用来有序遍历</p>
+<p>hash表：（1）插入查找接近常量，大o表示法最快的方式（2）哈希表查询也快,但是底层存储结构是数组，一旦创建无法改变大小（3）哈希表无法用来有序遍历</p>
 <p><a href="https://blog.csdn.net/ff_simon/article/details/101055134" target="_blank" rel="noopener">二叉树/平衡二叉树/红黑树/b树/b+树</a></p>
 <ol start="2">
 <li>顺序容器</li>
@@ -827,9 +838,9 @@
 <p>​    在文件作用域声明inline函数默认为static存储类型,const常量默认为static存储，    如果加上extern，则为外部存储类型</p>
 <p>（2）动态内存（动态分配）：发生在程序调入和执行阶段，根据程序的需要分配和释放，其大小可变，占用CPU资源</p>
 <ul>
-<li><p>堆：<strong>链表结构，有序数组链表，程序通过调用malloc和new分配，调用free和delete释放；堆是向高地址扩展的数据结构，是不连续的内存区域。这是由于系统是用链表来存储的空闲内存地址的，自然是不连续的，链表的遍历方向是由低地址向高地址</strong>。堆的大小受限于计算机系统中有效的虚拟内存4G。由此可见，堆获得的空间比较灵活，也比较大。<strong>堆中的存储内容一般是在堆的头部用一个字节存放堆的大小</strong>。</p>
+<li><p>堆：<strong>链表结构，数组链表，程序通过调用malloc和new分配，调用free和delete释放；堆是向高地址扩展的数据结构，是不连续的内存区域。这是由于系统是用链表来存储的空闲内存地址的，自然是不连续的，链表的遍历方向是由低地址向高地址</strong>。堆的大小受限于计算机系统中有效的虚拟内存4G。由此可见，堆获得的空间比较灵活，也比较大。<strong>堆中的存储内容一般是在堆的头部用一个字节存放堆的大小</strong>。</p>
 </li>
-<li><p>栈：<strong>线性结构，有序数组，由编译器自动分配与释放，速度较快，是一块连续的内存的区域</strong>，存储函数（包括main函数）的方法调用、函数参数、内部局部变量、返回地址和CPU系统提供的两个特殊的寄存器用于标识位于系统栈顶端的栈帧（(1)ESP：栈指针寄存器(extended stack pointer)，其内存放着一个指针，该指针永远指向系统栈的上面一个栈帧的栈顶。(2) EBP：基址指针寄存器(extended base pointer)-其内存放着一个指针，该指针永远指向系统栈上面一个栈帧的底部），存储地址由高地址向低地址，栈顶的地址和栈的最大容量是系统预先规定好的，如果申请的空间超过栈的剩余空间时，提示Stack Overflow，出现溢出现象。栈中的存储内容<strong>在函数调用时，第一个进栈的是主函数后的下一条指令（函数调用语句的下一条可执行语句）的地址</strong>，然后是函数的各个参数，在大多数的C编译器中，<strong>参数是由右往左入栈的，然后是函数中的局部变量</strong>。注意静态变量是不入栈的。当本次函数调用结束后，局部变量先出栈，然后是参数，最后栈顶指针指向最开始存的地址，也就是主函数中的下一条指令，程序由该点继续运行。函数退出时，其占用内存被收回；进程的每个线程都有私有的“栈”，所以每个线程虽然代码一样，但本地变量的数据都是互不干扰。</p>
+<li><p>栈：<strong>线性结构，数组，由编译器自动分配与释放，速度较快，是一块连续的内存的区域</strong>，存储函数（包括main函数）的方法调用、函数参数、内部局部变量、返回地址和CPU系统提供的两个特殊的寄存器用于标识位于系统栈顶端的栈帧（(1)ESP：栈指针寄存器(extended stack pointer)，其内存放着一个指针，该指针永远指向系统栈的上面一个栈帧的栈顶。(2) EBP：基址指针寄存器(extended base pointer)-其内存放着一个指针，该指针永远指向系统栈上面一个栈帧的底部），存储地址由高地址向低地址，栈顶的地址和栈的最大容量是系统预先规定好的，如果申请的空间超过栈的剩余空间时，提示Stack Overflow，出现溢出现象。栈中的存储内容<strong>在函数调用时，第一个进栈的是主函数后的下一条指令（函数调用语句的下一条可执行语句）的地址</strong>，然后是函数的各个参数，在大多数的C编译器中，<strong>参数是由右往左入栈的，然后是函数中的局部变量</strong>。注意静态变量是不入栈的。当本次函数调用结束后，局部变量先出栈，然后是参数，最后栈顶指针指向最开始存的地址，也就是主函数中的下一条指令，程序由该点继续运行。函数退出时，其占用内存被收回；进程的每个线程都有私有的“栈”，所以每个线程虽然代码一样，但本地变量的数据都是互不干扰。</p>
 </li>
 <li><p>堆栈的区别：</p>
 <p>  1、管理方式不同（堆手动分配释放new/delete；栈编译器自动分配和释放）：栈内存由一个栈指针来开辟和回收，栈内存是从高地址向低地址增长的，增长时，栈指针向低地址方向移动，指针的地址值也就相应的减小；回收时，栈指针向高地址方向移动，地址值也就增加。所以栈内存的开辟和回收都只是指针的加减，由此相对于分配堆内存可以获得一定的性能提升）。<br>  2、空间大小不同（堆32位系统可达4G;栈Linux 10M,Windows 1M）<br>  3、能否产生碎片不同（栈实现方式采用数据结构中的栈实现，具有(LIFO)的顺序特点，没有物理碎片；堆为一块一块的内存，可以产生物理碎片）<br>  4、生长方向不同（堆从低地址到高地址；栈从高地址到低地址）<br>  5、分配方式不同（堆动态分配， 堆是运行时确定内存大小；栈动静分配都可以，栈的动态使用alloca,栈在编译时即可确定内存大小）<br>  6、分配效率不同（堆效率低；栈由于其实现方式，在分配速度上比堆快的多。分配一块栈内存不过是简单的移动一个指针）<br>  7、申请后系统的响应不同<br>  栈：只要栈的剩余空间大于所申请空间，系统将为程序提供内存，否则将报异常提示栈溢出。 </p>
@@ -889,7 +900,7 @@
 <p>　　new操作符从自由存储区（free store）上为对象动态分配内存空间，而malloc函数从堆上动态分配内存。自由存储区是C++基于new操作符的一个抽象概念，凡是通过new操作符进行内存申请，该内存即为自由存储区。而堆是操作系统中的术语，是操作系统所维护的一块特殊内存，用于程序的内存动态分配，C语言使用malloc从堆上分配内存，使用free释放已分配的对应内存。自由存储区不等于堆，如上所述，布局new就可以不位于堆中。</p>
 <ul>
 <li><p>分配失败</p>
-<p>new内存分配失败时，会抛出bac_alloc异常。malloc分配内存失败时返回NULL。</p>
+<p>new内存分配失败时，会抛出bad_alloc异常。malloc分配内存失败时返回NULL。</p>
 </li>
 <li><p>内存泄漏</p>
 <p>内存泄漏对于new和malloc都能检测出来，而new可以指明是哪个文件的哪一行，malloc确不可以。</p>
@@ -987,9 +998,9 @@
 <p>(3)无名管道是无形的，即无名管道的 inode 结构不是在磁盘上存储的，而是临时生成的，而有名管道的 inode 结点在磁盘上。</p>
 <ol start="3">
 <li>消息队列：消息的链表存放在内核中并由消息队列标识符标识，克服了信号传递信息少，管道只能承载无格式字节流以及缓冲器大小受限等缺点，但只有在内核重启时才能删除一个消息队列，内核重启也就是系统重启。</li>
-<li>共享内存：最快的IPC方式，映射一段能被其他进程所访问的内存。往往与其他通信机制如信号两两配合使用，来实现进程间的同步和通信。</li>
+<li>共享内存：最快的IPC方式，映射一段能被其他进程所访问的内存。往往与其他通信机制如信号量两两配合使用，来实现进程间的同步和通信。</li>
 <li>信号量Semaphore:信号量是一个计数器，可以用来控制多个进程对共享资源的访问。常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，主要作为进程间以及同一进程内不同线程之间的同步手段。</li>
-<li>套接字Socket:套接字也是一种进程间通信机制，包括IPC 套接字（即 Unix 套接字）给予进程在相同设备（主机）上基于通道的通信能力；而网络套接字给予进程运行在不同主机的能力，因此也带来了网络通信的能力。IPC 套接字依赖于本地系统内核的支持来进行通信。网络套接字需要底层协议的支持，例如 TCP（传输控制协议）或 UDP（用户数据报协议），包括流套接字（TCP/IP）和数据报套接字（UDP/IP），利用三元组（<strong>ip地址，协议，端口</strong>）构成套接字；传输层实现端到端的通信，传输层连接的端点叫做套接字。</li>
+<li>套接字Socket:套接字也是一种进程间通信机制，包括IPC 套接字（即 Unix 套接字）给予进程在相同设备（主机）上基于通道的通信能力；而网络套接字给予进程运行在不同主机的能力，因此也带来了网络通信的能力。IPC 套接字依赖于本地系统内核的支持来进行通信。网络套接字需要底层协议的支持，例如 TCP（传输控制协议）或 UDP（用户数据报协议），包括流套接字（TCP/IP）和数据报套接字（UDP/IP），利用三元组（<strong>ip地址，协议，端口</strong>）构成套接字；传输层实现端到端的通信，传输层连接的端点叫做套接字。0~1023是系統占用端口（只有在有root权限的时候才能使用），最大端口數是65535.</li>
 </ol>
 <h3 id="进程创建fork和vfork"><a href="#进程创建fork和vfork" class="headerlink" title="进程创建fork和vfork"></a>进程创建fork和vfork</h3><ul>
 <li><p>进程描述符task_struct</p>
@@ -1007,7 +1018,7 @@
 <p><strong>现在由于在执行fork()时引入了写时拷贝页并且明确了子进程先执行，vfork()的好处就仅限于不拷贝父进程的页表项了，另外最好不要使用vfork()（如果exec调用失败，试想会发生什么）</strong></p>
 </li>
 </ul>
-<h3 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h3><p>​         （1）进程是资源分配和调度的一个独立单元，而线程是CPU调度和分派的基本单元<br>​          （2）一个进程至少包括一个线程，并且同一个进程的所有线程共享整个进程的资源，因此线程执行时一般都要进行同步和互斥<br>​          （3）进程的创建调用fork或者vfork，而线程的创建调用pthread_create，进程结束后它拥有的所有线程都将销毁，而线程的结束不会影响同个进程中的其他线程的结束<br>​          （4）线程是轻量级的进程，它的创建和销毁所需要的时间比进程小很多，所有操作系统中的执行功能都是创建线程去完成的<br>​          （5）进程间通信IPC需要特别的方法，线程间可以直接读写进程数据段（如全局变量）来进行通信。</p>
+<h3 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h3><p>​           （1）进程是资源分配和调度的一个独立单元，而线程是CPU调度和分派的基本单元<br>​          （2）一个进程至少包括一个线程，并且同一个进程的所有线程共享整个进程的资源，因此线程执行时一般都要进行同步和互斥<br>​          （3）进程的创建调用fork或者vfork，而线程的创建调用pthread_create，进程结束后它拥有的所有线程都将销毁，而线程的结束不会影响同个进程中的其他线程的结束<br>​          （4）线程是轻量级的进程，它的创建和销毁所需要的时间比进程小很多，所有操作系统中的执行功能都是创建线程去完成的<br>​          （5）进程间通信IPC需要特别的方法，线程间可以直接读写进程数据段（如全局变量）来进行通信。</p>
 <h3 id="线程有什么是共享的什么是私有的"><a href="#线程有什么是共享的什么是私有的" class="headerlink" title="线程有什么是共享的什么是私有的"></a>线程有什么是共享的什么是私有的</h3><p>线程共享的环境包括：</p>
 <p>  1.进程数据段、代码段 </p>
 <p>  2.进程的公有数据(利用这些共享的数据，线程很容易的实现相互之间的通讯) </p>
@@ -1016,8 +1027,8 @@
 <p>1.线程ID</p>
 <p>2.寄存器组的值</p>
 <p>由于线程间是并发运行的，每个线程有自己不同的运行线索，当从一个线程切换到另一个线程上时，必须将原有的线程的寄存器集合的状态保存，以便将来该线程在被重新切换到时能得以恢复。</p>
-<p>3.线程的堆栈</p>
-<p>堆栈是保证线程独立运行所必须的。线程函数可以调用函数，而被调用函数中又是可以层层嵌套的，所以线程必须拥有自己的函数堆栈， 使得函数调用可以正常执行，不受其他线程的影响。</p>
+<p>3.线程的栈</p>
+<p>栈是保证线程独立运行所必须的。线程函数可以调用函数，而被调用函数中又是可以层层嵌套的，所以线程必须拥有自己的函数堆栈， 使得函数调用可以正常执行，不受其他线程的影响。</p>
 <p>4.线程的错误返回码</p>
 <p>由于同一个进程中有很多个线程在同时运行，可能某个线程进行系统调用后设置了errno值，而在该线程还没有处理这个错误，另外一个线程就在此时被调度器投入运行，这样错误值就有可能被修改。所以，不同的线程应该拥有自己的错误返回码变量。</p>
 <p>5.线程的信号屏蔽码</p>
@@ -1028,7 +1039,7 @@
 </li>
 <li><p>执行状态：当进程已获得处理机，其程序正在处理机上执行，此时的进程状态称为执行状态；</p>
 </li>
-<li><p>阻塞状态：正在执行的进程，由于等待某个事件发生而无法执行时，便放弃处理机而进入阻塞状态。引起进程阻塞的事件有很多种，例如，等待I/O完成、申请缓冲区不能满足、等待信号等。</p>
+<li><p>���塞状态：正在执行的进程，由于等待某个事件发生而无法执行时，便放弃处理机而进入阻塞状态。引起进程阻塞的事件有很多种，例如，等待I/O完成、申请缓冲区不能满足、等待信号等。</p>
 </li>
 <li><p>进程三种状态间的转换  </p>
 </li>
@@ -1044,7 +1055,7 @@
 <li>线程同步</li>
 </ul>
 <p>临界区就是访问和操作共享数据的代码段，多个执行线程并发访问同一个资源通常是不安全的。</p>
-<p>用户模式下的方法有：原子操作（例如一个单一的全局变量），临界区，读/写锁，条件变量。</p>
+<p>用户模式下的方法有：原子操作（例如一个单一的全局变量），临界�����读/写锁，条件变量。</p>
 <p>内核同步的方法：原子操作、自旋锁、完成变量，信号量，互斥体。<br>1、互斥体:为协调共同对一个共享资源的单独访问而设计的。<br>2、信号量:为控制一个具有有限数量用户资源而设计。<br>3、完成变量:用来通知线程有一些事件已发生，从而启动后继任务的开始。</p>
 <p>4、自旋锁：一个被征用的自旋锁使得请求它的线程在等待锁重新可用时自旋（特别浪费处理器时间）</p>
 <ul>
@@ -1318,6 +1329,23 @@
 <li>汇编：<strong>将汇编代码转变成机器可以执行的指令(机器码文件)</strong>，产生目标文件(与可执行文件格式几乎一样)xxx.o(Windows下)、xxx.obj(Linux下)，还有<strong>一个问题——变量a和数组arr的地址还没有确定</strong>。</li>
 <li>链接：静态链接和动态链接，生成二进制可执行文件.out或.exe</li>
 </ul>
+<p><strong>一个class的前向声明， 编译和链接阶段是怎么处理符号的？怎么保证找到实际想要的类的定义？如果这个类在动态链接库中呢？</strong><br><a href="https://mxxhcm.github.io/2019/12/10/linking-csapp/" target="_blank" rel="noopener">预处理.i-&gt;(编译器)符号.s-&gt;（汇编）符号表（可重定位文件.o）-&gt;（静态链接）符号解析(找到实际想要的类的定义)、重定位.a/.dll-&gt;可执行文件.out/.exe</a></p>
+<p><strong>GCC链接器按下面的步骤链接文件</strong>：</p>
+<ol>
+<li>从左往右链接源文件</li>
+<li>在链接时，如果出现源文件调用了却没有定义的函数、变量等，则记录下来</li>
+<li>如果遇到-l指定的库，则在库中尽可能检索所有记录下来的没有定义的函数、变量，只从库中提取用到的部分，其他完全抛弃</li>
+<li>在全部链接完后，如果依然存在未定义的函数、变量，则报错<br>正因为GCC链接器的”始乱终弃”，在检索-l的库后，就抛弃了这个库，后面还需要用时，自然就找不到了，GCC并不会回过头来检索之前链接过的库。</li>
+</ol>
+<p>如果-l链接库在源码之前，就会链接不到库！！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">异常：gcc -o test -L. -lmylib test.c</span><br><span class="line">正常：gcc -o test -L. test.c -lmylib</span><br></pre></td></tr></table></figure>
+
+<p><strong>目标文件</strong><br>目标文件是字节块的集合，它们按照特定的目标文件格式来组织，代码，数据，还有包含引导链接器和load function的数据结构等。各个系统的目标文件格式都不相同，Linux和UNIX系统下使用的是可执行可连接格式(exceutable and linkable format, ELF)，windows使用的是PE格式，MAC用的是Mach-O格式。<br>不管哪个平台，目标文件都可以分为三种：</p>
+<ol>
+<li>可重定位目标文件。包含二进制代码和数据，在编译时可以和其他目标文件合并起来，创建一个可执行目标文件。编译器和汇编器生成可重定位目标文件。</li>
+</ol>
+<p>静态链接：<br>2. 可执行目标文件。包含二进制代码和数据，可以被直接复制进内存并执行。链接器生成可执行目标文件。</p>
+<p>动态链接：<br>3. 共享目标文件。一种特殊类型的可重定位目标文件，可以在加载或者运行时动态的加载进内存并链接。</p>
 <p><code>运行</code>：在控制台输入./可执行文件路径或在资源管理器中双击可执行文件就可运行可执行程序，程序实际上是操作系统装载运行的，操作系统能理解程序的二进制文件格式，然后分配程序执行所需的栈空间、代码段、静态存储区、映射堆空间地址等，操作系统会创建一个进程结构体来管理进程，然后将进程放入就绪队列，等待CPU调度运行。</p>
 <p>编译器把一个cpp编译为目标文件的时候，除了要在目标文件里写入cpp里包含的数据和代码，还要至少提供3个表：未解决符号表，导出符号表和地址重定向表。</p>
 <ol start="21">
@@ -1331,7 +1359,7 @@
 </li>
 </ul>
 <ol start="22">
-<li>为什么B+树（有序数组+平衡多叉树）比B树（有序数组链表+平衡多叉树）更适合文件索引系统？<a href="https://blog.csdn.net/weixin_30531261/article/details/79312676" target="_blank" rel="noopener">扩展</a></li>
+<li>为什么B+树（有序数组链表+平衡多叉树）比B树（有序数组+平衡多叉树）更适合文件索引系统？<a href="https://blog.csdn.net/weixin_30531261/article/details/79312676" target="_blank" rel="noopener">扩展</a></li>
 </ol>
 <p>（1）B+树空间利用率更高，因为B+树的内部节点只是作为索引使用，而不像B树那样每个节点都需要存储硬盘指针。</p>
 <p>（2）增删文件（节点）时，效率更高，因为B+树的叶子节点包含所有关键字，并以有序的链表结构存储，这样可很好提高增删效率。</p>
@@ -1429,7 +1457,7 @@
 </ol>
 <p>int main () {<br>    T* t = new T();<br>    return 0;<br>}</p>
 <p>mutex 改成 spin一个定制的mutex指定或者不指定</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;bits&#x2F;stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">class Singleton&#123;</span><br><span class="line">public:</span><br><span class="line">    static shared_ptr&lt;T&gt; getInstance()&#123;</span><br><span class="line">        if(instance&#x3D;&#x3D;nullptr)&#123;</span><br><span class="line">            unique_lock&lt;mutex&gt; lk(mu);</span><br><span class="line">            if(instance&#x3D;&#x3D;nullptr)&#123;</span><br><span class="line">                instance&#x3D;make_shared&lt;T&gt;();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">    ~Singleton()&#123;&#125;;</span><br><span class="line">private:</span><br><span class="line">    Singleton()&#123;&#125;;</span><br><span class="line">    static shared_ptr&lt;T&gt; instance;</span><br><span class="line">    static mutex mu;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    &#x2F;&#x2F;int a;</span><br><span class="line">    &#x2F;&#x2F;cin &gt;&gt; a;</span><br><span class="line">    cout &lt;&lt; &quot;Hello World!&quot; &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;bits&#x2F;stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Singleton&#123;</span><br><span class="line">public:</span><br><span class="line">    static shared_ptr&lt;Singleton&gt; getInstance()&#123;</span><br><span class="line">        if(instance&#x3D;&#x3D;nullptr)&#123;</span><br><span class="line">            unique_lock&lt;mutex&gt; lk(mu);</span><br><span class="line">            if(instance&#x3D;&#x3D;nullptr)&#123;</span><br><span class="line">                instance&#x3D;make_shared&lt;Singleton&gt;();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">    ~Singleton()&#x3D;default;</span><br><span class="line">private:</span><br><span class="line">    Singleton() &#x3D; default;</span><br><span class="line">    Singleton(const Singleton&amp;) &#x3D; delete;</span><br><span class="line">    Singleton&amp; operator&#x3D;(const Singleton&amp;) &#x3D; delete;</span><br><span class="line">private:</span><br><span class="line">    static shared_ptr&lt;Singleton&gt; instance;</span><br><span class="line">    static mutex mu;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    &#x2F;&#x2F;int a;</span><br><span class="line">    &#x2F;&#x2F;cin &gt;&gt; a;</span><br><span class="line">    cout &lt;&lt; &quot;Hello World!&quot; &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="3">
 <li>插入排序<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;bits&#x2F;stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">void insertsort(vector&lt;int&gt;&amp; nums)&#123;</span><br><span class="line">    if(nums.size()&#x3D;&#x3D;0||nums.size()&#x3D;&#x3D;1)return;</span><br><span class="line">    &#x2F;&#x2F;在这里一遍遍历选出最小值，放在第一位可去掉内循环的j&gt;&#x3D;1</span><br><span class="line">    for(int i&#x3D;1;i&lt;nums.size();i++)&#123;</span><br><span class="line">        </span><br><span class="line">        for(int j&#x3D;i;j&gt;&#x3D;1;j--)&#123;</span><br><span class="line">            int ans&#x3D;nums[j];</span><br><span class="line">            if(nums[j]&lt;nums[j-1])</span><br><span class="line">                nums[j]&#x3D;nums[j-1];</span><br><span class="line">             else&#123;</span><br><span class="line">                 nums[j]&#x3D;ans;</span><br><span class="line">                 break;</span><br><span class="line">             &#125;</span><br><span class="line">                 </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    &#x2F;&#x2F;int a;</span><br><span class="line">    &#x2F;&#x2F;cin &gt;&gt; a;</span><br><span class="line">    vector&lt;int&gt; nums&#123;2,1,5,3,4,6&#125;;</span><br><span class="line">    insertsort(nums);</span><br><span class="line">    for(auto&amp; num:nums)</span><br><span class="line">        cout &lt;&lt; num &lt;&lt; &quot; &quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -1464,7 +1492,7 @@
 </li>
 </ol>
 <h2 id="（十三）腾讯"><a href="#（十三）腾讯" class="headerlink" title="（十三）腾讯"></a>（十三）腾讯</h2><h3 id="腾讯测开实习"><a href="#腾讯测开实习" class="headerlink" title="腾讯测开实习"></a>腾讯测开实习</h3><ol>
-<li>static变量？ static函数为什么只能用static变量？</li>
+<li><a href="https://www.runoob.com/w3cnote/cpp-static-const.html" target="_blank" rel="noopener">static</a>变量？ static函数为什么只能用static变量？</li>
 </ol>
 <p>（1）静态成员变量：</p>
 <ul>
@@ -1530,10 +1558,33 @@
 <li><p>sizeof</p>
 </li>
 <li><pre><code class="c++"><span class="built_in">printf</span>(<span class="string">"%d  %d\n"</span>,(k++,k++),k); <span class="comment">//为什么带括号？</span>
-&lt;!--￼<span class="number">22</span>--&gt;
+&lt;!--￼<span class="number">23</span>--&gt;
+
+
 </code></pre>
 </li>
 </ol>
+<h2 id="（十四）招商银行信用卡中心"><a href="#（十四）招商银行信用卡中心" class="headerlink" title="（十四）招商银行信用卡中心"></a>（十四）招商银行信用卡中心</h2><ol>
+<li>CPI（Cycle Per Instruction，每条指令copy执行需要的时钟周期数）指CPU的指令时钟数。百表示每条计算机指令执行所需的时钟周期数。由于不同指令的功能不同，造成指令执行时间不同，即指令执行所用的时钟数不同，所以通常所说的CPI是一个平度均值。</li>
+</ol>
+<blockquote>
+<p>原来程序运行是20s，优化后指令数变为原来的70%但CPI变为原来的1.2倍，求程序运行时间。答：16.8s</p>
+</blockquote>
+<ol start="2">
+<li>RPC,HTTP,IP,TCP,UDP哪一个跟其他不一样？</li>
+</ol>
+<p>RPC(Remote Procedure Call)是远程过程调用，比如说现在有两台服务器A, B，一个在A服务器上的应用想要调用B服务器上的应用提供的某个，由于不在两个方法不在一个内存空间，不能直接调用，需要通过网络表达调用的语义和传达调用的数据。常存在于分布式系统中。</p>
+<p>为何有http协议之后，还要RPC调用？</p>
+<p>RPC跟HTTP不是对立面，RPC中可以使用HTTP作为通讯协议。RPC是一种设计、实现框架，通讯协议只是其中一部分。</p>
+<p>RPC的本质是提供了一种轻量无感知的跨进程通信的方式，在分布式机器上调用其他方法与本地调用无异（远程调用的过程是透明的，你并不知道这个调用的方法是部署在哪里，通过PRC能够解耦服务）。RPC是根据语言的API来定义的，而不是基于网络的应用来定义的，调用更方便，协议私密更安全、内容更小效率更高。</p>
+<p>http接口是在接口不多、系统与系统交互较少的情况下，解决信息孤岛初期常使用的一种通信手段；优点就是简单、直接、开发方便。利用现成的http协议 进行传输。但是如果是一个大型的网站，内部子系统较多、接口非常多的情况下，RPC框架的好处就显示出来了，首先（基于TCP协议的情况下）就是长链接，不必每次通信都要像http 一样去3次握手什么的，减少了网络开销；其次就是RPC框架一般都有注册中心，有丰富的监控管理；发布、下线接口、动态扩展等，对调用方来说是无感知、统 一化的操作。第三个来说就是安全性。最后就是最近流行的服务化架构、服务化治理，RPC框架是一个强力的支撑。</p>
+<ol start="3">
+<li>Linux配置环境变量的命令：export</li>
+<li>网络攻击手法xss使用alert执行</li>
+<li>斐波那契数列</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">在第二个数字之后，序列中的每个数字都是������个数字的和。斐波那契数列可以定义为：</span><br><span class="line">F0 = <span class="number">0</span>,</span><br><span class="line">F1 = <span class="number">1</span>,</span><br><span class="line">FN = FN<span class="number">-1</span> + FN<span class="number">-2</span> 对于所有 N≥<span class="number">2</span></span><br><span class="line"><span class="comment">//递归实现</span></span><br><span class="line"><span class="keyword">int</span> fib(<span class="keyword">int</span> n)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span>)    <span class="comment">//基本情况</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="comment">// 基本情况</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> fib(n - <span class="number">1</span>) + fib(n - <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//非递归实现</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span>)    <span class="comment">//基本情况</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="comment">// 基本情况</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> f0=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> f1=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> fn;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        fn=f0+f1;</span><br><span class="line">        f0=f1;</span><br><span class="line">        f1=fn</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h4 id="正式批一面"><a href="#正式批一面" class="headerlink" title="正式批一面"></a>正式批一面</h4><ol>
 <li>数据库B+树索引和哈希索引的区别</li>
 </ol>
@@ -1554,7 +1605,7 @@
 <p>2、hash索引无法被用来进行数据的排序操作</p>
 <p>由于hash索引中存放的都是经过hash计算之后的值，而hash值的大小关系不一定与hash计算之前的值一样，所以数据库无法利用hash索引中的值进行排序操作。</p>
 <p>3、对于组合索引，Hash 索引在计算 Hash 值的时候是组合索引键合并后再一起计算 Hash 值，而不是单独计算 Hash 值，所以通过组合索引的前面一个或几个索引键进行查询的时候，Hash 索引也无法被利用。</p>
-<p>4、Hash 索引遇到大量Hash值相等的情况后性能并不一定就会比B-Tree索引高。</p>
+<p>4、Hash 索引遇到大量Hash值相等的情况后性能并不��定就会比B-Tree索引高。</p>
 <p>对于选择性比较低的索引键，如果创建 Hash 索引，那么将会存在大量记录指针信息存于同一个 Hash 值相关联。这样要定位某一条记录时就会非常麻烦，会浪费多次表数据的访问，而造成整体性能低下。</p>
 <p>（因此：键值重复率低的适合用B树索引）</p>
 <p><strong>b-tree完全基于key的比较，和二叉树相同的道理，相当于建个排序后的数据集，使用二分法查找算法，实际上也非常快，而且受数据量增长影响非常小</strong>。</p>
@@ -1628,9 +1679,9 @@
 </tbody></table>
 <p><strong>用到重定向和转发时要注意的问题：</strong></p>
 <p><strong>在做增删改请求操作的时候不可用转发，只能用重定向</strong></p>
-<p><strong>原因：</strong>由于转发之后地址栏不变，请求（request）内容不变，再次刷新页面的时候，请求将再次发送，造成重复操作执行，造成错误。</p>
+<p><strong>原因</strong>：由于转发之后地址栏不变，请求（request）内容不变，再次刷新页面的时候，请求将再次发送，造成重复操作执行，造成错误。</p>
 <p><strong>在做查询操作时，只能转发，不能使用重定向。</strong></p>
-<p><strong>原因：</strong>重定向后请求会将原本的查询请求覆盖，刷新之后将得不到要查询的数据。</p>
+<p><strong>原因</strong>：重定向后请求会将原本的查询请求覆盖，刷新之后将得不到要查询的数据。</p>
 <ol start="6">
 <li>|管道和&gt;重定向有什么区别</li>
 </ol>
@@ -1947,7 +1998,7 @@
 </ol>
 <p>内核级线程切换只能在内核态完成，线程切换时，必然需要将旧线程的<code>task_struct</code>从内核切出，将新线程的切入，带来上下文切换。除此之外，还需要切换寄存器、程序计数器、线程栈（包括操作栈、数据栈）等；用户级线程如果是不同进程中线程的切换，则必然引起用户态与内核态的切换，如果是同一进程中的线程切换，则不需转换到内核空间，可直接由线程库管理。</p>
 <ol start="2">
-<li><p>编译：词法分析  语法分析  语义分析   中间代码生成和优化   目标代码生成和优化   生成可执行文件</p>
+<li><p>编译：词法分析  语法分析  语义分析   中间代码生成和优化   目标代码生成和优化   生成汇编文件</p>
 </li>
 <li><p>程序编译，链接过程</p>
 <h4 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h4><p>C语言的编译链接过程要把我们编写的一个c程序（源代码）转换成可以在硬件上运行的程序（可执行代码），需要进行编译和链接。<strong>编译就是把文本形式源代码翻译为机器语言形式的目标文件的过程。链接是把目标文件、操作系统的启动代码和用到的库文件进行组织形成最终生成可加载、可执行代码的过程</strong>。</p>
@@ -1997,10 +2048,23 @@
 </li>
 <li><p>项目可以用读写锁  优化互斥锁   项目用的是条件变量-信号机制通知</p>
 </li>
-<li><p>自旋锁   sleep 没有释放锁，其他线程不能占用cpu</p>
+<li><p>自旋锁   sleep 没有释放锁，其他线程不能占用锁对象</p>
 </li>
 </ol>
-<p>wait  释放锁，线程被阻塞，等待被唤醒<br>生产者消费者可用读写锁和循环队列优化</p>
+<p>wait  释放锁，线程被阻塞，等待被唤醒</p>
+<h4 id="sleep-和-wait-的区别"><a href="#sleep-和-wait-的区别" class="headerlink" title="sleep 和 wait 的区别"></a>sleep 和 wait 的区别</h4><p>一.查看API</p>
+<p>sleep是Thread类的方法，导致此线程暂停执行指定时间，给其他线程执行机会，但是依然保持着监控状态，过了指定时间会自动恢复，调用sleep方法不会释放锁对象。</p>
+<p>当调用sleep方法后，当前线程进入阻塞状态。目的是让出CPU给其他线程运行的机会。但是由于sleep方法不会释放锁对象，所以在一个同步代码块中调用这个方法后，线程虽然休眠了，但其他线程无法访问它的锁对象。这是因为sleep方法拥有CPU的执行权，它可以自动醒来无需唤醒。而当sleep()结束指定休眠时间后，这个线程不一定立即执行，因为此时其他线程可能正在运行。</p>
+<p>wait方法是Object类里的方法，当一个线程执行到wait()方法时，它就进入到一个和该对象相关的等待池中，同时释放了锁对象，等待期间可以调用里面的同步方法，其他线程可以访问，等待时不拥有CPU的执行权，否则其他线程无法获取执行权。当一个线程执行了wait方法后，必须调用notify或者notifyAll方法才能唤醒，而且是随机唤醒，若是被其他线程抢到了CPU执行权，该线程会继续进入等待状态。由于锁对象可以时任意对象，所以wait方法必须定义在Object类中，因为Obeject类是所有类的基类。</p>
+<p>二.是否可以传入参数</p>
+<p>sleep()方法必须传入参数，参数就是休眠时间，时间到了就会自动醒来。</p>
+<p>wait()方法可以传入参数也可以不传入参数，传入参数就是在参数结束的时间后开始等待，不穿如参数就是直接等待。</p>
+<p>三.是否需要捕获异常</p>
+<p>sleep方法必须要捕获异常，而wait方法不需要捕获异常。sleep方法属于Thread类中方法，表示让一个线程进入睡眠状态，等待一定的时间之后，自动醒来进入到可运行状态，不会马上进入运行状态，因为线程调度机制恢复线程的运行也需要时间，一个线程对象调用了sleep方法之后，并不会释放他所持有的所有对象锁，所以也就不会影响其他进程对象的运行。但在sleep的过程中过程中有可能被其他对象调用它的interrupt(),产生InterruptedException异常，如果你的程序不捕获这个异常，线程就会异常终止，进入TERMINATED状态，如果你的程序捕获了这个异常，那么程序就会继续执行catch语句块(可能还有finally语句块)以及以后的代码。</p>
+<p>wait属于Object的成员方法，一旦一个对象调用了wait方法，必须要采用notify()和notifyAll()方法唤醒该进程;如果线程拥有某个或某些对象的同步锁，那么在调用了wait()后，这个线程就会释放它持有的所有同步资源，而不限于这个被调用了wait()方法的对象。wait()方法也同样会在wait的过程中有可能被其他对象调用interrupt()方法而产生。</p>
+<p>四.作用范围</p>
+<p>wait、notify和notifyAll方法只能在同步方法或者同步代码块中使用，而sleep方法可以在任何地方使用。但是注意sleep是静态方法，也就是说它只对当前对象有效。通过对象名.sleep()想让该对象线程进入休眠是无效的，它只会让当前线程进入休眠。</p>
+<p>生产者消费者可用读写锁和循环队列优化</p>
 <ol start="9">
 <li>手撕memmove源码</li>
 </ol>
@@ -2067,11 +2131,11 @@
 <ul>
 <li>指针传递本质上是值传递，传递的是一个地址值。被调函数的形参作为被调函数的局部变量处理，是实参指针复制构造的一个临时对象，会在栈中开辟内存空间存放由主调函数传进来的实参值，形参为指向实参地址的指针，当对形参的指向操作时，就相当于对实参本身进行操作。如果改变被调函数中的指针地址，它将影响不到主调函数的相关变量。</li>
 <li>引用传递，引用形参相当于是实参的别名，对形参的操作其实就是对实参的操作，在引用传递过程中，被调函数的形式参数虽然也作为局部变量在栈中开辟了内存空间，但是这时存放的是由主调函数放进来的实参变量的地址。被调函数对形参的任何操作都被处理成间接寻址，即通过栈中存放的地址访问主调函数中的实参变量。正因为如此，被调函数对形参做的任何操作都影响了主调函数中的实参变量。</li>
-<li>从编译的角度讲，程序在编译时分别将指针和引用添加到符号表上，符号表中记录的是变量名及变量所对应地址。指针变量在符号表上对应的地址值为指针变量的地址值，而引用在符号表上对应的地址值为引用对象的地址值（与实参名字不同，地址相同）。符号表生成之后不会再更改，因此指针可以改变指向的对象（指针变量中的值可以改），而引用对象则不能更改。</li>
+<li>从编译的角度讲，程序在汇编时分别将指针和引用添加到符号表上，符号表中记录的是变量名及变量所对应地址。指针变量在符号表上对应的地址值为指针变量的地址值，而引用在符号表上对应的地址值为引用对象的地址值（与实参名字不同，地址相同）。符号表生成之后不会再更改，因此指针可以改变指向的对象（指针变量中的值可以改），而引用对象则不能更改。</li>
 <li>指针和引用的区别：</li>
 </ul>
 <p>（1）引用是别名，创建的同时必须被初始化，一旦被初始化就不能改变引用关系，不能为NULL；指针是变量，独立可变可空</p>
-<p>（2）引用是间接寻址；指针是直接寻址</p>
+<p>（2）引用形参是间接寻址；指针形参是直接寻址</p>
 <p>（3）引用有类型检查；指针无类型检查</p>
 <ul>
 <li>指针形参是指向实参地址的指针，我们可以通过访问这个地址来修改另一个变量；而引用形参相当于是实参的别名，对引用的操作就是对实参的操作 </li>
@@ -2256,7 +2320,7 @@
 </ol>
 <h2 id="（二十四）小米"><a href="#（二十四）小米" class="headerlink" title="（二十四）小米"></a>（二十四）小米</h2><h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><ol>
 <li>智能指针   智能指针相对裸指针的优点   双重检验锁的必要性</li>
-<li>c++内存管理  重点分区  堆（从低到高）栈（从高到低）</li>
+<li>c++内存管理  重点分区  堆（从低到��）栈��从高到低）</li>
 <li>看过哪些书</li>
 <li>面试官自己对部门的介绍   想在哪工作</li>
 </ol>
@@ -2344,7 +2408,7 @@
 <li>分布式数据库  redis   线程池实现的几种方式，分布式线程</li>
 </ol>
 <p>分布式数据库系统 （DDBS）包含分布式数据库管理系统（DDBMS）和分布式数据库（DDB)。在分布式数据库系统中，一个应用程序可以对数据库进行透明操作，数据库中的数据分别在不同的局部数据库中存储、由不同的 DBMS进行管理、在不同的机器上运行、由不同的操作系统支持、被不同的通信网络连接在一起。</p>
-<p>一个分布式数据库在逻辑上是一个统一的整体，在物理上则是分别存储在不同的物理节点上。一个应用程序通过网络的连接可以访问分布在不同地理位置的数据库。它的分布性表现在数据库中的数据不是存储在同一场地。更确切地讲，不存储在同一计算机的存储设备上。这就是与集中式数据库的区别。从用户的角度看，一个分布式数据库系统在逻辑上和集中式数据库系统一样，用户可以在任何一个场地执行全局应用。就好像那些数据是存储在同一台计算机上，有单个数据库管理系统（DBMS）管理一样，用户并没有什么感觉不一样。</p>
+<p>一个分布式数据库在逻辑上是一个统一的整体，在物理上则是分别存储在不同的物理节点上。一个应用程序通过网络的连接可以访问分布在不同地理位置的数据库。它的分布性表现在数据库中的数据不是存储在同一场地。更确切地讲，不存储在同一计算机的存储设备上。这就是与集中式数据库的区别。从用户的角度看，一个分布式数据库系统在逻辑上和集中式数据库系统一样，用户可以在任何一个场地执行全局应用。就好像那些数据��存储在同一台计算机上，有单个数据库管理系统（DBMS）管理一样，用户并没有什么感觉不一样。</p>
 <p>主要优点：<br>（1）具有灵活的体系结构。<br>（2）适应分布式的管理和控制机构。<br>（3）经济性能优越。<br>（4）系统的可靠性高、可用性好。<br>（5）局部应用的响应速度快。<br>（6）可扩展性好，易于集成现有系统。</p>
 <p>主要缺点：<br>（1）系统开销大，主要花在通信部分。<br>（2）复杂的存取结构，原来在集中式系统中有效存取数据的技术，在分布式系统中都不再适用。<br>（3）数据的安全性和保密性较难处理。</p>
 <p>redis是非关系型数据库NoSQL，高性能的键值数据库，存储在内存，效率高价格昂贵。性能和并发两个角度去答。</p>
@@ -2480,7 +2544,7 @@
 <p>判断某个数是否在布隆过滤器中，就对该元素进行k次哈希计算，得到的值在位数组中判断每个元素是否都为1，如果每个元素都为1，就说明这个值在布隆过滤器中。</p>
 <h3 id="6-NoSQL和SQL的区别"><a href="#6-NoSQL和SQL的区别" class="headerlink" title="6.NoSQL和SQL的区别"></a>6.<a href="https://www.cnblogs.com/jeakeven/p/5402095.html" target="_blank" rel="noopener">NoSQL和SQL的区别</a></h3><p>SQL (Structured Query Language) 数据库，指关系型数据库。主要代表：SQL Server，Oracle，MySQL(开源)，PostgreSQL(开源)。<br>NoSQL（Not Only SQL）泛指非关系型数据库。主要代表：MongoDB，Redis，CouchDB。</p>
 <h3 id="7-为什么要分堆和栈"><a href="#7-为什么要分堆和栈" class="headerlink" title="7. 为什么要分堆和栈"></a>7. 为什么要分堆和栈</h3><ol>
-<li>堆中存的是对象（相应栈中只需记录堆中的一个地址即可），运行时确定内存大小；栈中存的是基本数据类型和堆中对象的引用，在编译时即可确定内存大小。堆栈分离使得动态增长成为可能。当我们把对象拆开，你会发现，对象的属性其实就是数据，存放在堆中；而对象的行为（方法），就是运行逻辑，放在栈中。我们在编写对象的时候，其实即编写了数据结构，也编写的处理数据的逻辑。</li>
+<li>堆中存的是对象（相应栈中只需记录堆中的一个地址即可），运行时确定内存大小；栈中存的是基本数据类型和堆中对象的引用，在编译时即可确定内存大小。堆栈分离使得动态增长成为可能。当我们把对象拆开，你会发现，对象的属性其实就是数据，存放在<br>中；而对象的行为（方法），就是运行逻辑，放在栈中。我们在编写对象的时候，其实即编写了数据结构，也编写的处理数据的逻辑。</li>
 <li>堆与栈的分离，使得堆中的内容可以被多个栈共享（也可以理解为多个线程访问同一个对象）。这种共享的收益是很多的。一方面这种共享提供了一种有效的数据交互方式(如：共享内存)，另一方面，堆中的共享常量和缓存可以被所有栈访问，节省了空间。</li>
 </ol>
 <p><strong>为什么不把基本类型放堆中呢？</strong><br>因为其占用的空间一般是1~8个字节——需要空间比较少，而且因为是基本类型，所以不会出现动态增长的情况——长度固定，因此栈中存储就够了，如果把他存在堆中是没有什么意义的（还会浪费空间，后面说明）。可以这么说，基本类型和对象的引用都是存放在栈中，而且都是几个字节的一个数，因此在程序运行时，他们的处理方式是统一的。但是基本类型、对象引用和对象本身就有所区别了，因为一个是栈中的数据一个是堆中的数据。</p>
@@ -2696,7 +2760,56 @@
 <li>拥塞控制</li>
 </ol>
 <h3 id="25-Linux-虚拟内存和物理内存的理解"><a href="#25-Linux-虚拟内存和物理内存的理解" class="headerlink" title="25. Linux 虚拟内存和物理内存的理解"></a>25. <a href="https://github.com/Durant35/durant35.github.io/issues/24" target="_blank" rel="noopener">Linux 虚拟内存和物理内存的理解</a></h3><p>每个进程的4G内存空间只是虚拟内存空间，每次访问内存空间的某个地址，都需要把地址翻译为实际物理内存地址<br>所有进程共享同一物理内存，每个进程只把自己目前需要的虚拟内存空间映射并存储到物理内存上。<br>进程要知道哪些内存地址上的数据在物理内存上，哪些不在，还有在物理内存上的哪里，需要用页表来记录<br>页表的每一个表项分两部分，第一部分记录此页是否在物理内存上，第二部分记录物理内存页的地址（如果在的话）<br>当进程访问某个虚拟地址，去看页表，如果发现对应的数据不在物理内存中，则缺页异常<br>缺页异常的处理过程，就是把进程需要的数据从磁盘上拷贝到物理内存中，如果内存已经满了，没有空地方了，那就找一个页覆盖，当然如果被覆盖的页曾经被修改过，需要将此页写回磁盘。<br>每个进程都有一个自己的页表，使得某逻辑地址对应于某个物理内存。 正因为每个进程都有一个自己的页表，使得相同的逻辑地址映射到不同的物理内存。</p>
-<h3 id="26-Socket通信"><a href="#26-Socket通信" class="headerlink" title="26.Socket通信"></a>26.<a href="https://www.cnblogs.com/fengff/p/10984251.html" target="_blank" rel="noopener">Socket通信</a></h3><h3 id="27-索引使用原则"><a href="#27-索引使用原则" class="headerlink" title="27.索引使用原则"></a>27.<a href="https://www.cnblogs.com/wangxusummer/p/5329813.html" target="_blank" rel="noopener">索引使用原则</a></h3>
+<h3 id="26-Socket通信"><a href="#26-Socket通信" class="headerlink" title="26.Socket通信"></a>26.<a href="https://www.cnblogs.com/fengff/p/10984251.html" target="_blank" rel="noopener">Socket通信</a></h3><h3 id="27-索引使用原则"><a href="#27-索引使用原则" class="headerlink" title="27.索引使用原则"></a>27.<a href="https://www.cnblogs.com/wangxusummer/p/5329813.html" target="_blank" rel="noopener">索引使用原则</a></h3><h3 id="28-内存对齐"><a href="#28-内存对齐" class="headerlink" title="28. 内存对齐"></a>28. 内存对齐</h3><ol>
+<li><p>平台原因（移植原因）：不是所有的硬件平台都能访问任意地址上的任意数据，某些硬件平台只能在某些地址处取某些特定类型的数据，否则抛出硬件异常</p>
+</li>
+<li><p>硬件原因：<br> 尽管内存是以字节为单位，但是大部分处理器并不是按字节块来存取内存的.它一般会以双字节,四字节,8字节,16字节甚至32字节为单位来存取内存，我们将上述这些存取单位称为内存存取粒度.</p>
+<p> 现在考虑4字节存取粒度的处理器取int类型变量（32位系统），该处理器只能从地址为4的倍数的内存开始读取数据。假如没有内存对齐机制，数据可以任意存放，现在一个int变量存放在从地址1开始的联系四个字节地址中，该处理器去取数据时，要先从0地址开始读取第一个4字节块,剔除不想要的字节（0地址）,然后从地址4开始读取下一个4字节块,同样剔除不要的数据（5，6，7地址）,最后留下的两块数据合并放入寄存器.这需要做很多工作.</p>
+<p> 所以数据结构(尤其是栈)应该尽可能地在自然边界上对齐（Windows中默认对齐数为8，Linux中默认对齐数为4）。为了访问未对齐的内存，处理器需要作两次内存访问；而对齐的内存访问仅需要一次访问。</p>
+</li>
+</ol>
+<h3 id="29-如果有一个空的类，编译器会给他默认生产什么"><a href="#29-如果有一个空的类，编译器会给他默认生产什么" class="headerlink" title="29. 如果有一个空的类，编译器会给他默认生产什么"></a>29. 如果有一个空的类，编译器会给他默认生产什么</h3><p>对于空类，编译器不会生成任何的成员函数，只会生成1个字节的占位符。</p>
+<p>有时可能会以为编译器会为空类生成默认构造函数等，事实上是不会的，编译器只会在需要的时候生成6个成员函数：一个缺省的构造函数、一个拷贝构造函数、一个析构函数、一个拷贝赋值函数、一对取址运算符和一个this指针。</p>
+<p>class A{}; </p>
+<p>编译器处理后，就相当于：</p>
+<p>class A<br>{<br>public:<br>    A();  //默认构造函数<br>    ~A();  //析构函数<br>    A(const A&amp;);  //拷贝构造函数<br>    {<br>         //对类的非静态数据成员进行以”成员为单位”逐一赋值<br>         //固定类型的对象赋值是从源对象到目标对象的”逐位”赋值。<br>    }<br>    A&amp; operator=(const A&amp; rhs){<br>         //对类的非静态数据成员进行以”成员为单位”逐一赋值<br>         //固定类型的对象赋值是从源对象到目标对象的”逐位”赋值。<br>    }<br>    A* operator&amp;() //取地址运算符<br>    {<br>        return this;<br>    }<br>    const A* operator&amp;() const<br>    {<br>        return this;<br>    }<br>};</p>
+<p>现在做如下说明：</p>
+<p>看完上面的例子后，大家可能会觉得声明一个空类，大家都认为会生成  构造函数、拷贝构造函数、析构函数、赋值运算符号、取址运算符const、取址运算符。<br>其实不然啊，那么一个空类什么时候不是空类了呢？   其实对于这样的一个空类来说，是完全没有必要的，而编译器也不是这样做的。编译器的做法是：只有你需要用到这些函数并且你又没有显示的声明这些函数的时候，编译器才会贴心的自动声明相应的函数。    </p>
+<p>class   A{};<br>对于单独申明的一个空类A来说，编译器编译过程中，并没有发现创建A实例。<br>所以对于空类A来说，编译器是不会给类A生成任何函数的。<br>如果我们在代码中需要生成一个A的实例<br>比如<br>A   a;<br>编译器就会根据上面的实例，给类A生成构造函数和析构函数。<br>当使用<br>A   b(b);<br>编译器就会生成类A的拷贝构造函数。<br>A   c;<br>c   =   a;<br>编译器生成赋值运算符函数<br>A   &amp;d   =   a;<br>编译器生成取地址运算符函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"> </span><br><span class="line">class Empty_one</span><br><span class="line">&#123;</span><br><span class="line">&#125;;</span><br><span class="line">class Empty_two</span><br><span class="line">&#123;&#125;;</span><br><span class="line">class Empty_three</span><br><span class="line">&#123;</span><br><span class="line">    virtual void fun() &#x3D; 0;</span><br><span class="line">&#125;;</span><br><span class="line">class Empty_four :  public Empty_two, public Empty_three</span><br><span class="line">&#123;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  cout&lt;&lt;&quot;sizeof(Empty_one):&quot;&lt;&lt;sizeof(Empty_one)&lt;&lt;endl;&#x2F;&#x2F;1</span><br><span class="line">  cout&lt;&lt;&quot;sizeof(Empty_two):&quot;&lt;&lt;sizeof(Empty_two)&lt;&lt;endl;&#x2F;&#x2F;1</span><br><span class="line">  cout&lt;&lt;&quot;sizeof(Empty_three):&quot;&lt;&lt;sizeof(Empty_three)&lt;&lt;endl;&#x2F;&#x2F;8</span><br><span class="line">  cout&lt;&lt;&quot;sizeof(Empty_four):&quot;&lt;&lt;sizeof(Empty_four)&lt;&lt;endl;&#x2F;&#x2F;8</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分析：</p>
+<p>类Empty_one、Empty_two是空类，但空类同样可以被实例化，而每个实例在内存中都有一个独一无二的地址，为了达到这个目的，编译器往往会给一个空类隐含的加一个字节，这样空类在实例化后在内存得到了独一无二的地址，所以sizeof(Empty_one)和sizeof(Empty_two)的大小为1。</p>
+<p>类Empty_three里面因有一个纯虚函数，故有一个指向虚函数表的指针（vptr），64位系统分配给指针的大小为8个字节，所以sizeof(Empty_three)的大小为8。</p>
+<p>类Empty_four继承于Empty_two和Empty_three，编译器取消Empty_two的占位符，保留一虚函数表，故大小为8。</p>
+<p>注意：<br>m是类C中的一个类型为T的非静态成员变量，若C没有声明拷贝构造函数（赋值运算符）， m将会通过T的拷贝构造函数（赋值运算符）被拷贝构造(赋值)；该规则递归应用到m的数据成员，直到找到一个拷贝构造函数（赋值运算符）或固定类型（例如：int、double、指针等)为止。</p>
+<h3 id="30-Linux用户态与内核态通信的几种方式"><a href="#30-Linux用户态与内核态通信的几种方式" class="headerlink" title="30 .Linux用户态与内核态通信的几种方式"></a>30 .Linux用户态与内核态通信的几种方式</h3><p>Linux 用户态和内核态由于 CPU 权限的限制，通信并不像想象中的使用进程间通信方式那么简单，今天这篇文章就来看看 Linux 用户态和内核态究竟有哪些通信方式。</p>
+<p>我们平常在写代码时，一般是在用户空间，通过系统调用函数来访问内核空间，这是最常用的一种用户态和内核态通信的方式。</p>
+<p>除此之外，还有以下四种方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">procfs(&#x2F;proc)</span><br><span class="line">sysctl(&#x2F;proc&#x2F;sys)</span><br><span class="line">sysfs(&#x2F;sys)</span><br><span class="line">netlink 套接口</span><br></pre></td></tr></table></figure>
+<p><strong>procfs(/proc)</strong><br>procfs 是 进程文件系统 的缩写，它本质上是一个伪文件系统，为什么说是 伪 文件系统呢？因为它不占用外部存储空间，只是占用少量的内存，通常是挂载在 /proc 目录下。</p>
+<p>我们在该目录下看到的一个文件，实际上是一个内核变量。内核就是通过这个目录，以文件的形式展现自己的内部信息，相当于 /proc 目录为用户态和内核态之间的交互搭建了一个桥梁，用户态读写 /proc 下的文件，就是读写内核相关的配置参数。</p>
+<p>比如常见的 /proc/cpuinfo、/proc/meminfo 和 /proc/net 就分别提供了 CPU、内存、网络的相关参数。除此之外，还有很多的参数，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# ls &#x2F;proc&#x2F;</span><br><span class="line">1     1143  1345  1447  2     2292  29   331   393  44    63    70    76   acpi       diskstats    irq          locks         sched_debug    sysvipc            zoneinfo</span><br><span class="line">10    1145  1357  148   20    23    290  332   396  442   64    7019  77   asound     dma          kallsyms     mdstat        schedstat      thread-self</span><br><span class="line">1042  1149  1361  149   2084  2425  291  34    398  45    65    7029  8    buddyinfo  driver       kcore        meminfo       scsi           timer_list</span><br><span class="line">1044  1150  1363  15    2087  25    3    3455  413  46    66    7079  83   bus        execdomains  keys         misc          self           timer_stats</span><br><span class="line">1046  1151  1371  16    2090  256   30   35    418  47    6600  7080  884  cgroups    fb           key-users    modules       slabinfo       tty</span><br><span class="line">1048  1153  1372  17    21    26    302  36    419  5     67    71    9    cmdline    filesystems  kmsg         mounts        softirqs       uptime</span><br><span class="line">11    1190  1390  18    22    27    31   37    420  518   6749  72    96   consoles   fs           kpagecgroup  mtrr          stat           version</span><br><span class="line">1126  12    143   182   2214  28    32   373   421  524   68    73    97   cpuinfo    interrupts   kpagecount   net           swaps          version_signature</span><br><span class="line">1137  1252  1434  184   2215  280   327  38    422  525   69    74    98   crypto     iomem        kpageflags   pagetypeinfo  sys            vmallocinfo</span><br><span class="line">1141  13    144   190   2262  281   33   39    425  5940  7     75    985  devices    ioports      loadavg      partitions    sysrq-trigger  vmstat</span><br></pre></td></tr></table></figure>
+<p>可以看到，这里面有很多的数字表示的文件，这些其实是当前系统运行的进程文件，数字表示进程号（PID），每个文件包含该进程所有的配置信息，包括进程状态、文件描述符、内存映射等等，我们可以看下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# ls &#x2F;proc&#x2F;1&#x2F;</span><br><span class="line">attr&#x2F;            cmdline          environ          io               mem              ns&#x2F;              pagemap          schedstat        stat             timers</span><br><span class="line">autogroup        comm             exe              limits           mountinfo        numa_maps        personality      sessionid        statm            uid_map</span><br><span class="line">auxv             coredump_filter  fd&#x2F;              loginuid         mounts           oom_adj          projid_map       setgroups        status           wchan</span><br><span class="line">cgroup           cpuset           fdinfo&#x2F;          map_files&#x2F;       mountstats       oom_score        root&#x2F;            smaps            syscall          </span><br><span class="line">clear_refs       cwd&#x2F;             gid_map          maps             net&#x2F;             oom_score_adj    sched            stack            task&#x2F;</span><br></pre></td></tr></table></figure>
+<p>综上，内核通过一个个的文件来暴露自己的系统配置信息，这些文件，有些是只读的，有些是可写的，有些是动态变化的，比如进程文件，当应用程序读取某个 /proc/ 文件时，内核才会去注册这个文件，然后再调用一组内核函数来处理，将相应的内核参数拷贝到用户态空间，这样用户读这个文件就可以获取到内核的信息。一个大概的图示如下所示：<br><img src="/2020/03/24/%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9%E8%AE%B0%E5%BD%95/proc.jpg" alt></p>
+<p><strong>sysctl</strong><br>我们熟悉的 sysctl 是一个 Linux 命令，man sysctl 可以看到它的功能和用法。它主要是被用来修改内核的运行时参数，换句话说，它可以在内核运行过程中，动态修改内核参数。</p>
+<p>它本质上还是用到了文件的读写操作，来完成用户态和内核态的通信。它使用的是 /proc 的一个子目录 /proc/sys。和 procfs 的区别在于：</p>
+<p>procfs 主要是输出只读数据，而 sysctl 输出的大部分信息是可写的。</p>
+<p>例如，我们比较常见的是通过 cat /proc/sys/net/ipv4/ip_forward 来获取内核网络层是否允许转发 IP 数据包，通过 echo 1 &gt; /proc/sys/net/ipv4/ip_forward 或者 sysctl -w net.ipv4.ip_forward=1 来设置内核网络层允许转发 IP 数据包。</p>
+<p>同样的操作，Linux 也提供了文件 /etc/sysctl.conf 来让你进行批量修改。</p>
+<p><strong>sysfs</strong><br>sysfs 是 Linux 2.6 才引入的一种虚拟文件系统，它的做法也是通过文件 /sys 来完成用户态和内核的通信。和 procfs 不同的是，sysfs 是将一些原本在 procfs 中的，关于设备和驱动的部分，独立出来，以 “设备树” 的形式呈现给用户。</p>
+<p>sysfs 不仅可以从内核空间读取设备和驱动程序的信息，也可以对设备和驱动进行配置。</p>
+<p>我们看下 /sys 下有什么：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># ls &#x2F;sys</span><br><span class="line"></span><br><span class="line">block  bus  class  dev  devices  firmware  fs  hypervisor  kernel  module  power</span><br></pre></td></tr></table></figure>
+<p>可以看到这些文件基本上都跟计算机的设备和驱动等息息相关的。</p>
+<p>netlink#<br>netlink 是 Linux 用户态与内核态通信最常用的一种方式。Linux kernel 2.6.14 版本才开始支持。它本质上是一种 socket，常规 socket 使用的标准 API，在它身上同样适用。比如创建一个 netlink socket，可以调用如下的 socket 函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;asm&#x2F;types.h&gt;</span><br><span class="line">#include &lt;sys&#x2F;socket.h&gt;</span><br><span class="line">#include &lt;linux&#x2F;netlink.h&gt;</span><br><span class="line"></span><br><span class="line">netlink_socket &#x3D; socket(AF_NETLINK, socket_type, netlink_family);</span><br></pre></td></tr></table></figure>
+<p>netlink 这种灵活的方式，使得它可以用于内核与多种用户进程之间的消息传递系统，比如路由子系统，防火墙（Netfilter），ipsec 安全策略等等。</p>
+<p>引申：<br>net-tools 工具通过 procfs(/proc) 和 ioctl 系统调用去访问和改变内核网络参数配置，而 iproute2 则通过 netlink 套接字接口与内核通信，前者已经被淘汰了，后者逐步成为标准。</p>
+<p>总结#<br>Linux 用户态和内核态通信主要的四种方式，其中 netlink 和 procfs 是最常见的方式。</p>
+<h3 id="31-malloc分配的是虚拟空间还是物理空间"><a href="#31-malloc分配的是虚拟空间还是物理空间" class="headerlink" title="31. malloc分配的是虚拟空间还是物理空间"></a>31. malloc分配的是虚拟空间还是物理空间</h3><p>事实上，在每个进程创建加载时，内核只是为进程“创建”了虚拟内存的布局，具体就是初始化进程控制表中内存相关的链表，实际上并不立即就把虚拟内存对应位置的程序数据和代码（比如.text .data段）拷贝到物理内存中，只是建立好虚拟内存和磁盘文件之间的映射就好（叫做存储器映射），等到运行到对应的程序时，才会通过缺页异常，来拷贝数据。还有进程运行过程中，要动态分配内存，比如malloc时，也只是分配了虚拟内存，即为这块虚拟内存对应的页表项做相应设置，当进程真正访问到此数据时，才引发缺页异常。</p>
+
       
     </div>
     
@@ -2819,7 +2932,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2830,7 +2943,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -2841,7 +2954,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -2874,7 +2987,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#（一）面向对象的三个基本特征：封装、继承、多态"><span class="nav-number">1.</span> <span class="nav-text">（一）面向对象的三个基本特征：封装、继承、多态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二）bash-shell"><span class="nav-number">2.</span> <span class="nav-text">（二）bash shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（三）图"><span class="nav-number">3.</span> <span class="nav-text">（三）图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（四）IO库"><span class="nav-number">4.</span> <span class="nav-text">（四）IO库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（五）搜狗"><span class="nav-number">5.</span> <span class="nav-text">（五）搜狗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（六）手写代码"><span class="nav-number">6.</span> <span class="nav-text">（六）手写代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（七）SAP"><span class="nav-number">7.</span> <span class="nav-text">（七）SAP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（八）进程间的通信方式（IPC-inter-Process-Communication）"><span class="nav-number">8.</span> <span class="nav-text">（八）进程间的通信方式（IPC,inter-Process Communication）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程创建fork和vfork"><span class="nav-number">8.1.</span> <span class="nav-text">进程创建fork和vfork</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fork（）与vfock（）都是创建一个进程，那他们有什么区别呢？总结有以下三点区别："><span class="nav-number">8.2.</span> <span class="nav-text">fork（）与vfock（）都是创建一个进程，那他们有什么区别呢？总结有以下三点区别：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程和线程的区别"><span class="nav-number">8.3.</span> <span class="nav-text">进程和线程的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程有什么是共享的什么是私有的"><span class="nav-number">8.4.</span> <span class="nav-text">线程有什么是共享的什么是私有的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程的三种基本状态"><span class="nav-number">8.5.</span> <span class="nav-text">进程的三种基本状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#windows命名管道和Linux命名管道的区别"><span class="nav-number">8.6.</span> <span class="nav-text">windows命名管道和Linux命名管道的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#windows多线程通信的方法主要有三种："><span class="nav-number">8.7.</span> <span class="nav-text">windows多线程通信的方法主要有三种：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？"><span class="nav-number">8.8.</span> <span class="nav-text">死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（九）SQL"><span class="nav-number">9.</span> <span class="nav-text">（九）SQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（十一）百度"><span class="nav-number">10.</span> <span class="nav-text">（十一）百度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#百度后台开发c-PHP实习"><span class="nav-number">10.1.</span> <span class="nav-text">百度后台开发c++&#x2F;PHP实习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#百度B2B后台开发c-PHP提前批"><span class="nav-number">10.2.</span> <span class="nav-text">百度B2B后台开发c++&#x2F;PHP提前批</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#百度二面："><span class="nav-number">10.2.1.</span> <span class="nav-text">百度二面：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#百度正式批一面"><span class="nav-number">10.3.</span> <span class="nav-text">百度正式批一面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#static函数"><span class="nav-number">10.3.1.</span> <span class="nav-text">static函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inline"><span class="nav-number">10.3.2.</span> <span class="nav-text">inline</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-中-内联编译限制"><span class="nav-number">10.3.3.</span> <span class="nav-text">C++中 内联编译限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造函数可以是虚函数吗"><span class="nav-number">10.3.4.</span> <span class="nav-text">构造函数可以是虚函数吗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket手撸"><span class="nav-number">10.3.5.</span> <span class="nav-text">socket手撸</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二面"><span class="nav-number">10.4.</span> <span class="nav-text">二面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三面"><span class="nav-number">10.5.</span> <span class="nav-text">三面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Hash与红黑树的区别："><span class="nav-number">10.5.1.</span> <span class="nav-text">Hash与红黑树的区别：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#拉链法的优点与开放定址法相比，拉链法有如下几个优点"><span class="nav-number">10.5.1.1.</span> <span class="nav-text">拉链法的优点与开放定址法相比，拉链法有如下几个优点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线性探测法优缺点"><span class="nav-number">10.5.2.</span> <span class="nav-text">线性探测法优缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（十二）网易"><span class="nav-number">11.</span> <span class="nav-text">（十二）网易</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（十三）腾讯"><span class="nav-number">12.</span> <span class="nav-text">（十三）腾讯</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#腾讯测开实习"><span class="nav-number">12.1.</span> <span class="nav-text">腾讯测开实习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正式批一面"><span class="nav-number">12.1.1.</span> <span class="nav-text">正式批一面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AJAX"><span class="nav-number">12.1.2.</span> <span class="nav-text">AJAX</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（十五）快手"><span class="nav-number">13.</span> <span class="nav-text">（十五）快手</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#c-工程师-AI平台"><span class="nav-number">13.1.</span> <span class="nav-text">c++工程师-AI平台</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（十六）猿辅导"><span class="nav-number">14.</span> <span class="nav-text">（十六）猿辅导</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二面-1"><span class="nav-number">14.1.</span> <span class="nav-text">二面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（十七）阿里"><span class="nav-number">15.</span> <span class="nav-text">（十七）阿里</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（十八）华为"><span class="nav-number">16.</span> <span class="nav-text">（十八）华为</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正式批"><span class="nav-number">16.1.</span> <span class="nav-text">正式批</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、概述"><span class="nav-number">16.1.1.</span> <span class="nav-text">一、概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、编译过程"><span class="nav-number">16.1.2.</span> <span class="nav-text">二、编译过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、链接过程"><span class="nav-number">16.1.3.</span> <span class="nav-text">三、链接过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为创建可执行文件，链接器必须要完成的主要任务"><span class="nav-number">16.1.4.</span> <span class="nav-text">为创建可执行文件，链接器必须要完成的主要任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、加载过程"><span class="nav-number">16.1.5.</span> <span class="nav-text">四、加载过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串分隔符分隔和定义比较函数"><span class="nav-number">16.1.6.</span> <span class="nav-text">字符串分隔符分隔和定义比较函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（十九）腾讯测开"><span class="nav-number">17.</span> <span class="nav-text">（十九）腾讯测开</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二十）美团"><span class="nav-number">18.</span> <span class="nav-text">（二十）美团</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#美团测开实习"><span class="nav-number">18.1.</span> <span class="nav-text">美团测开实习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#美团数据开发（快驴事业部）"><span class="nav-number">18.2.</span> <span class="nav-text">美团数据开发（快驴事业部）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二面-2"><span class="nav-number">18.2.1.</span> <span class="nav-text">二面</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二十一）中兴捧月模拟大赛"><span class="nav-number">19.</span> <span class="nav-text">（二十一）中兴捧月模拟大赛</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二十二）招银网络"><span class="nav-number">20.</span> <span class="nav-text">（二十二）招银网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正式批-1"><span class="nav-number">20.1.</span> <span class="nav-text">正式批</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二面-3"><span class="nav-number">20.1.1.</span> <span class="nav-text">二面</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二十三）字节"><span class="nav-number">21.</span> <span class="nav-text">（二十三）字节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二十四）小米"><span class="nav-number">22.</span> <span class="nav-text">（二十四）小米</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一面"><span class="nav-number">22.1.</span> <span class="nav-text">一面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二十五）滴滴"><span class="nav-number">23.</span> <span class="nav-text">（二十五）滴滴</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#非分布式系统中的线程"><span class="nav-number">23.1.</span> <span class="nav-text">非分布式系统中的线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式系统中的线程"><span class="nav-number">23.2.</span> <span class="nav-text">分布式系统中的线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">23.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">23.4.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟地址（VA）如何转换成物理地址（PA）空间"><span class="nav-number">23.5.</span> <span class="nav-text">虚拟地址（VA）如何转换成物理地址（PA）空间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二十六）网易"><span class="nav-number">24.</span> <span class="nav-text">（二十六）网易</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-MVC举例-其他设计模式-工厂模式-适配器模式-策略模式"><span class="nav-number">24.1.</span> <span class="nav-text">1. MVC举例 其他设计模式:工厂模式  适配器模式  策略模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一-简单工厂模式-工厂方法模式-抽象工厂模式"><span class="nav-number">24.1.1.</span> <span class="nav-text">(一)简单工厂模式  工厂方法模式   抽象工厂模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）适配器模式"><span class="nav-number">24.1.2.</span> <span class="nav-text">（二）适配器模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）策略模式"><span class="nav-number">24.1.3.</span> <span class="nav-text">（三）策略模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-activity生命周期"><span class="nav-number">24.2.</span> <span class="nav-text">2. activity生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-15个android通用流行框架"><span class="nav-number">24.3.</span> <span class="nav-text">3.15个android通用流行框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-c-和java的区别"><span class="nav-number">24.4.</span> <span class="nav-text">c&#x2F;c++和java的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二十七）知识点"><span class="nav-number">25.</span> <span class="nav-text">（二十七）知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-vector源码初始设置值"><span class="nav-number">25.1.</span> <span class="nav-text">1. vector源码初始设置值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-linux内存管理"><span class="nav-number">25.2.</span> <span class="nav-text">2. linux内存管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-内置类型和复合类型"><span class="nav-number">25.3.</span> <span class="nav-text">3. 内置类型和复合类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-c-模板和java泛型有什么区别"><span class="nav-number">25.4.</span> <span class="nav-text">4. c++模板和java泛型有什么区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-布隆过滤器"><span class="nav-number">25.5.</span> <span class="nav-text">5.布隆过滤器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-NoSQL和SQL的区别"><span class="nav-number">25.6.</span> <span class="nav-text">6.NoSQL和SQL的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-为什么要分堆和栈"><span class="nav-number">25.7.</span> <span class="nav-text">7. 为什么要分堆和栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-c-线程中的几种锁"><span class="nav-number">25.8.</span> <span class="nav-text">8. c++线程中的几种锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-git-log"><span class="nav-number">25.9.</span> <span class="nav-text">9. git log</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-kill进程是进程通信：linux内核发送SIGKILL信号给进程"><span class="nav-number">25.10.</span> <span class="nav-text">10. kill进程是进程通信：linux内核发送SIGKILL信号给进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-windows消息驱动机制和时间驱动机制"><span class="nav-number">25.11.</span> <span class="nav-text">11. windows消息驱动机制和时间驱动机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-Linux设备驱动机制"><span class="nav-number">25.12.</span> <span class="nav-text">12. Linux设备驱动机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-字节二面编程题：1、求36进制的和-2、判断树是否对称"><span class="nav-number">25.13.</span> <span class="nav-text">10. 字节二面编程题：1、求36进制的和 2、判断树是否对称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-堆排序是原地算法，空间复杂度O-1-。"><span class="nav-number">25.14.</span> <span class="nav-text">11. 堆排序是原地算法，空间复杂度O(1)。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-常见数据结构的查找、插入、删除时间复杂度"><span class="nav-number">25.15.</span> <span class="nav-text">12. 常见数据结构的查找、插入、删除时间复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-使用递归函数需要注意防止栈溢出-。"><span class="nav-number">25.16.</span> <span class="nav-text">13. 使用递归函数需要注意防止栈溢出**。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-递归时间复杂度"><span class="nav-number">25.17.</span> <span class="nav-text">14. 递归时间复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-struct和class的区别"><span class="nav-number">25.18.</span> <span class="nav-text">15. struct和class的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-两种通用的遍历树的策略"><span class="nav-number">25.19.</span> <span class="nav-text">16. 两种通用的遍历树的策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-std-funtion和std-bind参考"><span class="nav-number">25.20.</span> <span class="nav-text">17. std::funtion和std::bind参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-函数对象：定义了调用操作符（）的类对象。"><span class="nav-number">25.21.</span> <span class="nav-text">18. 函数对象：定义了调用操作符（）的类对象。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-解决hash冲突的三种方法"><span class="nav-number">25.22.</span> <span class="nav-text">19. 解决hash冲突的三种方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20-文件描述符、打开文件描述符表、文件表、inode节点"><span class="nav-number">25.23.</span> <span class="nav-text">20. 文件描述符、打开文件描述符表、文件表、inode节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#21-查找路由器地址"><span class="nav-number">25.24.</span> <span class="nav-text">21. 查找路由器地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-const-static-inline默认内部链接（内部链接的符号不能在别的编译单元中使用），若要实现共享，则要定义于头文件；函数和变量默认外部链接（外部链接的符号在整个程序范围内都是可以使用的，这就要求其他编译单元不能导出相同的符号（不然就会报duplicated-external-symbols）"><span class="nav-number">25.25.</span> <span class="nav-text">22. const&#x2F;static&#x2F;inline默认内部链接（内部链接的符号不能在别的编译单元中使用），若要实现共享，则要定义于头文件；函数和变量默认外部链接（外部链接的符号在整个程序范围内都是可以使用的，这就要求其他编译单元不能导出相同的符号（不然就会报duplicated external symbols）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-read-write-fsync和fread-fwrite-fflush都是对文件进行操作，那她们有什么区别呢"><span class="nav-number">25.26.</span> <span class="nav-text">23. read&#x2F;write&#x2F;fsync和fread&#x2F;fwrite&#x2F;fflush都是对文件进行操作，那她们有什么区别呢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#24-TCP协议保证数据传输可靠性的主要方式"><span class="nav-number">25.27.</span> <span class="nav-text">24.  TCP协议保证数据传输可靠性的主要方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#25-Linux-虚拟内存和物理内存的理解"><span class="nav-number">25.28.</span> <span class="nav-text">25. Linux 虚拟内存和物理内存的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#26-Socket通信"><span class="nav-number">25.29.</span> <span class="nav-text">26.Socket通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#27-索引使用原则"><span class="nav-number">25.30.</span> <span class="nav-text">27.索引使用原则</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#（一）面向对象的三个基本特征：封装、继承、多态"><span class="nav-number">1.</span> <span class="nav-text">（一）面向对象的三个基本特征：封装、继承、多态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二）bash-shell"><span class="nav-number">2.</span> <span class="nav-text">（二）bash shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（三）图"><span class="nav-number">3.</span> <span class="nav-text">（三）图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（四）IO库"><span class="nav-number">4.</span> <span class="nav-text">（四）IO库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（五）搜狗"><span class="nav-number">5.</span> <span class="nav-text">（五）搜狗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（六）手写代码"><span class="nav-number">6.</span> <span class="nav-text">（六）手写代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（七）SAP"><span class="nav-number">7.</span> <span class="nav-text">（七）SAP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（八）进程间的通信方式（IPC-inter-Process-Communication）"><span class="nav-number">8.</span> <span class="nav-text">（八）进程间的通信方式（IPC,inter-Process Communication）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程创建fork和vfork"><span class="nav-number">8.1.</span> <span class="nav-text">进程创建fork和vfork</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fork（）与vfock（）都是创建一个进程，那他们有什么区别呢？总结有以下三点区别："><span class="nav-number">8.2.</span> <span class="nav-text">fork（）与vfock（）都是创建一个进程，那他们有什么区别呢？总结有以下三点区别：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程和线程的区别"><span class="nav-number">8.3.</span> <span class="nav-text">进程和线程的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程有什么是共享的什么是私有的"><span class="nav-number">8.4.</span> <span class="nav-text">线程有什么是共享的什么是私有的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程的三种基本状态"><span class="nav-number">8.5.</span> <span class="nav-text">进程的三种基本状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#windows命名管道和Linux命名管道的区别"><span class="nav-number">8.6.</span> <span class="nav-text">windows命名管道和Linux命名管道的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#windows多线程通信的方法主要有三种："><span class="nav-number">8.7.</span> <span class="nav-text">windows多线程通信的方法主要有三种：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？"><span class="nav-number">8.8.</span> <span class="nav-text">死锁？死锁产生的原因？死锁的必要条件？怎么处理死锁？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（九）SQL"><span class="nav-number">9.</span> <span class="nav-text">（九）SQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（十一）百度"><span class="nav-number">10.</span> <span class="nav-text">（十一）百度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#百度后台开发c-PHP实习"><span class="nav-number">10.1.</span> <span class="nav-text">百度后台开发c++&#x2F;PHP实习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#百度B2B后台开发c-PHP提前批"><span class="nav-number">10.2.</span> <span class="nav-text">百度B2B后台开发c++&#x2F;PHP提前批</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#百度二面："><span class="nav-number">10.2.1.</span> <span class="nav-text">百度二面：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#百度正式批一面"><span class="nav-number">10.3.</span> <span class="nav-text">百度正式批一面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#static函数"><span class="nav-number">10.3.1.</span> <span class="nav-text">static函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inline"><span class="nav-number">10.3.2.</span> <span class="nav-text">inline</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-中-内联编译限制"><span class="nav-number">10.3.3.</span> <span class="nav-text">C++中 内联编译限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造函数可以是虚函数吗"><span class="nav-number">10.3.4.</span> <span class="nav-text">构造函数可以是虚函数吗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket手撸"><span class="nav-number">10.3.5.</span> <span class="nav-text">socket手撸</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二面"><span class="nav-number">10.4.</span> <span class="nav-text">二面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三面"><span class="nav-number">10.5.</span> <span class="nav-text">三面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Hash与红黑树的区别："><span class="nav-number">10.5.1.</span> <span class="nav-text">Hash与红黑树的区别：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#拉链法的优点与开放定址法相比，拉链法有如下几个优点"><span class="nav-number">10.5.1.1.</span> <span class="nav-text">拉链法的优点与开放定址法相比，拉链法有如下几个优点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线性探测法优缺点"><span class="nav-number">10.5.2.</span> <span class="nav-text">线性探测法优缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（十二）网易"><span class="nav-number">11.</span> <span class="nav-text">（十二）网易</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（十三）腾讯"><span class="nav-number">12.</span> <span class="nav-text">（十三）腾讯</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#腾讯测开实习"><span class="nav-number">12.1.</span> <span class="nav-text">腾讯测开实习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（十四）招商银行信用卡中心"><span class="nav-number">13.</span> <span class="nav-text">（十四）招商银行信用卡中心</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正式批一面"><span class="nav-number">13.0.1.</span> <span class="nav-text">正式批一面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AJAX"><span class="nav-number">13.0.2.</span> <span class="nav-text">AJAX</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（十五）快手"><span class="nav-number">14.</span> <span class="nav-text">（十五）快手</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#c-工程师-AI平台"><span class="nav-number">14.1.</span> <span class="nav-text">c++工程师-AI平台</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（十六）猿辅导"><span class="nav-number">15.</span> <span class="nav-text">（十六）猿辅导</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二面-1"><span class="nav-number">15.1.</span> <span class="nav-text">二面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（十七）阿里"><span class="nav-number">16.</span> <span class="nav-text">（十七）阿里</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（十八）华为"><span class="nav-number">17.</span> <span class="nav-text">（十八）华为</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正式批"><span class="nav-number">17.1.</span> <span class="nav-text">正式批</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、概述"><span class="nav-number">17.1.1.</span> <span class="nav-text">一、概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、编译过程"><span class="nav-number">17.1.2.</span> <span class="nav-text">二、编译过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、链接过程"><span class="nav-number">17.1.3.</span> <span class="nav-text">三、链接过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为创建可执行文件，链接器必须要完成的主要任务"><span class="nav-number">17.1.4.</span> <span class="nav-text">为创建可执行文件，链接器必须要完成的主要任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、加载过程"><span class="nav-number">17.1.5.</span> <span class="nav-text">四、加载过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sleep-和-wait-的区别"><span class="nav-number">17.1.6.</span> <span class="nav-text">sleep 和 wait 的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串分隔符分隔和定义比较函数"><span class="nav-number">17.1.7.</span> <span class="nav-text">字符串分隔符分隔和定义比较函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（十九）腾讯测开"><span class="nav-number">18.</span> <span class="nav-text">（十九）腾讯测开</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二十）美团"><span class="nav-number">19.</span> <span class="nav-text">（二十）美团</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#美团测开实习"><span class="nav-number">19.1.</span> <span class="nav-text">美团测开实习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#美团数据开发（快驴事业部）"><span class="nav-number">19.2.</span> <span class="nav-text">美团数据开发（快驴事业部）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二面-2"><span class="nav-number">19.2.1.</span> <span class="nav-text">二面</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二十一）中兴捧月模拟大赛"><span class="nav-number">20.</span> <span class="nav-text">（二十一）中兴捧月模拟大赛</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二十二）招银网络"><span class="nav-number">21.</span> <span class="nav-text">（二十二）招银网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正式批-1"><span class="nav-number">21.1.</span> <span class="nav-text">正式批</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二面-3"><span class="nav-number">21.1.1.</span> <span class="nav-text">二面</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二十三）字节"><span class="nav-number">22.</span> <span class="nav-text">（二十三）字节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二十四）小米"><span class="nav-number">23.</span> <span class="nav-text">（二十四）小米</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一面"><span class="nav-number">23.1.</span> <span class="nav-text">一面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二十五）滴滴"><span class="nav-number">24.</span> <span class="nav-text">（二十五）滴滴</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#非分布式系统中的线程"><span class="nav-number">24.1.</span> <span class="nav-text">非分布式系统中的线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式系统中的线程"><span class="nav-number">24.2.</span> <span class="nav-text">分布式系统中的线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">24.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">24.4.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟地址（VA）如何转换成物理地址（PA）空间"><span class="nav-number">24.5.</span> <span class="nav-text">虚拟地址（VA）如何转换成物理地址（PA）空间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二十六）网易"><span class="nav-number">25.</span> <span class="nav-text">（二十六）网易</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-MVC举例-其他设计模式-工厂模式-适配器模式-策略模式"><span class="nav-number">25.1.</span> <span class="nav-text">1. MVC举例 其他设计模式:工厂模式  适配器模式  策略模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一-简单工厂模式-工厂方法模式-抽象工厂模式"><span class="nav-number">25.1.1.</span> <span class="nav-text">(一)简单工厂模式  工厂方法模式   抽象工厂模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（二）适配器模式"><span class="nav-number">25.1.2.</span> <span class="nav-text">（二）适配器模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（三）策略模式"><span class="nav-number">25.1.3.</span> <span class="nav-text">（三）策略模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-activity生命周期"><span class="nav-number">25.2.</span> <span class="nav-text">2. activity生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-15个android通用流行框架"><span class="nav-number">25.3.</span> <span class="nav-text">3.15个android通用流行框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-c-和java的区别"><span class="nav-number">25.4.</span> <span class="nav-text">c&#x2F;c++和java的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二十七）知识点"><span class="nav-number">26.</span> <span class="nav-text">（二十七）知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-vector源码初始设置值"><span class="nav-number">26.1.</span> <span class="nav-text">1. vector源码初始设置值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-linux内存管理"><span class="nav-number">26.2.</span> <span class="nav-text">2. linux内存管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-内置类型和复合类型"><span class="nav-number">26.3.</span> <span class="nav-text">3. 内置类型和复合类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-c-模板和java泛型有什么区别"><span class="nav-number">26.4.</span> <span class="nav-text">4. c++模板和java泛型有什么区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-布隆过滤器"><span class="nav-number">26.5.</span> <span class="nav-text">5.布隆过滤器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-NoSQL和SQL的区别"><span class="nav-number">26.6.</span> <span class="nav-text">6.NoSQL和SQL的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-为什么要分堆和栈"><span class="nav-number">26.7.</span> <span class="nav-text">7. 为什么要分堆和栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-c-线程中的几种锁"><span class="nav-number">26.8.</span> <span class="nav-text">8. c++线程中的几种锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-git-log"><span class="nav-number">26.9.</span> <span class="nav-text">9. git log</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-kill进程是进程通信：linux内核发送SIGKILL信号给进程"><span class="nav-number">26.10.</span> <span class="nav-text">10. kill进程是进程通信：linux内核发送SIGKILL信号给进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-windows消息驱动机制和时间驱动机制"><span class="nav-number">26.11.</span> <span class="nav-text">11. windows消息驱动机制和时间驱动机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-Linux设备驱动机制"><span class="nav-number">26.12.</span> <span class="nav-text">12. Linux设备驱动机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-字节二面编程题：1、求36进制的和-2、判断树是否对称"><span class="nav-number">26.13.</span> <span class="nav-text">10. 字节二面编程题：1、求36进制的和 2、判断树是否对称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-堆排序是原地算法，空间复杂度O-1-。"><span class="nav-number">26.14.</span> <span class="nav-text">11. 堆排序是原地算法，空间复杂度O(1)。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-常见数据结构的查找、插入、删除时间复杂度"><span class="nav-number">26.15.</span> <span class="nav-text">12. 常见数据结构的查找、插入、删除时间复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-使用递归函数需要注意防止栈溢出-。"><span class="nav-number">26.16.</span> <span class="nav-text">13. 使用递归函数需要注意防止栈溢出**。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-递归时间复杂度"><span class="nav-number">26.17.</span> <span class="nav-text">14. 递归时间复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-struct和class的区别"><span class="nav-number">26.18.</span> <span class="nav-text">15. struct和class的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-两种通用的遍历树的策略"><span class="nav-number">26.19.</span> <span class="nav-text">16. 两种通用的遍历树的策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-std-funtion和std-bind参考"><span class="nav-number">26.20.</span> <span class="nav-text">17. std::funtion和std::bind参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-函数对象：定义了调用操作符（）的类对象。"><span class="nav-number">26.21.</span> <span class="nav-text">18. 函数对象：定义了调用操作符（）的类对象。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-解决hash冲突的三种方法"><span class="nav-number">26.22.</span> <span class="nav-text">19. 解决hash冲突的三种方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20-文件描述符、打开文件描述符表、文件表、inode节点"><span class="nav-number">26.23.</span> <span class="nav-text">20. 文件描述符、打开文件描述符表、文件表、inode节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#21-查找路由器地址"><span class="nav-number">26.24.</span> <span class="nav-text">21. 查找路由器地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-const-static-inline默认内部链接（内部链接的符号不能在别的编译单元中使用），若要实现共享，则要定义于头文件；函数和变量默认外部链接（外部链接的符号在整个程序范围内都是可以使用的，这就要求其他编译单元不能导出相同的符号（不然就会报duplicated-external-symbols）"><span class="nav-number">26.25.</span> <span class="nav-text">22. const&#x2F;static&#x2F;inline默认内部链接（内部链接的符号不能在别的编译单元中使用），若要实现共享，则要定义于头文件；函数和变量默认外部链接（外部链接的符号在整个程序范围内都是可以使用的，这就要求其他编译单元不能导出相同的符号（不然就会报duplicated external symbols）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-read-write-fsync和fread-fwrite-fflush都是对文件进行操作，那她们有什么区别呢"><span class="nav-number">26.26.</span> <span class="nav-text">23. read&#x2F;write&#x2F;fsync和fread&#x2F;fwrite&#x2F;fflush都是对文件进行操作，那她们有什么区别呢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#24-TCP协议保证数据传输可靠性的主要方式"><span class="nav-number">26.27.</span> <span class="nav-text">24.  TCP协议保证数据传输可靠性的主要方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#25-Linux-虚拟内存和物理内存的理解"><span class="nav-number">26.28.</span> <span class="nav-text">25. Linux 虚拟内存和物理内存的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#26-Socket通信"><span class="nav-number">26.29.</span> <span class="nav-text">26.Socket通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#27-索引使用原则"><span class="nav-number">26.30.</span> <span class="nav-text">27.索引使用原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#28-内存对齐"><span class="nav-number">26.31.</span> <span class="nav-text">28. 内存对齐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#29-如果有一个空的类，编译器会给他默认生产什么"><span class="nav-number">26.32.</span> <span class="nav-text">29. 如果有一个空的类，编译器会给他默认生产什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#30-Linux用户态与内核态通信的几种方式"><span class="nav-number">26.33.</span> <span class="nav-text">30 .Linux用户态与内核态通信的几种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#31-malloc分配的是虚拟空间还是物理空间"><span class="nav-number">26.34.</span> <span class="nav-text">31. malloc分配的是虚拟空间还是物理空间</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -2894,7 +3007,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

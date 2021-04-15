@@ -1,0 +1,27 @@
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Writing database to F:\\gitBlog/db.json","time":"2021-04-15T07:04:31.083Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Hexo version: 4.2.1","time":"2021-04-15T07:04:31.100Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Working directory: F:\\gitBlog\\","time":"2021-04-15T07:04:31.101Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Config loaded: F:\\gitBlog\\_config.yml","time":"2021-04-15T07:04:31.217Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Plugin loaded: hexo-admin","time":"2021-04-15T07:04:31.552Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Plugin loaded: hexo-deployer-git","time":"2021-04-15T07:04:31.562Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Plugin loaded: hexo-generator-archive","time":"2021-04-15T07:04:31.564Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Plugin loaded: hexo-asset-image","time":"2021-04-15T07:04:31.626Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Plugin loaded: hexo-generator-category","time":"2021-04-15T07:04:31.627Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Plugin loaded: hexo-generator-index","time":"2021-04-15T07:04:31.628Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Plugin loaded: hexo-generator-tag","time":"2021-04-15T07:04:31.630Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Plugin loaded: hexo-generator-json-content","time":"2021-04-15T07:04:31.710Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Plugin loaded: hexo-renderer-ejs","time":"2021-04-15T07:04:31.713Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Plugin loaded: hexo-renderer-marked","time":"2021-04-15T07:04:31.755Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Plugin loaded: hexo-renderer-stylus","time":"2021-04-15T07:04:31.846Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Plugin loaded: hexo-server","time":"2021-04-15T07:04:31.916Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Script loaded: themes\\hexo-theme-next-master\\scripts\\merge-configs.js","time":"2021-04-15T07:04:31.926Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Script loaded: themes\\hexo-theme-next-master\\scripts\\tags\\center-quote.js","time":"2021-04-15T07:04:31.926Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Script loaded: themes\\hexo-theme-next-master\\scripts\\tags\\button.js","time":"2021-04-15T07:04:31.926Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Script loaded: themes\\hexo-theme-next-master\\scripts\\merge.js","time":"2021-04-15T07:04:31.928Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Script loaded: themes\\hexo-theme-next-master\\scripts\\tags\\full-image.js","time":"2021-04-15T07:04:31.928Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Script loaded: themes\\hexo-theme-next-master\\scripts\\tags\\exturl.js","time":"2021-04-15T07:04:31.946Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Script loaded: themes\\hexo-theme-next-master\\scripts\\tags\\group-pictures.js","time":"2021-04-15T07:04:31.946Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Script loaded: themes\\hexo-theme-next-master\\scripts\\tags\\note.js","time":"2021-04-15T07:04:31.946Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Script loaded: themes\\hexo-theme-next-master\\scripts\\tags\\label.js","time":"2021-04-15T07:04:31.947Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Script loaded: themes\\hexo-theme-next-master\\scripts\\tags\\lazy-image.js","time":"2021-04-15T07:04:31.947Z","v":0}
+{"name":"hexo","hostname":"LAPTOP-84VF4O90","pid":1932,"level":20,"msg":"Script loaded: themes\\hexo-theme-next-master\\scripts\\tags\\tabs.js","time":"2021-04-15T07:04:31.947Z","v":0}
