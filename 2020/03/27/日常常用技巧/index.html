@@ -87,7 +87,7 @@
 <meta property="og:description" content="1、windows+chrome长截屏 原生长截屏  123Fn+F12Ctrl+Shift+p搜索capture full size screenshot">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-27T06:11:04.000Z">
-<meta property="article:modified_time" content="2021-04-15T13:47:06.277Z">
+<meta property="article:modified_time" content="2021-04-21T14:02:44.290Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="chrome">
 <meta property="article:tag" content="截屏">
@@ -364,7 +364,14 @@
 <ul>
 <li>安装插件Fireshot</li>
 </ul>
-<h4 id="markdown-preview-enhanced添加目录"><a href="#markdown-preview-enhanced添加目录" class="headerlink" title="markdown preview enhanced添加目录"></a>markdown preview enhanced添加目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Ctrl+Shift+p</span><br><span class="line">搜索Create Toc</span><br></pre></td></tr></table></figure>
+<h4 id="markdown-preview-enhanced添加目录"><a href="#markdown-preview-enhanced添加目录" class="headerlink" title="markdown preview enhanced添加目录"></a>markdown preview enhanced添加目录</h4><p>Github不支持TOC，所以我们要自己写目录再给目录加连接，很麻烦</p>
+<p>其实，使用如下命令，之后保存，自动在该命令处生成标题</p>
+<p>你可以通过 cmd-shift-p 然后选择 Markdown Preview Enhanced: Create Toc 命令来创建 TOC。 多个 TOCs 可以被创建。 如果你想要在你的 TOC 中排除一个标题，请在你的标题后面添加 {ignore=true} 即可。</p>
+<p>之后会自动生成如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- @import &quot;[TOC]&quot; &#123;cmd&#x3D;&quot;toc&quot; depthFrom&#x3D;1 depthTo&#x3D;6 orderedList&#x3D;false&#125; --&gt;</span><br></pre></td></tr></table></figure>
+<p>其中depthFrom=1 depthTo=6表示从一级标题到六级标题</p>
+<p>注意：可能是插件的Bug,你要先在Ctrl+Shift+P–&gt;toc,之后点击预览（Ctrl+K+V），此时在点击保存（Ctrl+s),才会自带生成目录。若是输入命令toc之后直接保存，不会生成目录。</p>
+
       
     </div>
     

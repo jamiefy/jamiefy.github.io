@@ -100,7 +100,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/selectupdate.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/24/MySQL/error.png">
 <meta property="article:published_time" content="2020-03-24T06:17:11.000Z">
-<meta property="article:modified_time" content="2021-04-15T13:49:03.510Z">
+<meta property="article:modified_time" content="2021-04-18T10:35:29.395Z">
 <meta property="article:author" content="翟安然">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
@@ -495,19 +495,19 @@
 </thead>
 <tbody><tr>
 <td align="center">Serializable（串行化）</td>
-<td align="center">可避免脏读、不可重复读、幻读情况的发生</td>
+<td align="center">直接用加锁的方式避免并行访问，可避免脏读、不可重复读、幻读情况的发生</td>
 </tr>
 <tr>
 <td align="center">Repeatable read（可重复读）</td>
-<td align="center">可避免脏读、不可重复读的发生</td>
+<td align="center">在事务启动时创建视图，整个事务期间使用同一个视图，可避免脏读、不可重复读的发生</td>
 </tr>
 <tr>
 <td align="center">Read committed（读已提交）</td>
-<td align="center">可避免脏读的发生</td>
+<td align="center">在每个SQL语句开始执行时创建视图，可避免脏读的发生</td>
 </tr>
 <tr>
 <td align="center">Read uncommitted（读未提交）</td>
-<td align="center">最低级别，以上情况均无法保证</td>
+<td align="center">最低级别，以上情况均无法保证 ，无视图概念</td>
 </tr>
 </tbody></table>
 <p>MySQL InnoDB 存储引擎的默认支持的隔离级别是 <strong>REPEATABLE-READ（可重读）</strong>。我们可以通过<code>SELECT @@tx_isolation;</code>命令来查看，MySQL 8.0 该命令改为<code>SELECT @@transaction_isolation;</code></p>
