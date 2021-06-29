@@ -259,6 +259,232 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/29/codeGodTrainningCampNote/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="翟安然">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="翟安然's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/06/29/codeGodTrainningCampNote/" itemprop="url">codeGodTrainningCampNote</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-06-29T21:30:05+08:00">
+                2021-06-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux-Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux Git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+
+<ul>
+<li><a href="#linux">Linux</a><ul>
+<li><a href="#linux版本">Linux版本</a><ul>
+<li><a href="#内核版本">内核版本</a></li>
+<li><a href="#发行版本">发行版本</a></li>
+</ul>
+</li>
+<li><a href="#linux安装">Linux安装</a></li>
+<li><a href="#linux命令httpswwwrunoobcomlinuxlinux-tutorialhtml">Linux命令</a><ul>
+<li><a href="#磁盘管理">磁盘管理</a></li>
+<li><a href="#文件管理">文件管理</a></li>
+<li><a href="#帮助命令-man">帮助命令 man</a></li>
+<li><a href="#文件修改-sed">文件修改 sed</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#git">Git</a></li>
+</ul>
+<!-- /code_chunk_output -->
+
+<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h2 id="Linux版本"><a href="#Linux版本" class="headerlink" title="Linux版本"></a>Linux版本</h2><h3 id="内核版本"><a href="#内核版本" class="headerlink" title="内核版本"></a>内核版本</h3><ul>
+<li>主版本号</li>
+<li>次版本号</li>
+<li>末版本号</li>
+</ul>
+<p>注意：次版本号是奇数的为开发版，是偶数的为稳定版</p>
+<h3 id="发行版本"><a href="#发行版本" class="headerlink" title="发行版本"></a>发行版本</h3><ul>
+<li>RedHat</li>
+<li>Fedora</li>
+<li>CentOS (baidu等互联网常用，基于RedHat源码编译，免费)</li>
+<li>Debian和Ubuntu</li>
+</ul>
+<h2 id="Linux安装"><a href="#Linux安装" class="headerlink" title="Linux安装"></a>Linux安装</h2><p><a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="noopener">VirtualBox下载</a><br><a href="https://mirrors.xtom.com/centos/7.9.2009/isos/x86_64/" target="_blank" rel="noopener">CentOS下载</a></p>
+<p><img src="/2021/06/29/codeGodTrainningCampNote/load.png" alt="Linux安装步骤"></p>
+<ul>
+<li>安装虚拟机</li>
+</ul>
+<ol>
+<li>创建</li>
+<li>分配2G内存<br>默认下一步…(虚拟硬盘8G)</li>
+</ol>
+<ul>
+<li>安装CentOS</li>
+</ul>
+<ol>
+<li>启动虚拟机</li>
+<li>选择CentOS iso文件，启动</li>
+<li>常规安装操作系统步骤，设置root和个人用户名密码</li>
+</ol>
+<p><img src="/2021/06/29/codeGodTrainningCampNote/catalog.png" alt></p>
+<h2 id="Linux命令"><a href="#Linux命令" class="headerlink" title="Linux命令"></a><a href="https://www.runoob.com/linux/linux-tutorial.html" target="_blank" rel="noopener">Linux命令</a></h2><h3 id="磁盘管理"><a href="#磁盘管理" class="headerlink" title="磁盘管理"></a>磁盘管理</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mkdir #创建文件夹</span><br><span class="line">rmdir #删除</span><br><span class="line"></span><br><span class="line">mkdir -p #递归创建文件夹</span><br><span class="line"></span><br><span class="line">ls -r #reverse按时间逆序（从小到大）排序</span><br><span class="line">ls -l #long</span><br><span class="line">ls -t #time</span><br><span class="line"></span><br><span class="line">touch #创建文件</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">Linux文件权限：文件类型-所有者-用户组-其他人</span></span><br></pre></td></tr></table></figure>
+<h3 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h3><ol>
+<li>文件拷贝 cp<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-r #拷贝文件夹</span><br></pre></td></tr></table></figure></li>
+<li>文件或文件夹移动 mv</li>
+</ol>
+<ul>
+<li>把source移动到dir</li>
+<li>把source改名为dest</li>
+</ul>
+<ol start="3">
+<li>文件删除 rm</li>
+</ol>
+<ul>
+<li>rm删除普通文件</li>
+<li>rmdir删除文件&amp;&amp;无递归文件夹</li>
+<li>rm -rm删除文件&amp;文件夹</li>
+</ul>
+<ol start="4">
+<li>文本操作 cat/head/tail</li>
+</ol>
+<ul>
+<li>cat<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat 文件 #输出到屏幕</span><br><span class="line">cat teacher_info.txt &gt; teacher_name.txt #输出到文件流，获得新文件teacher_name.txt</span><br></pre></td></tr></table></figure></li>
+<li>head<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-n number</span><br><span class="line">-number</span><br><span class="line">-c number #字节数</span><br></pre></td></tr></table></figure></li>
+<li>tail</li>
+</ul>
+<ol start="5">
+<li>文本比较 diff<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">diff -help</span><br></pre></td></tr></table></figure></li>
+<li>文件压缩和解压 -tar(一种打包格式，对文件并不进行压缩) -zip/unzip<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zcvf #</span><br><span class="line">tar -zxvf #</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="帮助命令-man"><a href="#帮助命令-man" class="headerlink" title="帮助命令 man"></a>帮助命令 man</h3><h3 id="文件修改-sed"><a href="#文件修改-sed" class="headerlink" title="文件修改 sed"></a>文件修改 sed</h3><h3 id="文本处理awk"><a href="#文本处理awk" class="headerlink" title="文本处理awk"></a>文本处理awk</h3><h3 id="文件编辑-vim"><a href="#文件编辑-vim" class="headerlink" title="文件编辑 vim"></a>文件编辑 vim</h3><h3 id="文件查找-grep-find"><a href="#文件查找-grep-find" class="headerlink" title="文件查找 grep find"></a>文件查找 grep find</h3><h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/17/c-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1139,175 +1365,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/22/Linux/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="翟安然">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="翟安然's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/22/Linux/" itemprop="url">Linux</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-22T13:16:45+08:00">
-                2020-04-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-
-<!-- code_chunk_output -->
-
-<ul>
-<li><a href="#linux面试常考命令">Linux面试常考命令</a></li>
-<li><a href="#ps进程监控">ps进程监控</a><ul>
-<li><a href="#1-ps是什么"><strong>1. ps是什么？</strong></a></li>
-<li><a href="#2-不加参数执行ps命令会输出什么"><strong>2. 不加参数执行ps命令会输出什么？</strong></a></li>
-<li><a href="#3-如何显示所有当前进程"><strong>3. 如何显示所有当前进程？</strong></a></li>
-<li><a href="#4-如何根据进程的用户进行信息过滤呢"><strong>4. 如何根据进程的用户进行信息过滤呢？</strong></a></li>
-<li><a href="#5-如何通过cpu和内存使用来过滤进程"><strong>5. 如何通过cpu和内存使用来过滤进程？</strong></a></li>
-<li><a href="#51-根据cpu使用率来升序排序"><strong>5.1 根据CPU使用率来升序排序</strong></a></li>
-<li><a href="#52-根据内存使用率来升序排序"><strong>5.2 根据内存使用率来升序排序</strong></a></li>
-<li><a href="#53-我们也可以将它们合并到一个命令并通过管道显示前10个结果"><strong>5.3 我们也可以将它们合并到一个命令，并通过管道显示前10个结果：</strong></a></li>
-<li><a href="#6-如何通过进程名和pid进行过滤呢"><strong>6. 如何通过进程名和PID进行过滤呢？</strong></a></li>
-<li><a href="#7-如何根据线程来过滤进程呢"><strong>7. 如何根据线程来过滤进程呢？</strong></a></li>
-<li><a href="#8-如何树形的显示进程"><strong>8. 如何树形的显示进程？</strong></a></li>
-<li><a href="#9-如何显示安全信息"><strong>9. 如何显示安全信息？</strong></a></li>
-<li><a href="#10-如何格式化输出root用户真实的或有效的uid创建的进程"><strong>10. 如何格式化输出root用户（真实的或有效的UID）创建的进程？</strong></a></li>
-<li><a href="#11-如何使用ps实时监控进程状态"><strong>11. 如何使用PS实时监控进程状态？</strong></a></li>
-</ul>
-</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/04/22/Linux/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/22/effectiveC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1495,6 +1552,175 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/22/Linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="翟安然">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="翟安然's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/22/Linux/" itemprop="url">Linux</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-22T13:16:45+08:00">
+                2020-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+<ul>
+<li><a href="#linux面试常考命令">Linux面试常考命令</a></li>
+<li><a href="#ps进程监控">ps进程监控</a><ul>
+<li><a href="#1-ps是什么"><strong>1. ps是什么？</strong></a></li>
+<li><a href="#2-不加参数执行ps命令会输出什么"><strong>2. 不加参数执行ps命令会输出什么？</strong></a></li>
+<li><a href="#3-如何显示所有当前进程"><strong>3. 如何显示所有当前进程？</strong></a></li>
+<li><a href="#4-如何根据进程的用户进行信息过滤呢"><strong>4. 如何根据进程的用户进行信息过滤呢？</strong></a></li>
+<li><a href="#5-如何通过cpu和内存使用来过滤进程"><strong>5. 如何通过cpu和内存使用来过滤进程？</strong></a></li>
+<li><a href="#51-根据cpu使用率来升序排序"><strong>5.1 根据CPU使用率来升序排序</strong></a></li>
+<li><a href="#52-根据内存使用率来升序排序"><strong>5.2 根据内存使用率来升序排序</strong></a></li>
+<li><a href="#53-我们也可以将它们合并到一个命令并通过管道显示前10个结果"><strong>5.3 我们也可以将它们合并到一个命令，并通过管道显示前10个结果：</strong></a></li>
+<li><a href="#6-如何通过进程名和pid进行过滤呢"><strong>6. 如何通过进程名和PID进行过滤呢？</strong></a></li>
+<li><a href="#7-如何根据线程来过滤进程呢"><strong>7. 如何根据线程来过滤进程呢？</strong></a></li>
+<li><a href="#8-如何树形的显示进程"><strong>8. 如何树形的显示进程？</strong></a></li>
+<li><a href="#9-如何显示安全信息"><strong>9. 如何显示安全信息？</strong></a></li>
+<li><a href="#10-如何格式化输出root用户真实的或有效的uid创建的进程"><strong>10. 如何格式化输出root用户（真实的或有效的UID）创建的进程？</strong></a></li>
+<li><a href="#11-如何使用ps实时监控进程状态"><strong>11. 如何使用PS实时监控进程状态？</strong></a></li>
+</ul>
+</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/04/22/Linux/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/27/%E6%97%A5%E5%B8%B8%E5%B8%B8%E7%94%A8%E6%8A%80%E5%B7%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1608,7 +1834,7 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Fn+F12</span><br><span class="line">Ctrl+Shift+p</span><br><span class="line">搜索capture full size screenshot</span><br></pre></td></tr></table></figure>
 
-
+<!--more-->
 
 <ul>
 <li>安装插件Fireshot</li>
@@ -1698,162 +1924,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/26/%E9%AB%98%E6%95%88%E7%AE%97%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="翟安然">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="翟安然's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/26/%E9%AB%98%E6%95%88%E7%AE%97%E6%B3%95/" itemprop="url">高效算法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-26T00:51:01+08:00">
-                2020-03-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="（一）素数筛"><a href="#（一）素数筛" class="headerlink" title="（一）素数筛"></a>（一）素数筛</h2><ol>
-<li>素数的性质：</li>
-</ol>
-<ul>
-<li><p>定义：一个大于1的自然数，除了1和它本身以外，不能被任何自然数整除。所以2是最小的素数，0和1不是质数也不是合数。</p>
-</li>
-<li><p>任意一个合数都可以表示几个质数的乘积-&gt;任意一个合数都可以表示成一个质数和另一个数的乘积</p>
-</li>
-<li><p>一个合数和一个质数的乘积=一个更大的合数和一个更小的质数的乘积</p>
-</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/03/26/%E9%AB%98%E6%95%88%E7%AE%97%E6%B3%95/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1904,7 +1974,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1915,7 +1985,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1926,7 +1996,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
